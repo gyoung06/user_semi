@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.dao.Admin_MembersDao;
 import admin.vo.Admin_MembersVo;
 
-@WebServlet("/admin/memberlist")
+@WebServlet("/admin/member/list")
 public class Admin_MemberListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
