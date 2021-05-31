@@ -7,7 +7,7 @@
 	position:absolute;
 	height:400px;
 	width: 90%; 
-	top:50%;
+	top:50px;
 	left:5%;
 	border-top: 1px solid #8BBDFF;
 	border-bottom: 1px solid #8BBDFF; 
@@ -54,7 +54,7 @@
 	position: absolute;
 	height:400px;
 	width: 90%; 
-	top:5%;
+	top:470px;
 	left:5%;
 	border-top: 1px solid #8BBDFF; 
 	border-bottom: 1px solid #8BBDFF; 
@@ -89,36 +89,86 @@
 	line-height: 40px;
 	display: block;
 } 
-.up_text1{
+
+.label_inname{
 	position: absolute;
-	left:10%;
+	top:50px;
+	left:100px;
+	font-size: 1.0rem;
 }
 
-.up_text2{
+.label_incategory{
 	position: absolute;
-	left:40%;
+	top:50px;
+	left:800px;
+	font-size: 1.0rem;
+}
+.label_insize{
+	position: absolute;
+	top:100px;
+	left:100px;
+	font-size: 1.0rem;
 }
 
-.up_text3{
+.label_incolor{
 	position: absolute;
-	left:70%;
-}
-.down_text1{
-	position: absolute;
-	left:10%;
+	top:100px;
+	left:800px;
+	font-size: 1.0rem;
 }
 
-.down_text2{
+.label_indate{
 	position: absolute;
-	left:30%;
+	top:150px;
+	left:100px;
+	font-size: 1.0rem;
 }
 
-.down_text3{
+.label_inprice{
 	position: absolute;
-	left:50%;
+	top:150px;
+	left:600px;
+	font-size: 1.0rem;
 }
-.down_text4{
+
+input_inprice{
+	position:absolute;
+	top:150px;
+	left:670px;
+	width: 200px;
+	font-size: 1.0rem;
+}
+
+.label_inamount{
 	position: absolute;
-	left:70%;
+	top:150px;
+	left:1100px;
+	font-size: 1.0rem;
+}
+
+input_inamount{
+	position:absolute;
+	top:150px;
+	left:1170px;
+	width: 200px;
+	font-size: 1.0rem;
+}
+
+#insertbtn{
+	position: absolute;
+	top:200px;
+	left:600px;
+}
+
+#updatebtn{
+	position: absolute;
+	top:200px;
+	left:800px;
+}
+
+.inboundlist_table{
+	position: absolute;
+	top:10px;
+	left:5%;
 }
 
