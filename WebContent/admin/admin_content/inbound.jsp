@@ -3,33 +3,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/admin/css/inbound.css">
 
+
 <div class="inboundinput">
 <h3 class="inboundtext2">입고등록</h3>
-	<div class="textbox1">
-		<div class="up_text1">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-		<div class="up_text2">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-		<div class="up_text3">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-	</div>
-	<div class="textbox2">
-		<div class="down_text1">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-		<div class="down_text2">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-		<div class="down_text3">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-		<div class="down_text4">
-			<label class="input_label">색상</label><input type="text" class="input_text" />
-		</div>
-	</div>
+<form action="${cp }" method="post">
+	<label class="label_incategory">품목</label><input type="text" name="input_incategory" style="position:absolute;top:50px;	left:870px;width: 200px;font-size: 1.0rem;"/>
+	<label class="label_inname">상품명</label><input type="text" name="input_inname" style=" position: absolute;top:50px;left:170px;width: 500px;font-size: 1.0rem;"/>
+	<label class="label_indate">입고날짜</label><input type="text" name="input_indate" style="position:absolute;top:150px;left:170px;width: 200px;font-size: 1.0rem;" />
+	<label class="label_incolor">색상</label><input type="text" name="input_incolor" style="position:absolute;top:100px;left:870px;width: 200px;font-size: 1.0rem;" />
+	<label class="label_insize">사이즈</label><input type="text" name="input_insize" style="position:absolute;top:100px;left:170px;width: 200px;font-size: 1.0rem;"/>
+	<label class="label_inprice">가격</label><input type="text" name="input_inprice" />
+	<label class="label_inamount">입고량</label><input type="text" name="input_inamount" />
+	<input type="button" value="등록" id="insertbtn">
+	<input type="button" value="수정" id="updatebtn">
+</form>
 </div>
 
 
@@ -93,3 +80,4 @@
 	</form>
 </div>
 </div>
+
