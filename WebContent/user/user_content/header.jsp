@@ -27,19 +27,18 @@
 	</div>
 	<div id ="community">
 		<h3>community</h3>
-		delay<br>
-		notice<br>
+		<a href="${cp }/user/notice">notice</a><br>
 		배송 전 변경/취소<br>
-		review<br>
-		q&a
+		<a href="${cp }/user/review">review</a><br>
+		<a href="${cp }/user/qna">q&a</a>
 	</div>
 	<div id ="member">
 		<h3>member</h3>
-		login<br>
-		join+1000<br>
-		<a href="${cp }/user/user_content/user_board/cart.jsp">shopping cart</a><br>
-		<a href="${cp }/user/user_content/user_board/purchaseList.jsp">order list</a><br>
-		my shopping
+		<a href="${cp }/user/login">login</a><br>
+		<a href="${cp }/user/join">join+1000</a><br>
+		<a href="${cp }/user/cart">shopping cart</a><br>
+		<a href="${cp }/user/purchase">order list</a><br>
+		<a href="${cp }/user/mypage">my shopping</a>
 	</div>
 	<div id = "callbank">
 		<div id ="call">
