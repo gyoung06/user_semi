@@ -27,8 +27,8 @@
 	</tr>
 	</c:forEach>
 </table>
-<input type="button" value="선택 주소삭제" onclick>
-<input type="button" value="배송지 등록">
+<input type="button" value="선택 주소삭제" onclick="">
+<input type="button" value="배송지 등록" onclick="">
 <h4>배송주소록 유의사항</h4>
 <ol>
 	<li>배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</li>

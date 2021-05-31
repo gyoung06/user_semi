@@ -23,8 +23,8 @@
 	<tr class="active">
 		<td>>사용적립금</td>
 		<td>원 </td>
-		<td>>예지금</td>
-		<td>원 <input type="button" value="조회"></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr class="active">
 		<td>>총주문</td>

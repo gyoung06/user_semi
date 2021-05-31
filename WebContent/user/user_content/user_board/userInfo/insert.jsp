@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h4>join us</h4>
-<form action="${cp }/board/insert" method ="post">
+<form action="${cp }/user/user_content/user" method ="post">
 	아이디*
 	<input type="text" name="mid">(영문소문자/숫자, 4~16자)<br>
 	비밀번호*

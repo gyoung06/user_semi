@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h4>#MEMBER JOIN</h4>
-<form action="${cp }/user/user_content/user_board/insert" method="post">
+<form action="/user/join" method="post">
 <input type="text" id="id" value="ID">
 <br>
 <input type="text" id="pwd" value="PW"><br>

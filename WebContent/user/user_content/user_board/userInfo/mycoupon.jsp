@@ -24,10 +24,15 @@
 <h4>쿠폰인증번호 등록하기</h4>
 <div style="background-color:#F6F6F6">
 <input type="text" id="couponnum">
-<input type="button" value="쿠폰번호인증" onclick=""><br>
+<input type="button" value="쿠폰번호인증" onclick="insertCoupon"><br>
 반드시 쇼핑몰에서 발행한 쿠폰번호만 입력해주세요. (10~35자 일련번호 "-" 제외)
 </div>
 
+<script type="text/javascript">
+	function insertCoupon(){
+		
+	}
+</script>
 <h4>쿠폰 이용 안내</h4>
 <ol>
 	<li>쿠폰인증번호 등록하기에서 쇼핑몰에서 발행한 종이쿠폰/시리얼쿠폰/모바일쿠폰 등의 인증번호를 등록하시면 온라인쿠폰으로 발급되어 사용이 가능합니다.</li>
