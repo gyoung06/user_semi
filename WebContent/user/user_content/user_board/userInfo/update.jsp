@@ -5,7 +5,7 @@
 저희 쇼핑몰을 이용해 주셔서 감사합니다. '이름'님은 '회원등급'회원이십니다.
 '금액'이상 구매시 '할인율'을 추가적립 받으실 수 있습니다.
 </div>
-<form action="${cp }/board/insert" method ="post">
+<form action="${cp }/user/user_content/user_board/userInfo/insert" method ="post">
 	아이디*
 	<input type="text" name="mid">(영문소문자/숫자, 4~16자)<br>
 	비밀번호
@@ -24,5 +24,5 @@
 	<input type="date" name="mbirth"><br>
 <input type="submit" value="회원정보수정">
 <input type="button" value="취소">
-<input type="button" value="회원 탈퇴" onclick>
+<input type="button" value="회원 탈퇴" onclick="">
 </form>
