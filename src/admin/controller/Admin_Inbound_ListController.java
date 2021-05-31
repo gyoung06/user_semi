@@ -44,7 +44,7 @@ public class Admin_Inbound_ListController extends HttpServlet{
 		String cp = req.getContextPath();
 		ServletContext application = getServletContext();
 		application.setAttribute("cp", cp);
-		req.setAttribute("content","/admin/admin_content/inbound.jsp");
+		req.setAttribute("content","/admin/admin_content/item/inbound.jsp");
 		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }

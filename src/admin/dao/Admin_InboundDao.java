@@ -89,4 +89,26 @@ public class Admin_InboundDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
+	public int insert(Admin_InboundVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="insert into inbound values(inbound_seq.nextval,?,?,?,?,?,?,?)";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setDate(1, vo.getIndate());
+			pstmt.setString(2, vo.getInname());
+			pstmt.setInt(3, vo.getInprice());
+			pstmt.setInt(4, vo.getInamount());
+			pstmt.setString(5, vo.getIncolor());
+			pstmt.setString(6,vo.getInsize());
+			pstmt.setString(7,vo.getIncategory());
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
 }
