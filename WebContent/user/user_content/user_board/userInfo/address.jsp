@@ -18,16 +18,16 @@
 	<c:forEach var="vo" items=${ }>
 	<tr class="active">
 		<td><input type="checkbox"></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>${ }</td>
+		<td>${ }</td>
+		<td>${ }</td>
+		<td>${ }</td>
+		<td>${ }</td>
+		<td><input type="button" value="수정 " onclick=""></td>
 	</tr>
 	</c:forEach>
 </table>
-<input type="button" value="선택 주소삭제">
+<input type="button" value="선택 주소삭제" onclick>
 <input type="button" value="배송지 등록">
 <h4>배송주소록 유의사항</h4>
 <ol>
