@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.dao.Admin_MembersDao;
 import admin.vo.Admin_MembersVo;
 
-@WebServlet("/admin/member/list")
+@WebServlet("/admin/memberlist")
 public class Admin_MemberListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,7 +40,7 @@ public class Admin_MemberListController extends HttpServlet{
 		req.setAttribute("startPageNum",startPageNum);
 		req.setAttribute("endPageNum",endPageNum);
 		req.setAttribute("pageNum",pageNum);
-		req.setAttribute("content","/admin/admin_content/memberlist.jsp");
+		req.setAttribute("content","/admin/admin_content/member/memberlist.jsp");
 		req.setAttribute("field",field);
 		req.setAttribute("keyword",keyword);
 		String cp = req.getContextPath();

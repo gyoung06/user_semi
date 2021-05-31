@@ -37,7 +37,7 @@ public class Admin_MemberinsertController extends HttpServlet{
 		req.setAttribute("mphone", mphone);
 		req.setAttribute("mbirth", mbirth);
 		req.setAttribute("memail", memail);
-		req.setAttribute("content", "/admin/admin_content/memberinsert.jsp");
+		req.setAttribute("content", "/admin/admin_content/member/memberinsert.jsp");
 		String cp = req.getContextPath();
 		ServletContext application = getServletContext();
 		application.setAttribute("cp", cp);
