@@ -8,23 +8,46 @@ public class Admin_MembersVo {
 	private String mname;
 	private String maddress;
 	private String mpost;
+	private String mphone;
 	private Date mrdate;
 	private Date mbirth;
 	private int mdrop;
+	private int mmileage;
+	private String memail;
 	
 	public Admin_MembersVo() {}
 	public Admin_MembersVo(String mid, String mpw, String mname, String maddress, 
-			String mpost,Date mrdate, Date mbirth, int mdrop) {
+			String mpost,String mphone,Date mrdate, Date mbirth, int mdrop,int mmileage, String memail) {
 		super();
 		this.mid=mid;
 		this.mpw=mpw;
 		this.mname=mname;
 		this.maddress=maddress;
 		this.mpost=mpost;
-		this.mpost=mpost;
+		this.mphone=mphone;
 		this.mrdate=mrdate;
 		this.mbirth=mbirth;
 		this.mdrop=mdrop;
+		this.mmileage=mmileage;
+		this.memail=memail;
+	}
+	public int getMmileage() {
+		return mmileage;
+	}
+	public String getMphone() {
+		return mphone;
+	}
+	public void setMphone(String mphone) {
+		this.mphone = mphone;
+	}
+	public void setMmileage(int mmileage) {
+		this.mmileage = mmileage;
+	}
+	public String getMemail() {
+		return memail;
+	}
+	public void setMemail(String memail) {
+		this.memail = memail;
 	}
 	public String getMid() {
 		return mid;

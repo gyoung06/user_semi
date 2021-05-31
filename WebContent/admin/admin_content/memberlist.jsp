@@ -1,22 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/admin/css/index.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<body>
+<body >
+<table border="1" style= "margin-top: 20px;">
+	<tr>
+		<th>아이디</th>
+		<th>비밀번호</th>
+		<th>이름</th>
+		<th>주소</th>
+		<th>우편번호</th>
+		<th>전화번호</th>
+		<th>이메일</th>
+		<th>가입일</th>
+		<th>생일</th>
+		<th>탈퇴여부</th>
+		<th>마일리지</th>
+		<th>수정</th>
+	</tr>
+	<c:forEach var="vo" items="${list }">
+	<tr>
+		<td>${vo.mid }</td>
+		<td>${vo.mpw }</td>
+		<td>${vo.mname }</td>
+		<td>${vo.maddress }</td>
+		<td>${vo.mpost }</td>
+		<td>${vo.mphone }</td>
+		<td>${vo.mrdate }</td>
+		<td>${vo.mbirth }</td>
+		<td>${vo.mdrop }</td>
+		<td>${vo.mmileage }</td>
+		<td>${vo.memail }</td>
+		<td><a href="${cp }/admin/admin_content/memberupdate.jsp?mid="${vo.mid }>수정</a></td>
+	</tr>
+	</c:forEach>
+</table>
+
 <div>
-	회원아이디:<br>
-	회원이름:<br>
-	회원이메일:<br>
-</div>
-<form method="post" action="${cp }/admin/memberlist">
-	검색할아이디:<input type="text" id="mid"><br>
+	<c:if test="${startPageNum>10 }">
+		<a href="${cp }/admin/memberlist?pageNum=${startPageNum-1 }">[이전]</a>
+	</c:if>
+	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+		<c:choose>
+			<c:when test="${pageNum==i }"><%--현재페이지인경우 --%>
+				<a href="${cp }/admin/memberlist?pageNum=${i }"><span style="color:blue">[${i }]</span></a>
+			</c:when>
+			<c:otherwise>
+				<a href="${cp }/admin/memberlist?pageNum=${i }"><span style="color:gray">[${i }]</span></a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${endPageNum<pageCount }">
+		<a href="${cp }/admin/memberlist?pageNum=${endPageNum+1 }">[다음]</a>
+	</c:if>
+	<form method="post" action="${cp }/admin/memberlist">
+		<select name="field">
+			<option value="mid">아이디</option>
+		</select>
+		검색할아이디:<input type="text" name="keyword">
 	<input type="button" value="검색">
 </form>
+</div>
 </body>
 </html>

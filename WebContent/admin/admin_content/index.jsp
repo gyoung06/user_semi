@@ -35,7 +35,7 @@
 		회원관리
 			<ul class="sub">
 				<li><a href="${cp }/admin/memberlist">회원리스트</a></li>
-				<li>menu1 - 2</li>
+				<li><a href="${cp }/admin/memberinsert">회원등록</a></li>
 				<li>menu1 - 3</li>
 			</ul>
 		</li>
@@ -64,7 +64,7 @@
 		<li class="main">
 		게시판관리
 			<ul class="sub">
-				<li>menu2 - 1</li>
+				<li><a href="">QnA</a></li>
 				<li>menu2 - 2</li>
 				<li>menu2 - 3</li>
 			</ul>
