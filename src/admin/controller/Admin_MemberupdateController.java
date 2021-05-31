@@ -17,10 +17,8 @@ public class Admin_MemberupdateController extends HttpServlet{
 		String mid=req.getParameter("mid");
 		
 		req.setAttribute("mid", mid);
-		req.setAttribute("content", "/admin/admin_content/member/memberupdate");
-		String cp = req.getContextPath();
-		ServletContext application = getServletContext();
-		application.setAttribute("cp", cp);
+		req.setAttribute("content", "/admin/admin_content/member/memberupdate.jsp");
+	
 		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }

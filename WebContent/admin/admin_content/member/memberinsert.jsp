@@ -6,6 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>memberinsert.jsp</title>
+
 </head>
 <body>
 <form method="post" action="${cp }/admin/insert" style="margin-top:20px;">

@@ -64,8 +64,8 @@
 		<li class="main">
 		게시판관리
 			<ul class="sub">
-				<li><a href="">QnA</a></li>
-				<li>menu2 - 2</li>
+				<li><a href="${cp }/admin/qna">QnA</a></li>
+				<li><a href="${cp }/admin/faq">FAQ</a></li>
 				<li>menu2 - 3</li>
 			</ul>
 		</li>

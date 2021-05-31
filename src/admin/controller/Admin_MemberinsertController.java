@@ -12,7 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/admin/memberinsert")
 public class Admin_MemberinsertController extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		ServletContext application = getServletContext();
+		application.setAttribute("cp", cp);
+		req.setAttribute("content", "/admin/admin_content/member/memberinsert.jsp");
+		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String mid=req.getParameter("mid");
 		String mpw=req.getParameter("mpw");
 		String mpwcheck=req.getParameter("mpwcheck");
@@ -38,9 +47,7 @@ public class Admin_MemberinsertController extends HttpServlet{
 		req.setAttribute("mbirth", mbirth);
 		req.setAttribute("memail", memail);
 		req.setAttribute("content", "/admin/admin_content/member/memberinsert.jsp");
-		String cp = req.getContextPath();
-		ServletContext application = getServletContext();
-		application.setAttribute("cp", cp);
+	
 		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }

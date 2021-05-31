@@ -43,9 +43,7 @@ public class Admin_MemberListController extends HttpServlet{
 		req.setAttribute("content","/admin/admin_content/member/memberlist.jsp");
 		req.setAttribute("field",field);
 		req.setAttribute("keyword",keyword);
-		String cp = req.getContextPath();
-		ServletContext application = getServletContext();
-		application.setAttribute("cp", cp);
+		
 		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }

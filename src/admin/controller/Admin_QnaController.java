@@ -13,12 +13,16 @@ public class Admin_QnaController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String qid=req.getParameter("qid");
-		int qcate=Integer.parseInt(req.getParameter("qcate"));
+		String field=req.getParameter("field");
+		
 		String qwriter=req.getParameter("qwriter");
 		String qpw=req.getParameter("qpw");
 		String qtitle=req.getParameter("qtitle");
 		String qcontent=req.getParameter("qcontent");
-		String qfile=
+		//파일경로 다시받아와야함 (jsp18)
+		String qfile=req.getParameter("qfile");
+				
+		req.setAttribute("content","/admin/admin_content/board/qna.jsp");
+		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }
