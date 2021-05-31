@@ -14,13 +14,15 @@
 	<input type="text" name="mpwok">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br>
 	이름*
 	<input type="text" name="mname"><br>
-	주소*
-	
 	휴대전화*
 	<input type="tel" name="mphone"><br>
 	이메일*
 	<input type="email" name="memail"><br>
 
+<h4>추가정보</h4>
+	생년월일*
+	<input type="date" name="mbirth"><br>
 <input type="submit" value="회원정보수정">
 <input type="button" value="취소">
+<input type="button" value="회원 탈퇴" onclick>
 </form>
