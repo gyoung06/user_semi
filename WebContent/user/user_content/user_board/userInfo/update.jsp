@@ -5,7 +5,7 @@
 저희 쇼핑몰을 이용해 주셔서 감사합니다. '이름'님은 '회원등급'회원이십니다.
 '금액'이상 구매시 '할인율'을 추가적립 받으실 수 있습니다.
 </div>
-<form action="/user/update" method ="post">
+<form action="/user/passcheck" method ="post">
 	아이디*
 	<input type="text" name="mid">(영문소문자/숫자, 4~16자)<br>
 	현재 비밀번호

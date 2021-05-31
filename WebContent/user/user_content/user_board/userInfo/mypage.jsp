@@ -50,10 +50,13 @@
 	</tr>
 </table>
 
+<%
+	String contextPath=request.getContextPath();
+%>
 <table class="table">
 	<tr class="active">
 		<td>
-			<a href=""  style="text-decoration:none">
+			<a href="${cp }/user/purchase"  style="text-decoration:none">
 			ORDER 주문내역 조회<br>
 			고객님께서 주문하신 상품의 주문내역을 확인하실 수 있습니다.
 			비회원의 경우, 주문서의 주문번호와 비밀번호로 주문조회가 가능합니다.
