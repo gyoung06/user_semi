@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/* 입고관리 */
+/* boardcss_list 에서 사용하는 글 목록 테이블 크기*/
+
+
+.boardcss_list_table { 
+	position:absolute;
+	height:400px;
+	width: 90%; 
+	top:50%;
+	left:5%;
+	border-top: 1px solid #8BBDFF;
+	border-bottom: 1px solid #8BBDFF; 
+	}
+/* 화면에 보여지는 글 목록 테이블 */
+.list_table { 
+	position: absolute;
+	top:50px;
+	left:5%;
+	width:90%;
+	font-size: 0.7rem;
+	}
+/* list_table 에서 사용되는 thead */
+.list_table thead th { 
+	text-align: center; 
+	border-top: 1px solid #ABABAB;
+	border-bottom: 1px solid #ABABAB; 
+	padding: 8px 0; 
+	background: #faf9fa; 
+	}
+.list_table tbody td { 
+	text-align: center;  
+	border-bottom: 1px solid #ABABAB; 
+	padding: 5px 0; 
+	}
+.page{
+	position: absolute;
+	top:93%;
+	left:50%;
+}
+.find{
+	position: absolute;
+	right:5%;
+	top:10px;
+}
+
+.inboundtext1{
+	position: absolute;
+	left:5%;
+	top:10px;
+}
+
+.inboundinput{
+	position: absolute;
+	height:400px;
+	width: 90%; 
+	top:5%;
+	left:5%;
+	border-top: 1px solid #8BBDFF; 
+	border-bottom: 1px solid #8BBDFF; 
+}
+
+.inboundtext2{
+	position:absolute;
+	left:5%;
+	top:10px;
+}
+
+.textbox1 {
+	position: absolute;
+	border-top: 1px solid #ABABAB;
+	border-bottom: 1px solid #ABABAB; 
+	top:10%;
+	left:5%;
+	height:10%;
+	width: 90%;
+	line-height: 40px;
+	display: block;
+    text-align: center;
+} 
+
+.textbox2 {
+	position: absolute;
+	border-bottom: 1px solid #ABABAB;
+	top:20%;
+	left:5%; 
+	height:10%;
+	width: 90%;
+	line-height: 40px;
+	display: block;
+} 
+.up_text1{
+	position: absolute;
+	left:10%;
+}
+
+.up_text2{
+	position: absolute;
+	left:40%;
+}
+
+.up_text3{
+	position: absolute;
+	left:70%;
+}
+.down_text1{
+	position: absolute;
+	left:10%;
+}
+
+.down_text2{
+	position: absolute;
+	left:30%;
+}
+
+.down_text3{
+	position: absolute;
+	left:50%;
+}
+.down_text4{
+	position: absolute;
+	left:70%;
+}
+
