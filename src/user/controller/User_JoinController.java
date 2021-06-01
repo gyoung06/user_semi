@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class User_JoinController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content","/user/user_content/user_board/userInfo/insert.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	}
 }
