@@ -23,7 +23,7 @@ public class User_LoginController extends HttpServlet{
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}
 	
-	@Override //로그인
+	@Override //濡쒓렇�씤
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		String id=req.getParameter("id");
@@ -32,7 +32,6 @@ public class User_LoginController extends HttpServlet{
 		User_MembersDao dao= new User_MembersDao();
 		int check=dao.findaccount(id,pwd);
 		HttpSession session=req.getSession();
-		System.out.println(check);
 		if(check==1) {
 			session.setAttribute("id", id);
 			session.setAttribute("pwd", pwd);

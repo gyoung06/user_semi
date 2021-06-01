@@ -20,7 +20,8 @@ public class User_HomeController extends HttpServlet{
 			top="/user/user_content/header.jsp";
 		}
 		if(content==null) {
-			content="/user/main";
+			//content="/user/main";
+			content="/user/user_content/main.jsp";
 		}
 		if(bottom==null) {
 			bottom="/user/user_content/footer.jsp";
