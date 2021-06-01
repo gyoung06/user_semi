@@ -31,12 +31,12 @@
 		<td>${vo.maddress }</td>
 		<td>${vo.mpost }</td>
 		<td>${vo.mphone }</td>
+		<td>${vo.memail }</td>
 		<td>${vo.mrdate }</td>
 		<td>${vo.mbirth }</td>
 		<td>${vo.mdrop }</td>
 		<td>${vo.mmileage }</td>
-		<td>${vo.memail }</td>
-		<td><a href="${cp }/admin/memberupdate">수정</a></td>
+		<td><a href="${cp }/admin/memberupdate?mid=${vo.mid }">수정</a></td>
 	</tr>
 	</c:forEach>
 </table>

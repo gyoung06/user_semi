@@ -6,21 +6,32 @@ import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import admin.vo.Admin_MembersVo;
 import test.db.DBConnection;
 
 public class Admin_MembersDao {
-	public int getinfo(int num) {
+	public int getinfo(String mid) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
 			String sql="select * from members where mid=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "mid");
-			int n=pstmt.executeUpdate();
-			return n;
+			pstmt.setString(1, mid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				mid=rs.getString("mid");
+				String mpw=rs.getString("mpw");
+				String mname=rs.getString("mname");
+				String maddress=rs.getString("maddress");
+				String mpost=rs.getString("mpost");
+				String mphone=rs.getString("mphone");
+				String mname=rs.getString("mname");
+				
+			}
 		}catch(SQLException s) {
 			s.printStackTrace();
 			return -1;
@@ -30,7 +41,7 @@ public class Admin_MembersDao {
 	}
 	public ArrayList<Admin_MembersVo> list(int startRow,int endRow,String field,String keyword){
 		String sql=null;
-		if(field==null || field.equals("")) { //°Ë»öÁ¶°ÇÀÌ ¾ø´Â °æ¿ì
+		if(field==null || field.equals("")) { //ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		    sql= "select * from " + 
 				"( " + 
 				"  select board.*,rownum rnum from " + 
@@ -38,7 +49,7 @@ public class Admin_MembersDao {
 				"	  select * from members order by mid desc" + 
 				"  ) board" + 
 				") where rnum>=? and rnum<=?";
-		}else{ //°Ë»öÁ¶°ÇÀÌ ÀÖ´Â °æ¿ì
+		}else{ //ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 			sql="select * from " + 
 				"( " + 
 				"  select board.*,rownum rnum from " + 
@@ -107,19 +118,35 @@ public class Admin_MembersDao {
 	public int insert(Admin_MembersVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		String sql=null;
+		int n=0;
 		try {
 			con=DBConnection.getCon();
-			String sql="insert into values(?,?,?,?,?,?,sysdate,?,0,1000,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, vo.getMid());
-			pstmt.setString(2, vo.getMpw());
-			pstmt.setString(3, vo.getMname());
-			pstmt.setString(4, vo.getMaddress());
-			pstmt.setString(5, vo.getMpost());
-			pstmt.setString(6, vo.getMphone());
-			pstmt.setDate(7, vo.getMbirth());
-			pstmt.setString(8, vo.getMemail());
-			int n=pstmt.executeUpdate();
+			if(vo.getMbirth()==null) {
+				sql="insert into members values(?,?,?,?,?,?,sysdate,sysdate,0,1000,?)";
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getMid());
+				pstmt.setString(2, vo.getMpw());
+				pstmt.setString(3, vo.getMname());
+				pstmt.setString(4, vo.getMaddress());
+				pstmt.setString(5, vo.getMpost());
+				pstmt.setString(6, vo.getMphone());
+				pstmt.setString(7, vo.getMemail());
+				n=pstmt.executeUpdate();
+			}else {
+				sql="insert into members values(?,?,?,?,?,?,sysdate,?,0,1000,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, vo.getMid());
+				pstmt.setString(2, vo.getMpw());
+				pstmt.setString(3, vo.getMname());
+				pstmt.setString(4, vo.getMaddress());
+				pstmt.setString(5, vo.getMpost());
+				pstmt.setString(6, vo.getMphone());
+				pstmt.setDate(7, vo.getMbirth());
+				pstmt.setString(8, vo.getMemail());
+				n=pstmt.executeUpdate();
+			}
 			return n;
 		}catch(SQLException s) {
 			s.printStackTrace();

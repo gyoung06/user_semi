@@ -9,16 +9,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String id=request.getParameter("id");
+	String mid=request.getParameter("mid1");
+	System.out.println("11");
 	Connection con=null;
 	PreparedStatement pstmt=null;
 	ResultSet rs=null;
 	boolean using=false;
 	try{
 		con=DBConnection.getCon();
-		String sql="select id from members where id=?";
+		String sql="select mid from members where mid=?";
 		pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, id);
+		pstmt.setString(1, mid);
 		rs=pstmt.executeQuery();
 		if(rs.next()){
 			using=true;
