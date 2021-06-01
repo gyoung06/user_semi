@@ -1,3 +1,4 @@
+<%@page import="org.json.JSONObject"%>
 <%@page import="netscape.javascript.JSObject"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.sql.SQLException"%>
@@ -15,7 +16,7 @@
 	boolean using=false;
 	try{
 		con=DBConnection.getCon();
-		String sql="select id from myusers where id=?";
+		String sql="select id from members where id=?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setString(1, id);
 		rs=pstmt.executeQuery();
@@ -29,7 +30,7 @@
 	}
 	response.setContentType("text/plain;charset=utf-8");
 	PrintWriter pw=response.getWriter();
-	jsono json=new JSONObject();
+	JSONObject json=new JSONObject();
 	json.put("using",using);
 	pw.print(json);
 %>

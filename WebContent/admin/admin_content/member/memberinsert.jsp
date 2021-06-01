@@ -17,8 +17,8 @@
 <body>
 <div id="insertbox">
 	<form method="post" action="${cp }/admin/memberinsert" style="margin-top:20px;">
-		아이디<input type="text" name="mid">
-		<input type="button" name="idcheck" value="아이디확인"><br>
+		아이디<input type="text" name="mid" id="mid1">
+		<input type="button" name="idcheck" id="idcheck" value="아이디확인"><br>
 		<div id="idmention"></div><br>
 		비밀번호<input type="password" name="mpw"><br>
 		비밀번호 확인<input type="password" name="mpwcheck" onkeyup="mpwcheck()"><br>
@@ -33,12 +33,14 @@
 	</form>
 </div>
 <script type="text/javascript">
-	let idcheck=document.getElementById("idcheck")
+	let idcheck=document.getElementById("idcheck");
 	idcheck.onclick=function(e){
-		const mid=document.getElementById("mid").value;
+		var mid=document.getElementById("mid1").value;
 		const idmention=document.getElementById("idmention");
-		if(mid==""){
-			idmention.innerHTML="아이디 입력필요!"
+		console.log("test1");
+		if(mid=="" || mid==null){
+			idmention.innerHTML="아이디 입력필요!";
+			console.log("test2");
 		}
 		let xhr=new XMLHttpRequest();
 		xhr.onreadystatechange=function(){
@@ -52,10 +54,22 @@
 				}
 			}
 		};
-		xhr.open('get','idcheck.jsp?id='+id,true);
+		xhr.open('get','idcheck.jsp?mid='+mid,true);
 		xhr.send();
 	};
-
+	function mpwcheck(){
+		let mpw=document.getElementById("mpw").value;
+		let mpwcheck=document.getElementById("mpwcheck").value;
+		const pwdmention=document.getElementById("pwdmention");
+		if(mpw==""){
+			pwdmention.innerHTML="비밀번호를 입력하세요.";
+		}
+		if(mpw!=mpwcheck){
+			pwdmention.innerHTML="비밀번호가 일치하지 않습니다.";
+		}else{
+			pwdmention.innerHTML="비밀번호가 일치합니다.";
+		}
+	}
 </script>
 </body>
 </html>
