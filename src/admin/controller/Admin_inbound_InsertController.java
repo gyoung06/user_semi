@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import admin.dao.Admin_InboundDao;
 import admin.vo.Admin_InboundVo;
@@ -37,12 +39,8 @@ public class Admin_inbound_InsertController extends HttpServlet {
 		String incategory=req.getParameter("input_incategory");
 		Admin_InboundVo vo=new Admin_InboundVo(0, sqlDate, inname, inprice, inamount, incolor, insize, incategory);
 		int n = Admin_InboundDao.getInstance().insert(vo);
-		if(n>0) {
-			req.setAttribute("code", "success");
-		}else {
-			req.setAttribute("code", "fail");
-		}
-		req.setAttribute("content","/admin/admin_content/item/inbound.jsp");
-		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
+		String cPath=req.getContextPath();
+		System.out.println(cPath);
+		resp.sendRedirect(cPath+"/admin/inbound/list");
 	}
 }
