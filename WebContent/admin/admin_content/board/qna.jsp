@@ -9,7 +9,7 @@
 	#qnabox{
 		position:absolute;
 		top:100px;
-		left:500px;
+		left:300px;
 	}
 </style>
 </head>
@@ -23,11 +23,13 @@
 		</select>
 		<br>
 		작성자<br>
-		<input type="text" name="writer" value="${vo.mid }" readonly="readonly"><br>
+		<input type="text" name="qwriter" value="${vo.mid }" readonly="readonly"><br>
 		제목<br>
-		<input type="text" name="title"><br>
+		<input type="text" name="qtitle"><br>
 		내용<br>
-		<textarea rows="5" cols="50" name="content"></textarea><br>
+		<textarea rows="5" cols="50" name="qcontent"></textarea><br>
+		비밀번호<br>
+		<input type="password" name="qpw"><br>
 		첨부파일<br>
 		<input type="file" name="file1" >
 		<input type="submit" value="전송">

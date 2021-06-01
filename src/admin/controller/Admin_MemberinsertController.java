@@ -32,11 +32,6 @@ public class Admin_MemberinsertController extends HttpServlet{
 		String mbirth=req.getParameter("mbirth");
 		String memail=req.getParameter("memail");
 		//헷갈려
-		if(mpw!=mpwcheck) {
-			req.setAttribute("mention", "비밀번호가 맞지않습니다.");
-		}else {
-			req.setAttribute("mention", "비밀번호 사용가능");
-		}
 		
 		req.setAttribute("mid", mid);
 		req.setAttribute("mpw", mpw);

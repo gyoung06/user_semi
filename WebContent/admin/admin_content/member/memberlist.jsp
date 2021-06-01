@@ -36,7 +36,7 @@
 		<td>${vo.mdrop }</td>
 		<td>${vo.mmileage }</td>
 		<td>${vo.memail }</td>
-		<td><a href="${cp }/admin/admin_content/memberupdate.jsp?mid="${vo.mid }>수정</a></td>
+		<td><a href="${cp }/admin/memberupdate">수정</a></td>
 	</tr>
 	</c:forEach>
 </table>
