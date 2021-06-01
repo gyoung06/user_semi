@@ -7,16 +7,14 @@
 	#member{float:left; margin-right: 20px;}
 	#callbank{float:left;}
 	#right{float: right;}
-	
+	a{text-decoration: none; color:black; }
 </style>
 <div id ="wrap">
-	<h1>J4</h1>
+	<h1><a href="${cp }/user/home">J4</a></h1>
 	<div id ="category">
 		<h3>category</h3>
 		new<br>
 		best 50<br>
-		s/s re-open<br>
-		ordinaire<br>
 		outer<br>
 		top<br>
 		ops<br>

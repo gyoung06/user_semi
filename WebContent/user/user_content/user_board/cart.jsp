@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 order
 <form action="../../../payment" method="post">
 	<br>
@@ -12,7 +15,7 @@ order
 	<br>
 	카트내역
 	<br>
-	<table border="2">
+	<table class="table">
 		<tr>
 			<th><input type="checkbox"></th>
 			<th>이미지</th>
@@ -58,7 +61,7 @@ order
 	</table>
 	선택상품 <input type="button" value="삭제">
 	<input type="button" value="장바구니 비우기" style="float: right;">
-	<table border="1">
+	<table class="table">
 		<tr>
 			<td>총 상품 금액</td>
 			<td>배송비</td>
