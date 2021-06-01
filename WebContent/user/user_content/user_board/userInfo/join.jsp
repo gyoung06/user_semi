@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h4>join us</h4>
-<form action="${cp }/user/user_content/user" method ="post">
+<form name="joinForm" action="${cp }/user/join" method ="post">
 	아이디*
 	<input type="text" name="mid">(영문소문자/숫자, 4~16자)<br>
 	비밀번호*
@@ -181,7 +182,7 @@
 부 칙(시행일) 이 약관은 년 월 일부터 시행합니다.
 	</textarea>
 	<div id="inbox1">
-이용약관에 동의하십니까?<input type="checkbox"> 동의함
+이용약관에 동의하십니까?<input type="checkbox" name="c1"> 동의함
 	</div>
 	</div>
 	
@@ -282,10 +283,36 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 
 	</textarea>
 	<div id="inbox2" >
-개인정보 수집 및 이용에 동의하십니까?<input type="checkbox"> 동의함
+개인정보 수집 및 이용에 동의하십니까?<input type="checkbox" name="c2"> 동의함
 	</div>
 	</div>
+
 	<br>
-	<input type="submit" value="회원가입">
-	<input type="button" value="가입취소">
+	<input type="button" value="회원가입" onclick="agreeck()">
+	<input type="button" value="가입취소" onclick="cancel()">
 </form>
+<script type="text/javascript">
+	function agreeck(){
+		var joinForm=document.getElementsByName("joinForm")[0];
+		var c1=document.getElementsByName("c1");
+		var c2=document.getElementsByName("c2");
+			console.log(c1[0]+c2[0])
+			if(c1[0].checked==false || c2[0].checked==false){
+				 alert("이용 동의에 체크해 주세요");
+			}else{
+				joinForm.submit();
+			}
+	}
+	function cancel(){
+		<%--
+		request.setAttribute("top", "/user/user_content/header.jsp");
+		request.setAttribute("content","/user/user_content/user_board/main.jsp");
+		request.setAttribute("bottom", "/user/user_content/footer.jsp");
+		
+		response.sendRedirect("/user/user_content/index.jsp");
+		--%>
+		<%
+			response.sendRedirect("/user/user_content/user_board/main.jsp");
+		%>
+	}
+</script>
