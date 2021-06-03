@@ -15,14 +15,14 @@
 		<th>주소</th>
 		<th>수정</th>
 	</tr>
-	<c:forEach var="vo" items=${ }>
+	<c:forEach var="vo" items="">
 	<tr class="active">
 		<td><input type="checkbox"></td>
-		<td>${ }</td>
-		<td>${ }</td>
-		<td>${ }</td>
-		<td>${ }</td>
-		<td>${ }</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 		<td><input type="button" value="수정 " onclick=""></td>
 	</tr>
 	</c:forEach>
