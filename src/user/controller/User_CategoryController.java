@@ -26,6 +26,7 @@ public class User_CategoryController extends HttpServlet {
 			String name = stockDao.sid(vo.getSid());
 			nameList.add(name);
 		}
+		System.out.println(list.get(0).getPimage2());
 		req.setAttribute("list", list);
 		req.setAttribute("nameList", nameList);
 		req.setAttribute("top", "/user/user_content/header.jsp");

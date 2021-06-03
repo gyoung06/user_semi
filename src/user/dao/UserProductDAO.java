@@ -80,8 +80,9 @@ public class UserProductDAO {
 						int pprice = rs.getInt("pprice");
 						int pdiscount = rs.getInt("pdiscount");
 						String pimage1 = rs.getString("pimage1");
+						String pimage2 = rs.getString("pimage2");
 						int psid = rs.getInt("sid");
-						vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, null, null, null, 0, psid);
+						vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, pimage2, null, null, 0, psid);
 						list.add(vo);
 					}
 				}

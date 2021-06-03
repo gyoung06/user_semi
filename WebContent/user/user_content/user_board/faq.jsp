@@ -10,14 +10,14 @@
 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" 
-        href="#${vo.fcontent }" aria-expanded="true" 
-        aria-controls="${vo.fcontent }">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" 
+        href="#${vo.fcontent }" aria-expanded="false" 
+        aria-controls="${vo.fcontent } ">
          	${vo.ftitle }
         </a>
       </h4>
     </div>
-    <div id="${vo.fcontent }" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="${vo.fcontent }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
 			${vo.fcontent }
       </div>
