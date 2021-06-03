@@ -25,7 +25,7 @@ CREATE TABLE FAQ
    AID VARCHAR2(10) NOT NULL,
    PRIMARY KEY (FID)
 );
-<
+--inbound
 INSERT INTO INBOUND VALUES(1,'2019-01-30','[ganaesra made] 실링 린넨 하프자켓',67000,100,'아이보리','S','outer');
 INSERT INTO INBOUND VALUES(2,'2019-01-30','[ganaesra made] 실링 린넨 하프자켓',67000,100,'아이보리','M','outer');
 INSERT INTO INBOUND VALUES(3,'2019-02-01','[ganaesra made] 실링 린넨 하프자켓',67000,100,'레드','S','outer');
@@ -64,12 +64,19 @@ insert into faq(fid,ftitle,fcontent,aid) values(2,'자주하는질문2?','답변
 insert into faq(fid,ftitle,fcontent,aid) values(3,'자주하는질문3?','답변3','admin');
 
 --product
-insert into product(pid,pprice,pdiscount,pimage1,sid) values(1,1000,10,'img',1);
-
+insert into product(pid,pprice,pdiscount,pimage2,sid) values(1,20000,10,'/img/63b23a5c87706fafe69c53ce9ae160ba.webp',1);
+insert into product(pid,pprice,pdiscount,pimage2,sid) values(2,10000,5,'/img/63b23a5c87706fafe69c53ce9ae160ba.webp',5);
+insert into product(pid,pprice,pdiscount,pimage2,sid) values(3,120000,50,'/img/830089c08629c881a96a827cb6f63d98.webp',6);
 --stock
 insert into stock values(1,'[ganaesra made] 실링 린넨 하프자켓','아이보리','S',100);
 insert into stock values(2,'[ganaesra made] 실링 린넨 하프자켓','아이보리','M',100);
 insert into stock values(3,'[ganaesra made] 실링 린넨 하프자켓','레드','S',100);
+insert into stock values(4,'[ganaesra made] 썸머 넌스 브이넥자켓','라이트베이지','S',100);
+insert into stock values(5,'[ganaesra made] 썸머 넌스 브이넥자켓','멜론','M',100);
+insert into stock values(6,'[ganaesra made] 시에나 린넨 하프자켓','차콜','S',100);
+insert into stock values(7,'[ganaesra made] 시에나 린넨 하프자켓','차콜','M',100);
 
 --userqna
 insert into userqna values(1,1,'1111','제목','내용','img',sysdate,0,1,'1111',1);
+
+
