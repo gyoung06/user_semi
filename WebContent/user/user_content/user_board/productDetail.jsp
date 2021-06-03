@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-${vo.pimage2}
-${vo.pimage3}
-${vo.pimage1}
 <table class="table">
+	<tr>
+		<th rowspan="9"><img src = "${cp }${vo.pimage2}"></th>
+	</tr>
 	<tr>
 		<th colspan="2">${stockVo.sname}</th>
 	</tr>
@@ -44,8 +44,6 @@ ${vo.pimage1}
 	<tr>
 		<td colspan="2">total: 0(0개)</td>
 	</tr>
-</table>
-<table class="table">
 	<tr>
 		<td><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></td>
 		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px; " value="add to cart"></td>
@@ -74,7 +72,7 @@ ${vo.pimage1}
 		<a href="#review">REVIEW</a>
 		<a href="#qna">QNA</a>
 	</div>
-${vo.pimage1 }
+<h1>--상품상세설명--${vo.pimage1 }</h1>
 </div>
 <div id="guid" style="padding: 30px 30px 30px 30px">
 	<div style="text-align: center">
@@ -144,7 +142,7 @@ ${vo.pimage1 }
 		<strong><u><a href="#review">REVIEW</a></u></strong>
 		<a href="#qna">QNA</a>
 	</div>
-hi
+<h1>--리뷰리스트영역--</h1>
 </div>
 <div id="qna" style="padding: 30px 30px 30px 30px">
 	<div style="text-align: center">
