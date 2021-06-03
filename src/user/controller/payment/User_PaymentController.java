@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author hgyou
- *	°áÁ¦ÄÁÆ®·Ñ·¯
+ *	ê²°ì œì»¨íŠ¸ë¡¤ëŸ¬
  */
 @WebServlet("/payment")
 public class User_PaymentController extends HttpServlet{

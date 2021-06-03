@@ -11,26 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import user.dao.UserProductDAO;
 import user.dao.UserStockDAO;
+import user.vo.UserStockVo;
 import user.vo.User_ProductVo;
 
-@WebServlet("/user/category")
-public class User_CategoryController extends HttpServlet {
+@WebServlet("/user/productDetail")
+public class User_ProductDetailController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String category = req.getParameter("category");
+		String pid = req.getParameter("pid");
 		UserProductDAO dao = new UserProductDAO();
+		User_ProductVo vo = dao.productDetail(Integer.parseInt(pid));
 		UserStockDAO stockDao = new UserStockDAO();
-		ArrayList<User_ProductVo> list = dao.category(category);
-		ArrayList<String> nameList = new ArrayList<String>();
-		for (User_ProductVo vo : list) {
-			String name = stockDao.sid(vo.getSid());
-			nameList.add(name);
-		}
-		req.setAttribute("list", list);
-		req.setAttribute("nameList", nameList);
+		UserStockVo stockVo = stockDao.stockDetail(vo.getSid());
+		ArrayList<String> colorList = stockDao.chooseColor(stockVo.getSname());
+		ArrayList<String> sizeLise = stockDao.chooseSize(stockVo.getSname());
+		req.setAttribute("vo", vo);
+		req.setAttribute("stockVo", stockVo);
+		req.setAttribute("colorList", colorList);
+		req.setAttribute("sizeLise", sizeLise);
 		req.setAttribute("top", "/user/user_content/header.jsp");
-		req.setAttribute("content", "/user/user_content/main.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/productDetail.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
+
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}
 }
