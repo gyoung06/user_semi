@@ -32,12 +32,16 @@ public class User_LoginController extends HttpServlet{
 	//	HttpServletRequest req=(HttpServletRequest)request;
 		User_MembersDao dao= new User_MembersDao();
 		int check=dao.findaccount(id,pwd);
+		User_MembersVo vo=dao.findInfo(id);
 		HttpSession session=req.getSession();
 		System.out.println(check);
+
 		if(check==1) {
 			session.setAttribute("id", id);
 			session.setAttribute("pwd", pwd);
-			
+			session.setAttribute("mname", vo.getMname());//update.jsp 에서 스크립트릿으로 값 불러올때 사용할 것
+			session.setAttribute("mphone",vo.getMphone());
+			session.setAttribute("memail",vo.getMemail());
 			req.setAttribute("top", "/user/user_content/header.jsp");
 			req.setAttribute("content","/user/user_content/main.jsp");
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");

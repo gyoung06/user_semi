@@ -9,7 +9,7 @@ import test.db.DBConnection;
 import user.vo.User_MembersVo;
 
 public class User_MembersDao {
-	public int findaccount(String id, String pwd) {
+	public int findaccount(String id, String pwd) { //로그인
 	      Connection con=null;
 	      PreparedStatement pstmt=null;
 	      ResultSet rs=null;
@@ -100,7 +100,7 @@ public class User_MembersDao {
 	         DBConnection.close(con,pstmt,rs);
 	      }
 	   }
-	public int	delAccount(String mid) {
+	public int	delAccount(String mid) { //회원탈퇴
 		Connection con=null;
 		PreparedStatement pstmt=null;
 			try {
@@ -116,7 +116,7 @@ public class User_MembersDao {
 				DBConnection.close(con,pstmt,null);
 			}
 	}
-	public User_MembersVo findInfo(String id) { //비밀번호 더블체크
+	public User_MembersVo findInfo(String id) { //update.jsp에 정보 뜨게하기
 	      Connection con=null;
 	      PreparedStatement pstmt=null;
 	      ResultSet rs=null;
@@ -127,9 +127,9 @@ public class User_MembersDao {
 	         pstmt.setString(1, id);
 	         rs=pstmt.executeQuery();
 	         if(rs.next()) {
-	           String mname=rs.getString("getMname");
-	           String mphone=rs.getString("getMphone");
-	           String memail=rs.getString("getMemail");
+	           String mname=rs.getString("mname");
+	           String mphone=rs.getString("mphone");
+	           String memail=rs.getString("memail");
 	           User_MembersVo vo=new User_MembersVo(id,null,mname,null,null,mphone,null,null,0,0,memail);
 		       return vo;
 	         }else {
@@ -143,4 +143,25 @@ public class User_MembersDao {
 	         DBConnection.close(con,pstmt,rs);
 	      }
 	   }
+	public int updateInfo(User_MembersVo vo) {
+	      Connection con=null;
+	      PreparedStatement pstmt=null;
+	      int n=0;
+	      try {
+	    	  con=DBConnection.getCon();
+	    	  String sql="update members set mpw=?, mphone=?, memail=? where mid=?";
+	    	  pstmt=con.prepareStatement(sql);
+	    	  pstmt.setString(1, vo.getMpw());
+	    	  pstmt.setString(2, vo.getMphone());
+	    	  pstmt.setString(3, vo.getMemail());
+	    	  pstmt.setString(4, vo.getMid());
+	    	  n=pstmt.executeUpdate();
+	    	  return n;
+	      }catch(SQLException se) {
+	    	  se.printStackTrace();
+	    	  return -1;
+	      }finally {
+	    	  DBConnection.close(con,pstmt,null);
+	      }
+	}
 }

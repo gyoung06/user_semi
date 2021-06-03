@@ -1,6 +1,9 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,10 +32,22 @@ public class User_updateController extends HttpServlet{
 		String mid=(String)session.getAttribute("id"); //login 컨트롤러에서 session 저장된 것 꺼내오기
 		String mpw=(String)session.getAttribute("pwd"); 
 		User_MembersDao dao=new User_MembersDao();
-		User_MembersVo vo=dao.findInfo(mid);
-		session.setAttribute("mname", vo.getMname());
-		session.setAttribute("mphone",vo.getMphone());
-		session.setAttribute("memail",vo.getMemail());
-
+		String newpw=req.getParameter("newpw");
+		String mname=req.getParameter("mname");
+		String mphone=req.getParameter("mphone");
+		String memail=req.getParameter("memail");
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd"); 
+//		String birth=req.getParameter("mbirth");
+		//Date mbirth = (Date)dateFormat.parse(birth); 
+		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,null,0,0,memail);
+		int n=dao.updateInfo(vo2);
+		System.out.println(n);
+		if(n>0) {
+			req.setAttribute("top", "/user/user_content/header.jsp");
+			req.setAttribute("content","/user/user_content/user_board/userInfo/updateOk.jsp");
+			req.setAttribute("bottom", "/user/user_content/footer.jsp");
+			
+			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+		}
 	}
 }

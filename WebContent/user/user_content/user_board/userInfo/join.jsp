@@ -290,10 +290,40 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 	</div>
 
 	<br>
-	<input type="button" value="회원가입" onclick="agreeck()">
+	<input type="button" id="register" value="회원가입" onclick="agreeck()" disabled="disabled">
 	<input type="button" value="가입취소" onclick="cancel()">
 </form>
 <script type="text/javascript">
+	//아이디 중복체크
+	let idcheck=document.getElementById("idcheck");
+	let register=document.getElementById("register");
+	idcheck.addEventListener('click', function(e) {
+		  var mid1=document.getElementById("id").value;
+		  const div=document.getElementById("idbox");
+	   console.log(mid1);
+			if(mid1==null || mid1==""){
+				div.innerHTML="아이디 입력필요!";
+			}else{ // 안써주면 아이디입력필요와 사용중인 아이디입니다가 겹침
+		  let xhr=new XMLHttpRequest();
+	   xhr.onreadystatechange=function(){
+	      if(xhr.readyState==4 && xhr.status==200){
+	         let result=xhr.responseText;
+	         let json=JSON.parse(result);
+	         if(json.using==true){
+	            div.innerHTML="사용중인 아이디입니다";
+	            register.disabled=true;
+	         }else{
+	            div.innerHTML="사용가능한 아이디입니다.";
+	            register.disabled=false;
+	         }
+	      }
+	   };
+	   //경로지정: 폴더 안에 있기 때문에 경로를 이렇게 설정해 줘야함
+	   //request.getContextPath() : 현재경로를 가져오기
+	   xhr.open('get', '<%=request.getContextPath()%>/user/user_content/user_board/userInfo/idck.jsp?mid1='+mid1, true);
+	   xhr.send();
+			}
+	});
 	//submit 눌렀을때 체크박스 체크여부 확인 + 유효성 검사
 	function agreeck(){
 		var joinForm=document.getElementsByName("joinForm")[0];
@@ -305,8 +335,6 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 		var name=document.getElementsByName("mname")[0].value;
 		var phone=document.getElementsByName("mphone")[0].value;
 		var email=document.getElementsByName("memail")[0].value;
-		var pattern1 = /[0-9]/;
-        var pattern3 = /[~!@\#$%<>^&*]/;
 			if(c1[0].checked==false || c2[0].checked==false){
 				 alert("이용 동의에 체크해 주세요");
 			}else if(id.length<4 || id.length>16){
@@ -361,41 +389,13 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 		idbox.innerHTML="(영문소문자/숫자, 4~16자)"
 	}
 	--%>
-	//아이디 중복체크
-	   let idcheck=document.getElementById("idcheck");
-	   idcheck.addEventListener('click', function(e) {
-		  var mid1=document.getElementById("id").value;
-		  const div=document.getElementById("idbox");
-	      console.log(mid1);
-			if(mid1==null || mid1==""){
-				div.innerHTML="아이디 입력필요!";
-				console.log("test2");
-			}else{ // 안써주면 아이디입력필요와 사용중인 아이디입니다가 겹침
-		  let xhr=new XMLHttpRequest();
-	      xhr.onreadystatechange=function(){
-	         if(xhr.readyState==4 && xhr.status==200){
-	            let result=xhr.responseText;
-	            let json=JSON.parse(result);
-	            if(json.using==true){
-	               div.innerHTML="사용중인 아이디입니다";
-	            }else{
-	               div.innerHTML="사용가능한 아이디입니다.";
-	            }
-	         }
-	      };
-	      //경로지정: 폴더 안에 있기 때문에 경로를 이렇게 설정해 줘야함
-	      //request.getContextPath() : 현재경로를 가져오기
-	      xhr.open('get', '<%=request.getContextPath()%>/user/user_content/user_board/userInfo/idck.jsp?mid1='+mid1, true);
-	      xhr.send();
-			}
-	   });
-//(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)
+
+		//비밀번호 일치여부
 	   function pwdcheck(){
 	      var mpw=document.getElementById("mpw").value;
 	      var mpwok=document.getElementById("mpwok").value;
 	      var pwokbox=document.getElementById("pwokbox");
 	      if(mpw==mpwok){
-	    	  console.log("222");
 	    	  pwokbox.innerHTML="비밀번호가 일치합니다.";
 	      }else{
 	    	  pwokbox.innerHTML="비밀번호가 일치하지 않습니다.";
