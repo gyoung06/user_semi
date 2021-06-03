@@ -307,7 +307,6 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 		var email=document.getElementsByName("memail")[0].value;
 		var pattern1 = /[0-9]/;
         var pattern3 = /[~!@\#$%<>^&*]/;
-    	var chk = 0; //비밀번호 혼용 조건 카운트
 			if(c1[0].checked==false || c2[0].checked==false){
 				 alert("이용 동의에 체크해 주세요");
 			}else if(id.length<4 || id.length>16){

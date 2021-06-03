@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import test.db.DBConnection;
+import user.vo.User_MembersVo;
 
 public class User_MembersDao {
 	public int findaccount(String id, String pwd) {
@@ -15,7 +16,7 @@ public class User_MembersDao {
 	      int n=0;
 	      try {
 	         con=DBConnection.getCon();
-	         String sql="select * from members where mid=? and mpw=?";
+	         String sql="select * from members where mid=? and mpw=? and mdrop='0'";
 	         pstmt=con.prepareStatement(sql);
 	         pstmt.setString(1, id);
 	         pstmt.setString(2, pwd);
@@ -76,7 +77,7 @@ public class User_MembersDao {
 			}
 		return false;
 		}
-	public int passcheck(String id, String pwd) {
+	public int passcheck(String id, String pwd) { //비밀번호 더블체크
 	      Connection con=null;
 	      PreparedStatement pstmt=null;
 	      ResultSet rs=null;
@@ -99,4 +100,47 @@ public class User_MembersDao {
 	         DBConnection.close(con,pstmt,rs);
 	      }
 	   }
+	public int	delAccount(String mid) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+			try {
+				con=DBConnection.getCon();
+				String sql="update members set mdrop='1' where mid=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				return pstmt.executeUpdate();
+			}catch(SQLException se) {
+				se.printStackTrace();
+				return -1;
+			}finally {
+				DBConnection.close(con,pstmt,null);
+			}
 	}
+	public User_MembersVo findInfo(String id) { //비밀번호 더블체크
+	      Connection con=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      try {
+	         con=DBConnection.getCon();
+	         String sql="select * from members where mid=?";
+	         pstmt=con.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         rs=pstmt.executeQuery();
+	         if(rs.next()) {
+	           String mname=rs.getString("getMname");
+	           String mphone=rs.getString("getMphone");
+	           String memail=rs.getString("getMemail");
+	           User_MembersVo vo=new User_MembersVo(id,null,mname,null,null,mphone,null,null,0,0,memail);
+		       return vo;
+	         }else {
+	        	 return null;
+	         }
+
+	      }catch(SQLException se) {
+	         se.printStackTrace();
+	         return null;
+	      }finally {
+	         DBConnection.close(con,pstmt,rs);
+	      }
+	   }
+}

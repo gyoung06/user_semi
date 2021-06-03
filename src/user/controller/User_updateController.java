@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import user.dao.User_MembersDao;
+import user.vo.User_MembersVo;
+
 @WebServlet("/user/update")
 public class User_updateController extends HttpServlet{
 	@Override
@@ -25,6 +28,11 @@ public class User_updateController extends HttpServlet{
 		HttpSession session=req.getSession();
 		String mid=(String)session.getAttribute("id"); //login 컨트롤러에서 session 저장된 것 꺼내오기
 		String mpw=(String)session.getAttribute("pwd"); 
-		
+		User_MembersDao dao=new User_MembersDao();
+		User_MembersVo vo=dao.findInfo(mid);
+		session.setAttribute("mname", vo.getMname());
+		session.setAttribute("mphone",vo.getMphone());
+		session.setAttribute("memail",vo.getMemail());
+
 	}
 }

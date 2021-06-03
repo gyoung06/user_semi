@@ -28,6 +28,7 @@ public class User_LoginController extends HttpServlet{
 		req.setCharacterEncoding("utf-8");
 		String id=req.getParameter("id");
 		String pwd=req.getParameter("pwd");
+
 	//	HttpServletRequest req=(HttpServletRequest)request;
 		User_MembersDao dao= new User_MembersDao();
 		int check=dao.findaccount(id,pwd);
@@ -36,6 +37,7 @@ public class User_LoginController extends HttpServlet{
 		if(check==1) {
 			session.setAttribute("id", id);
 			session.setAttribute("pwd", pwd);
+			
 			req.setAttribute("top", "/user/user_content/header.jsp");
 			req.setAttribute("content","/user/user_content/main.jsp");
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");
