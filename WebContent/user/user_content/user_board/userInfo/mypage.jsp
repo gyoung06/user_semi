@@ -8,8 +8,13 @@
 	a{text-decoration: none; color:black; }
 </style>
 <h4>my info</h4>
+
+	<%
+		String mid=(String)session.getAttribute("id"); //login 컨트롤러에서 session 저장된 것 꺼내오기
+		String mpw=(String)session.getAttribute("pwd"); 
+	%>
 <div id="box1" style="border: 1px solid #D5D5D5">
-저희 쇼핑몰을 이용해 주셔서 감사합니다. '이름'님은 '회원등급'회원이십니다.
+저희 쇼핑몰을 이용해 주셔서 감사합니다. <%=mid %>님은 '회원등급'회원이십니다.
 '금액'이상 구매시 '할인율'을 추가적립 받으실 수 있습니다.
 </div>
 
@@ -65,7 +70,7 @@
 	</tr>
 	<tr class="active">
 		<td>
-			<a href=""  style="text-decoration:none">
+			<a href="${cp }/user/user_content/user_board/userInfo/updatePassCk.jsp"  style="text-decoration:none">
 			PROFILE 회원 정보<br>
 			회원이신 고객님의 개인정보를 관리하는 공간입니다.
 			개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐기실 수 있습니다.

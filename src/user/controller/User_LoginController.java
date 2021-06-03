@@ -36,7 +36,6 @@ public class User_LoginController extends HttpServlet{
 		if(check==1) {
 			session.setAttribute("id", id);
 			session.setAttribute("pwd", pwd);
-			System.out.println("kk");
 			req.setAttribute("top", "/user/user_content/header.jsp");
 			req.setAttribute("content","/user/user_content/main.jsp");
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");

@@ -4,11 +4,13 @@
 <h4>join us</h4>
 <form name="joinForm" action="${cp }/user/join" method ="post">
 	아이디*
-	<input type="text" name="mid">(영문소문자/숫자, 4~16자)<br>
+	<input type="text" name="mid" id="id"> <!-- onfocus="showMsg(event) -->
+	<input type="button" name="idcheck" id="idcheck" value="중복확인">
+	<div id="idbox"></div><br>
 	비밀번호*
-	<input type="text" name="mpw">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br>
+	<input type="text" name="mpw" id="mpw" onkeyup="pwdcheck()"><br>
 	비밀번호 확인*
-	<input type="text" name="mpwok"><br>
+	<input type="text" name="mpwok" id="mpwok" onkeyup="pwdcheck()"><div id=pwokbox></div><br>
 	이름*
 	<input type="text" name="mname"><br>
 	휴대전화*
@@ -292,17 +294,47 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 	<input type="button" value="가입취소" onclick="cancel()">
 </form>
 <script type="text/javascript">
+	//submit 눌렀을때 체크박스 체크여부 확인 + 유효성 검사
 	function agreeck(){
 		var joinForm=document.getElementsByName("joinForm")[0];
 		var c1=document.getElementsByName("c1");
 		var c2=document.getElementsByName("c2");
-			console.log(c1[0]+c2[0])
+		var id=document.getElementById("id").value;
+		var pwd=document.getElementsByName("mpw")[0].value;
+		var pwdok=document.getElementsByName("mpwok")[0].value;
+		var name=document.getElementsByName("mname")[0].value;
+		var phone=document.getElementsByName("mphone")[0].value;
+		var email=document.getElementsByName("memail")[0].value;
+		var pattern1 = /[0-9]/;
+        var pattern3 = /[~!@\#$%<>^&*]/;
+    	var chk = 0; //비밀번호 혼용 조건 카운트
 			if(c1[0].checked==false || c2[0].checked==false){
 				 alert("이용 동의에 체크해 주세요");
+			}else if(id.length<4 || id.length>16){
+				alert("아이디는 4~16자리를 입력하세요")
+			}else if(id==null || id==""){
+				alert("아이디를 입력하세요");
+			}else if(pwd==null|| pwd==""){
+				alert("비밀번호를 입력하세요");
+			}else if(pwd.length<10 || pwd.length>16){
+				alert("비밀번호는 10자~ 16자 사이로 입력해 주세요");
+			}else if(pwdok!=pwd){
+				alert("비밀번호를 다시 확인해 주세요");
+			}else if(name==null|| name==""){
+				alert("이름을 입력해주세요");
+			}else if(phone==null || phone==""){
+				alert("휴대전화 번호를 입력해주세요");
+			}else if(email==null || email==""){
+				alert("이메일을 입력해주세요");
+			}else if(!pwd>='a' || !pwd<='z' || !pwd>='A' || !pwd<='Z'){
+				   alert("영문으로 구성하여야 합니다.");
+			}else if(!pwd.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)){
+				 alert("영문+숫자+특수기호(!@$%^&* 만 허용)으로 구성하여야 합니다.영문은 대소문자를 구분합니다.");
 			}else{
 				joinForm.submit();
 			}
 	}
+	//가입취소
 	function cancel(){
 		<%--
 		request.setAttribute("top", "/user/user_content/header.jsp");
@@ -311,8 +343,63 @@ o 위탁업무 내용 : 고객 개인 정보(이름, 전화번호)를 이용한 
 		
 		response.sendRedirect("/user/user_content/index.jsp");
 		--%>
-		<%
-			response.sendRedirect("/user/user_content/user_board/main.jsp");
-		%>
+			history.go(-1);
 	}
+	//42일차
+	//id칸에 포커스가 가면 메세지박스 뜨게하기
+	<%--
+	var id=document.getElementById("id");
+	var idbox=document.getElementById("idbox");
+	if(id.value==null || id.value==""){
+		id.addEventListener('focus',Msg1);
+	}else{
+		id.addEventListener('focus', Msg2);
+	}
+	function Msg1(e){
+		idbox.innerHTML="아이디를 입력해 주세요. (영문소문자/숫자, 4~16자)"
+	}
+	function Msg2(e){
+		idbox.innerHTML="(영문소문자/숫자, 4~16자)"
+	}
+	--%>
+	//아이디 중복체크
+	   let idcheck=document.getElementById("idcheck");
+	   idcheck.addEventListener('click', function(e) {
+		  var mid1=document.getElementById("id").value;
+		  const div=document.getElementById("idbox");
+	      console.log(mid1);
+			if(mid1==null || mid1==""){
+				div.innerHTML="아이디 입력필요!";
+				console.log("test2");
+			}else{ // 안써주면 아이디입력필요와 사용중인 아이디입니다가 겹침
+		  let xhr=new XMLHttpRequest();
+	      xhr.onreadystatechange=function(){
+	         if(xhr.readyState==4 && xhr.status==200){
+	            let result=xhr.responseText;
+	            let json=JSON.parse(result);
+	            if(json.using==true){
+	               div.innerHTML="사용중인 아이디입니다";
+	            }else{
+	               div.innerHTML="사용가능한 아이디입니다.";
+	            }
+	         }
+	      };
+	      //경로지정: 폴더 안에 있기 때문에 경로를 이렇게 설정해 줘야함
+	      //request.getContextPath() : 현재경로를 가져오기
+	      xhr.open('get', '<%=request.getContextPath()%>/user/user_content/user_board/userInfo/idck.jsp?mid1='+mid1, true);
+	      xhr.send();
+			}
+	   });
+//(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)
+	   function pwdcheck(){
+	      var mpw=document.getElementById("mpw").value;
+	      var mpwok=document.getElementById("mpwok").value;
+	      var pwokbox=document.getElementById("pwokbox");
+	      if(mpw==mpwok){
+	    	  console.log("222");
+	    	  pwokbox.innerHTML="비밀번호가 일치합니다.";
+	      }else{
+	    	  pwokbox.innerHTML="비밀번호가 일치하지 않습니다.";
+	      }
+	   }
 </script>
