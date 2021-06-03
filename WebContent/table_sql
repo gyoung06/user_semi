@@ -69,4 +69,7 @@ insert into product(pid,pprice,pdiscount,pimage1,sid) values(1,1000,10,'img',1);
 --stock
 insert into stock values(1,'[ganaesra made] 실링 린넨 하프자켓','아이보리','S',100);
 insert into stock values(2,'[ganaesra made] 실링 린넨 하프자켓','아이보리','M',100);
-insert into stock values(3,'[ganaesra made] 실링 린넨 하프자켓','레드','S',100);	
+insert into stock values(3,'[ganaesra made] 실링 린넨 하프자켓','레드','S',100);
+
+--userqna
+insert into userqna values(1,1,'1111','제목','내용','img',sysdate,0,1,'1111',1);
