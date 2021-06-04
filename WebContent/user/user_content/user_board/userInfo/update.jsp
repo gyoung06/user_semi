@@ -7,10 +7,13 @@
 		String mname=(String)session.getAttribute("mname");
 		String mphone=(String)session.getAttribute("mphone"); 
 		String memail=(String)session.getAttribute("memail"); 
+		String glevel=(String)session.getAttribute("glevel");
+		String nextSum=(String)session.getAttribute("nextSum");
+		String nextDrate=(String)session.getAttribute("nextDrate");
 	%>
 <div id="box1" style="border: 1px solid #D5D5D5">
-저희 쇼핑몰을 이용해 주셔서 감사합니다. '<%=mid%>'님은 '회원등급'회원이십니다.
-'금액'이상 구매시 '적립율'을 추가적립 받으실 수 있습니다.
+저희 쇼핑몰을 이용해 주셔서 감사합니다. '<%=mid%>'님은 '<%=glevel %>'회원이십니다.
+'<%=nextSum %>'원 이상 구매시 '<%=nextDrate %>'을 추가적립 받으실 수 있습니다.
 </div>
 <form action="${cp }/user/update" method ="post" name="updateForm">
 	아이디*

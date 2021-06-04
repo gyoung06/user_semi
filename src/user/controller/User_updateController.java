@@ -50,7 +50,7 @@ public class User_updateController extends HttpServlet{
 //		DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd"); 
 //		String birth=req.getParameter("mbirth");
 		//Date mbirth = (Date)dateFormat.parse(birth); 
-		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,mbirth,0,0,memail);
+		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,mbirth,0,0,memail,null,null,null);
 		int n=dao.updateInfo(vo2);
 		System.out.println(n);
 		if(n>0) {

@@ -8,22 +8,23 @@
 	<%
 		String mid=(String)session.getAttribute("id"); //login 컨트롤러에서 session 저장된 것 꺼내오기
 		String mpw=(String)session.getAttribute("pwd"); 
+		int mmileage=(int)session.getAttribute("mmileage"); 
+		String glevel=(String)session.getAttribute("glevel");
+		int gbuy=(int)session.getAttribute("gbuy");
+		int gid=(int)session.getAttribute("gid");
+		String nextSum=(String)session.getAttribute("nextSum");
+		String nextDrate=(String)session.getAttribute("nextDrate");
+		
 	%>
 <div id="box1" style="border: 1px solid #D5D5D5">
-저희 쇼핑몰을 이용해 주셔서 감사합니다. <%=mid %>님은 '회원등급'회원이십니다.
-'금액'이상 구매시 '할인율'을 추가적립 받으실 수 있습니다.
+저희 쇼핑몰을 이용해 주셔서 감사합니다. <%=mid %>님은 <%=glevel %>회원이십니다.
+<%=nextSum %>원이상 구매시 <%=nextDrate %>퍼센트를 추가적립 받으실 수 있습니다.
 </div>
 
 <table class="table">
 	<tr class="active">
-		<td>>가용적립금</td>
-		<td>원 <input type="button" value="조회"></td>
 		<td>>총적립금</td>
-		<td>원</td>
-	</tr>
-	<tr class="active">
-		<td>>사용적립금</td>
-		<td>원 </td>
+		<td><%=mmileage %>원</td>
 		<td></td>
 		<td></td>
 	</tr>
@@ -109,7 +110,7 @@
 	</tr>
 	<tr class="active">
 		<td>
-			<a href=""  style="text-decoration:none">
+			<a href="${cp }/user/address"  style="text-decoration:none">
 			ADDRESS 배송 주소록 관리<br>
 			자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
 			</a>

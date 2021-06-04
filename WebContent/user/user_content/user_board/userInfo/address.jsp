@@ -1,31 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+#popup{display:none;} /*popup창 안보이게 하기*/
+</style>
+
 <h4>address</h4> 자주 쓰는 배송지를 등록 관리하실 수 있습니다.
+<form method="post" action="${cp }/user/addDelete" name="delForm">
 <table class="table">
 	<tr class="active">
-		<th><input type="checkbox"></th>
+		<th><input type="checkbox" id="ckall" name="addselect"></th>
 		<th>배송지명</th>
 		<th>수령인</th>
-		<th>일반전화</th>
 		<th>휴대전화</th>
+		<th>우편번호</th>
 		<th>주소</th>
 		<th>수정</th>
 	</tr>
-	<c:forEach var="vo" items="">
+	<c:forEach var="vo" items="${addlist }">
 	<tr class="active">
-		<td><input type="checkbox"></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><input type="checkbox" id="ck1" name="addselect" ></td>
+		<td>${vo.addtitle }</td>
+		<td>${vo.addname }</td>
+		<td>${vo.addphone }</td>
+		<td>${vo.mpost }</td>
+		<td>${vo.maddress }</td>
 		<td><input type="button" value="수정 " onclick=""></td>
 	</tr>
 	</c:forEach>
 </table>
-<input type="button" value="선택 주소삭제" onclick="">
-<input type="button" value="배송지 등록" onclick="">
+
+
+
+<input type="button" value="선택 주소삭제" onclick="delAdd()">
+<input type="button" value="배송지 등록" onclick="location.href='${cp}/user/user_content/user_board/userInfo/addressInsert.jsp'">
+</form>
+<script type="text/javascript">
+
+let ckall=document.getElementById("ckall");
+let ck1=document.getElementById("ck1");
+ckall.addEventListener('click', function(e) {
+	console.log("test");
+	if(ckall.checked==true){
+		ck1.checked="checked"
+	}else if(ckall.checked==false){
+		ck1.ckecked!="checked"
+	}
+});
+	function delAdd(){
+		var delForm=document.getElementsByName("delForm")[0];
+		var DelConfirm=confirm("정말 탈퇴하시겠습니까?")
+			if(DelConfirm==true){
+				alert("삭제 완료")
+				delForm.submit();
+			}else{
+				alert("삭제 취소")
+			}
+	}
+</script>
 <h4>배송주소록 유의사항</h4>
 <ol>
 	<li>배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</li>

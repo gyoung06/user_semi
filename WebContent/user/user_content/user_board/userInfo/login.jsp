@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <h4>#MEMBER JOIN</h4>
 <form action="${cp }/user/login" method="post">
-<input type="text" name="id" value="ID">
+<input type="text" name="id" placeholder="ID">
 <br>
-<input type="text" name="pwd" value="PW"><br>
+<input type="text" name="pwd" placeholder="PW"><br>
 <input type="submit" value="LOGIN"><br>
 보안접속<br>
 <a href="${cp }/user/findid">>아이디찾기</a>

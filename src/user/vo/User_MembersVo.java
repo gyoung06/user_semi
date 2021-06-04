@@ -14,9 +14,13 @@ public class User_MembersVo {
 	private int mdrop;
 	private int mmileage;
 	private String memail;
+	private String addtitle;
+	private String addname;
+	private String addphone;
 	public User_MembersVo() {}
 	public User_MembersVo(String mid, String mpw, String mname, String maddress, String mpost, String mphone,
-			Date mrdate, Date mbirth, int mdrop, int mmileage, String memail) {
+			Date mrdate, Date mbirth, int mdrop, int mmileage, String memail, String addtitle, String addname,
+			String addphone) {
 		super();
 		this.mid = mid;
 		this.mpw = mpw;
@@ -29,6 +33,9 @@ public class User_MembersVo {
 		this.mdrop = mdrop;
 		this.mmileage = mmileage;
 		this.memail = memail;
+		this.addtitle = addtitle;
+		this.addname = addname;
+		this.addphone = addphone;
 	}
 	public String getMid() {
 		return mid;
@@ -95,6 +102,24 @@ public class User_MembersVo {
 	}
 	public void setMemail(String memail) {
 		this.memail = memail;
+	}
+	public String getAddtitle() {
+		return addtitle;
+	}
+	public void setAddtitle(String addtitle) {
+		this.addtitle = addtitle;
+	}
+	public String getAddname() {
+		return addname;
+	}
+	public void setAddname(String addname) {
+		this.addname = addname;
+	}
+	public String getAddphone() {
+		return addphone;
+	}
+	public void setAddphone(String addphone) {
+		this.addphone = addphone;
 	}
 
 }

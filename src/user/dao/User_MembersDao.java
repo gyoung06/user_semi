@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import test.db.DBConnection;
 import user.vo.User_MembersVo;
@@ -130,7 +131,8 @@ public class User_MembersDao {
 	           String mname=rs.getString("mname");
 	           String mphone=rs.getString("mphone");
 	           String memail=rs.getString("memail");
-	           User_MembersVo vo=new User_MembersVo(id,null,mname,null,null,mphone,null,null,0,0,memail);
+	           int mmileage=rs.getInt("mmileage");
+	           User_MembersVo vo=new User_MembersVo(id,null,mname,null,null,mphone,null,null,0,mmileage,memail,null,null,null);
 		       return vo;
 	         }else {
 	        	 return null;
@@ -143,7 +145,7 @@ public class User_MembersDao {
 	         DBConnection.close(con,pstmt,rs);
 	      }
 	   }
-	public int updateInfo(User_MembersVo vo) {
+	public int updateInfo(User_MembersVo vo) {//개인정보 수정
 	      Connection con=null;
 	      PreparedStatement pstmt=null;
 	      int n=0;
@@ -164,5 +166,79 @@ public class User_MembersDao {
 	      }finally {
 	    	  DBConnection.close(con,pstmt,null);
 	      }
+	}
+	public int addInsert(User_MembersVo vo) { //배송지 추가
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int n=0;
+		String sql="update members set addtitle=?,addname=?,addphone=?,maddress=?mpost=? where mid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,vo.getAddtitle());
+			pstmt.setString(2,vo.getAddname());
+			pstmt.setString(3,vo.getAddphone());
+			pstmt.setString(4,vo.getMaddress());
+			pstmt.setString(5,vo.getMpost());
+			pstmt.setString(6,vo.getMid());
+			n=pstmt.executeUpdate();
+			return n;
+		}catch (SQLException se){
+			se.printStackTrace();
+			return 0;
+		}finally {
+			DBConnection.close(con,pstmt,null);
+		}
+	}
+	public ArrayList<User_MembersVo> list(String id){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from members where mid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			ArrayList<User_MembersVo> list=new ArrayList<User_MembersVo>();
+			while(rs.next()) {
+				String addtitle=rs.getString("addtitle");
+				String addname=rs.getString("addname");
+				String addphone=rs.getString("addphone");
+				String maddress=rs.getString("maddress");
+				String mpost=rs.getString("mpost");
+				User_MembersVo vo=new User_MembersVo(id,null,null,maddress,mpost,null,null,null,0,0,null,addtitle,addname,addphone);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con,pstmt,rs);
+		}
+	}
+	public int delAdd(User_MembersVo vo) { //배송지 삭제
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int n=0;
+		String sql="update members set addtitle=?,addname=?,addphone=?,maddress=?mpost=? where mid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,vo.getAddtitle());
+			pstmt.setString(2,vo.getAddname());
+			pstmt.setString(3,vo.getAddphone());
+			pstmt.setString(4,vo.getMaddress());
+			pstmt.setString(5,vo.getMpost());
+			pstmt.setString(6,vo.getMid());
+			n=pstmt.executeUpdate();
+			return n;
+		}catch (SQLException se){
+			se.printStackTrace();
+			return 0;
+		}finally {
+			DBConnection.close(con,pstmt,null);
+		}
 	}
 }
