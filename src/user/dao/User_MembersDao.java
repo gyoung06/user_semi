@@ -149,12 +149,13 @@ public class User_MembersDao {
 	      int n=0;
 	      try {
 	    	  con=DBConnection.getCon();
-	    	  String sql="update members set mpw=?, mphone=?, memail=? where mid=?";
+	    	  String sql="update members set mpw=?, mphone=?, memail=?, mbirth=? where mid=?";
 	    	  pstmt=con.prepareStatement(sql);
 	    	  pstmt.setString(1, vo.getMpw());
 	    	  pstmt.setString(2, vo.getMphone());
 	    	  pstmt.setString(3, vo.getMemail());
-	    	  pstmt.setString(4, vo.getMid());
+	    	  pstmt.setDate(4, vo.getMbirth());
+	    	  pstmt.setString(5, vo.getMid());
 	    	  n=pstmt.executeUpdate();
 	    	  return n;
 	      }catch(SQLException se) {

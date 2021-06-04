@@ -2,7 +2,6 @@ package user.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
@@ -36,10 +35,22 @@ public class User_updateController extends HttpServlet{
 		String mname=req.getParameter("mname");
 		String mphone=req.getParameter("mphone");
 		String memail=req.getParameter("memail");
+		Date indate=null;
+	    try{
+	        String mbirth1=req.getParameter("mbirth");
+	        System.out.println(mbirth1);
+	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	        indate=(Date)sdf.parse(mbirth1); 
+	        System.out.println(indate);
+	    }catch (Exception e) {
+	       e.printStackTrace();
+	    }
+	    java.sql.Date mbirth = new java.sql.Date(indate.getTime()); //sql.date로 넣어야 들어감
+		
 //		DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd"); 
 //		String birth=req.getParameter("mbirth");
 		//Date mbirth = (Date)dateFormat.parse(birth); 
-		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,null,0,0,memail);
+		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,mbirth,0,0,memail);
 		int n=dao.updateInfo(vo2);
 		System.out.println(n);
 		if(n>0) {
