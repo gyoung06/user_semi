@@ -38,58 +38,28 @@ public class UserProductDAO {
 //		return list;
 //	}
 
-	public ArrayList<Integer> sidList(String category) {
-		String sql = "select sid from stock where sname = ?";
-		ArrayList<Integer> sidList = new ArrayList<>();
-		USerInboundDAO dao = new USerInboundDAO();
-		ArrayList<String> tenameList = dao.tenameList(category);
-		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			for (int i = 0; i < tenameList.size(); i++) {
-				for (int j = 0; j < tenameList.size(); j++) {
-					if (tenameList.get(i).equals(tenameList.get(j))) {
-						tenameList.remove(j);
-					}
-				}
-			}
-			for (int i = 0; i < tenameList.size(); i++) {
-				pstmt.setString(1, tenameList.get(i));
-				try (ResultSet rs = pstmt.executeQuery();) {
-					if (rs.next()) {
-						int sid = rs.getInt("sid");
-						sidList.add(sid);
-					}
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return sidList;
-	}
-
 	public ArrayList<User_ProductVo> category(String category) {
-		String sql = "select * from product where sid = ?";
+		String sql = "select  DISTINCT p.* from inbound i, stock s,product p "
+				+ "where s.sname=i.tename and p.sid=s.sid and i.tecategory='" + category + "'";
 		ArrayList<User_ProductVo> list = new ArrayList<>();
-		ArrayList<Integer> sidList = sidList(category);
 		User_ProductVo vo = null;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			for (int i = 0; i < sidList.size(); i++) {
-				pstmt.setInt(1, sidList.get(i));
-				try (ResultSet rs = pstmt.executeQuery();) {
-					if (rs.next()) {
-						int pid = rs.getInt("pid");
-						int pprice = rs.getInt("pprice");
-						int pdiscount = rs.getInt("pdiscount");
-						String pimage1 = rs.getString("pimage1");
-						String pimage2 = rs.getString("pimage2");
-						int psid = rs.getInt("sid");
-						vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, pimage2, null, null, 0, psid);
-						list.add(vo);
-					}
+			try (ResultSet rs = pstmt.executeQuery();) {
+				while (rs.next()) {
+					int pid = rs.getInt("pid");
+					int pprice = rs.getInt("pprice");
+					int pdiscount = rs.getInt("pdiscount");
+					String pimage1 = rs.getString("pimage1");
+					String pimage2 = rs.getString("pimage2");
+					int psid = rs.getInt("sid");
+					vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, pimage2, null, null, 0, psid);
+					list.add(vo);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(list.size());
 		return list;
 	}
 

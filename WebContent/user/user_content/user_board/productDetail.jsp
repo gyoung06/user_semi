@@ -19,8 +19,8 @@
 	<tr>
 		<td>색상</td>
 		<td>
-			<select style="border: 2px solid black">
-				<option>--[필수]--옵션을 선택해 주세요</option>
+			<select style="border: 2px solid black" onchange="colorchange()">
+				<option >--[필수]--옵션을 선택해 주세요</option>
 				<c:forEach var="c" items="${colorList }">
 					<option name = "color">${c }</option>
 				</c:forEach>
@@ -32,14 +32,40 @@
 		<td>
 			<select style="border: 2px solid black">
 				<option>--[필수]--옵션을 선택해 주세요</option>
-				<c:forEach var="s" items="${sizeList }">
-					<option name = "color">${s }</option>
-				</c:forEach>
+				<div id = "sizeOp">
+				</div>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
+	</tr>
+	<tr>
+	<tr>
+		<td></td>
+	</tr>
+	<script>
+		function colorchange(){
+			let sizeOp = document.getElementById("sizeOp");
+			let xhr = new XMLHttpRequest();
+			const scolor = document.getElementsByName("color")[0].value;
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor,true);
+			xhr.send();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					let result = xhr.responseText;
+					let json = JSON.parse(result);
+					for (var i = 0; i < json.list.length; i++) {
+						const color = document.createElement("option");
+						color.innerHTML=json.list[i].ssize;
+						console.log(json.list[i].ssize)
+						//sizeOp.appendChild(color);
+					}
+				}
+			}
+		}
+		
+	</script>
 	</tr>
 	<tr>
 		<td colspan="2">total: 0(0개)</td>

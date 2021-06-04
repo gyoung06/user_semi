@@ -10,33 +10,6 @@ import test.db.DBConnection;
 import user.vo.UserStockVo;
 
 public class UserStockDAO {
-	public ArrayList<Integer> sidList(String category) {
-		String sql = "select sid from stock where sname = ?";
-		ArrayList<Integer> sidList = new ArrayList<>();
-		USerInboundDAO dao = new USerInboundDAO();
-		ArrayList<String> tenameList = dao.tenameList(category);
-		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			for (int i = 0; i < tenameList.size(); i++) {
-				for (int j = 0; j < tenameList.size(); j++) {
-					if (tenameList.get(i).equals(tenameList.get(j))) {
-						tenameList.remove(j);
-					}
-				}
-			}
-			for (int i = 0; i < tenameList.size(); i++) {
-				pstmt.setString(1, tenameList.get(i));
-				try (ResultSet rs = pstmt.executeQuery();) {
-					if (rs.next()) {
-						int sid = rs.getInt("sid");
-						sidList.add(sid);
-					}
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return sidList;
-	}
 
 	public String sid(int sid) {
 		String sql = "select sname from stock where sid=?";
@@ -98,9 +71,9 @@ public class UserStockDAO {
 		return list;
 	}
 
-	public ArrayList<String> chooseSize(String sname) {
+	public ArrayList<String> chooseSize(String color, String sname) {
 		ArrayList<String> list = new ArrayList<>();
-		String sql = "select ssize from stock where sname = '" + sname + "'";
+		String sql = "select ssize from stock where sname = '" + sname + "' and scolor ='" + color + "'";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {

@@ -4,8 +4,7 @@ import java.sql.Date;
 
 public class UserQnaVo {
 	private int qid;
-	private int qcate;
-	private String qwriter;
+	private String qcate;
 	private String qpw;
 	private String qtitle;
 	private String qcontent;
@@ -16,7 +15,7 @@ public class UserQnaVo {
 	private String mid;
 	private int pid;
 
-	public UserQnaVo(int qid, int qcate, String qpw, String qtitle, String qcontent, String qfile, Date qrdate,
+	public UserQnaVo(int qid, String qcate, String qpw, String qtitle, String qcontent, String qfile, Date qrdate,
 			int qlev, int qref, String mid, int pid) {
 		super();
 		this.qid = qid;
@@ -44,20 +43,12 @@ public class UserQnaVo {
 		this.qid = number;
 	}
 
-	public int getQcate() {
+	public String getQcate() {
 		return qcate;
 	}
 
-	public void setQcate(int qcate) {
+	public void setQcate(String qcate) {
 		this.qcate = qcate;
-	}
-
-	public String getQwriter() {
-		return qwriter;
-	}
-
-	public void setQwriter(String qwriter) {
-		this.qwriter = qwriter;
 	}
 
 	public String getQpw() {

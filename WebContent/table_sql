@@ -67,6 +67,7 @@ insert into faq(fid,ftitle,fcontent,aid) values(3,'자주하는질문3?','답변
 insert into product(pid,pprice,pdiscount,pimage2,sid) values(1,20000,10,'/img/63b23a5c87706fafe69c53ce9ae160ba.webp',1);
 insert into product(pid,pprice,pdiscount,pimage2,sid) values(2,10000,5,'/img/63b23a5c87706fafe69c53ce9ae160ba.webp',5);
 insert into product(pid,pprice,pdiscount,pimage2,sid) values(3,120000,50,'/img/830089c08629c881a96a827cb6f63d98.webp',6);
+
 --stock
 insert into stock values(1,'[ganaesra made] 실링 린넨 하프자켓','아이보리','S',100);
 insert into stock values(2,'[ganaesra made] 실링 린넨 하프자켓','아이보리','M',100);
