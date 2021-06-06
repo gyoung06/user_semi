@@ -3,10 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <table class="table">
 	<tr>
-		<th rowspan="9"><img src = "${cp }${vo.pimage2}"></th>
+		<th rowspan="11"><img src = "${cp }${vo.pimage2}"></th>
 	</tr>
 	<tr>
-		<th colspan="2">${stockVo.sname}</th>
+		<th colspan="2" name="sname" value="${stockVo.sname }">${stockVo.sname}</th>
 	</tr>
 	<tr>
 		<td>정가</td>
@@ -17,9 +17,13 @@
 		<td>${vo.pprice*(100-vo.pdiscount)/100 }원</td>
 	</tr>
 	<tr>
+		<td>적립금</td>
+		<td>1%</td>
+	</tr>
+	<tr>
 		<td>색상</td>
 		<td>
-			<select style="border: 2px solid black" onchange="colorchange()">
+			<select style="border: 2px solid black" id="colorOp" onchange="colorchange()">
 				<option >--[필수]--옵션을 선택해 주세요</option>
 				<c:forEach var="c" items="${colorList }">
 					<option name = "color">${c }</option>
@@ -30,23 +34,52 @@
 	<tr>
 		<td>사이즈</td>
 		<td>
-			<select style="border: 2px solid black">
-				<option>--[필수]--옵션을 선택해 주세요</option>
-				<div id = "sizeOp">
-				</div>
+			<select style="border: 2px solid black" id="sizeOp" onchange = "sizechange()">
+					<option>--[필수]--옵션을 선택해 주세요</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
 	</tr>
-	<tr>
-	<tr>
-		<td></td>
+	<tr class="option_product ">
+		<td>
+			<input type="hidden" class="option_box_id" id="option_box1_id">
+				<p class="product">${stockVo.sname}<br>
+				- <span>색상</span>
+				</p>
+		</td>
+		<td>
+			<span class="quantity">
+				<input type="text" value="1"size="1" id="option_box1_quantity" >
+				<a href="#none" class="up eProductQuantityUpClass">
+					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
+				</a>
+				<a href="#none" class="down eProductQuantityDownClass" data-target="option_box1_down">
+					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
+				</a>
+			</span>
+			<a href="#none" class="delete">
+				<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
+			</a>
+			<span id="option_box1_price" style="float: right">
+				<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
+				<span class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+				${vo.pprice*(100-vo.pdiscount)/100 }</span>
+			</span>
+			<br>
+			<span class="mileage" style="float: right">
+				(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
+				<span id="option_box1_mileage" class="mileage_price" code="P0000ITG000B">
+				${vo.pprice*(100-vo.pdiscount)/10000}
+				</span>)
+			</span>
+		</td>
 	</tr>
-	<script>
+	<script> 
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
+			const setting = document.createElement("setting");
 			let xhr = new XMLHttpRequest();
 			const scolor = document.getElementsByName("color")[0].value;
 			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor,true);
@@ -59,20 +92,35 @@
 						const color = document.createElement("option");
 						color.innerHTML=json.list[i].ssize;
 						console.log(json.list[i].ssize)
-						//sizeOp.appendChild(color);
+						sizeOp.appendChild(color);
 					}
 				}
 			}
 		}
-		
+		function sizechange(){
+			let colorOp = document.getElementById("colorOp");
+			let sizeOp = document.getElementById("sizeOp");
+			let xhr = new XMLHttpRequest();
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productAdd.jsp?colorOp="+colorOp+"&sizeOp="+sizeOp,true);
+			xhr.send();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					let result = xhr.responseText;
+					let json = JSON.parse(result);
+					const td = document.createElement("td");
+					td.innerHTML=json.list[i].ssize;
+					console.log(json.list[i].ssize)
+					sizeOp.appendChild(color);
+				}
+			}
+		}
 	</script>
-	</tr>
 	<tr>
 		<td colspan="2">total: 0(0개)</td>
 	</tr>
 	<tr>
-		<td><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></td>
-		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px; " value="add to cart"></td>
+		<td><a href="${cp }/user/order"><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></a></td>
+		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart"></td>
 	</tr>
 </table>
 <script>

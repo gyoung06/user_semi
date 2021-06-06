@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h1>게시판</h1>
+<h1>qna</h1>
 <table class="table">
   <tr>
     <th>NO</th>
@@ -11,10 +11,10 @@
   </tr>
   <c:forEach var="vo" items="${list }">
 	<tr>
-		<th>${vo.qid }</th>
-		<th>${vo.pid }</th>
-		<th><a href="${cp }/user/qnaDetail?qtitle=${vo.qtitle}">${vo.qtitle }</a></th>
-		<th>${vo.mid }</th>
+		<td>${vo.qid }</td>
+		<td>${vo.pid }</td>
+		<td><a href="${cp }/user/qnaDetail?qtitle=${vo.qtitle}">${vo.qtitle }</a></th>
+		<td>${vo.mid }</td>
 	</tr>
 	</c:forEach>
 </table>
@@ -36,10 +36,14 @@
 		<a href="${cp }/user/qna?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
 	</c:if>
 </div>
+<br>
 검색어
 <div>
 	<form method="post" action="${cp }/user/qna">
 		<select name = "field">
+				<option value="qtitle">
+					<c:if test="${field=='qcate' }">selected="selected"</c:if>
+				카테고리</option>
 				<option value="qtitle">
 					<c:if test="${field=='qtitle' }">selected="selected"</c:if>
 				제목</option>

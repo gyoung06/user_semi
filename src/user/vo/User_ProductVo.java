@@ -10,7 +10,6 @@ public class User_ProductVo {
 	private int pdiscount;
 	private String pimage1;
 	private String pimage2;
-	private String pimage3;
 	private Date prdate;
 	private int psell;
 	private int sid;
@@ -19,7 +18,7 @@ public class User_ProductVo {
 		super();
 	}
 
-	public User_ProductVo(int pid, int pprice, int pdiscount, String pimage1, String pimage2, String pimage3,
+	public User_ProductVo(int pid, int pprice, int pdiscount, String pimage1, String pimage2,
 			Date prdate, int psell, int sid) {
 		super();
 		this.pid = pid;
@@ -27,7 +26,6 @@ public class User_ProductVo {
 		this.pdiscount = pdiscount;
 		this.pimage1 = pimage1;
 		this.pimage2 = pimage2;
-		this.pimage3 = pimage3;
 		this.prdate = prdate;
 		this.psell = psell;
 		this.sid = sid;
@@ -79,14 +77,6 @@ public class User_ProductVo {
 
 	public void setPimage2(String pimage2) {
 		this.pimage2 = pimage2;
-	}
-
-	public String getPimage3() {
-		return pimage3;
-	}
-
-	public void setPimage3(String pimage3) {
-		this.pimage3 = pimage3;
 	}
 
 	public Date getPrdate() {

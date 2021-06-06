@@ -40,7 +40,7 @@ public class UserProductDAO {
 
 	public ArrayList<User_ProductVo> category(String category) {
 		String sql = "select  DISTINCT p.* from inbound i, stock s,product p "
-				+ "where s.sname=i.tename and p.sid=s.sid and i.tecategory='" + category + "'";
+				+ "where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='" + category + "'";
 		ArrayList<User_ProductVo> list = new ArrayList<>();
 		User_ProductVo vo = null;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -52,7 +52,7 @@ public class UserProductDAO {
 					String pimage1 = rs.getString("pimage1");
 					String pimage2 = rs.getString("pimage2");
 					int psid = rs.getInt("sid");
-					vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, pimage2, null, null, 0, psid);
+					vo = new User_ProductVo(pid, pprice, pdiscount, pimage1, pimage2, null, 0, psid);
 					list.add(vo);
 				}
 			}
@@ -74,11 +74,10 @@ public class UserProductDAO {
 					int pdiscount = rs.getInt("pdiscount");
 					String pimage1 = rs.getString("pimage1");
 					String pimage2 = rs.getString("pimage2");
-					String pimage3 = rs.getString("pimage3");
 					Date prdate = rs.getDate("prdate");
 					int psell = rs.getInt("psell");
 					int sid = rs.getInt("sid");
-					vo = new User_ProductVo(pid1, pprice, pdiscount, pimage1, pimage2, pimage3, prdate, psell, sid);
+					vo = new User_ProductVo(pid1, pprice, pdiscount, pimage1, pimage2, prdate, psell, sid);
 				}
 			}
 		} catch (SQLException e) {

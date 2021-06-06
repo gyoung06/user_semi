@@ -9,6 +9,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String scolor = request.getParameter("scolor");
+	String sname = request.getParameter("sname");
 	String sql = "select ssize from stock where scolor = ?";
 	JSONArray arr = new JSONArray();
 	try(Connection con = DBConnection.getCon();

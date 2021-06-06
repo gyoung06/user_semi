@@ -70,8 +70,7 @@ public class UserQnaDAO {
 	public ArrayList<UserQnaVo> findlist(int startRow, int endRow, String field, String keyword) {
 		UserQnaVo vo = null;
 		ArrayList<UserQnaVo> list = new ArrayList<>();
-		String sql = "select * from (select g.*,rownum rnum from (select * from((select * from userqna where" + field
-				+ " like'%" + keyword + "%')g) where rnum>=? and rnum<=?";
+		String sql = "select * from (select g.*,rownum rnum from ((select * from userqna where "+field+" like '%"+keyword+"%')g)) where rnum>=? and rnum<=?";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);

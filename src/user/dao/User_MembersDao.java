@@ -271,5 +271,4 @@ public class User_MembersDao {
 			DBConnection.close(con,pstmt,rs);
 		}
 	}
-	public 
 }
