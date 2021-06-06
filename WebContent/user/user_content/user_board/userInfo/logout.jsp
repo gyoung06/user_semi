@@ -8,7 +8,14 @@
 </head>
 <body>
 <%
-session.invalidate();
+	session.invalidate();
+
+request.setAttribute("top", "/user/user_content/header.jsp");
+request.setAttribute("content","/user/user_content/main.jsp");
+request.setAttribute("bottom", "/user/user_content/footer.jsp");
+
+request.getRequestDispatcher("/user/user_content/index.jsp").forward(request,response);
 %>
+
 </body>
 </html>

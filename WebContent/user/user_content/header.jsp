@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header.jsp -->
+
+<%
+	String id=(String)session.getAttribute("id");
+%>
 <style>
 	#category{float:left; margin-right: 20px;}
 	#community{float:left; margin-right: 20px;}
@@ -34,7 +39,14 @@
 	</div>
 	<div id ="member">
 		<h3>member</h3>
-		<a href="${cp }/user/login">login</a><br>
+		<c:choose>
+			<c:when test="${empty sessionScope.id}">
+				<a href="${cp }/user/login">login</a><br> 
+			</c:when>
+			<c:otherwise>
+				<a href="${cp }/user/user_content/user_board/userInfo/logout.jsp">logout</a><br>
+			</c:otherwise>
+		</c:choose>
 		<a href="${cp }/user/join">join+1000</a><br>
 		<a href="${cp }/user/cart">shopping cart</a><br>
 		<a href="${cp }/user/purchase">order list</a><br>

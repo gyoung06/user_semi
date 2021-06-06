@@ -30,7 +30,7 @@ public class User_AddressController extends HttpServlet{
 		String jibunAddress=req.getParameter("jibunAddress");
 		String detailAddress=req.getParameter("detailAddress");
 		String extraAddress=req.getParameter("extraAddress");
-		if(detailAddress==null || detailAddress=="") {
+		if(detailAddress==null || detailAddress=="") { //기타주소, 상세설명 없이도 insert가능하도록
 			detailAddress=" ";
 		}else if(extraAddress==null || extraAddress=="") {
 			extraAddress=" ";

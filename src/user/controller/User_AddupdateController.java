@@ -29,6 +29,11 @@ public class User_AddupdateController extends HttpServlet{
 		String jibunAddress=req.getParameter("jibunAddress");
 		String detailAddress=req.getParameter("detailAddress");
 		String extraAddress=req.getParameter("extraAddress");
+		if(detailAddress==null || detailAddress=="") { //기타주소, 상세설명 없이도 update가능하도록
+			detailAddress=" ";
+		}else if(extraAddress==null || extraAddress=="") {
+			extraAddress=" ";
+		}
 		String allAddress=roadAddress+jibunAddress+detailAddress+extraAddress;
 		System.out.println(allAddress);
 		User_MembersDao dao = new User_MembersDao();
