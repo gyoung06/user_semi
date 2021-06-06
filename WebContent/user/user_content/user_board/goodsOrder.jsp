@@ -14,7 +14,7 @@ order
 	<br>
 	<table class="table">
 		<tr class="active">
-			<th><input type="checkbox"></th>
+			<th><input type="checkbox" onclick="check()"></th>
 			<th>이미지</th>
 			<th>상품정보</th>
 			<th>판매가</th>
@@ -25,7 +25,7 @@ order
 			<th>합계</th>
 		</tr>
 		<tr>
-			<td><input type="checkbox"></td>
+			<td><input type="checkbox" name="checkAll"></td>
 			<td><img src="${cp }${vo.pimage2 }"</td>
 			<td>|상품정보</td>
 			<td>${vo.pprice }</td>
@@ -36,6 +36,12 @@ order
 			<td>합계</td>
 		</tr>
 	</table>
+	<script>
+		function check(){
+			let checkAll = document.getElementsByName("checkAll")[0].value;
+			checkAll.checked
+		}
+	</script>
 		<%--
 		<tr>
 			<td>${vo.num }</td>
@@ -112,8 +118,30 @@ order
 	<table class="table">
 		<tr>
 			<td>배송지선택</td>
-			<td><input type="radio">주문자 정보와 동일 <input type="radio">새로운배송지<input type = "button" value="주소록 보기"></td>
-		</tr>	
+			<td><input type="radio" onselect="click()">등록한 정보 <input type="radio">새로운배송지 <input type="radio">주문자 정보와 동일</td>
+		</tr>
+		<script>
+			function click(){
+				let sizeOp = document.getElementById("sizeOp");
+				const setting = document.createElement("setting");
+				let xhr = new XMLHttpRequest();
+				const scolor = document.getElementsByName("color")[0].value;
+				xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor,true);
+				xhr.send();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						let result = xhr.responseText;
+						let json = JSON.parse(result);
+						for (var i = 0; i < json.list.length; i++) {
+							const color = document.createElement("option");
+							color.innerHTML=json.list[i].ssize;
+							console.log(json.list[i].ssize)
+							sizeOp.appendChild(color);
+						}
+					}
+				}
+			}
+		</script>	
 		<tr>
 			<td>받으시는 분</td>
 			<td><input type="text"></td>
