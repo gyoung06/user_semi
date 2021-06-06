@@ -30,6 +30,11 @@ public class User_AddressController extends HttpServlet{
 		String jibunAddress=req.getParameter("jibunAddress");
 		String detailAddress=req.getParameter("detailAddress");
 		String extraAddress=req.getParameter("extraAddress");
+		if(detailAddress==null || detailAddress=="") {
+			detailAddress=" ";
+		}else if(extraAddress==null || extraAddress=="") {
+			extraAddress=" ";
+		}
 		String allAddress=roadAddress+jibunAddress+detailAddress+extraAddress;
 		System.out.println(allAddress);
 		User_MembersDao dao = new User_MembersDao();

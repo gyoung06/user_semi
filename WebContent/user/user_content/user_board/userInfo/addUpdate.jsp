@@ -9,10 +9,11 @@
 	User_MembersDao dao = new User_MembersDao();
 	User_MembersVo vo=dao.findAdd(id);
 %>
+
 <h4>address 자주 쓰는 배송지를 등록 관리하실 수 있습니다.</h4>
 <form action="${cp }/user/addUpdate" method="post">
-배송지명*<input type="text" value="<%=vo.getAddtitle()%>"><br>
-성명*<input type="text" value="<%=vo.getAddname()%>"><br>
+배송지명*<input type="text" name="addtitle" value="<%=vo.getAddtitle()%>"><br>
+성명*<input type="text" name="addname" value="<%=vo.getAddname()%>"><br>
 주소*	<td><script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
             // 예제를 참고하여 다양한 활용법을 확인해 보세요. -->
@@ -83,7 +84,7 @@
         	    }
         	</script>
         	<br>
-휴대전화*<input type="text" value=<%=vo.getAddphone() %>><br>
+휴대전화*<input type="text" name="addphone" value=<%=vo.getAddphone() %>><br>
 <input type="submit" value="수정">
 <input type="button" value="취소">
 </form>

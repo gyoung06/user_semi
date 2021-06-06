@@ -271,4 +271,26 @@ public class User_MembersDao {
 			DBConnection.close(con,pstmt,rs);
 		}
 	}
+	public int updateAdd(User_MembersVo vo) { //배송지 수정
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		int n=0;
+		try {
+			con=DBConnection.getCon();
+			String sql="update members set addtitle=?, addname=?, addphone=?, maddress=? where mid=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getAddtitle());
+			pstmt.setString(2, vo.getAddname());
+			pstmt.setString(3, vo.getAddphone());
+			pstmt.setString(4, vo.getMaddress());
+			pstmt.setString(5, vo.getMid());
+			n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1;
+		}finally{
+			DBConnection.close(con,pstmt,null);
+		}
+	}
 }

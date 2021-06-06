@@ -44,15 +44,18 @@ function selectAll(selectAll)  {
 	}
 
 	function delAdd(){
+		let ck1=document.getElementById("ck1");
 		var delForm=document.getElementsByName("delForm")[0];
 		var DelConfirm=confirm("정말 삭제하시겠습니까?")
-		if(checkbox.checked){
+		if(ck1.checked){
 			if(DelConfirm==true){
 				alert("삭제 완료")
 				delForm.submit();
 			}else{
 				alert("삭제 취소")
 			}
+		}else{
+			alert("체크박스를 선택해 주세요")
 		}
 	}
 </script>
