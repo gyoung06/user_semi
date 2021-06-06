@@ -39,8 +39,14 @@ order list
 		  </label>
 		</div>
 		<div>
-			<input type="date" >~<input type="date" ><input type="button" value="조회">
+			<input type="date" id="3mago">~<input type="date" id="currentDate"><input type="button" value="조회">
 		</div>
+		<script type="text/javascript">
+		window.onload = function() {
+			var currentDate=document.getElementById("currentDate").value;
+			currentDate=new Date().toISOString().substring(0,10);
+		}
+		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
