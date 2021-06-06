@@ -30,7 +30,6 @@ public class User_JoinController extends HttpServlet {
 		String memail=req.getParameter("memail");
 		User_MembersDao dao= new User_MembersDao();
 		int n=dao.join(mid,mpw,mname,mphone,memail);
-		
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content","/user/user_content/user_board/userInfo/joinOk.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");

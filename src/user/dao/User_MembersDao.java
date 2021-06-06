@@ -33,19 +33,26 @@ public class User_MembersDao {
 	         DBConnection.close(con,pstmt,rs);
 	      }
 	   }
-	public int join(String mid, String mpw, String mname, String mphone, String memail) {
+	public int join(String mid, String mpw, String mname, String mphone, String memail) { //회원가입
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="insert into members(mid, mpw,mname,mphone,mrdate,mdrop, mmileage,memail) values(?,?,?,?,sysdate,0,1000,?)";
+		PreparedStatement pstmt1=null;
+		String sql="insert into members(mid, mpw,mname,mphone,mrdate,mdrop, mmileage,memail) "
+				+ "values(?,?,?,?,sysdate,0,1000,?)";
+		String sql1="insert into grade values(0,'friend',0,?)";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
+			pstmt1=con.prepareStatement(sql1);
 			pstmt.setString(1, mid);
 			pstmt.setString(2, mpw);
 			pstmt.setString(3, mname);
 			pstmt.setString(4, mphone);
 			pstmt.setString(5, memail);
-			return pstmt.executeUpdate();
+			pstmt1.setString(1, mid);
+			int n=pstmt.executeUpdate();
+		    int n1=pstmt1.executeUpdate();
+		    return 1;
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;
@@ -171,7 +178,7 @@ public class User_MembersDao {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		int n=0;
-		String sql="update members set addtitle=?,addname=?,addphone=?,maddress=?mpost=? where mid=?";
+		String sql="update members set addtitle=?,addname=?,addphone=?,maddress=?,mpost=? where mid=?";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
@@ -185,7 +192,7 @@ public class User_MembersDao {
 			return n;
 		}catch (SQLException se){
 			se.printStackTrace();
-			return 0;
+			return -1;
 		}finally {
 			DBConnection.close(con,pstmt,null);
 		}
@@ -218,20 +225,15 @@ public class User_MembersDao {
 			DBConnection.close(con,pstmt,rs);
 		}
 	}
-	public int delAdd(User_MembersVo vo) { //배송지 삭제
+	public int delAdd(String id) { //배송지 삭제
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		int n=0;
-		String sql="update members set addtitle=?,addname=?,addphone=?,maddress=?mpost=? where mid=?";
+		String sql="update members set addtitle=null,addname=null,addphone=null,maddress=null, mpost=null where mid=?";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1,vo.getAddtitle());
-			pstmt.setString(2,vo.getAddname());
-			pstmt.setString(3,vo.getAddphone());
-			pstmt.setString(4,vo.getMaddress());
-			pstmt.setString(5,vo.getMpost());
-			pstmt.setString(6,vo.getMid());
+			pstmt.setString(1,id);
 			n=pstmt.executeUpdate();
 			return n;
 		}catch (SQLException se){
@@ -241,4 +243,33 @@ public class User_MembersDao {
 			DBConnection.close(con,pstmt,null);
 		}
 	}
+	public User_MembersVo findAdd(String id) { //배송지 수정을 위한 값 불러오기
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select * from members where mid=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+		if(rs.next()) {
+			String addtitle=rs.getString("addtitle");
+			String addname=rs.getString("addname");
+			String addphone=rs.getString("addphone");
+			String maddress =rs.getString("maddress");
+			String mpost=rs.getString("mpost");
+			User_MembersVo vo=new User_MembersVo(id,null,null,maddress,mpost,null,null,null,0,0,null,addtitle,addname,addphone);
+			return vo;
+		}else {
+			return null;
+		}
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return null;
+		}finally{
+			DBConnection.close(con,pstmt,rs);
+		}
+	}
+	public 
 }

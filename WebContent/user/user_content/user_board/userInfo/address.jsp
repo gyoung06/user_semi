@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-#popup{display:none;} /*popup창 안보이게 하기*/
-</style>
 
 <h4>address</h4> 자주 쓰는 배송지를 등록 관리하실 수 있습니다.
 <form method="post" action="${cp }/user/addDelete" name="delForm">
 <table class="table">
 	<tr class="active">
-		<th><input type="checkbox" id="ckall" name="addselect"></th>
+		<th><input type="checkbox" id="ckall" name="addselect" onclick="selectAll(this)"></th>
 		<th>배송지명</th>
 		<th>수령인</th>
 		<th>휴대전화</th>
@@ -25,7 +22,7 @@
 		<td>${vo.addphone }</td>
 		<td>${vo.mpost }</td>
 		<td>${vo.maddress }</td>
-		<td><input type="button" value="수정 " onclick=""></td>
+		<td><input type="button" value="수정 " onclick="location.href='${cp}/user/user_content/user_board/userInfo/addUpdate.jsp'"></td>
 	</tr>
 	</c:forEach>
 </table>
@@ -37,25 +34,26 @@
 </form>
 <script type="text/javascript">
 
-let ckall=document.getElementById("ckall");
-let ck1=document.getElementById("ck1");
-ckall.addEventListener('click', function(e) {
-	console.log("test");
-	if(ckall.checked==true){
-		ck1.checked="checked"
-	}else if(ckall.checked==false){
-		ck1.ckecked!="checked"
+function selectAll(selectAll)  {
+	  const checkboxes 
+	       = document.getElementsByName('addselect');
+	  
+	  checkboxes.forEach((checkbox) => {
+	    checkbox.checked = selectAll.checked;
+	  })
 	}
-});
+
 	function delAdd(){
 		var delForm=document.getElementsByName("delForm")[0];
-		var DelConfirm=confirm("정말 탈퇴하시겠습니까?")
+		var DelConfirm=confirm("정말 삭제하시겠습니까?")
+		if(checkbox.checked){
 			if(DelConfirm==true){
 				alert("삭제 완료")
 				delForm.submit();
 			}else{
 				alert("삭제 취소")
 			}
+		}
 	}
 </script>
 <h4>배송주소록 유의사항</h4>

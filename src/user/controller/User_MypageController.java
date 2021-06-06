@@ -22,7 +22,7 @@ public class User_MypageController extends HttpServlet {
 		String pwd=(String)session.getAttribute("pwd");
 		User_GradeDao dao=new User_GradeDao();
 		User_GradeVo vo=dao.getGrade(id);
-		
+		System.out.println(id + pwd);
 		session.setAttribute("gid", vo.getGid());
 		session.setAttribute("glevel", vo.getGlevel());
 		session.setAttribute("gbuy", vo.getGbuy());

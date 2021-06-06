@@ -66,13 +66,19 @@ public class User_AddressController extends HttpServlet{
 		System.out.println(n);
 		System.out.println(addlist);
 		if(n>0) {
-		req.setAttribute("addlist", addlist);
+		req.setAttribute("addtitle", addtitle);
+		req.setAttribute("addname", addname);
+		req.setAttribute("addphone", addphone);
+		req.setAttribute("postcode", addpostcode);
+		req.setAttribute("roadAddress", roadAddress);
+		req.setAttribute("jibunAddress", jibunAddress);
+		req.setAttribute("detailAddress", detailAddress);
+		req.setAttribute("extraAddress", extraAddress);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content","/user/user_content/user_board/userInfo/address.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 		}
-		
 	}
 }
