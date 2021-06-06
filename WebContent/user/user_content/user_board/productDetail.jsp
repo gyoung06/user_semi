@@ -119,7 +119,7 @@
 		<td colspan="2">total: 0(0개)</td>
 	</tr>
 	<tr>
-		<td><a href="${cp }/user/order"><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></a></td>
+		<td><a href="${cp }/user/order?pid=${vo.pid }"><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></a></td>
 		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart"></td>
 	</tr>
 </table>

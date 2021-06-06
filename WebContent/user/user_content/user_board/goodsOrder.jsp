@@ -4,7 +4,7 @@
 order
 <form action="${pageContext.request.contextPath }/payment">
 	<br>
-	허지영 님은, [FAMILY] 회원이십니다.
+	${sessionScope.id } 님은, [FAMILY] 회원이십니다.
 	<br>
 	1,000 이상 구매시 1%을 추가적립 받으실 수 있습니다.
 	<br>
@@ -24,19 +24,17 @@ order
 			<th>배송비</th>
 			<th>합계</th>
 		</tr>
-	<c:forEach var="vo" items="${requestScope.list }">
 		<tr>
 			<td><input type="checkbox"></td>
-			<td>이미지</td>
-			<td>상품정보</td>
-			<td>판매가</td>
-			<td>수량</td>
+			<td><img src="${cp }${vo.pimage2 }"</td>
+			<td>|상품정보</td>
+			<td>${vo.pprice }</td>
+			<td>|수량</td>
 			<td>적립금</td>
 			<td>배송구분</td>
 			<td>배송비</td>
 			<td>합계</td>
 		</tr>
-	</c:forEach>
 	</table>
 		<%--
 		<tr>
