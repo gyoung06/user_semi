@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+.boardcss_list_table { 
+	position:absolute;
+	top:50px;
+	height:400px;
+	width: 800px; 
+	left:100px;
+	border-top: 1px solid #8BBDFF;
+	border-bottom: 1px solid #8BBDFF; 
+}
+/* 화면에 보여지는 글 목록 테이블 */
+.list_table { 
+	position: absolute;
+	top:50px;
+	left:50px;
+	height:300px;
+	width:700px;
+	font-size: 0.7rem;
+	display: block;
+  	overflow: auto;
+}
+/* list_table 에서 사용되는 thead */
+.list_table thead th { 
+	text-align: center; 
+	border-top: 1px solid #ABABAB;
+	border-bottom: 1px solid #ABABAB; 
+	padding: 8px 0; 
+	background: #faf9fa; 
+	width:600px;
+}
+.list_table tbody td { 
+	text-align: center;  
+	border-bottom: 1px solid #ABABAB; 
+	padding: 5px 0; 
+	width:600px;
+}
+	
+.producttext1{
+	position: absolute;
+	left:50px;
+	top:10px;
+}
+
+
+
+.product_input{
+	position:absolute;
+	height:800px;
+	width: 800px; 
+	top:50px;
+	left:1000px;
+	border-top: 1px solid #8BBDFF;
+	border-bottom: 1px solid #8BBDFF; 
+}
+.producttext2{
+	position:absolute;
+	left:50px;
+	top:10px;
+}
+
+.label_img1{
+	position: absolute;
+	top:50px;
+	left:50px;
+	font-size: 0.9rem;
+}
+
+.label_img2{
+	position: absolute;
+	top:400px;
+	left:50px;
+	font-size: 0.9rem;
+}
+
+.label_img3{
+	position: absolute;
+	top:400px;
+	left:300px;
+	font-size: 0.9rem;
+}
+
+.label_price{
+	position:absolute;
+	top:660px;
+	left:50px;
+	font-size: 0.9rem;
+}
+
+.label_discount{
+	position:absolute;
+	top:660px;
+	left:400px;
+	font-size: 0.9rem;
+}
+
+#large_img1{
+	position: absolute;
+	top:80px;
+	left:50px;
+	width:300px;
+	height:300px;
+	border-color:1pt green;
+}
+
+#large_img2{
+	position: absolute;
+	top:430px;
+	left:50px;
+	width:200px;
+	height:200px;
+	border-color:1pt green;
+}
+
+#large_img3{
+	position: absolute;
+	top:430px;
+	left:300px;
+	width:200px;
+	height:200px;
+	border-color:1pt green;	
+}
+
+.insertbtn{
+	position: absolute;
+	top:730px;
+	left:200px;
+}
+
+/*좌측 하단 이미지 박스*/
+.imgbox{
+	position: absolute;
+	top:450px;
+	left:100px;
+	height:400px;
+	width:800px; 
+	border-bottom: 1px solid #8BBDFF; 
+}
+
+.img1{
+	position: absolute;
+	top:100px;
+	left:100px;
+	width:200px;
+	height:200px;
+	border-color:1pt green;
+}
+
+.img2{
+	position: absolute;
+	top:100px;
+	left:300px;
+	width:200px;
+	height:200px;
+	border-color:1pt green;	
+}
+.img3{
+	position: absolute;
+	top:100px;
+	left:500px;
+	width:200px;
+	height:200px;
+	border-color:1pt green;
+}
