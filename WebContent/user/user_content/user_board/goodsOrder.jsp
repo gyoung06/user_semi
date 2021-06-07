@@ -26,7 +26,7 @@ order
 		</tr>
 		<tr>
 			<td><input type="checkbox" name="checkAll"></td>
-			<td><img src="${cp }${vo.pimage2 }"</td>
+			<td><img src="${cp }${vo.pimage2 }"></td>
 			<td>|상품정보</td>
 			<td>${vo.pprice }</td>
 			<td>|수량</td>
