@@ -30,19 +30,19 @@ order list
 		</select>
 		<div class="btn-group" data-toggle="buttons">
 		  <label class="btn btn-primary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> 오늘
+		    <input type="radio" name="options" value="option1" autocomplete="off" checked> 오늘
 		  </label>
 		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> 1주일
+		    <input type="radio" name="options" value="option2" autocomplete="off"> 1주일
 		  </label>
 		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option3" autocomplete="off"> 1개월
+		    <input type="radio" name="options" value="option3" autocomplete="off"> 1개월
 		  </label>
 		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option4" autocomplete="off"> 3개월
+		    <input type="radio" name="options" value="option4"  autocomplete="off"> 3개월
 		  </label>
 		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option5" autocomplete="off"> 6개월
+		    <input type="radio" name="options" value="option5" autocomplete="off"> 6개월
 		  </label>
 		</div>
 		<div>
@@ -50,12 +50,49 @@ order list
 		</div>
 		
 		</form>
-		<script type="text/javascript">
-		document.getElementById("3mago").value= 
-			new Date().toISOString().substring(0,10);
-		
+		<script type="text/javascript">	
 			document.getElementById("currentDate").value= 
 				new Date().toISOString().substring(0,10);
+		
+			$("input:radio[name=options]").click(function () {
+			var radioValue = $(this).val();
+			if(radioValue=="option1"){
+			let now = new Date();//오늘
+			let day = ("0" + now.getDate()).slice(-2);
+			let month = ("0" + (now.getMonth()+1)).slice(-2);
+			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#3mago').val(today);
+			
+			}else if(radioValue=="option2"){
+			let now = new Date();//1주 전부터
+			let day = ("0" + now.getDate()-7).slice(-2);
+			let month = ("0" + (now.getMonth()+1)).slice(-2);
+			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#3mago').val(today);
+			
+			}else if(radioValue=="option3"){
+			let now = new Date();//1달 전부터
+			let day = ("0" + now.getDate()).slice(-2);
+			let month = ("0" + (now.getMonth())).slice(-2);
+			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#3mago').val(today);
+			
+			}else if(radioValue=="option4"){
+			let now = new Date();//3달 전부터
+			let day = ("0" + now.getDate()).slice(-2);
+			let month = ("0" + (now.getMonth() -2)).slice(-2);
+			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#3mago').val(today);
+			
+			}else if(radioValue=="option5"){
+			let now = new Date();//6달 전부터
+			let day = ("0" + now.getDate()).slice(-2);
+			let month = ("0" + (now.getMonth() -5)).slice(-2);
+			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#3mago').val(today);
+			}
+
+			});
 		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
@@ -123,16 +160,24 @@ order list
 		</div>
 		</form>
 				<script type="text/javascript">
-		document.getElementById("3mago1").value= 
-			new Date().toISOString().substring(0,10);
+				var now = new Date(); //3달 전부터
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() -2)).slice(-2);
+				var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+				$('#3mago1').val(today);
+				
+			//document.getElementById("3mago1").value= 
+			//new Date().toISOString().substring(0,10);
 		
 			document.getElementById("currentDate1").value= 
-				new Date().toISOString().substring(0,10);
+			new Date().toISOString().substring(0,10);
 		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
 		</ul>
+		<br>
 		<h4>상품정보</h4>
 		<table class="table">
 			<tr class="active">
