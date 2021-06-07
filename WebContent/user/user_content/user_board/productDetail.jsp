@@ -129,11 +129,12 @@
 			}
 		}
 		function amountChange(){
+			let proPrice= document.getElementsByName("proPrice")[0];
 			let pprice= document.getElementById("pprice");
-			let amount = document.getElementById("amount").value;
-			let sum = pprice*amount;
-			console.log(sum)
-			pprice.innerHTML= sum;
+			let amount = document.getElementById("amount");
+			console.log(proPrice.innerHTML)
+			console.log(amount.value)
+			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
 		}
 	</script>
 	<tr>
