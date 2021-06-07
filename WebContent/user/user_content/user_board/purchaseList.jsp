@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%
+	String OrderList=(String)session.getAttribute("OrderList");
+%>
 order list
 <!-- 주문내역 갯수 count -->
 주문내역조회(x개)
@@ -41,19 +46,22 @@ order list
 		  </label>
 		</div>
 		<div>
-			<input type="date" id="3mago">~<input type="date" id="currentDate"><input type="submit" value="조회">
+			<input type="date" id="3mago"/>~<input type="date" id="currentDate"/><input type="submit" value="조회">
 		</div>
-		<script type="text/javascript">
-		window.onload = function() {
-			var currentDate=document.getElementById("currentDate").value;
-			currentDate=new Date().toISOString().substring(0,10);
-		}
-		</script>
+		
 		</form>
+		<script type="text/javascript">
+		document.getElementById("3mago").value= 
+			new Date().toISOString().substring(0,10);
+		
+			document.getElementById("currentDate").value= 
+				new Date().toISOString().substring(0,10);
+		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
 		</ul>
+		<br>
 		<h4>상품정보</h4>
 		<table class="table">
 			<tr class="active">
@@ -66,15 +74,17 @@ order list
 				<th>취소/교환/반품<th>
 			</tr>
 			<c:choose>
-				<c:when test="${empty vo.orid}">
+				<c:when test="${empty OrderList}">
 					<tr>
 						<td>주문내역이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="vo" items="${OrderList }">
+							<td rowspan="${fn:length(OrderList)}">${vo.ordate }<br>[${vo.orid }]</td>
+					<c:forEach var="vo" items="${OrderList }" varStatus="status">
 						<tr>
-							<td>${vo.ordate }<br>${vo.orid }</td>
+							<c:when test="${vo.orid }">
+							</c:when>
 							<td>${vo.pimage2 }</td>
 							<td>${vo.sname }<br>${vo.odcolor }</td>
 							<td>${vo.odcount }</td>
@@ -109,9 +119,16 @@ order list
 		  </label>
 		</div>
 		<div>
-			<input type="date" >~<input type="date" ><input type="submit" value="조회">
+			<input type="date" id="3mago1">~<input type="date" id="currentDate1"><input type="submit" value="조회">
 		</div>
 		</form>
+				<script type="text/javascript">
+		document.getElementById("3mago1").value= 
+			new Date().toISOString().substring(0,10);
+		
+			document.getElementById("currentDate1").value= 
+				new Date().toISOString().substring(0,10);
+		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
@@ -128,15 +145,16 @@ order list
 				<th>취소/교환/반품<th>
 			</tr>
 			<c:choose>
-				<c:when test="${empty vo.orcancel}">
+				<c:when test="${empty OrderList}">
 					<tr>
 						<td>취소, 교환, 환불내역이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="vo" items="${OrderList }">
-						<tr>
-							<td>${vo.ordate }<br>${vo.orid }</td>
+						<c:forEach var ="i" begin="1" end="${vo.orid }" varStatus="status">
+						<tr> 
+							<td colspan="${fn:length(OrderList)}">${vo.ordate }<br>[${vo.orid }]</td>
 							<td>${vo.pimage2 }</td>
 							<td>${vo.sname }<br>${vo.odcolor }</td>
 							<td>${vo.odcount }</td>
@@ -144,6 +162,7 @@ order list
 							<td>${vo.ordelivery }</td>
 							<td>${vo.orcancel }</td>
 						</tr>
+						</c:forEach>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>

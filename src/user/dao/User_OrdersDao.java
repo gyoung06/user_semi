@@ -13,14 +13,20 @@ import user.vo.UserOrderlistVo;
 public class User_OrdersDao {
 	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field){
 		String sql=null;
-		if(field==null || field.equals("")) {
-			sql="select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+		if(field==null || field.equals("") || field.contentEquals("orderall")) {
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid";
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid) where orid>=? and orid<=?";
 		}else {
-			sql="select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+			if(field.equals("ready") || field.equals("halfway") || field.equals("finish")) {
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and " + field + " = " + field;
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.ordelivery  = " + field +") where orid>=? and orid<=?";
+			}else {
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+						"from orders o, order_detail od, product p, stock s " + 
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.orcancel = " + field +") where orid>=? and orid<=?";
+			}
 		}
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -41,8 +47,8 @@ public class User_OrdersDao {
 				String odcolor=rs.getString("odcolor");
 				int odcount=rs.getInt("odcount");
 				int pprice=rs.getInt("pprice");
-				char ordelivery=(char)rs.getByte("ordelivery");
-				char orcancel=(char)rs.getByte("orcancel");
+				String ordelivery=rs.getString("ordelivery");
+				String orcancel=rs.getString("orcancel");
 				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odcount, pprice, ordelivery, orcancel);
 				list.add(vo);
 			}
@@ -62,7 +68,7 @@ public class User_OrdersDao {
 			con=DBConnection.getCon();
 			String sql="select NVL(count(orid),0) from orders";
 			if(field!=null && !field.equals("")) {
-				sql+=" where " +field + "=" +field +"%'"; //띄어쓰기 주의! . 필드가 널이 아니라면 검색조건에 얘가 붙음
+				sql+=" where " +field + "=" + field; //띄어쓰기 주의! . 필드가 널이 아니라면 검색조건에 얘가 붙음
 			}
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();

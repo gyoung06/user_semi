@@ -10,11 +10,11 @@ public class UserOrderlistVo {
 	private String odcolor;
 	private int odcount;
 	private int pprice;
-	private char ordelivery;
-	private char orcancel;
+	private String ordelivery;
+	private String orcancel;
 	public UserOrderlistVo() {}
 	public UserOrderlistVo(Date ordate, int orid, String pimage2, String sname, String odcolor, int odcount, int pprice,
-			char ordelivery, char orcancel) {
+			String ordelivery, String orcancel) {
 		super();
 		this.ordate = ordate;
 		this.orid = orid;
@@ -68,16 +68,16 @@ public class UserOrderlistVo {
 	public void setPprice(int pprice) {
 		this.pprice = pprice;
 	}
-	public char getOrdelivery() {
+	public String getOrdelivery() {
 		return ordelivery;
 	}
-	public void setOrdelivery(char ordelivery) {
+	public void setOrdelivery(String ordelivery) {
 		this.ordelivery = ordelivery;
 	}
-	public char getOrcancel() {
+	public String getOrcancel() {
 		return orcancel;
 	}
-	public void setOrcancel(char orcancel) {
+	public void setOrcancel(String orcancel) {
 		this.orcancel = orcancel;
 	}
 	

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import user.dao.User_OrdersDao;
 import user.vo.UserOrderlistVo;
@@ -28,14 +29,15 @@ public class User_PurchaseList extends HttpServlet{
 		int startRow=10*pageNum-9;
 		int endRow=pageNum*10;
 
-		ArrayList<UserOrderlistVo> list=dao.OrderList(startRow, endRow, field);
+		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
 		int startPageNum=((pageNum-1)/10*10)+1;
 		int endPageNum=startPageNum+9;
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount; //endPageNum값을 pageCount값으로 초기화
 		}
-		req.setAttribute("OrderList", list);
+		HttpSession session=req.getSession();
+		req.setAttribute("OrderList", OrderList);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);
