@@ -95,4 +95,48 @@ public class User_NoticeDao {
 		}
 		return vo;
 	}
+
+	public User_NoticeVo backNotice(String fid) {
+		String sql = "select * from notice where fid = " + (Integer.parseInt(fid) - 1) + " order by fid desc";
+		User_NoticeVo vo = null;
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					int fid2 = rs.getInt("fid");
+					String ftitle = rs.getString("ftitle");
+					String fcontent = rs.getString("fcontent");
+					String ffile = rs.getString("ffile");
+					Date frdate = rs.getDate("frdate");
+					int fhit = rs.getInt("fhit");
+					String aid = rs.getString("aid");
+					vo = new User_NoticeVo(fid2, ftitle, fcontent, ffile, frdate, fhit, fhit, aid);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	public User_NoticeVo nextNotice(String fid) {
+		String sql = "select * from notice where fid = " + (Integer.parseInt(fid) + 1) + " order by fid desc";
+		User_NoticeVo vo = null;
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					int fid2 = rs.getInt("fid");
+					String ftitle = rs.getString("ftitle");
+					String fcontent = rs.getString("fcontent");
+					String ffile = rs.getString("ffile");
+					Date frdate = rs.getDate("frdate");
+					int fhit = rs.getInt("fhit");
+					String aid = rs.getString("aid");
+					vo = new User_NoticeVo(fid2, ftitle, fcontent, ffile, frdate, fhit, fhit, aid);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
 }

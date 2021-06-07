@@ -23,16 +23,29 @@
   	<td colspan="2">내용 들어올곳: ${vo.fcontent }</td>
   </tr>
 </table>
-<input type="button" value="목록">
-
+<input type="button" value="목록" onclick="location.href='${cp}/user/notice'">
 <table>
 	<tr>
 		<td>이전글</td>
-		<td><a href="${cp }/user/noticedetail?fid=${vo.fid-1 }">${vo.fid-1}</a></td>
+		<c:choose>
+			<c:when test="${back.fid!=null }">
+					<td><a href="${cp }/user/noticedetail?fid=${back.fid }">${back.ftitle}</a></td>
+			</c:when>
+			<c:otherwise>
+				<td>없음</td>
+			</c:otherwise>
+		</c:choose>
 	</tr>
 	<tr>
 		<td>다음글</td>
-		<td><a href="${cp }/user/noticedetail?fid=${vo.fid+1 }">${vo.fid+1 }</a></td>
+		<c:choose>
+			<c:when test="${next.fid!=null }">
+				<td><a href="${cp }/user/noticedetail?fid=${next.fid }">${next.ftitle}</a></td>
+			</c:when>
+			<c:otherwise>
+				<td>없음</td>
+			</c:otherwise>
+		</c:choose>
 	</tr>
 </table>
 

@@ -6,15 +6,15 @@
 		<th rowspan="11"><img src = "${cp }${vo.pimage2}"></th>
 	</tr>
 	<tr>
-		<th colspan="2" name="sname" value="${stockVo.sname }">${stockVo.sname}</th>
+		<th colspan="2" name="sname">${stockVo.sname}</th>
 	</tr>
 	<tr>
 		<td>정가</td>
-		<td>${vo.pprice }원</td>
+		<td >${vo.pprice }</td><label>원</label>
 	</tr>
 	<tr>
 		<td>할인가격</td>
-		<td>${vo.pprice*(100-vo.pdiscount)/100 }원</td>
+		<td name="proPrice">${vo.pprice*(100-vo.pdiscount)/100 }</td><label>원</label>
 	</tr>
 	<tr>
 		<td>적립금</td>
@@ -23,10 +23,10 @@
 	<tr>
 		<td>색상</td>
 		<td>
-			<select style="border: 2px solid black" id="colorOp" onchange="colorchange()">
+			<select style="border: 2px solid black" id="colorOp" name = "color" onchange="colorchange()">
 				<option >--[필수]--옵션을 선택해 주세요</option>
 				<c:forEach var="c" items="${colorList }">
-					<option name = "color">${c }</option>
+					<option>${c }</option>
 				</c:forEach>
 			</select>
 		</td>
@@ -34,7 +34,7 @@
 	<tr>
 		<td>사이즈</td>
 		<td>
-			<select style="border: 2px solid black" id="sizeOp" onchange = "sizechange()">
+			<select style="border: 2px solid black" id="sizeOp" name="size" onchange = "sizechange()">
 					<option>--[필수]--옵션을 선택해 주세요</option>
 			</select>
 		</td>
@@ -42,20 +42,20 @@
 	<tr>
 		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
 	</tr>
-	<tr class="option_product ">
+	<tr class="option_product" id = "productSelect" style="display: none" >
 		<td>
 			<input type="hidden" class="option_box_id" id="option_box1_id">
-				<p class="product">${stockVo.sname}<br>
-				- <span>색상</span>
+				<p class="product"><label id="optionName"></label><br>
+				- <label id="optionColor"></label>,<label id="optionSize"></label>
 				</p>
 		</td>
 		<td>
-			<span class="quantity">
-				<input type="text" value="1"size="1" id="option_box1_quantity" >
-				<a href="#none" class="up eProductQuantityUpClass">
+			<span class="quantity" >
+				<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
+				<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
 				</a>
-				<a href="#none" class="down eProductQuantityDownClass" data-target="option_box1_down">
+				<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
 				</a>
 			</span>
@@ -64,14 +64,13 @@
 			</a>
 			<span id="option_box1_price" style="float: right">
 				<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
-				<span class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
-				${vo.pprice*(100-vo.pdiscount)/100 }</span>
+				<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+				</span>
 			</span>
 			<br>
 			<span class="mileage" style="float: right">
 				(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-				<span id="option_box1_mileage" class="mileage_price" code="P0000ITG000B">
-				${vo.pprice*(100-vo.pdiscount)/10000}
+				<span id="mileage" class="mileage_price" code="P0000ITG000B">
 				</span>)
 			</span>
 		</td>
@@ -91,28 +90,46 @@
 					for (var i = 0; i < json.list.length; i++) {
 						const color = document.createElement("option");
 						color.innerHTML=json.list[i].ssize;
-						console.log(json.list[i].ssize)
 						sizeOp.appendChild(color);
 					}
 				}
 			}
 		}
 		function sizechange(){
-			let colorOp = document.getElementById("colorOp");
-			let sizeOp = document.getElementById("sizeOp");
-			let xhr = new XMLHttpRequest();
-			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productAdd.jsp?colorOp="+colorOp+"&sizeOp="+sizeOp,true);
-			xhr.send();
-			xhr.onreadystatechange=function(){
-				if(xhr.readyState==4&&xhr.status==200){
-					let result = xhr.responseText;
-					let json = JSON.parse(result);
-					const td = document.createElement("td");
-					td.innerHTML=json.list[i].ssize;
-					console.log(json.list[i].ssize)
-					sizeOp.appendChild(color);
-				}
-			}
+			let color = document.getElementsByName("color")[0].value;
+			let size = document.getElementsByName("size")[0].value;
+			let sname = document.getElementsByName("sname")[0].innerHTML;
+			let proPrice = document.getElementsByName("proPrice")[0].innerHTML;
+			let savePoint = proPrice/100;
+			let optionColor = document.getElementById("optionColor");
+			let optionSize =document.getElementById("optionSize");
+			let optionName = document.getElementById("optionName");
+			let pprice= document.getElementById("pprice");
+			let mileage=document.getElementById("mileage");
+			optionName.innerHTML=sname;
+			optionColor.innerHTML = color;
+			optionSize.innerHTML = size;
+			mileage.innerHTML= savePoint;
+			pprice.innerHTML= proPrice;
+			let productSelect=document.getElementById("productSelect");
+			productSelect.style="display:block";
+		}
+		function upBtn(){
+			let aamount = document.getElementById("amount").value;
+			aamount+=1;
+			console.log(aamount)
+		}
+		function downBtn(){
+			let aamount = document.getElementById("amount").value;
+			aamount-=1;
+			console.log(aamount)
+		}
+		function amountChange(){
+			let pprice= document.getElementById("pprice");
+			let amount = document.getElementById("amount").value;
+			let sum = pprice*amount;
+			console.log(sum)
+			pprice.innerHTML= sum;
 		}
 	</script>
 	<tr>
