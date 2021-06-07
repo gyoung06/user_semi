@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form action="${cp }/user/order?pid=${vo.pid }">
 <table class="table">
 	<tr>
-		<th rowspan="11"><img src = "${cp }${vo.pimage2}"></th>
+		<th rowspan="16"><img src = "${cp }${vo.pimage2}"></th>
 	</tr>
 	<tr>
 		<th colspan="2" name="sname">${stockVo.sname}</th>
 	</tr>
 	<tr>
 		<td>정가</td>
-		<td >${vo.pprice }</td><label>원</label>
+		<td >${vo.pprice }</td>
 	</tr>
 	<tr>
 		<td>할인가격</td>
-		<td name="proPrice">${vo.pprice*(100-vo.pdiscount)/100 }</td><label>원</label>
+		<td name="proPrice">${vo.pprice*(100-vo.pdiscount)/100 }</td>
 	</tr>
 	<tr>
 		<td>적립금</td>
@@ -40,9 +41,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
+		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
 	</tr>
-	<tr class="option_product" id = "productSelect" style="display: none" >
+	<label id="optionsel">
+	<tr class="option_product" id = "productSelect" style="display: none">
 		<td>
 			<input type="hidden" class="option_box_id" id="option_box1_id">
 				<p class="product"><label id="optionName"></label><br>
@@ -59,7 +61,7 @@
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
 				</a>
 			</span>
-			<a href="#none" class="delete">
+			<a href="javascript:deleteProduct()" class="delete">
 				<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
 			</a>
 			<span id="option_box1_price" style="float: right">
@@ -75,6 +77,7 @@
 			</span>
 		</td>
 	</tr>
+	</label>
 	<script> 
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
@@ -113,35 +116,48 @@
 			pprice.innerHTML= proPrice;
 			let productSelect=document.getElementById("productSelect");
 			productSelect.style="display:block";
+			let optionsel=document.getElementById("optionsel");
 		}
 		function upBtn(){
 			let aamount = document.getElementById("amount");
 			let result= parseInt(aamount.value) +1;
 			aamount.value = result;
+			let pprice= document.getElementById("pprice");
+			let mileage=document.getElementById("mileage");
+			let proPrice = document.getElementsByName("proPrice")[0];
+			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
+			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
 		}
 		function downBtn(){
 			let aamount = document.getElementById("amount");
 			if(aamount.value>=1){
 				let result= parseInt(aamount.value) -1;
 				aamount.value = result;
+				let pprice= document.getElementById("pprice");
+				let mileage=document.getElementById("mileage");
+				let proPrice = document.getElementsByName("proPrice")[0];
+				mileage.innerHTML= (parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML))/100;
+				pprice.innerHTML= parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML);
 			}else{
-				alert('수량은 최소 1개입니다.')
+				alert('최소주문수량은 1개입니다.')
 			}
 		}
 		function amountChange(){
 			let proPrice= document.getElementsByName("proPrice")[0];
-			let pprice= document.getElementById("pprice");
 			let amount = document.getElementById("amount");
-			console.log(proPrice.innerHTML)
-			console.log(amount.value)
+			let mileage=document.getElementById("mileage");
+			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
 			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
+		}
+		function deleteProduct(){
+			console.log('삭제')
 		}
 	</script>
 	<tr>
 		<td colspan="2">total: 0(0개)</td>
 	</tr>
 	<tr>
-		<td><a href="${cp }/user/order?pid=${vo.pid }"><input id = "buy" type = "button" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now" size="5"></a></td>
+		<td><a href="${cp }/user/order?pid=${vo.pid }"><input id = "buy" type = "su" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now"></a></td>
 		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart"></td>
 	</tr>
 </table>
@@ -176,7 +192,7 @@
 		<strong><u><a href="#guid">GUID</a></u></strong>
 		<a href="#review">REVIEW</a>
 		<a href="#qna">QNA</a>
-	</div>
+</div>
 <h4>상품결제정보</h4>
 <br>
 <h5>[결제안내]</h5>

@@ -14,32 +14,39 @@ order
 	<br>
 	<table class="table">
 		<tr class="active">
-			<th><input type="checkbox" onclick="check()"></th>
+			<th><input type="checkbox" id="topcheck" onclick="checkAll()"></th>
 			<th>이미지</th>
 			<th>상품정보</th>
 			<th>판매가</th>
 			<th>수량</th>
 			<th>적립금</th>
-			<th>배송구분</th>
 			<th>배송비</th>
 			<th>합계</th>
 		</tr>
 		<tr>
-			<td><input type="checkbox" name="checkAll"></td>
-			<td><img src="${cp }${vo.pimage2 }"></td>
-			<td>|상품정보</td>
-			<td>${vo.pprice }</td>
+			<td><input type="checkbox" name="check"></td>
+			<td><img src="${cp }${productvo.pimage2 } "style = "width:100px; height:outo;"></td>
+			<td>${stockvo.sname }</td>
+			<td>${productvo.pprice }</td>
 			<td>|수량</td>
 			<td>적립금</td>
-			<td>배송구분</td>
 			<td>배송비</td>
 			<td>합계</td>
 		</tr>
 	</table>
 	<script>
-		function check(){
-			let checkAll = document.getElementsByName("checkAll")[0].value;
-			checkAll.checked
+		function checkAll(){
+			let check = document.getElementsByName("check");
+			let topcheck = document.getElementById("topcheck");
+			if(topcheck.checked){
+				for(i=0; i < check.length; i++) {
+					check[i].checked = true;
+				}
+			}else{
+				for(i=0; i < check.length; i++) {
+					check[i].checked = false;
+				}
+			}
 		}
 	</script>
 		<%--
@@ -135,7 +142,6 @@ order
 						for (var i = 0; i < json.list.length; i++) {
 							const color = document.createElement("option");
 							color.innerHTML=json.list[i].ssize;
-							console.log(json.list[i].ssize)
 							sizeOp.appendChild(color);
 						}
 					}

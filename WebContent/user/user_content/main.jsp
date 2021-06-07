@@ -6,7 +6,7 @@
 		<c:forEach var="vo" items="${list }">
 			 <div class="col-lg-3">
 			    <div class="thumbnail">
-			      	<img src="${cp }${vo.pimage2 }" alt="${name }img">
+			      	<a href="${cp }/user/productDetail?pid=${vo.pid}"><img src="${cp }${vo.pimage2 }" alt="${name }img"></a>
 			      	<div class="caption">
 				        <h3><a href="${cp }/user/productDetail?pid=${vo.pid}">${name }</a></h3>
 				        <h3>상품아이디: ${vo.pid }</h3>
