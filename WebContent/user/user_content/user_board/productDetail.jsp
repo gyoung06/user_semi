@@ -40,7 +40,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
+		<td colspan="4">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
 	</tr>
 	<tr class="option_product" id = "productSelect" style="display: none" >
 		<td>
@@ -115,14 +115,18 @@
 			productSelect.style="display:block";
 		}
 		function upBtn(){
-			let aamount = document.getElementById("amount").value;
-			aamount+=1;
-			console.log(aamount)
+			let aamount = document.getElementById("amount");
+			let result= parseInt(aamount.value) +1;
+			aamount.value = result;
 		}
 		function downBtn(){
-			let aamount = document.getElementById("amount").value;
-			aamount-=1;
-			console.log(aamount)
+			let aamount = document.getElementById("amount");
+			if(aamount.value>=1){
+				let result= parseInt(aamount.value) -1;
+				aamount.value = result;
+			}else{
+				alert('수량은 최소 1개입니다.')
+			}
 		}
 		function amountChange(){
 			let pprice= document.getElementById("pprice");
