@@ -17,27 +17,19 @@ public class User_QnaController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
+		req.setCharacterEncoding("utf-8");
 		String field = req.getParameter("field");
 		String keyword = req.getParameter("keyword");
 		String spageNum = req.getParameter("pageNum");
-		UserQnaDAO dao = new UserQnaDAO();
-		ArrayList<UserQnaVo> list = new ArrayList<>();
 		int pageNum = 1;
-		if (field == null || field.equals("")) {
-			if (spageNum != null) {
-				pageNum = Integer.parseInt(spageNum);
-			}
-			int startRow = (pageNum - 1) * 10 + 1;
-			int endRow = startRow + 9;
-			list = dao.list(startRow, endRow);
-		} else {
-			keyword = req.getParameter("keyword");
-			req.setAttribute("find", field);
-			req.setAttribute("keyword", keyword);
-			int startRow = 10 * pageNum - 9;
-			int endRow = pageNum * 10;
-			list = dao.findlist(startRow, endRow, field, keyword);
+		if (spageNum != null) {
+			pageNum = Integer.parseInt(spageNum);
 		}
+
+		UserQnaDAO dao = new UserQnaDAO();
+		int startRow = (pageNum - 1) * 10 + 1;
+		int endRow = startRow + 9;
+		ArrayList<UserQnaVo> list = dao.all_list(startRow, endRow, field, keyword);
 		int pageCount = (int) Math.ceil(dao.getCount(field, keyword) / 10.0);
 		int startPageNum = ((pageNum - 1) / 10 * 10) + 1;
 		int endPageNum = startPageNum + 9;
@@ -49,7 +41,7 @@ public class User_QnaController extends HttpServlet {
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);
 		req.setAttribute("pageNum", pageNum);
-		req.setAttribute("find", field);
+		req.setAttribute("field", field);
 		req.setAttribute("keyword", keyword);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content", "/user/user_content/user_board/qna.jsp");

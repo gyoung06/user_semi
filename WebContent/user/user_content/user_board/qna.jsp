@@ -13,7 +13,14 @@
 	<tr>
 		<td>${vo.qid }</td>
 		<td>${vo.pid }</td>
-		<td><a href="${cp }/user/qnaDetail?qtitle=${vo.qtitle}">${vo.qtitle }</a></th>
+		<td>
+			<c:if test="${vo.qlev>0 }">		
+				<c:forEach var="i" begin="1" end="${vo.qlev }">
+					&nbsp;&nbsp;
+				</c:forEach>
+				[re]
+			</c:if>
+			<a href="${cp }/user/qnaDetail?qtitle=${vo.qtitle}">${vo.qtitle }</a></th>
 		<td>${vo.mid }</td>
 	</tr>
 	</c:forEach>
