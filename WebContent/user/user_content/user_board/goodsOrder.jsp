@@ -129,23 +129,6 @@ order
 		</tr>
 		<script>
 			function click(){
-				let sizeOp = document.getElementById("sizeOp");
-				const setting = document.createElement("setting");
-				let xhr = new XMLHttpRequest();
-				const scolor = document.getElementsByName("color")[0].value;
-				xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor,true);
-				xhr.send();
-				xhr.onreadystatechange=function(){
-					if(xhr.readyState==4&&xhr.status==200){
-						let result = xhr.responseText;
-						let json = JSON.parse(result);
-						for (var i = 0; i < json.list.length; i++) {
-							const color = document.createElement("option");
-							color.innerHTML=json.list[i].ssize;
-							sizeOp.appendChild(color);
-						}
-					}
-				}
 			}
 		</script>	
 		<tr>
