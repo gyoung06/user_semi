@@ -79,8 +79,48 @@
 		</tr>
 	</label>
 	<script> 
+	   var a=` <label id="optionsel">
+			<tr class="option_product" id = "productSelect" style="display: none">
+				<td>
+					<input type="hidden" class="option_box_id" id="option_box1_id">
+						<p class="product"><label id="optionName"></label><br>
+						- <label id="optionColor"></label>,<label id="optionSize"></label>
+						</p>
+				</td>
+					<td>
+						<span class="quantity" >
+							<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
+							<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
+								<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
+							</a>
+							<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
+								<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
+							</a>
+						</span>
+						<a href="javascript:deleteProduct()" class="delete">
+							<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
+						</a>
+						<span id="option_box1_price" style="float: right">
+							<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
+							<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+							</span>
+						</span>
+						<br>
+						<span class="mileage" style="float: right">
+							(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
+							<span id="mileage" class="mileage_price" code="P0000ITG000B">
+							</span>)
+						</span>
+					</td>
+				</tr>
+			</label>`
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
+			let length=sizeOp.options.length;
+			console.log(length)
+			for(let i=length-1;i>0 ;i--){
+				sizeOp[i].remove;
+			}
 			const setting = document.createElement("setting");
 			let xhr = new XMLHttpRequest();
 			const scolor = document.getElementsByName("color")[0].value;
@@ -113,7 +153,7 @@
 			optionName.innerHTML=sname;
 			optionColor.innerHTML = color;
 			optionSize.innerHTML = size;
-			mileage.innerHTML= savePoint;
+			mileage.innerHTML = savePoint;
 			pprice.innerHTML= proPrice;
 			let productSelect=document.getElementById("productSelect");
 			productSelect.style="display:block";
