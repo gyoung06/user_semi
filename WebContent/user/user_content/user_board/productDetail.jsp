@@ -3,6 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <table class="table">
+<!-- 해야할것
+1. 색상 누르면 원래있던 사이즈 초기화시키기
+2. 옵션 하나더누르면 박스 하나더나오게하기
+3. 구매버튼 ,카트버튼 폼으로 넘기기
+ -->
 	<tr>
 		<th rowspan="16"><img src = "${cp }${vo.pimage2}"></th>
 	</tr>
@@ -40,87 +45,45 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
+	<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
+	<tr name="optionsel">
 	</tr>
-	<label id="optionsel">
-	<tr class="option_product" id = "productSelect" style="display: none">
-		<td>
-			<input type="hidden" class="option_box_id" id="option_box1_id">
-				<p class="product"><label id="optionName"></label><br>
-				- <label id="optionColor"></label>,<label id="optionSize"></label>
-				</p>
-		</td>
+	<script> 
+	   var a=`<tr class="option_product" name = "productSelect">
 			<td>
+				<input type="hidden" class="option_box_id">
+					<p class="product"><label name="optionName"></label><br>
+					- <label name="optionColor"></label>,<label name="optionSize"></label>
+					</p>
 				<span class="quantity" >
-					<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
+					<input type="text" value="1"size="1" name="amount" onchange="amountChange()">
 					<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
-						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
 					<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
-						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
 					</a>
 				</span>
 				<a href="javascript:deleteProduct()" class="delete">
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
 				</a>
-				<span id="option_box1_price" style="float: right">
-					<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
-					<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+				<span style="float: right">
+					<input type="hidden" class="option_box_price" >
+					<span name="pprice" class="ec-front-product-item-price" >
 					</span>
 				</span>
 				<br>
 				<span class="mileage" style="float: right">
 					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-					<span id="mileage" class="mileage_price" code="P0000ITG000B">
+					<span name="mileage" class="mileage_price">
 					</span>)
 				</span>
 			</td>
-		</tr>
-	</label>
-	<script> 
-	   var a=` <label id="optionsel">
-			<tr class="option_product" id = "productSelect" style="display: none">
-				<td>
-					<input type="hidden" class="option_box_id" id="option_box1_id">
-						<p class="product"><label id="optionName"></label><br>
-						- <label id="optionColor"></label>,<label id="optionSize"></label>
-						</p>
-				</td>
-					<td>
-						<span class="quantity" >
-							<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
-							<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
-								<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
-							</a>
-							<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
-								<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
-							</a>
-						</span>
-						<a href="javascript:deleteProduct()" class="delete">
-							<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
-						</a>
-						<span id="option_box1_price" style="float: right">
-							<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
-							<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
-							</span>
-						</span>
-						<br>
-						<span class="mileage" style="float: right">
-							(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-							<span id="mileage" class="mileage_price" code="P0000ITG000B">
-							</span>)
-						</span>
-					</td>
-				</tr>
-			</label>`
+		</tr>`
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
-			let length=sizeOp.options.length;
-			console.log(length)
-			for(let i=length-1;i>0 ;i--){
-				sizeOp[i].remove;
-			}
+			let oplength=sizeOp.options.length;
+			sizeOp.options.length=1;
 			const setting = document.createElement("setting");
 			let xhr = new XMLHttpRequest();
 			const scolor = document.getElementsByName("color")[0].value;
@@ -139,43 +102,41 @@
 				}
 			}
 		}
+		var sum = 0;
 		function sizechange(){
-			let color = document.getElementsByName("color")[0].value;
-			let size = document.getElementsByName("size")[0].value;
-			let sname = document.getElementsByName("sname")[0].innerHTML;
-			let proPrice = document.getElementsByName("proPrice")[0].innerHTML;
-			let savePoint = proPrice/100;
-			let optionColor = document.getElementById("optionColor");
-			let optionSize =document.getElementById("optionSize");
-			let optionName = document.getElementById("optionName");
-			let pprice= document.getElementById("pprice");
-			let mileage=document.getElementById("mileage");
-			optionName.innerHTML=sname;
-			optionColor.innerHTML = color;
-			optionSize.innerHTML = size;
-			mileage.innerHTML = savePoint;
-			pprice.innerHTML= proPrice;
-			let productSelect=document.getElementById("productSelect");
-			productSelect.style="display:block";
-			let optionsel=document.getElementById("optionsel");
+			let optionsel=document.getElementsByName("optionsel")[0];
+			let row = document.createElement("div");
+			row.innerHTML=a;
+			optionsel.appendChild(row);
+			let optionColor = document.getElementsByName("optionColor")[sum];
+			let optionSize =document.getElementsByName("optionSize")[sum];
+			let optionName = document.getElementsByName("optionName")[sum];
+			let pprice= document.getElementsByName("pprice")[sum];
+			let mileage=document.getElementsByName("mileage")[sum];
+			optionName.innerHTML =document.getElementsByName("sname")[0].innerHTML;
+			optionColor.innerHTML = document.getElementsByName("color")[0].value;
+			optionSize.innerHTML = document.getElementsByName("size")[0].value;
+			mileage.innerHTML = document.getElementsByName("proPrice")[0].innerHTML/100;
+			pprice.innerHTML = document.getElementsByName("proPrice")[0].innerHTML;
+			sum++;
 		}
 		function upBtn(){
-			let aamount = document.getElementById("amount");
+			let aamount = document.getElementsByName("amount")[0];
 			let result= parseInt(aamount.value) +1;
 			aamount.value = result;
-			let pprice= document.getElementById("pprice");
-			let mileage=document.getElementById("mileage");
+			let pprice= document.getElementsByName("pprice")[0];
+			let mileage=document.getElementsByName("mileage")[0];
 			let proPrice = document.getElementsByName("proPrice")[0];
 			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
 			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
 		}
 		function downBtn(){
-			let aamount = document.getElementById("amount");
+			let aamount = document.getElementsByName("amount")[0];
 			if(aamount.value>=1){
 				let result= parseInt(aamount.value) -1;
 				aamount.value = result;
-				let pprice= document.getElementById("pprice");
-				let mileage=document.getElementById("mileage");
+				let pprice= document.getElementsByName("pprice")[0];
+				let mileage=document.getElementsByName("mileage")[0];
 				let proPrice = document.getElementsByName("proPrice")[0];
 				mileage.innerHTML= (parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML))/100;
 				pprice.innerHTML= parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML);
@@ -185,8 +146,8 @@
 		}
 		function amountChange(){
 			let proPrice= document.getElementsByName("proPrice")[0];
-			let amount = document.getElementById("amount");
-			let mileage=document.getElementById("mileage");
+			let pprice= document.getElementsByName("pprice")[0];
+			let mileage=document.getElementsByName("mileage")[0];
 			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
 			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
 		}
