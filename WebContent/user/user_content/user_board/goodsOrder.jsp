@@ -125,15 +125,15 @@ order
 	<table class="table">
 		<tr>
 			<td>배송지선택</td>
-			<td><input type="radio" onselect="click()">등록한 정보 <input type="radio">새로운배송지 <input type="radio">주문자 정보와 동일</td>
+			<td>
+			<input type="radio" name="dir" checked="checked" onclick="click()">등록한 정보 
+			<input type="radio"  name="dir">새로운배송지 
+			<input type="radio"  name="dir">주문자 정보와 동일
+			</td>
 		</tr>
-		<script>
-			function click(){
-			}
-		</script>	
 		<tr>
 			<td>받으시는 분</td>
-			<td><input type="text"></td>
+			<td><input type="text" id = "getPer" value="${membervo.addname }" readonly="readonly">${addname }</td>
 		</tr>	
 		<tr>
 			<td>주소</td>
@@ -156,6 +156,23 @@ order
 			<td><textarea rows="2" cols="50" name="content"></textarea></td>
 		</tr>	
 	</table>
+	<script>
+		function click(){
+			console.log('d')
+			let xhr = new XMLHttpRequest();
+			let getPer = document.getElementById("getPer");
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/addressSelect.jsp?id=",true);
+			xhr.send();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					let result = xhr.responseText;
+					let json = JSON.parse(result);
+					getPer.innerHTML=json.addname;
+					console.log('hi')
+				}
+			}
+		}
+	</script>	
 	<!-- 추가 정보 없애기?????????????????????? -->
 	<h4>결제 예정 금액</h4>
 	<table class="table">
