@@ -14,22 +14,22 @@ public class User_OrdersDao {
 	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field, String id, String startdate, String enddate){ //string인지 date인지 확인
 		String sql=null;
 		if(field==null || field.equals("")) {
-			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and ordate>=sysdate-90 and ordate=sysdate";
 		}else if(field.equals("전체 주문리스트")) {
-			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 		}else {
 			if(field.equals("배송중") || field.equals("배송완료")) {
-				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.ordelivery  = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 			}else {
-				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 						"from orders o, order_detail od, product p, stock s " + 
-						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancel = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancle = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 			}
 		}
 		Connection con=null;
