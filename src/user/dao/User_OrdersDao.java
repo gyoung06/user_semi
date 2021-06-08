@@ -11,21 +11,22 @@ import test.db.DBConnection;
 import user.vo.UserOrderlistVo;
 
 public class User_OrdersDao {
-	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field){
+	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field, String id){
 		String sql=null;
 		if(field==null || field.equals("") || field.contentEquals("orderall")) {
 			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-					"from orders o, order_detail od, product p, stock s " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid) where orid>=? and orid<=?";
+					"from orders o, order_detail od, product p, stock s, members m " + 
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=?";
 		}else {
 			if(field.equals("ready") || field.equals("halfway") || field.equals("finish")) {
-			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-					"from orders o, order_detail od, product p, stock s " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.ordelivery  = " + field +") where orid>=? and orid<=?";
+			sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+					"from orders o, order_detail od, product p, stock s, members m " + 
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.ordelivery  = " + field +") where orid>=? and orid<=?";
 			}else {
 				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-						"from orders o, order_detail od, product p, stock s " + 
-						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.orcancel = " + field +") where orid>=? and orid<=?";
+						"from orders o, order_detail od, product p, stock s, members m  " + 
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancel = " + field +") where orid>=? and orid<=?";
+								
 			}
 		}
 		Connection con=null;
@@ -34,9 +35,10 @@ public class User_OrdersDao {
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
-			System.out.println(startRow+endRow+field);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			System.out.println(startRow+endRow+field+id);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs=pstmt.executeQuery();
 			ArrayList<UserOrderlistVo> list=new ArrayList<UserOrderlistVo>();
 			while(rs.next()) {
@@ -80,6 +82,23 @@ public class User_OrdersDao {
 			return -1; //글번호가 -1이 들어가지 않을꺼니까 -1주기
 		}finally {
 			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int CountOrid(String id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select count(orid) from orders where mid=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException se) {
+			se.printStackTrace();
+			return -1; //글번호가 -1이 들어가지 않을꺼니까 -1주기
+		}finally {
+			DBConnection.close(con, pstmt, null);
 		}
 	}
 }

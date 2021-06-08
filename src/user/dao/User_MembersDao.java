@@ -63,7 +63,7 @@ public class User_MembersDao {
 		}
 	}
 
-	public boolean idcheck(String id) {
+	public boolean idcheck(String id) { //아이디 중복확인
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

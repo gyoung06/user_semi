@@ -3,12 +3,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <%
-	String OrderList=(String)session.getAttribute("OrderList");
+	int Countorid=(int)request.getAttribute("Countorid");
 %>
 order list
 <!-- 주문내역 갯수 count -->
-주문내역조회(x개)
+주문내역조회(<%= Countorid%>개)
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -29,70 +33,73 @@ order list
 				<option value="반품"<c:if test="${field=='return' }">selected="selected"</c:if>>반품</option>
 		</select>
 		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary active">
-		    <input type="radio" name="options" value="option1" autocomplete="off" checked> 오늘
+		  <label class="btn btn-primary active" id="t">
+		    <input type="radio" name="options" value="option1" autocomplete="off"  > 오늘
 		  </label>
-		  <label class="btn btn-primary">
+		  <label class="btn btn-primary" id="1w">
 		    <input type="radio" name="options" value="option2" autocomplete="off"> 1주일
 		  </label>
-		  <label class="btn btn-primary">
+		  <label class="btn btn-primary" id="1m">
 		    <input type="radio" name="options" value="option3" autocomplete="off"> 1개월
 		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" value="option4"  autocomplete="off"> 3개월
+		  <label class="btn btn-primary" id="3m">
+		    <input type="radio" name="options" value="option4"  autocomplete="off" checked="checked"> 3개월
 		  </label>
-		  <label class="btn btn-primary">
+		  <label class="btn btn-primary" id="6m">
 		    <input type="radio" name="options" value="option5" autocomplete="off"> 6개월
 		  </label>
 		</div>
 		<div>
-			<input type="date" id="3mago"/>~<input type="date" id="currentDate"/><input type="submit" value="조회">
+			<input type="text" id="datepicker"/>~<input type="text" id="currentDate"/><input type="submit" value="조회">
 		</div>
 		
 		</form>
 		<script type="text/javascript">	
+			/*input type ="date" 인 경우 기본값 설정
 			document.getElementById("currentDate").value= 
-				new Date().toISOString().substring(0,10);
-		
-			$("input:radio[name=options]").click(function () {
-			var radioValue = $(this).val();
-			if(radioValue=="option1"){
-			let now = new Date();//오늘
-			let day = ("0" + now.getDate()).slice(-2);
-			let month = ("0" + (now.getMonth()+1)).slice(-2);
-			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-			$('#3mago').val(today);
-			
-			}else if(radioValue=="option2"){
-			let now = new Date();//1주 전부터
-			let day = ("0" + now.getDate()-7).slice(-2);
-			let month = ("0" + (now.getMonth()+1)).slice(-2);
-			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-			$('#3mago').val(today);
-			
-			}else if(radioValue=="option3"){
-			let now = new Date();//1달 전부터
-			let day = ("0" + now.getDate()).slice(-2);
-			let month = ("0" + (now.getMonth())).slice(-2);
-			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-			$('#3mago').val(today);
-			
-			}else if(radioValue=="option4"){
-			let now = new Date();//3달 전부터
-			let day = ("0" + now.getDate()).slice(-2);
-			let month = ("0" + (now.getMonth() -2)).slice(-2);
-			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-			$('#3mago').val(today);
-			
-			}else if(radioValue=="option5"){
-			let now = new Date();//6달 전부터
-			let day = ("0" + now.getDate()).slice(-2);
-			let month = ("0" + (now.getMonth() -5)).slice(-2);
-			let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-			$('#3mago').val(today);
-			}
-
-			});
+				new Date().toISOString().substring(0,10);*/
+				$("#datepicker").datepicker().datepicker("setDate", '-3M');
+				$("#currentDate").datepicker().datepicker("setDate", new Date());
+			 $(function() {
+		            //input을 datepicker로 선언
+		            $("#datepicker").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                
+		                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+		                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+		                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            $("#3m").click(function(){
+                  	  $('#datepicker').datepicker('setDate', '-3M');
+                    })
+		            //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
+                      $("#t").click(function(){
+                    	  $('#datepicker').datepicker('setDate', 'today'); 
+                      })
+                      $("#1w").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-7D');
+                      })
+                      $("#1m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-1M');
+                      })
+                       $("#3m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-3M');
+                      })
+                        $("#6m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-6M');
+                      })     
+                      });
 		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
@@ -109,6 +116,7 @@ order list
 				<th>상품구매금액</th>
 				<th>주문처리상태</th>
 				<th>취소/교환/반품<th>
+				
 			</tr>
 			<c:choose>
 				<c:when test="${empty OrderList}">
@@ -117,19 +125,18 @@ order list
 					</tr>
 				</c:when>
 				<c:otherwise>
-							<td rowspan="${fn:length(OrderList)}">${vo.ordate }<br>[${vo.orid }]</td>
-					<c:forEach var="vo" items="${OrderList }" varStatus="status">
+						<c:forEach var="vo" items="${OrderList }">
 						<tr>
-							<c:when test="${vo.orid }">
-							</c:when>
-							<td>${vo.pimage2 }</td>
-							<td>${vo.sname }<br>${vo.odcolor }</td>
-							<td>${vo.odcount }</td>
-							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }</td>
-							<td>${vo.orcancel }</td>
+						<td>${vo.ordate }<br>[${vo.orid }]</td>
+						<td><img src = "${cp }${vo.pimage2}"></td>
+						<td>${vo.sname }<br>${vo.odcolor }</td>
+						<td>${vo.odcount }</td>
+						<td>${vo.pprice }</td>
+						<td>${vo.ordelivery }<br><input type="button" value="구매후기"></td>
+						<td>${vo.orcancel }</td>
 						</tr>
-					</c:forEach>
+						</c:forEach>
+
 				</c:otherwise>
 			</c:choose>
 		</table>
@@ -139,39 +146,72 @@ order list
 	    취소환불교환내역
 	    <form action="${cp }/user/purchase" method="post">
 		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> 오늘
+		  <label class="btn btn-primary active" id="t1">
+		    <input type="radio" name="options"  autocomplete="off" > 오늘
 		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> 1주일
+		  <label class="btn btn-primary" id="1w1">
+		    <input type="radio" name="options"  autocomplete="off"> 1주일
 		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option3" autocomplete="off"> 1개월
+		  <label class="btn btn-primary" id="1m1">
+		    <input type="radio" name="options"  autocomplete="off" > 1개월
 		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option4" autocomplete="off"> 3개월
+		  <label class="btn btn-primary" id="3m1">
+		    <input type="radio" name="options"  autocomplete="off" checked="checked"> 3개월
 		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option5" autocomplete="off"> 6개월
+		  <label class="btn btn-primary" id="6m1">
+		    <input type="radio" name="options"  autocomplete="off"> 6개월
 		  </label>
 		</div>
 		<div>
-			<input type="date" id="3mago1">~<input type="date" id="currentDate1"><input type="submit" value="조회">
+			<input type="text" id="datepicker1">~<input type="text" id="currentDate1"><input type="submit" value="조회">
 		</div>
 		</form>
 				<script type="text/javascript">
-				var now = new Date(); //3달 전부터
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() -2)).slice(-2);
-				var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-
-				$('#3mago1').val(today);
 				
-			//document.getElementById("3mago1").value= 
+				$("#currentDate1").datepicker().datepicker("setDate", new Date());
+			//document.getElementById("currentDate1").value= 
 			//new Date().toISOString().substring(0,10);
-		
-			document.getElementById("currentDate1").value= 
-			new Date().toISOString().substring(0,10);
+			$("#datepicker1").datepicker().datepicker("setDate", '-3M');
+			 $(function() {
+		            //input을 datepicker로 선언
+		            $("#datepicker1").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                
+		                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+		                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+		                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            $("#3m1").click(function(){
+	                 	  $('#datepicker1').datepicker('setDate', '-3M');
+	                   })
+		            //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
+                   $("#t1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', 'today'); 
+                   })
+                   $("#1w1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-7D');
+                   })
+                   $("#1m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-1M');
+                   })
+                    $("#3m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-3M');
+                   })
+                     $("#6m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-6M');
+                   })     
+                   });
 		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
@@ -197,17 +237,15 @@ order list
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="vo" items="${OrderList }">
-						<c:forEach var ="i" begin="1" end="${vo.orid }" varStatus="status">
 						<tr> 
 							<td colspan="${fn:length(OrderList)}">${vo.ordate }<br>[${vo.orid }]</td>
-							<td>${vo.pimage2 }</td>
+							<td><img src = "${cp }${vo.pimage2}"></td>
 							<td>${vo.sname }<br>${vo.odcolor }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }</td>
+							<td>${vo.ordelivery }<br><input type="button" value="구매후기"></td>
 							<td>${vo.orcancel }</td>
 						</tr>
-						</c:forEach>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>

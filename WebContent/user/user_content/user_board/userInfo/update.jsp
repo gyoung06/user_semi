@@ -54,7 +54,6 @@
 		var mphone=document.getElementsByName("mphone")[0].value;
 		var memail=document.getElementsByName("memail")[0].value;
 		if(mpw!="<%=mpw1%>"){
-			console.log("mpw:"+mpw+"mpw1:"+<%=mpw1%>)
 			alert("현재 비밀번호가 틀렸습니다")
 		}else if(newpw==null || newpw==""){
 			alert("새로운 비밀번호를 입력하세요");

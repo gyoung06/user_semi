@@ -14,6 +14,13 @@
 		<th>주소</th>
 		<th>수정</th>
 	</tr>
+		<c:choose>
+				<c:when test="${empty addlist}">
+					<tr>
+						<td>주소가 없습니다.</td>
+					</tr>
+				</c:when>
+		<c:otherwise>
 	<c:forEach var="vo" items="${addlist }">
 	<tr class="active">
 		<td><input type="checkbox" id="ck1" name="addselect" ></td>
@@ -25,6 +32,8 @@
 		<td><input type="button" value="수정 " onclick="location.href='${cp}/user/user_content/user_board/userInfo/addUpdate.jsp'"></td>
 	</tr>
 	</c:forEach>
+	</c:otherwise>
+	</c:choose>
 </table>
 
 
@@ -33,31 +42,30 @@
 <input type="button" value="배송지 등록" onclick="location.href='${cp}/user/user_content/user_board/userInfo/addressInsert.jsp'">
 </form>
 <script type="text/javascript">
-
-function selectAll(selectAll)  {
-	  const checkboxes 
-	       = document.getElementsByName('addselect');
-	  
-	  checkboxes.forEach((checkbox) => {
-	    checkbox.checked = selectAll.checked;
-	  })
-	}
-
-	function delAdd(){
-		let ck1=document.getElementById("ck1");
-		var delForm=document.getElementsByName("delForm")[0];
-		var DelConfirm=confirm("정말 삭제하시겠습니까?")
-		if(ck1.checked){
-			if(DelConfirm==true){
-				alert("삭제 완료")
-				delForm.submit();
-			}else{
-				alert("삭제 취소")
-			}
-		}else{
-			alert("체크박스를 선택해 주세요")
+	function selectAll(selectAll)  {
+		  const checkboxes 
+		       = document.getElementsByName('addselect');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked;
+		  })
 		}
-	}
+	
+		function delAdd(){
+			let ck1=document.getElementById("ck1");
+			var delForm=document.getElementsByName("delForm")[0];
+			var DelConfirm=confirm("정말 삭제하시겠습니까?")
+			if(ck1.checked){
+				if(DelConfirm==true){
+					alert("삭제 완료")
+					delForm.submit();
+				}else{
+					alert("삭제 취소")
+				}
+			}else{
+				alert("체크박스를 선택해 주세요")
+			}
+		}
 </script>
 <h4>배송주소록 유의사항</h4>
 <ol>

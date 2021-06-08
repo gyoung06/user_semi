@@ -71,6 +71,7 @@ public class User_AddressController extends HttpServlet{
 		System.out.println(n);
 		System.out.println(addlist);
 		if(n>0) {
+		req.setAttribute("addlist", addlist);
 		req.setAttribute("addtitle", addtitle);
 		req.setAttribute("addname", addname);
 		req.setAttribute("addphone", addphone);

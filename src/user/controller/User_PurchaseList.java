@@ -18,6 +18,8 @@ public class User_PurchaseList extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
+		HttpSession session=req.getSession();
+		String id=(String)session.getAttribute("id");
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
 		int pageNum=1;
@@ -29,14 +31,17 @@ public class User_PurchaseList extends HttpServlet{
 		int startRow=10*pageNum-9;
 		int endRow=pageNum*10;
 
-		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field);
+		int n=dao.CountOrid(id);
+		if(n>0) {
+			req.setAttribute("Countorid", n);
+		}
+		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
 		int startPageNum=((pageNum-1)/10*10)+1;
 		int endPageNum=startPageNum+9;
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount; //endPageNum값을 pageCount값으로 초기화
 		}
-		HttpSession session=req.getSession();
 		req.setAttribute("OrderList", OrderList);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);
