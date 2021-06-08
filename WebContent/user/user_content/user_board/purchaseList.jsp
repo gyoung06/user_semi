@@ -23,11 +23,11 @@ order list
  	<div role="tabpanel" class="tab-pane active" id="home">
   <form action="${cp }/user/purchase" method="post">
     	<select name = "field">
-				<option value="전체 주문리스트"<c:if test="${field=='orderall' }">selected="selected"</c:if>>전체 주문리스트</option>
-				<option value="배송중"<c:if test="${field=='halfway' }">selected="selected"</c:if>>배송중</option>
-				<option value="배송완료"<c:if test="${field=='finish' }">selected="selected"</c:if>>배송완료</option>
-				<option value="취소"<c:if test="${field=='cancel' }">selected="selected"</c:if>>취소</option>
-				<option value="반품"<c:if test="${field=='return' }">selected="selected"</c:if>>반품</option>
+				<option value="orderall"<c:if test="${field=='orderall' }">selected="selected"</c:if>>전체 주문리스트</option>
+				<option value="halfway"<c:if test="${field=='halfway' }">selected="selected"</c:if>>배송중</option>
+				<option value="finish"<c:if test="${field=='finish' }">selected="selected"</c:if>>배송완료</option>
+				<option value="cancel"<c:if test="${field=='cancel' }">selected="selected"</c:if>>취소</option>
+				<option value="return"<c:if test="${field=='return' }">selected="selected"</c:if>>반품</option>
 		</select>
 		<div class="btn-group" data-toggle="buttons">
 		  <label class="btn btn-primary active" id="t">

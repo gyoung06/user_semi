@@ -12,8 +12,9 @@
 		String nextDrate=(String)session.getAttribute("nextDrate");
 	%>
 <div id="box1" style="border: 1px solid #D5D5D5">
-저희 쇼핑몰을 이용해 주셔서 감사합니다. '<%=mid%>'님은 '<%=glevel %>'회원이십니다.
+저희 쇼핑몰을 이용해 주셔서 감사합니다. '<%=mid%>'님은 '<%=glevel %>'회원이십니다. 
 '<%=nextSum %>'원 이상 구매시 '<%=nextDrate %>'을 추가적립 받으실 수 있습니다.
+<!-- vvip처리 때문에 controller에 써준걸 여기서 if문으로 처리해줄지 생각해보기 -->
 </div>
 <form action="${cp }/user/update" method ="post" name="updateForm">
 	아이디*

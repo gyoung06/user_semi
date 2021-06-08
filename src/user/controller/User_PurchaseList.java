@@ -50,6 +50,7 @@ public class User_PurchaseList extends HttpServlet{
 		
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
+		System.out.println("field"+field);
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);

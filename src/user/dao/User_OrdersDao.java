@@ -17,21 +17,31 @@ public class User_OrdersDao {
 			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and ordate>=sysdate-90 and ordate=sysdate";
-		}else if(field.equals("전체 주문리스트")) {
+		}else if(field.equals("orderall")) {
 			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
-		}else {
-			if(field.equals("배송중") || field.equals("배송완료")) {
+		}else if(field.equals("halfway")) {
 				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 					"from orders o, order_detail od, product p, stock s " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.ordelivery  = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
-			}else {
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
+							+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'N'";
+		}else if(field.equals("finish")) {
+					sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+						"from orders o, order_detail od, product p, stock s " + 
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?)"
+						+ " where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'Y'";
+		}else if(field.equals("cancel")){
 				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
 						"from orders o, order_detail od, product p, stock s " + 
-						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancle = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
-			}
-		}
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
+						+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='N' and orcancle ='Y'";
+			}else if(field.equals("return")){
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+						"from orders o, order_detail od, product p, stock s " + 
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
+						+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='Y' and orcancle ='Y'";
+				}
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -77,8 +87,14 @@ public class User_OrdersDao {
 		try {
 			con=DBConnection.getCon();
 			String sql="select NVL(count(orid),0) from orders";
-			if(field!=null && !field.equals("")) {
-				sql+=" where " +field + "=" + field; //띄어쓰기 주의! . 필드가 널이 아니라면 검색조건에 얘가 붙음
+			if (field=="halfway") {
+				sql+= " where ordelivery = 'N'";
+			}else if (field=="finish") {
+				sql+= " where ordelivery = 'Y'";
+			}else if (field=="cancel") {
+				sql+= " where ordelivery ='N' and orcancle ='N'";
+			}else if (field=="return") {
+				sql+= " where ordelivery ='Y' and orcancle ='N'";
 			}
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
