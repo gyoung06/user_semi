@@ -14,7 +14,7 @@ public class User_NoticeDao {
 	public ArrayList<User_NoticeVo> noticeList(int startRow, int endRow) {
 		ArrayList<User_NoticeVo> list = new ArrayList<>();
 		String sql = "select * from (select g.*,rownum rnum from (select fid,aid,ftitle from notice"
-				+ " where fpublic_private=0 order by fid desc) g) where rnum>=? and rnum<=?";
+				+ " where fpublic_private=1 order by fid desc) g) where rnum>=? and rnum<=?";
 		User_NoticeVo vo = null;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, startRow);
