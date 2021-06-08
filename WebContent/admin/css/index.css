@@ -39,7 +39,7 @@ input[id="menuicon"]:checked + ul + div {left:0;}
 	list-style-type:none;
 	text-align: center;
 	font-size: 1.3rem;
-	line-height: 40px;
+	line-height: 60px;
 	padding : 15px;
 }
 
@@ -86,13 +86,13 @@ input[id="menuicon"]:checked + ul + div {left:0;}
 	left:5%;
 }
 
-.homebtn{
+#homebtn{
 	position: absolute;
-	left:85%;
+	left:1700px;	
 	top:15px;
 }
-.logoutbtn{
+#logoutbtn{
 	position: absolute;
-	left:90%;
+	left:1800px;
 	top:15px;
 }

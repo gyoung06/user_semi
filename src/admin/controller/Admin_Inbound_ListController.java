@@ -17,6 +17,7 @@ public class Admin_Inbound_ListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
+		
 		String field=req.getParameter("field");
 		String keyword=req.getParameter("keyword");
 		String spageNum=req.getParameter("pageNum");
@@ -34,6 +35,7 @@ public class Admin_Inbound_ListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount;
 		}
+		req.setAttribute("vo1", req.getAttribute("vo1"));
 		req.setAttribute("list", list);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);

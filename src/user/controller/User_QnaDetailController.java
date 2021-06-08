@@ -12,5 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class User_QnaDetailController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		
 	}
 }

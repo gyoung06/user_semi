@@ -111,4 +111,76 @@ public class Admin_InboundDao {
 			DBConnection.close(con, pstmt, null);
 		}
 	}
+	public int delete(int inid) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="delete from inbound where inid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, inid);
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public int update(Admin_InboundVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="update inbound set indate=?, inname=?, inprice=?, inamount=?, incolor=?, insize=?, incategory=? where inid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setDate(1, vo.getIndate());
+			pstmt.setString(2, vo.getInname());
+			pstmt.setInt(3, vo.getInprice());
+			pstmt.setInt(4, vo.getInamount());
+			pstmt.setString(5, vo.getIncolor());
+			pstmt.setString(6,vo.getInsize());
+			pstmt.setString(7,vo.getIncategory());
+			pstmt.setInt(8, vo.getInid());
+			int n=pstmt.executeUpdate();
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public Admin_InboundVo selectinid(int inid) {
+		String sql="select * from inbound where inid=?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, inid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				inid=rs.getInt("inid");
+				Date indate=rs.getDate("indate");
+				String inname=rs.getString("inname");
+				int inprice=rs.getInt("inprice");
+				int inamount=rs.getInt("inamount");
+				String incolor=rs.getString("incolor");
+				String insize=rs.getString("insize");
+				String incategory=rs.getString("incategory");
+				Admin_InboundVo vo=new Admin_InboundVo(inid, indate, inname, inprice, inamount, incolor, insize, incategory);
+				return vo;
+			}else {
+				return null;
+			}
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
 }

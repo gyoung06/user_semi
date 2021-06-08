@@ -4,14 +4,14 @@
 <h1>qna</h1>
 <table class="table">
   <tr>
-    <th>NO</th>
+    <th>DATE</th>
     <th>PRODUCT</th>
     <th>SUBJECT</th>
     <th>NAME</th>
   </tr>
   <c:forEach var="vo" items="${list }">
 	<tr>
-		<td>${vo.qid }</td>
+		<td>${vo.qrdate }</td>
 		<td>${vo.pid }</td>
 		<td>
 			<c:if test="${vo.qlev>0 }">		
