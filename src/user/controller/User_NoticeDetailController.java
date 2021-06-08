@@ -27,6 +27,8 @@ public class User_NoticeDetailController extends HttpServlet {
 		req.setAttribute("content", "/user/user_content/user_board/noticeDetail.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 
+		
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+		
 	}
 }

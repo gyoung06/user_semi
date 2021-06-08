@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h4>NOTICE</h4>
 공지사항입니다.
+
 <table class="table">
   <tr>
     <th>NO</th>

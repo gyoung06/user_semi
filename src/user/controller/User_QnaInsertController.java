@@ -11,21 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import user.dao.UserQnaDAO;
 import user.vo.UserQnaVo;
 
-@WebServlet("/user/qnaDetail")
-public class User_QnaDetailController extends HttpServlet {
+@WebServlet("/user/qnainsert")
+public class User_QnaInsertController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String qid=req.getParameter("qid");
+		String mid=req.getParameter("mid");
+		String qcate=req.getParameter("qcate");
+		String qtitle=req.getParameter("qtitle");
+		String qcontent=req.getParameter("qcontent");
+		String qpw=req.getParameter("qpw");
+		
 		
 		UserQnaDAO dao=new UserQnaDAO();
-		UserQnaVo vo=dao.detail(Integer.parseInt(qid));
 		
-		req.setAttribute("vo", vo);
-		
+		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, qcontent, null, 0, 0, mid, 0);
+		dao.insert(vo);
+						
 		req.setAttribute("top", "/user/user_content/header.jsp");
-		req.setAttribute("content", "/user/user_content/user_board/qnadetail.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/qna.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
+
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}
 }

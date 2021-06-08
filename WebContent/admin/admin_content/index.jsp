@@ -14,9 +14,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <body>
 <div id="top">
-	<h1 class="toplogo">J4 관리자 페이지</h1>
-	<input type="button" value="홈페이지" class="homebtn">
-	<input type="button" value="로그아웃" class="logoutbtn">
+	<img src="<%=request.getContextPath()%>/admin/img/test.png" style="position:absolute;width:50px;height:50px;">
+	<h1 style="position:absolute; color:white;left:60px; line-height:50px;">관리자 페이지</h1>
+	<input class="btn btn-dark" type="button" value="홈페이지" id="homebtn">
+	<input class="btn btn-dark" type="button" value="로그아웃" id="logoutbtn" onclick="location='<%=request.getContextPath()%>/admin/admin_content/admin_login.jsp'">
 </div>
 
 <!-- 콘탠트 영역 -->
@@ -35,12 +36,15 @@
 <div class="sidebar">
 	<img class="profile" src="<%=request.getContextPath()%>/admin/img/profile.jpg">
 	<ul id="ac">
+		<li class="main"><a href="${cp }/admin/main" style="color: white;">메인</a>
+		</li>
+	</ul>
+	<ul id="ac">
 		<li class="main">
 		회원관리
 			<ul class="sub">
 				<li><a href="${cp }/admin/memberlist">회원리스트</a></li>
 				<li><a href="${cp }/admin/memberinsert">회원등록</a></li>
-				<li>menu1 - 3</li>
 			</ul>
 		</li>
 	</ul>
@@ -49,19 +53,13 @@
 		상품관리
 			<ul class="sub">
 				<li><a href="${cp }/admin/inbound/list">입고</a></li>
-				<li><a href="${cp }/admin/product/list">등록</a></li>
-				<li>menu2 - 3</li>
+				<li><a href="${cp }/admin/product/list">등록/수정</a></li>
+				<li><a href="${cp }/admin/orders/list">출고</a></li>
 			</ul>
 		</li>
 	</ul>
 	<ul id="ac">
-		<li class="main">
-		매출
-			<ul class="sub">
-				<li>menu2 - 1</li>
-				<li>menu2 - 2</li>
-				<li>menu2 - 3</li>
-			</ul>
+		<li class="main"><a href="${cp }/admin/sals/list" style="color: white;">매출</a>
 		</li>
 	</ul>
 	<ul id="ac">
@@ -70,17 +68,7 @@
 			<ul class="sub">
 				<li><a href="${cp }/admin/qna">QnA</a></li>
 				<li><a href="${cp }/admin/faq/list">FAQ</a></li>
-				<li>menu2 - 3</li>
-			</ul>
-		</li>
-	</ul>
-	<ul id="ac">
-		<li class="main">
-		메인
-			<ul class="sub">
-				<li><a href="${cp }/admin/main">첫화면으로</a></li>
-				<li>menu2 - 2</li>
-				<li>menu2 - 3</li>
+				<li><a href="${cp }/admin/notice/list">공지사항</a></li>
 			</ul>
 		</li>
 	</ul>

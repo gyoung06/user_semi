@@ -288,4 +288,33 @@ public class UserQnaDAO {
 			DBConnection.close(con);
 		}
 	}
+	public int insert(UserQnaVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql=null;
+		int n=0;
+		try {
+			con=DBConnection.getCon();
+			sql="insert into userqna values(userQna_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, vo.getQcate());
+				pstmt.setString(2, vo.getQpw());
+				pstmt.setString(3, vo.getQtitle());
+				pstmt.setString(4, vo.getQcontent());
+				pstmt.setString(5, vo.getQfile());
+				pstmt.setDate(6, vo.getQrdate());
+				pstmt.setInt(7, vo.getQlev());
+				pstmt.setInt(8, vo.getQref());
+				pstmt.setString(9, vo.getMid());
+				pstmt.setInt(10, vo.getPid());
+				n=pstmt.executeUpdate();
+			
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
 }

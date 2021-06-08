@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String id=(String)session.getAttribute("id");
+%>
 <h1>qna</h1>
 <table class="table">
   <tr>
@@ -20,10 +23,10 @@
 				</c:forEach>
 				[re]
 			</c:if>
-			<a href="${cp }/user/qnaDetail?qtitle=${vo.qtitle}">${vo.qtitle }</a></th>
+			<a href="<%=request.getContextPath()%>/user/qnaDetail?qid=${vo.qid}">${vo.qtitle }</a></td>
 		<td>${vo.mid }</td>
 	</tr>
-	</c:forEach>
+	</c:forEach>	
 </table>
 <div>
 	<c:if test="${pageNum>10 }">
@@ -64,4 +67,12 @@
 		<input type="text" name = "keyword">
 		<input type="submit" value="찾기">
 	</form>
+<%if(id!=null && id!="") {%>
+	<a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="글쓰기"></a>
+	<% }else{
+%>   <a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="글쓰기" disabled="disabled"></a>
+<%} %>
 </div>
+<script type="text/javascript">
+	
+</script>
