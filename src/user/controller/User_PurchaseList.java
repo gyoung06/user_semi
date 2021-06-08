@@ -1,6 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -20,13 +22,29 @@ public class User_PurchaseList extends HttpServlet{
 		req.setCharacterEncoding("utf-8");
 		HttpSession session=req.getSession();
 		String id=(String)session.getAttribute("id");
+		String startdate=req.getParameter("startdate");
+		String enddate=req.getParameter("enddate");
+//		Date sstartdate=null;
+//		Date eenddate=null;
+//	    try{
+//			String startdate1=req.getParameter("startdate");
+//			String enddate1=req.getParameter("enddate");
+//	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+//	        sstartdate=(Date)sdf.parse(startdate1); 
+//	        eenddate=(Date)sdf.parse(enddate1); 
+//	    }catch (Exception e) {
+//	       e.printStackTrace();
+//	    }
+//	    java.sql.Date startdate = new java.sql.Date(sstartdate.getTime()); //sql.date로 넣어야 들어감
+//	    java.sql.Date enddate = new java.sql.Date(eenddate.getTime());
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-		
+
+		 //System.out.println("startdate:"+startdate+ "enddate:"+enddate);
 		User_OrdersDao dao = new User_OrdersDao();
 		int startRow=10*pageNum-9;
 		int endRow=pageNum*10;
@@ -35,7 +53,7 @@ public class User_PurchaseList extends HttpServlet{
 		if(n>0) {
 			req.setAttribute("Countorid", n);
 		}
-		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id);
+		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id, startdate, enddate);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
 		int startPageNum=((pageNum-1)/10*10)+1;
 		int endPageNum=startPageNum+9;
@@ -44,6 +62,8 @@ public class User_PurchaseList extends HttpServlet{
 		}
 		req.setAttribute("OrderList", OrderList);
 		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("startdate", startdate);
+		req.setAttribute("enddate", enddate);
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);
 		req.setAttribute("pageNum", pageNum);

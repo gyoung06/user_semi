@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
@@ -14,14 +16,15 @@ order list
 <!-- 주문내역 갯수 count -->
 주문내역조회(<%= Countorid%>개)
 <div role="tabpanel">
+  <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">주문내역조회</a></li>
     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">취소/반품/교환내역</a></li>
   </ul>
   <!-- Tab panes -->
-	<div class="tab-content">
- 	<div role="tabpanel" class="tab-pane active" id="home">
   <form action="${cp }/user/purchase" method="post">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
     	<select name = "field">
 				<option value="전체 주문리스트"<c:if test="${field=='orderall' }">selected="selected"</c:if>>전체 주문리스트</option>
 				<option value="배송 준비중"<c:if test="${field=='ready' }">selected="selected"</c:if>>배송 준비중</option>
@@ -53,6 +56,53 @@ order list
 		</div>
 		
 		</form>
+		<script type="text/javascript">	
+			/*input type ="date" 인 경우 기본값 설정
+			document.getElementById("currentDate").value= 
+				new Date().toISOString().substring(0,10);*/
+				$("#datepicker").datepicker().datepicker("setDate", '-3M');
+				$("#currentDate").datepicker().datepicker("setDate", new Date());
+			 $(function() {
+		            //input을 datepicker로 선언
+		            $("#datepicker").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                
+		                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+		                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+		                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            $("#3m").click(function(){
+                  	  $('#datepicker').datepicker('setDate', '-3M');
+                    })
+		            //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
+                      $("#t").click(function(){
+                    	  $('#datepicker').datepicker('setDate', 'today'); 
+                      })
+                      $("#1w").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-7D');
+                      })
+                      $("#1m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-1M');
+                      })
+                       $("#3m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-3M');
+                      })
+                        $("#6m").click(function(){
+                    	  $('#datepicker').datepicker('setDate', '-6M');
+                      })    
+
+		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
@@ -92,7 +142,7 @@ order list
 				</c:otherwise>
 			</c:choose>
 		</table>
-		</div>
+	</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 
     <div role="tabpanel" class="tab-pane" id="profile">
@@ -119,13 +169,60 @@ order list
 			<input type="text" id="datepicker1">~<input type="text" id="currentDate1"><input type="submit" value="조회">
 		</div>
 		</form>
+				<script type="text/javascript">
+				
+				$("#currentDate1").datepicker().datepicker("setDate", new Date());
+			//document.getElementById("currentDate1").value= 
+			//new Date().toISOString().substring(0,10);
+			$("#datepicker1").datepicker().datepicker("setDate", '-3M');
+			 $(function() {
+		            //input을 datepicker로 선언
+		            $("#datepicker1").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                
+		                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+		                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+		                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            $("#3m1").click(function(){
+	                 	  $('#datepicker1').datepicker('setDate', '-3M');
+	                   })
+		            //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
+                   $("#t1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', 'today'); 
+                   })
+                   $("#1w1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-7D');
+                   })
+                   $("#1m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-1M');
+                   })
+                    $("#3m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-3M');
+                   })
+                     $("#6m1").click(function(){
+                 	  $('#datepicker1').datepicker('setDate', '-6M');
+                   }) 
+			 		/*구매버튼 이벤트*/
+			 	
+		</script>
 		<ul>
 			<li>기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 주문내역을 조회하실 수 있습니다.</li>
 			<li>주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</li>
 		</ul>
 		<br>
 		<h4>상품정보</h4>
-		<form name="frm" method="post">
 		<table class="table">
 			<tr class="active">
 				<th>주문일자<br>[주문번호]</th>
@@ -150,18 +247,18 @@ order list
 							<td>${vo.sname }<br>${vo.odcolor }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }<br><input type="button" value="구매후기" onclick="valuesend()"></td>
+							<td>${vo.ordelivery }<br><input type="button" value="구매후기"></td>
 							<td>${vo.orcancel }</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
-		</form>
-		</div>
 	</div>
-	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
+	</div>
 </div>
+
+	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 			<c:if test="${startPageNum>10 }">
 		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[이전]</a> <!-- 현재페이지 보이기 -->
 		</c:if>
@@ -184,112 +281,11 @@ order list
 			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[다음]</a>
 		</c:if>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">	
+
+<script>
 	$('#myTab a').click(function (e) {
 	  e.preventDefault();
 	  $(this).tab('show')
 	});
-	
-	
-	$("#currentDate1").datepicker().datepicker("setDate", new Date());
-//document.getElementById("currentDate1").value= 
-//new Date().toISOString().substring(0,10);
-$("#datepicker1").datepicker().datepicker("setDate", '-3M');
- $(function() {
-        //input을 datepicker로 선언
-        $("#datepicker1").datepicker({
-            dateFormat: 'yy-mm-dd' //Input Display Format 변경
-            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-            ,changeYear: true //콤보박스에서 년 선택 가능
-            ,changeMonth: true //콤보박스에서 월 선택 가능                
-            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-            ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-            ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
-        });                    
-        $("#3m1").click(function(){
-         	  $('#datepicker1').datepicker('setDate', '-3M');
-           })
-        //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
-       $("#t1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', 'today'); 
-       })
-       $("#1w1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', '-7D');
-       })
-       $("#1m1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', '-1M');
-       })
-        $("#3m1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', '-3M');
-       })
-         $("#6m1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', '-6M');
-       }) 
- 		/*구매버튼 이벤트*/
- 	
- });
-			/*input type ="date" 인 경우 기본값 설정
-			document.getElementById("currentDate").value= 
-				new Date().toISOString().substring(0,10);*/
-				$("#datepicker").datepicker().datepicker("setDate", '-3M');
-				$("#currentDate").datepicker().datepicker("setDate", new Date());
-			 $(function() {
-		            //input을 datepicker로 선언
-		            $("#datepicker").datepicker({
-		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
-		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-		                ,changeYear: true //콤보박스에서 년 선택 가능
-		                ,changeMonth: true //콤보박스에서 월 선택 가능                
-		                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-		                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-		                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-		                ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
-		            }); 
-		            $("#3m").click(function(){
-	                  	  $('#datepicker').datepicker('setDate', '-3M');
-	                    })
-			            //$('input:checkbox[input[name="options"]:checked').val(); // 체크된 값(checked value)
-	                      $("#t").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', 'today'); 
-	                      })
-	                      $("#1w").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', '-7D');
-	                      })
-	                      $("#1m").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', '-1M');
-	                      })
-	                       $("#3m").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', '-3M');
-	                      })
-	                        $("#6m").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', '-6M');
-	                      }) 
-			 });
-			 
-			 function valuesend(){
-				 window.open("", "value", "width=550, height=650, left=650, top=140, scrollbars=1, menubar=1, resizable=1"); 
-					 document.frm.target ="value";     
-					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp";
-				 	 document.frm.submit();
-				}
 </script>
 

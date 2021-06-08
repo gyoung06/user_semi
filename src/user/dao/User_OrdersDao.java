@@ -11,22 +11,25 @@ import test.db.DBConnection;
 import user.vo.UserOrderlistVo;
 
 public class User_OrdersDao {
-	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field, String id){
+	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field, String id, String startdate, String enddate){ //string인지 date인지 확인
 		String sql=null;
-		if(field==null || field.equals("") || field.contentEquals("orderall")) {
+		if(field==null || field.equals("")) {
 			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-					"from orders o, order_detail od, product p, stock s, members m " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=?";
+					"from orders o, order_detail od, product p, stock s " + 
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and ordate>=sysdate-90 and ordate<=sysdate+90";
+		}else if(field.equals("전체 주문리스트")) {
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+					"from orders o, order_detail od, product p, stock s " + 
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 		}else {
-			if(field.equals("ready") || field.equals("halfway") || field.equals("finish")) {
-			sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-					"from orders o, order_detail od, product p, stock s, members m " + 
-					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.ordelivery  = " + field +") where orid>=? and orid<=?";
+			if(field.equals("배송 준비중") || field.equals("배송중") || field.equals("배송완료")) {
+				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+					"from orders o, order_detail od, product p, stock s " + 
+					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.ordelivery  = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 			}else {
 				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancel, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
-						"from orders o, order_detail od, product p, stock s, members m  " + 
-						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancel = " + field +") where orid>=? and orid<=?";
-								
+						"from orders o, order_detail od, product p, stock s " + 
+						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=? and o.orcancel = " + field +") where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 			}
 		}
 		Connection con=null;
@@ -39,6 +42,8 @@ public class User_OrdersDao {
 			pstmt.setString(1, id);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
+			pstmt.setString(4, startdate);
+			pstmt.setString(5, enddate);
 			rs=pstmt.executeQuery();
 			ArrayList<UserOrderlistVo> list=new ArrayList<UserOrderlistVo>();
 			while(rs.next()) {
@@ -62,6 +67,7 @@ public class User_OrdersDao {
 			DBConnection.close(con,pstmt,rs);
 		}
 	}
+	
 	public int getCount(String field) { //전체 글의 개수
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -87,18 +93,21 @@ public class User_OrdersDao {
 	public int CountOrid(String id) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
 			String sql="select count(orid) from orders where mid=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			int n=pstmt.executeUpdate();
-			return n;
+			rs=pstmt.executeQuery();
+			rs.next();
+			int countorid=rs.getInt(1);
+			return countorid;
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1; //글번호가 -1이 들어가지 않을꺼니까 -1주기
 		}finally {
-			DBConnection.close(con, pstmt, null);
+			DBConnection.close(con, pstmt, rs);
 		}
 	}
 }
