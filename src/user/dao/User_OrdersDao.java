@@ -57,8 +57,8 @@ public class User_OrdersDao {
 				int odcount=rs.getInt("odcount");
 				int pprice=rs.getInt("pprice");
 				String ordelivery=rs.getString("ordelivery");
-				String orcancel=rs.getString("orcancel");
-				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odcount, pprice, ordelivery, orcancel);
+				String orcancle=rs.getString("orcancle");
+				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odcount, pprice, ordelivery, orcancle);
 				list.add(vo);
 			}
 			return list;
