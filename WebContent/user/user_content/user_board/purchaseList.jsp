@@ -24,11 +24,9 @@ order list
   <form action="${cp }/user/purchase" method="post">
     	<select name = "field">
 				<option value="전체 주문리스트"<c:if test="${field=='orderall' }">selected="selected"</c:if>>전체 주문리스트</option>
-				<option value="배송 준비중"<c:if test="${field=='ready' }">selected="selected"</c:if>>배송 준비중</option>
 				<option value="배송중"<c:if test="${field=='halfway' }">selected="selected"</c:if>>배송중</option>
 				<option value="배송완료"<c:if test="${field=='finish' }">selected="selected"</c:if>>배송완료</option>
 				<option value="취소"<c:if test="${field=='cancel' }">selected="selected"</c:if>>취소</option>
-				<option value="교환"<c:if test="${field=='exchange' }">selected="selected"</c:if>>교환</option>
 				<option value="반품"<c:if test="${field=='return' }">selected="selected"</c:if>>반품</option>
 		</select>
 		<div class="btn-group" data-toggle="buttons">

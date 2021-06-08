@@ -2,6 +2,7 @@ package user.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -24,19 +25,29 @@ public class User_PurchaseList extends HttpServlet{
 		String id=(String)session.getAttribute("id");
 		String startdate=req.getParameter("startdate");
 		String enddate=req.getParameter("enddate");
+		System.out.println("startdate:"+startdate + "enddate:"+enddate);
+//		if(startdate==null || enddate==null) {
+//			SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
+//			Date now = new Date();
+//			String enddate1 = sdf.format(now);
+//		}
+//		System.out.println("startdate1:"+startdate + "enddate1:"+enddate);
 //		Date sstartdate=null;
 //		Date eenddate=null;
 //	    try{
 //			String startdate1=req.getParameter("startdate");
 //			String enddate1=req.getParameter("enddate");
-//	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-//	        sstartdate=(Date)sdf.parse(startdate1); 
-//	        eenddate=(Date)sdf.parse(enddate1); 
+//	        SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
+//	        sstartdate=(Date)sdf.parse(startdate); 
+//	        eenddate=(Date)sdf.parse(enddate); 
 //	    }catch (Exception e) {
 //	       e.printStackTrace();
 //	    }
-//	    java.sql.Date startdate = new java.sql.Date(sstartdate.getTime()); //sql.date로 넣어야 들어감
-//	    java.sql.Date enddate = new java.sql.Date(eenddate.getTime());
+//	    java.sql.Date startdate1 = new java.sql.Date(sstartdate.getTime()); //sql.date로 넣어야 들어감
+//	    java.sql.Date enddate1 = new java.sql.Date(eenddate.getTime());
+//		}
+
+		
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
 		int pageNum=1;
@@ -48,7 +59,7 @@ public class User_PurchaseList extends HttpServlet{
 		User_OrdersDao dao = new User_OrdersDao();
 		int startRow=10*pageNum-9;
 		int endRow=pageNum*10;
-
+		
 		int n=dao.CountOrid(id);
 		if(n>0) {
 			req.setAttribute("Countorid", n);
