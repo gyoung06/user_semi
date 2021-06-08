@@ -191,6 +191,7 @@ public class Admin_NoticeDao {
 			pstmt.setString(1, vo.getFtitle());
 			pstmt.setString(2, vo.getFcontent());
 			pstmt.setString(3, vo.getFfile());
+			System.out.println(vo.getFfile());
 			pstmt.setInt(4, vo.getFpublic_private());
 			pstmt.setString(5, vo.getAid());
 			return pstmt.executeUpdate();

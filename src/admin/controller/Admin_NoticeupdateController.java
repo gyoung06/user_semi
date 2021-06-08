@@ -18,13 +18,14 @@ public class Admin_NoticeupdateController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		int fid=Integer.parseInt(req.getParameter("fid"));
+		String ffile=req.getParameter("file1");
 		String fwriter=req.getParameter("fwriter");
 		String ftitle=req.getParameter("ftitle");
 		String fcontent=req.getParameter("fcontent");
 		int fpublic_private=Integer.parseInt(req.getParameter("fpublic_private"));
 		
 		Admin_NoticeDao dao=new Admin_NoticeDao();
-		Admin_NoticeVo vo=new Admin_NoticeVo(fid, ftitle, fcontent,null,null,0, fpublic_private,fwriter);
+		Admin_NoticeVo vo=new Admin_NoticeVo(fid, ftitle, fcontent,ffile,null,0, fpublic_private,fwriter);
 		dao.update(vo);
 		
 		req.setAttribute("vo", vo);

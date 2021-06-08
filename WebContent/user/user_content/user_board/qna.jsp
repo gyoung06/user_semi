@@ -23,6 +23,9 @@
 				</c:forEach>
 				[re]
 			</c:if>
+			<c:if test="${empty vo.qpw}">
+			<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_lock.gif">
+			</c:if>
 			<a href="<%=request.getContextPath()%>/user/qnaDetail?qid=${vo.qid}">${vo.qtitle }</a></td>
 		<td>${vo.mid }</td>
 	</tr>
@@ -70,9 +73,12 @@
 <%if(id!=null && id!="") {%>
 	<a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="글쓰기"></a>
 	<% }else{
-%>   <a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="글쓰기" disabled="disabled"></a>
+%>   <input type="button" value="글쓰기" onclick="show()">
 <%} %>
 </div>
 <script type="text/javascript">
-	
+	function show(){
+		alert("로그인필요!");
+		
+	}
 </script>

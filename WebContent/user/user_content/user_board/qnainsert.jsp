@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
+<div id="box">
 <%
 	String id=(String)session.getAttribute("id");
 %>
-<style>
-	#box{
-		
-	}
-
-</style>
-<div id="box">
 <h2>QnA 문의</h2>
-<form method="post" action="<%=request.getContextPath()%>/user/qnainsert">
-	<input type="hidden" value=${param.mid } name="mid">
+
+<form method="post" action="<%=request.getContextPath()%>/user/qnainsert" enctype="multipart/form-data">
+<input type="hidden" value="<%=id %>" name="mid">
 	카테고리<select name="qcate">
 		<option value="delivery">배송문의</option>
 		<option value="product">상품문의</option>
@@ -30,6 +27,7 @@
 	<br>
 	파일첨부
 	<br>
+	<input type="file" name="file1" ><br>
 	<input type="submit" value="글등록">
 </form>
 </div>

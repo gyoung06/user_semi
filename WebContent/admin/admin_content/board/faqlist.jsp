@@ -33,7 +33,7 @@
 		<textarea rows="5" cols="50" name="fcontent"></textarea><br>
 		공개<input type="radio" name="fpublic_private" value="1" checked>
 		비공개<input type="radio" name="fpublic_private" value="0">
-		<input type="submit" name="insert" value="등록"">
+		<input type="submit" name="insert" value="등록">
 </form>
 </div>
 <div id="list">
@@ -108,7 +108,7 @@
 			<th>작성날짜</th>			
 			<th>번호</th>			
 			<th>수정</th>			
-			<th><a href="">삭제</a></th>			
+			<th>삭제</th>			
 		</tr>
 	<c:forEach var="vo" items="${list1 }">
 	<c:choose>
