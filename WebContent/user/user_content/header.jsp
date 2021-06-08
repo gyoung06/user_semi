@@ -18,8 +18,8 @@
 	<h1><a href="${cp }/user/home">J4</a></h1>
 	<div id ="category">
 		<h3>category</h3>
-		<a href="">new</a><br>
-		<a href="">best 50</a><br>
+		<a href="${cp }/user/new">new</a><br>
+		<a href="${cp }/user/best">best 50</a><br>
 		<a href="${cp }/user/category?category=outer">outer</a><br>
 		<a href="${cp }/user/category?category=top">top</a><br>
 		<a href="${cp }/user/category?category=ops">ops</a><br>

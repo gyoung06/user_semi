@@ -21,6 +21,8 @@ public class User_OrderController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pid = req.getParameter("pid");
+		String size = req.getParameter("size");
+		String color = req.getParameter("color");
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		UserProductDAO productdao = new UserProductDAO();
@@ -32,6 +34,8 @@ public class User_OrderController extends HttpServlet {
 		req.setAttribute("productvo", productvo);
 		req.setAttribute("stockvo", stockvo);
 		req.setAttribute("membervo", membervo);
+		req.setAttribute("size", size);
+		req.setAttribute("color", color);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content", "/user/user_content/user_board/goodsOrder.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");

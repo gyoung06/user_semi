@@ -1,7 +1,7 @@
+<%@page import="javax.swing.text.DocumentFilter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form action="${cp }/user/order?pid=${vo.pid }">
 <table class="table">
 	<tr>
 		<th rowspan="16"><img src = "${cp }${vo.pimage2}"></th>
@@ -51,32 +51,32 @@
 				- <label id="optionColor"></label>,<label id="optionSize"></label>
 				</p>
 		</td>
-		<td>
-			<span class="quantity" >
-				<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
-				<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
-					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
-				</a>
-				<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
-					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
-				</a>
-			</span>
-			<a href="javascript:deleteProduct()" class="delete">
-				<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
-			</a>
-			<span id="option_box1_price" style="float: right">
-				<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
-				<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+			<td>
+				<span class="quantity" >
+					<input type="text" value="1"size="1" id="amount" onchange="amountChange()">
+					<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" id="ubBtn" class="option_box_up" alt="수량증가">
+					</a>
+					<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" id="downBtn" class="option_box_down" alt="수량감소">
+					</a>
 				</span>
-			</span>
-			<br>
-			<span class="mileage" style="float: right">
-				(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-				<span id="mileage" class="mileage_price" code="P0000ITG000B">
-				</span>)
-			</span>
-		</td>
-	</tr>
+				<a href="javascript:deleteProduct()" class="delete">
+					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
+				</a>
+				<span id="option_box1_price" style="float: right">
+					<input type="hidden" class="option_box_price" value="40000" product-no="5908" item_code="P0000ITG000B">
+					<span id="pprice" class="ec-front-product-item-price" code="P0000ITG000B" product-no="5908">
+					</span>
+				</span>
+				<br>
+				<span class="mileage" style="float: right">
+					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
+					<span id="mileage" class="mileage_price" code="P0000ITG000B">
+					</span>)
+				</span>
+			</td>
+		</tr>
 	</label>
 	<script> 
 		function colorchange(){
@@ -92,6 +92,7 @@
 					let json = JSON.parse(result);
 					for (var i = 0; i < json.list.length; i++) {
 						const color = document.createElement("option");
+						color.id="optionid";
 						color.innerHTML=json.list[i].ssize;
 						sizeOp.appendChild(color);
 					}
@@ -152,16 +153,25 @@
 		function deleteProduct(){
 			console.log('삭제')
 		}
+		
 	</script>
 	<tr>
 		<td colspan="2">total: 0(0개)</td>
 	</tr>
 	<tr>
-		<td><a href="${cp }/user/order?pid=${vo.pid }"><input id = "buy" type = "su" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now"></a></td>
+		<td><input onclick="buythis()" type="button" id = "buy" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now"></td>
 		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart"></td>
 	</tr>
 </table>
 <script>
+	function buythis(){
+		//이미지,이름,색상,사이즈,판매가,수량,적립금, 배송비,합계
+		let color = document.getElementsByName("color")[0].value;
+		let size = document.getElementsByName("size")[0].value;
+		let amount = document.getElementById("amount").value;
+		let mileage = document.getElementById("mileage").innerHTML;
+		location.href="<%=request.getContextPath()%>/user/order?pid=${vo.pid }&color="+color+"&size="+size;
+	}
 	let buy = document.getElementById("buy");
 	let cart = document.getElementById("cart");
 	buy.addEventListener('mouseover', function(e) {

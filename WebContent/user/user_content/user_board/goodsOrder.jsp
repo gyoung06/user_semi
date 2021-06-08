@@ -26,7 +26,7 @@ order
 		<tr>
 			<td><input type="checkbox" name="check"></td>
 			<td><img src="${cp }${productvo.pimage2 } "style = "width:100px; height:outo;"></td>
-			<td>${stockvo.sname }</td>
+			<th>${stockvo.sname }<br><br>[옵션: ${size }, ${color }]</th>
 			<td>${productvo.pprice }</td>
 			<td>|수량</td>
 			<td>적립금</td>
@@ -95,24 +95,89 @@ order
 	<table class="table">
 		<tr>
 			<td>주문하시는분</td>
-			<td><input type="text"></td>
+			<td><input id = "upname"type="text"></td>
 		</tr>	
 		<tr>
 			<td>주소</td>
 			<td>
-			<input type="text"><input type="button" value="우편번호">
-			<br><input type="text" readonly="readonly">기본주소
-			<br><input type="text">나머지주소
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!--             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요. -->
+        	<input type="text" name="postcode" placeholder="우편번호">
+        	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+        	<input type="text" name="roadAddress" placeholder="도로명주소" readonly="readonly">
+        	<input type="text" name="jibunAddress" placeholder="지번주소" readonly="readonly">
+        	<span id="guide" style="color:#999; display:none"></span>
+        	<input type="text" name="detailAddress" placeholder="상세주소">
+        	<input type="text" name="extraAddress" placeholder="참고항목" readonly="readonly">
+
+        	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        	<script>
+        	    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+        	    function execDaumPostcode() {
+        	        new daum.Postcode({
+        	            oncomplete: function(data) {
+        	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+        	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+        	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        	                var roadAddr = data.roadAddress; // 도로명 주소 변수
+        	                var extraRoadAddr = ''; // 참고 항목 변수
+
+        	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+        	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+        	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+        	                    extraRoadAddr += data.bname;
+        	                }
+        	                // 건물명이 있고, 공동주택일 경우 추가한다.
+        	                if(data.buildingName !== '' && data.apartment === 'Y'){
+        	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        	                }
+        	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+        	                if(extraRoadAddr !== ''){
+        	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+        	                }
+
+        	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        	                document.getElementsByName('postcode')[0].value = data.zonecode;
+        	                document.getElementsByName("roadAddress")[0].value = roadAddr;
+        	                document.getElementsByName("jibunAddress")[0].value = data.jibunAddress;
+        	                
+        	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+        	                if(roadAddr !== ''){
+        	                    document.getElementsByName("extraAddress")[0].value = extraRoadAddr;
+        	                } else {
+        	                    document.getElementsByName("extraAddress")[0].value = '';
+        	                }
+
+        	                var guideTextBox = document.getElementById("guide");
+        	                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+        	                if(data.autoRoadAddress) {
+        	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+        	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+        	                    guideTextBox.style.display = 'block';
+
+        	                } else if(data.autoJibunAddress) {
+        	                    var expJibunAddr = data.autoJibunAddress;
+        	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+        	                    guideTextBox.style.display = 'block';
+        	                } else {
+        	                    guideTextBox.innerHTML = '';
+        	                    guideTextBox.style.display = 'none';
+        	                }
+        	            }
+        	        }).open();
+        	    }
+        	</script>
 			</td>
 		</tr>	
 		<tr>
-			<td>일반전화</td>
-			<td><input type="text"><input type="text"></td>
-		</tr>	
-		<tr>
 			<td>휴대전화</td>
-			<td><input type="text"><input type="text"></td>
-		</tr>	
+			<td>
+				<input type="text" id="gophone" style="width:300px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" onblur="siseck()"/>
+				<span id="gophonecheck"></span>
+			</td>
+		</tr>
 		<tr>
 			<td>이메일</td>
 			<td><input type="email"><br>
@@ -126,39 +191,89 @@ order
 		<tr>
 			<td>배송지선택</td>
 			<td>
-			<input type="radio" name="dir" checked="checked" onclick="click()">등록한 정보 
-			<input type="radio"  name="dir">새로운배송지 
-			<input type="radio"  name="dir">주문자 정보와 동일
+			<input type="radio" name="dir" checked="checked" onclick="oldclick()">등록한 정보 
+			<input type="radio"  name="dir" onclick="newDirec()">새로운배송지 
+			<input type="radio"  name="dir" onclick="sameDirec()">주문자 정보와 동일
 			</td>
 		</tr>
 		<tr>
 			<td>받으시는 분</td>
-			<td><input type="text" id = "getPer" value="${membervo.addname }" readonly="readonly">${addname }</td>
+			<td><input type="text"type="visible" style="width:300px;" name = "saveDir" value="${membervo.addname }" readonly="readonly">
+			<input type="hidden" type="text" name = "newDir" style="width:300px;">
+			<input type="hidden" type="text" id = "downname"name = "upDir" style="width:300px;" readonly="readonly">
+			</td>
 		</tr>	
 		<tr>
 			<td>주소</td>
 			<td>
-			<input type="text"><input type="button" value="우편번호">
-			<br><input type="text" readonly="readonly">기본주소
-			<br><input type="text">나머지주소
+			<input type="text"type="visible"  name = "saveDir" value="${membervo.maddress }" readonly="readonly" style="width:1000px;">
+			<input type="hidden"type="text" name = "newDir" style="width:1000px;">
+			<input type="hidden"type="text" name = "upDir" id="downadd" style="width:1000px;"readonly="readonly">
 			</td>
 		</tr>	
 		<tr>
-			<td>일반전화</td>
-			<td><input type="text"><input type="text"></td>
-		</tr>	
-		<tr>
 			<td>휴대전화</td>
-			<td><input type="text"><input type="text"></td>
+			<td>
+			<input type="text"type="visible"  name = "saveDir" value="${membervo.addphone }" readonly="readonly" style="width:300px;">
+			<input type="hidden" type="text" name = "newDir" id="inputphonenum" style="width:300px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" onblur="newcheck()"/>
+			<input type="hidden" type="text" name = "upDir" id="downphone" style="width:300px;" readonly="readonly">
+			<span id="newphonecheck"></span>
+			</td>
 		</tr>	
 		<tr>
 			<td>배송메시지</td>
-			<td><textarea rows="2" cols="50" name="content"></textarea></td>
+			<td><textarea rows="2" cols="50" name="content"style="width:300px;"></textarea></td>
 		</tr>	
 	</table>
 	<script>
-		function click(){
-			console.log('d')
+		function sameDirec(){
+			let upDir = document.getElementsByName("upDir");
+			let newDir = document.getElementsByName("newDir");
+			let saveDir = document.getElementsByName("saveDir");
+			let upname = document.getElementById("upname");
+			let downname = document.getElementById("downname");
+			let gophone = document.getElementById("gophone");
+			let downphone = document.getElementById("downphone");
+			let downadd = document.getElementById("downadd");
+			let roadAddress=document.getElementsByName("roadAddress")[0];
+			let detailAddress = document.getElementsByName("detailAddress")[0];
+			downname.value=upname.value;
+			downphone.value=gophone.value;
+			downadd.value=roadAddress.value+" "+detailAddress.value;
+			for (var i = 0; i < newDir.length; i++) {
+				saveDir[i].type="hidden";
+				newDir[i].type="hidden";
+				upDir[i].type="visible";
+			}
+		}
+		function newcheck(){
+			let gophone = document.getElementById("gophone");
+			let newphonecheck = document.getElementById("newphonecheck");
+			if(gophone.value.length!=11){
+				newphonecheck.innerHTML="11자를 입력해주세요"
+			}else{
+				newphonecheck.innerHTML="입력성공";
+			}
+		}
+		function siseck(){
+			let gophone = document.getElementById("gophone");
+			let gophonecheck = document.getElementById("gophonecheck");
+			if(gophone.value.length!=11){
+				gophonecheck.innerHTML="11자를 입력해주세요"
+			}else{
+				gophonecheck.innerHTML="입력성공";
+			}
+		}
+		function oldclick(){
+			let upDir = document.getElementsByName("upDir");
+			let newDir = document.getElementsByName("newDir");
+			let saveDir = document.getElementsByName("saveDir");
+			for (var i = 0; i < newDir.length; i++) {
+				saveDir[i].type="visible";
+				newDir[i].type="hidden";
+				upDir[i].type="hidden";
+
+			}
 			let xhr = new XMLHttpRequest();
 			let getPer = document.getElementById("getPer");
 			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/addressSelect.jsp?id=",true);
@@ -168,8 +283,17 @@ order
 					let result = xhr.responseText;
 					let json = JSON.parse(result);
 					getPer.innerHTML=json.addname;
-					console.log('hi')
 				}
+			}
+		}
+		function newDirec(){
+			let upDir = document.getElementsByName("upDir");
+			let newDir = document.getElementsByName("newDir");
+			let saveDir = document.getElementsByName("saveDir");
+			for (var i = 0; i < newDir.length; i++) {
+				saveDir[i].type="hidden";
+				newDir[i].type="visible";
+				upDir[i].type="hidden";
 			}
 		}
 	</script>	
@@ -182,19 +306,19 @@ order
 			<td>총 결제예정 금액</td>
 		</tr>	
 		<tr>
-			<th>66,000</th>
-			<th>-6,600</th>
-			<th>=59,400</th>
+			<th>${productvo.pprice }</th>
+			<th>-${productvo.pprice*productvo.pdiscount/100 }</th>
+			<th>=${productvo.pprice*(100-productvo.pdiscount)/100 }</th>
 		</tr>	
 	</table>
 	<table class="table">
 		<tr>
 			<th>총 할인금액</th>
-			<th>6,600</th>
+			<th>-${productvo.pprice*productvo.pdiscount/100 }</th>
 		</tr>	
 		<tr>
 			<td>추가할인금액</td>
-			<td>6,600<input type="button" value="내역보기"></td>
+			<td>-${productvo.pprice*productvo.pdiscount/100 }<input type="button" value="내역보기"></td>
 		</tr>	
 		<tr>
 			<td>총 부가결제금액</td>
@@ -202,7 +326,7 @@ order
 		</tr>	
 		<tr>
 			<td>적립금</td>
-			<td><input type="text">원(총 사용가능 적립금: <!-- 헌재 내 소유한 적립금 금액 표시 -->원)</td>
+			<td><input type="text">원(총 사용가능 적립금: ${membervo.mmileage }원)</td>
 		</tr>	
 		<tr>
 			<td></td>
@@ -212,21 +336,20 @@ order
 				1회 구매시 적립금 최대 사용금액은 1,000원입니다.<br>
 				적립금으로만 결제할 경우, 결제금액이 0으로 보여지는 것은 정상이며 [결제하기] 버튼을 누르면 주문이 완료됩니다.
 			</td>
-			<!-- 예치금 안할꺼> -->
 		</tr>	
 	</table>
 	<h4>결제</h4>
 	<table class="table">
 		<tr><td colspan="2">최종결제금액</td></tr>
-		<tr><td colspan="2">59,400</td></tr>
+		<tr><td colspan="2">총가격표시하기!!!</td></tr>
 		<tr><td colspan="2"><input type="submit" value="결제하기"></td></tr>
 		<tr>
 			<th>총 적립예정금액</th>
 			<th>1,250원</th>
 		</tr>
 		<tr>
-			<td>상품별 적립금<br>회원 적립금<br>쿠폰 적립금</td>
-			<td>660원<br>590원<br>0원</td>
+			<td>상품별 적립금<br>회원 적립금</td>
+			<td>표시하기!!!<br>표시하기!!!</td>
 		</tr>
 	</table>
 </form>

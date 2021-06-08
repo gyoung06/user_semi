@@ -13,14 +13,14 @@ import user.dao.UserProductDAO;
 import user.dao.UserStockDAO;
 import user.vo.User_ProductVo;
 
-@WebServlet("/user/category")
-public class User_CategoryController extends HttpServlet {
+@WebServlet("/user/best")
+public class User_BestProductController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String category = req.getParameter("category");
-		UserProductDAO dao = new UserProductDAO();
+		UserProductDAO productdao = new UserProductDAO();
 		UserStockDAO stockDao = new UserStockDAO();
-		ArrayList<User_ProductVo> list = dao.category(category);
+		ArrayList<User_ProductVo> list = new ArrayList<>();
+		list = productdao.Bestlist();
 		ArrayList<String> nameList = new ArrayList<>();
 		for (User_ProductVo vo : list) {
 			String name = stockDao.sid(vo.getSid());
@@ -29,7 +29,7 @@ public class User_CategoryController extends HttpServlet {
 		req.setAttribute("list", list);
 		req.setAttribute("nameList", nameList);
 		req.setAttribute("top", "/user/user_content/header.jsp");
-		req.setAttribute("content", "/user/user_content/main.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/best.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}

@@ -14,13 +14,13 @@ public class User_MembersVo {
 	private int mdrop;
 	private int mmileage;
 	private String memail;
-	private String addtitle;
-	private String addname;
 	private String addphone;
-	public User_MembersVo() {}
+	private String addname;
+	private String addtitle;
+
 	public User_MembersVo(String mid, String mpw, String mname, String maddress, String mpost, String mphone,
-			Date mrdate, Date mbirth, int mdrop, int mmileage, String memail, String addtitle, String addname,
-			String addphone) {
+			Date mrdate, Date mbirth, int mdrop, int mmileage, String memail, String addphone, String addname,
+			String addtitle) {
 		super();
 		this.mid = mid;
 		this.mpw = mpw;
@@ -33,91 +33,122 @@ public class User_MembersVo {
 		this.mdrop = mdrop;
 		this.mmileage = mmileage;
 		this.memail = memail;
-		this.addtitle = addtitle;
-		this.addname = addname;
 		this.addphone = addphone;
+		this.addname = addname;
+		this.addtitle = addtitle;
 	}
+
+	public User_MembersVo() {
+	}
+
 	public String getMid() {
 		return mid;
 	}
+
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
+
 	public String getMpw() {
 		return mpw;
 	}
+
 	public void setMpw(String mpw) {
 		this.mpw = mpw;
 	}
+
 	public String getMname() {
 		return mname;
 	}
+
 	public void setMname(String mname) {
 		this.mname = mname;
 	}
+
 	public String getMaddress() {
 		return maddress;
 	}
+
 	public void setMaddress(String maddress) {
 		this.maddress = maddress;
 	}
+
 	public String getMpost() {
 		return mpost;
 	}
+
 	public void setMpost(String mpost) {
 		this.mpost = mpost;
 	}
+
 	public String getMphone() {
 		return mphone;
 	}
+
 	public void setMphone(String mphone) {
 		this.mphone = mphone;
 	}
+
 	public Date getMrdate() {
 		return mrdate;
 	}
+
 	public void setMrdate(Date mrdate) {
 		this.mrdate = mrdate;
 	}
+
 	public Date getMbirth() {
 		return mbirth;
 	}
+
 	public void setMbirth(Date mbirth) {
 		this.mbirth = mbirth;
 	}
+
 	public int getMdrop() {
 		return mdrop;
 	}
+
 	public void setMdrop(int mdrop) {
 		this.mdrop = mdrop;
 	}
+
 	public int getMmileage() {
 		return mmileage;
 	}
+
 	public void setMmileage(int mmileage) {
 		this.mmileage = mmileage;
 	}
+
 	public String getMemail() {
 		return memail;
 	}
+
 	public void setMemail(String memail) {
 		this.memail = memail;
 	}
+
 	public String getAddtitle() {
 		return addtitle;
 	}
+
 	public void setAddtitle(String addtitle) {
 		this.addtitle = addtitle;
 	}
+
 	public String getAddname() {
 		return addname;
 	}
+
 	public void setAddname(String addname) {
 		this.addname = addname;
 	}
+
 	public String getAddphone() {
 		return addphone;
 	}
+
 	public void setAddphone(String addphone) {
 		this.addphone = addphone;
 	}
