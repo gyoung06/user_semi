@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class User_CartController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//여기로 넘어온것들 추가
+		//여기로 넘어온것들 추가
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content", "/user/user_content/user_board/cart.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
