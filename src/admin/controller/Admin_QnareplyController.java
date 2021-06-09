@@ -22,19 +22,15 @@ public class Admin_QnareplyController extends HttpServlet {
 		String qtitle = req.getParameter("qtitle");
 		String qcontent = req.getParameter("qcontent");
 		String qfile = req.getParameter("qfile");
+		int pid = Integer.parseInt(req.getParameter("pid"));
 
 		String mid = req.getParameter("mid");
-		int pid = Integer.parseInt(req.getParameter("pid"));
-		int qid1 = 0;
-		int ref = 0;
-		int lev = 0;
-
-		if (qid != null && !qid.equals("")) {
-			qid1 = Integer.parseInt(qid);
-			ref = Integer.parseInt(req.getParameter("ref"));
-			lev = Integer.parseInt(req.getParameter("lev"));
-		}
-		UserQnaVo vo = new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, mid, pid);
+		int qid1 = Integer.parseInt(req.getParameter("qid"));
+		int ref = Integer.parseInt(req.getParameter("qref"));
+		int lev = Integer.parseInt(req.getParameter("qlev"));
+		int step=Integer.parseInt(req.getParameter("qstep"));
+		
+		UserQnaVo vo = new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, mid, pid, step);
 
 		UserQnaDAO dao = new UserQnaDAO();
 		dao.reply(vo);

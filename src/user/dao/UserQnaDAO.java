@@ -28,7 +28,8 @@ public class UserQnaDAO {
 					int qref = rs.getInt("qref");
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
-					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1);
+					int qstep = rs.getInt("qstep");
+					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
 				}
 			}
 		} catch (SQLException e) {
@@ -57,8 +58,9 @@ public class UserQnaDAO {
 					int qref = rs.getInt("qref");
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
-					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1);
-					list.add(vo);
+					int qstep = rs.getInt("qstep");
+					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					list.add(vo1);
 				}
 			}
 		} catch (SQLException e) {
@@ -88,8 +90,9 @@ public class UserQnaDAO {
 					int qref = rs.getInt("qref");
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
-					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1);
-					list.add(vo);
+					int qstep = rs.getInt("qstep");
+					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					list.add(vo1);
 				}
 			}
 		} catch (SQLException e) {
@@ -146,7 +149,8 @@ public class UserQnaDAO {
 				int qref = rs.getInt("qref");
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid);
+				int qstep = rs.getInt("qstep");
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
 				list.add(vo);
 			}
 			return list;
@@ -162,10 +166,10 @@ public class UserQnaDAO {
 		String sql = null;
 		if (field == null || field.equals("")) {
 			sql = "select * from " + "( " + "  select board.*,rownum rnum from " + "  ("
-					+ "     select * from userqna order by qref desc" + "  ) board" + ") where rnum>=? and rnum<=?";
+					+ "     select * from userqna order by qref desc, qstep asc" + "  ) board" + ") where rnum>=? and rnum<=?";
 		} else {
 			sql = "select * from " + "( " + "  select board.*,rownum rnum from " + "  ("
-					+ "     select * from userqna where " + field + " like '%" + keyword + "%' order by qref desc"
+					+ "     select * from userqna where " + field + " like '%" + keyword + "%' order by qref desc, qstep asc"
 					+ "  ) board" + ") where rnum>=? and rnum<=?";
 		}
 		Connection con = null;
@@ -190,7 +194,8 @@ public class UserQnaDAO {
 				int qref = rs.getInt("qref");
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid);
+				int qstep = rs.getInt("qstep");
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
 				qlist.add(vo);
 			}
 			return qlist;
@@ -224,7 +229,8 @@ public class UserQnaDAO {
 				int qref = rs.getInt("qref");
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid);
+				int qstep = rs.getInt("qstep");
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
 				return vo;
 			}
 			return null;
@@ -258,16 +264,63 @@ public class UserQnaDAO {
 
 	public int reply(UserQnaVo vo) {
 		Connection con = null;
+		PreparedStatement pstmt = null;
 		PreparedStatement pstmt1 = null;
+	
 		try {
 			con = DBConnection.getCon();
-			int qid = getMaxNum() + 1;
+			int boardNum=getMaxNum()+1;
+			int qid=vo.getQid();
 			int qref = vo.getQref();
 			int qlev = vo.getQlev();
-
-			qlev += 1;
-			String sql = "insert into userqna values(?,?,?,?,?,?,sysdate,?,?,?,?)";
-			pstmt1 = con.prepareStatement(sql);
+			int qstep = vo.getQstep();
+			
+				String sql="update userqna set qstep=qstep+1 where qref=? and qstep>? ";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,qref);
+				pstmt.setInt(2,qstep);
+				pstmt.executeUpdate();
+				qlev+=1;
+				qstep+=1;
+						
+			String sql1="insert into userqna values(?,?,?,?,?,?,sysdate,?,?,?,?,?)";
+			pstmt1=con.prepareStatement(sql1);
+			pstmt1.setInt(1, boardNum);
+			pstmt1.setString(2, vo.getQcate());
+			pstmt1.setString(3, vo.getQpw());
+			pstmt1.setString(4, vo.getQtitle());
+			pstmt1.setString(5, vo.getQcontent());
+			pstmt1.setString(6, vo.getQfile());
+			pstmt1.setInt(7, qlev);
+			pstmt1.setInt(8, qref);
+			pstmt1.setString(9, vo.getMid());
+			pstmt1.setInt(10, vo.getPid());
+			pstmt1.setInt(11, qstep);
+			return pstmt1.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBConnection.close(pstmt);
+			DBConnection.close(con);
+		}
+	}
+	public int insert(UserQnaVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		try {
+			con=DBConnection.getCon();
+			int qid=getMaxNum()+1;
+			int qref=vo.getQref();
+			int qlev=vo.getQlev();
+			int qstep=vo.getQstep();
+			if(qref==0) {
+				qref=qid;
+			}
+					
+			String sql="insert into userqna values(?,?,?,?,?,?,sysdate,?,?,?,?,?)";
+			pstmt1=con.prepareStatement(sql);
 			pstmt1.setInt(1, qid);
 			pstmt1.setString(2, vo.getQcate());
 			pstmt1.setString(3, vo.getQpw());
@@ -278,43 +331,15 @@ public class UserQnaDAO {
 			pstmt1.setInt(8, qref);
 			pstmt1.setString(9, vo.getMid());
 			pstmt1.setInt(10, vo.getPid());
-
+			pstmt1.setInt(11, qstep);
 			return pstmt1.executeUpdate();
-		} catch (SQLException se) {
+		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;
-		} finally {
+		}finally {
+			DBConnection.close(pstmt2);
 			DBConnection.close(pstmt1);
 			DBConnection.close(con);
-		}
-	}
-	public int insert(UserQnaVo vo) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		String sql=null;
-		int n=0;
-		try {
-			con=DBConnection.getCon();
-			sql="insert into userqna values(userQna_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, vo.getQcate());
-				pstmt.setString(2, vo.getQpw());
-				pstmt.setString(3, vo.getQtitle());
-				pstmt.setString(4, vo.getQcontent());
-				pstmt.setString(5, vo.getQfile());
-				pstmt.setDate(6, vo.getQrdate());
-				pstmt.setInt(7, vo.getQlev());
-				pstmt.setInt(8, vo.getQref());
-				pstmt.setString(9, vo.getMid());
-				pstmt.setInt(10, vo.getPid());
-				n=pstmt.executeUpdate();
-			
-			return n;
-		}catch(SQLException s) {
-			s.printStackTrace();
-			return -1;
-		}finally {
-			DBConnection.close(con, pstmt, null);
 		}
 	}
 }

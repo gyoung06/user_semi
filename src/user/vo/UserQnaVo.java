@@ -14,9 +14,11 @@ public class UserQnaVo {
 	private int qref;
 	private String mid;
 	private int pid;
+	private int qstep;
+
 
 	public UserQnaVo(int qid, String qcate, String qpw, String qtitle, String qcontent, String qfile, Date qrdate,
-			int qlev, int qref, String mid, int pid) {
+			int qlev, int qref, String mid, int pid, int qstep) {
 		super();
 		this.qid = qid;
 		this.qcate = qcate;
@@ -29,12 +31,21 @@ public class UserQnaVo {
 		this.qref = qref;
 		this.mid = mid;
 		this.pid = pid;
+		this.qstep = qstep;
 	}
 
 	public UserQnaVo() {
 		super();
 	}
+	
+	public int getQstep() {
+		return qstep;
+	}
 
+	public void setQstep(int qstep) {
+		this.qstep = qstep;
+	}
+	
 	public int getQid() {
 		return qid;
 	}

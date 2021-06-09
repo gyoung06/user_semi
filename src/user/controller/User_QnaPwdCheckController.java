@@ -11,22 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import user.dao.UserQnaDAO;
 import user.vo.UserQnaVo;
 
-@WebServlet("/user/qnaDetail")
-public class User_QnaDetailController extends HttpServlet {
+@WebServlet("/user/qnapwdcheck")
+public class User_QnaPwdCheckController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
+		String pwdcheck=req.getParameter("pwdcheck");
 		String qid=req.getParameter("qid");
 		
-		
+		System.out.println(qid);
 		UserQnaDAO dao=new UserQnaDAO();
 		UserQnaVo vo=dao.detail(Integer.parseInt(qid));
-		if(vo.getQpw()!=null && vo.getQpw()!="") {
-			req.setAttribute("vo", vo);
-			req.setAttribute("top", "/user/user_content/header.jsp");
-			req.setAttribute("content", "/user/user_content/user_board/qnapwdcheck.jsp");
-			req.setAttribute("bottom", "/user/user_content/footer.jsp");
-			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+		if(!pwdcheck.equals(vo.getQpw())) {
+			req.setAttribute("result", "fail");
+			req.getRequestDispatcher("/user/user_content/user_board/qnapwdcheck.jsp").forward(req, resp);
 			
 		}else {
 			req.setAttribute("vo", vo);
@@ -36,6 +33,5 @@ public class User_QnaDetailController extends HttpServlet {
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");
 			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 		}
-		
 	}
 }

@@ -23,7 +23,7 @@
 	<textarea rows="5" cols="50" name="qcontent"></textarea>
 	<br>
 	비밀번호
-	<input type="text" name="qwd">
+	<input type="text" name="qpw">
 	<br>
 	파일첨부
 	<br>

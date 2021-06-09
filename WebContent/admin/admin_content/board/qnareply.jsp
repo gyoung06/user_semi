@@ -16,6 +16,7 @@
 
 	<form action="${cp }/admin/qna/reply" method="post">
 	
+	<input type="hidden" name="qid" value="${vo.qid }">
 	<input type="hidden" name="qcate" value="${vo.qcate }">
 	<input type="hidden" name="qpw" value="${vo.qpw }">
 	<input type="hidden" name="qtitle" value="${vo.qtitle }">
@@ -24,7 +25,7 @@
 	<input type="hidden" name="qlev" value="${vo.qlev }">
 	<input type="hidden" name="mid" value="${vo.mid }">
 	<input type="hidden" name="pid" value="${vo.pid }">
-
+	<input type="hidden" name="qstep" value="${vo.qstep }">
 	<br>
 	<textarea rows="5" cols="50" name="qcontent"></textarea><br>
 	<input type="submit" value="등록">

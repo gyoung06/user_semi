@@ -80,7 +80,7 @@ public class Admin_ChartDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				int qid = rs.getInt("qid");
-				UserQnaVo vo=new UserQnaVo(qid, null, null, null, null, null, null, 0, 0, null, 0);
+				UserQnaVo vo=new UserQnaVo(qid, null, null, null, null, null, null, 0, 0, null, 0,0);
 				return vo;
 			}else {
 				return null;

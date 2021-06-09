@@ -4,7 +4,7 @@
 <%
 	String id=(String)session.getAttribute("id");
 %>
-<h1>qna</h1>
+<h1>QnA</h1>
 <table class="table">
   <tr>
     <th>DATE</th>
@@ -23,7 +23,7 @@
 				</c:forEach>
 				[re]
 			</c:if>
-			<c:if test="${empty vo.qpw}">
+			<c:if test="${!empty vo.qpw}">
 			<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_lock.gif">
 			</c:if>
 			<a href="<%=request.getContextPath()%>/user/qnaDetail?qid=${vo.qid}">${vo.qtitle }</a></td>

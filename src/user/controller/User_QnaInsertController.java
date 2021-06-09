@@ -20,7 +20,7 @@ public class User_QnaInsertController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		
-		String saveDir=getServletContext().getRealPath("/noticeimage");
+		String saveDir=getServletContext().getRealPath("/qnaimage");
 		MultipartRequest mr=new MultipartRequest(req, // request객체
 				saveDir,  //업로드할 디렉토리 경로
 				1024*1024*5, // 최대 업로드 크기(바이트)
@@ -43,7 +43,7 @@ public class User_QnaInsertController extends HttpServlet{
 		
 		UserQnaDAO dao=new UserQnaDAO();
 		
-		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, mid, 0);
+		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, mid, 0,0);
 		dao.insert(vo);
 						
 		req.setAttribute("vo", vo);
