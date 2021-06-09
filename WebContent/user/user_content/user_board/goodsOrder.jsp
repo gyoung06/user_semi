@@ -4,14 +4,19 @@
 order
 <form action="${pageContext.request.contextPath }/payment">
 	<br>
-	${sessionScope.id } 님은, [FAMILY] 회원이십니다.
+	${sessionScope.id } 님은, [${gradevo.glevel }] 회원이십니다.
 	<br>
-	1,000 이상 구매시 1%을 추가적립 받으실 수 있습니다.
+	1,000 이상 구매시 ${per }%을 추가적립 받으실 수 있습니다.
 	<br>
-	가용적립금: 1000원 &nbsp; 쿠폰:0개
+	보유적립금: ${membervo.mmileage }원 &nbsp; 쿠폰:0개
 	<br>
 	주문할 상품 내역
 	<br>
+	<!-- 
+	1. 삭제버튼
+	2. 결체총합
+	3. 결제하기버튼
+	 -->
 	<table class="table">
 		<tr class="active">
 			<th><input type="checkbox" id="topcheck" onclick="checkAll()"></th>
@@ -25,16 +30,22 @@ order
 		</tr>
 			<c:forEach begin="0" end="${leng-1 }" var="i" >
 		<tr>
-			<td><input type="checkbox" name="check"></td>
+			<td><input 	type="checkbox" name="check"></td>
 			<td><img src="${cp }${productvo.pimage2 } "style = "width:100px; height:outo;"></td>
 				<th>${stockvo.sname }<br><br>[옵션: ${size[i] }, ${color[i] }]</th>
 				<td>${productvo.pprice*(100-productvo.pdiscount)/100}</td>
 				<td>${amount[i] }</td>
 				<td>${mileage[i] }</td>
 				<td>무료</td>
-				<td>${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</td>
-		</tr>
-			</c:forEach>
+				<td name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</td>
+		</tr>	
+		</c:forEach>
+		<tr>
+			<th>총 결제예정 금액</th>
+				<c:forEach begin="0" end="${leng-2 }" var="i" >
+				<th name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</th>
+				</c:forEach>
+		</tr>	
 	</table>
 	<script>
 		function checkAll(){
@@ -51,50 +62,20 @@ order
 			}
 		}
 	</script>
-		<%--
-		<tr>
-			<td>${vo.num }</td>
-			<td>${vo.writer }</td>
-			<td>
-			<c:if test="${ vo.lev>0}">
-				<c:forEach var="i" begin="1" end ="${vo.lev }">
-					&nbsp;&nbsp;				
-				</c:forEach>
-				[re]
-			</c:if>
-			<a href = "detail?num=${vo.num }">${vo.title }</a></td>
-		</tr>
-		</table>
-		<!-- 페이징 처리 -->
-		<div>
-			<c:if test="${pageNum>10 }">
-				<a href="list?pageNum=${startPageNum-1 }">이전페이지</a>
-			</c:if>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<c:choose>
-					<c:when test="${pageNum==i }">
-						<a href="list?pageNum=${i }"><span style="color:blue">[${i }]</span></a>
-					</c:when>
-					<c:otherwise>
-						<a href="list?pageNum=${i }"><span style="color:gray">[${i }]</span></a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${pageCount>endPageNum }">
-				<a href="$list?pageNum=${endPageNum+1 }">다음페이지</a>
-			</c:if>
-		</div>
-		<!-- 
-		<tr>
-			<td>[기본배송]</td>
-			<td>상품구매금액 66,000+배송비 0(무료)-상품할인금액 6,600=합계: </td>
-			<th>59,400</th>
-		</tr>
-		 -->
-	 --%>
-	선택상품 <input type="button" value="삭제" onclick="delete()">
-	<h4>주문정보</h4>
+	<br>
+	선택상품 <input type="button" value="삭제" id="removeClicked" onclick="deleteBtn()">
+	<br>
+	<script>
+		function deleteBtn(event){
+			var removeClicked=event.target;
+			removeClicked.parentElement.parentElement.remove();
+			window.reload();
+		}
+	</script>
 	<table class="table">
+		<tr class="active">
+			<th colspan="2">주문정보</th>
+		</tr>
 		<tr>
 			<td>주문하시는분</td>
 			<td><input id = "upname"type="text"></td>
@@ -103,8 +84,6 @@ order
 			<td>주소</td>
 			<td>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!--             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요. -->
         	<input type="text" name="postcode" placeholder="우편번호">
         	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
         	<input type="text" name="roadAddress" placeholder="도로명주소" readonly="readonly">
@@ -112,53 +91,34 @@ order
         	<span id="guide" style="color:#999; display:none"></span>
         	<input type="text" name="detailAddress" placeholder="상세주소">
         	<input type="text" name="extraAddress" placeholder="참고항목" readonly="readonly">
-
         	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         	<script>
-        	    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
         	    function execDaumPostcode() {
         	        new daum.Postcode({
         	            oncomplete: function(data) {
-        	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-        	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-        	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
         	                var roadAddr = data.roadAddress; // 도로명 주소 변수
         	                var extraRoadAddr = ''; // 참고 항목 변수
-
-        	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-        	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
         	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
         	                    extraRoadAddr += data.bname;
-        	                }
-        	                // 건물명이 있고, 공동주택일 경우 추가한다.
         	                if(data.buildingName !== '' && data.apartment === 'Y'){
         	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
         	                }
-        	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
         	                if(extraRoadAddr !== ''){
         	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
         	                }
-
-        	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
         	                document.getElementsByName('postcode')[0].value = data.zonecode;
         	                document.getElementsByName("roadAddress")[0].value = roadAddr;
         	                document.getElementsByName("jibunAddress")[0].value = data.jibunAddress;
-        	                
-        	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
         	                if(roadAddr !== ''){
         	                    document.getElementsByName("extraAddress")[0].value = extraRoadAddr;
         	                } else {
         	                    document.getElementsByName("extraAddress")[0].value = '';
         	                }
-
         	                var guideTextBox = document.getElementById("guide");
-        	                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
         	                if(data.autoRoadAddress) {
         	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
         	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
         	                    guideTextBox.style.display = 'block';
-
         	                } else if(data.autoJibunAddress) {
         	                    var expJibunAddr = data.autoJibunAddress;
         	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
@@ -188,8 +148,10 @@ order
 			</td>
 		</tr>	
 	</table>
-	<h4>배송정보</h4>
 	<table class="table">
+	<tr>
+		<td class="active" colspan="2">배송정보</td>
+	</tr>
 		<tr>
 			<td>배송지선택</td>
 			<td>
@@ -300,27 +262,19 @@ order
 		}
 	</script>	
 	<!-- 추가 정보 없애기?????????????????????? -->
-	<h4>결제 예정 금액</h4>
 	<table class="table">
-		<tr>
-			<td>총 주문 금액<input type = "button" value="내역보기"></td>
-			<td>총 할인+부가결제 금액</td>
-			<td>총 결제예정 금액</td>
-		</tr>	
-		<tr>
-			<th>${productvo.pprice }</th>
-			<th>-${productvo.pprice*productvo.pdiscount/100 }</th>
-			<th>=${productvo.pprice*(100-productvo.pdiscount)/100 }</th>
-		</tr>	
-	</table>
-	<table class="table">
+	<tr>
+		<td class="active" colspan="2">결제 예정 금액</td>
+	</tr>
 		<tr>
 			<th>총 할인금액</th>
-			<th>-${productvo.pprice*productvo.pdiscount/100 }</th>
+			<th>${productvo.pprice*productvo.pdiscount/100 }원</th>
 		</tr>	
 		<tr>
-			<td>추가할인금액</td>
-			<td>-${productvo.pprice*productvo.pdiscount/100 }<input type="button" value="내역보기"></td>
+			<th>총 결제예정 금액</th>
+			<c:forEach begin="0" end="${leng-2 }" var="i" >
+			<th name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]+productvo.pprice*(100-productvo.pdiscount)/100*amount[i+1]}원</th>
+			</c:forEach>
 		</tr>	
 		<tr>
 			<td>총 부가결제금액</td>
@@ -328,7 +282,7 @@ order
 		</tr>	
 		<tr>
 			<td>적립금</td>
-			<td><input type="text">원(총 사용가능 적립금: ${membervo.mmileage }원)</td>
+			<td><input type="text" name="useMil" onblur="input()">원(총 사용가능 적립금: ${membervo.mmileage }원)</td>
 		</tr>	
 		<tr>
 			<td></td>
@@ -340,10 +294,26 @@ order
 			</td>
 		</tr>	
 	</table>
-	<h4>결제</h4>
 	<table class="table">
-		<tr><td colspan="2">최종결제금액</td></tr>
-		<tr><td colspan="2">총가격표시하기!!!</td></tr>
+	<tr>
+		<td class="active" colspan="2">결제</td>
+	</tr>
+		<tr><th colspan="2">최종결제금액:</th></tr>
+		<tr>
+			<c:forEach begin="0" end="${leng-2 }" var="i" >
+				<th name = "allPay">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]+productvo.pprice*(100-productvo.pdiscount)/100*amount[i+1]}원</th>
+			</c:forEach>
+		</tr>
+		<tr>
+			<td name = "allMil" style="hidden"></td>
+		</tr>
+		<script>
+			function input(){
+				let useMil = document.getElementsByName("useMil")[0];
+				let allMil = document.getElementsByName("allMil")[0];
+				allMil.innerHTML = "(마일리지 사용: "+useMil.value+"마일리지)";
+			}
+		</script>
 		<tr><td colspan="2"><input type="submit" value="결제하기"></td></tr>
 		<tr>
 			<th>총 적립예정금액</th>
@@ -351,7 +321,9 @@ order
 		</tr>
 		<tr>
 			<td>상품별 적립금<br>회원 적립금</td>
-			<td>표시하기!!!<br>표시하기!!!</td>
+			<c:forEach begin="0" end="${leng-2 }" var="i" >
+			<td>${mileage[i]+mileage[i+1] }<br>표시하기!!!</td>
+			</c:forEach>
 		</tr>
 	</table>
 </form>
