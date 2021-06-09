@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header.jsp -->
 
@@ -31,7 +31,7 @@
 	<div id ="community">
 		<h3>community</h3>
 		<a href="${cp }/user/notice">notice</a><br>
-		¹è¼Û Àü º¯°æ/Ãë¼Ò<br>
+		ë°°ì†¡ ì „ ë³€ê²½/ì·¨ì†Œ<br>
 		<a href="${cp }/user/review">review</a><br>
 		<a href="${cp }/user/qna">q&a</a><br>
 		<a href="${cp }/user/faq">faq</a>
@@ -61,8 +61,8 @@
 		</div>
 		<div id ="bankInfo">
 			<h3>bank info</h3>
-			±¹¹Î 287701-04-433868<br>
-			¿¹±İÁÖ : ÁÖ½ÄÈ¸»ç°¡³»½º¶ó<br>
+			êµ­ë¯¼ 287701-04-433868<br>
+			ì˜ˆê¸ˆì£¼ : ì£¼ì‹íšŒì‚¬ê°€ë‚´ìŠ¤ë¼<br>
 			sat.sun hooiday off
 		</div>
 	</div>
@@ -71,6 +71,6 @@
 	deoiverybookmark<br>
 	instagram<br>
 	
-	°Ë»ö
+	ê²€ìƒ‰
 	</div>
 </div>

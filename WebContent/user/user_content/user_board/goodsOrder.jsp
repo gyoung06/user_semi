@@ -23,16 +23,18 @@ order
 			<th>배송비</th>
 			<th>합계</th>
 		</tr>
+			<c:forEach begin="0" end="${leng-1 }" var="i" >
 		<tr>
 			<td><input type="checkbox" name="check"></td>
 			<td><img src="${cp }${productvo.pimage2 } "style = "width:100px; height:outo;"></td>
-			<th>${stockvo.sname }<br><br>[옵션: ${size }, ${color }]</th>
-			<td>${productvo.pprice }</td>
-			<td>|수량</td>
-			<td>적립금</td>
-			<td>배송비</td>
-			<td>합계</td>
+				<th>${stockvo.sname }<br><br>[옵션: ${size[i] }, ${color[i] }]</th>
+				<td>${productvo.pprice*(100-productvo.pdiscount)/100}</td>
+				<td>${amount[i] }</td>
+				<td>${mileage[i] }</td>
+				<td>무료</td>
+				<td>${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</td>
 		</tr>
+			</c:forEach>
 	</table>
 	<script>
 		function checkAll(){

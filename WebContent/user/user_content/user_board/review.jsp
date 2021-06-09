@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <form action="${pageContext.request.contextPath }/review">
-»óÇ°Àº ¸¸Á·ÇÏ¼Ì³ª¿ä?<br>
-º°<br>
-»óÇ° ¸®ºä<br>
-<textarea rows="10" cols="100" placeholder="10ÀÚÀÌ»ó ÀÔ·ÂÇØÁÖ¼¼¿ä"></textarea>
-<br>»çÁø Ã·ºÎÇÏ±â<br>
+ìƒí’ˆì€ ë§Œì¡±í•˜ì…¨ë‚˜ìš”?<br>
+ë³„<br>
+ìƒí’ˆ ë¦¬ë·°<br>
+<textarea rows="10" cols="100" placeholder="10ìžì´ìƒ ìž…ë ¥í•´ì£¼ì„¸ìš”"></textarea>
+<br>ì‚¬ì§„ ì²¨ë¶€í•˜ê¸°<br>
 <input type="file" name="file1" ><br>
-<input type="button" value="Ãë¼Ò">
-<input type="submit" value="µî·Ï">
+<input type="button" value="ì·¨ì†Œ">
+<input type="submit" value="ë“±ë¡">
 </form>

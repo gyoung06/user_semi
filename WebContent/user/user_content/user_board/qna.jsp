@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String id=(String)session.getAttribute("id");
@@ -33,7 +33,7 @@
 </table>
 <div>
 	<c:if test="${pageNum>10 }">
-		<a href="${cp }/user/qna?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[ÀÌÀü]</a>
+		<a href="${cp }/user/qna?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[ì´ì „]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 		<c:choose>
@@ -46,39 +46,39 @@
 		</c:choose>
 	</c:forEach>
 	<c:if test="${pageCount>endPageNum }">
-		<a href="${cp }/user/qna?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[´ÙÀ½]</a>
+		<a href="${cp }/user/qna?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[ë‹¤ìŒ]</a>
 	</c:if>
 </div>
 <br>
-°Ë»ö¾î
+ê²€ìƒ‰ì–´
 <div>
 	<form method="post" action="${cp }/user/qna">
 		<select name = "field">
 				<option value="qtitle">
 					<c:if test="${field=='qcate' }">selected="selected"</c:if>
-				Ä«Å×°í¸®</option>
+				ì¹´í…Œê³ ë¦¬</option>
 				<option value="qtitle">
 					<c:if test="${field=='qtitle' }">selected="selected"</c:if>
-				Á¦¸ñ</option>
+				ì œëª©</option>
 				<option value="qcontent">
 					<c:if test="${field=='qcontent' }">selected="selected"</c:if>
-				³»¿ë</option>
+				ë‚´ìš©</option>
 				<option value="mid">
 					<c:if test="${field=='mid' }">selected="selected"</c:if>
-				¾ÆÀÌµğ</option>
+				ì•„ì´ë””</option>
 		</select>
 		<input type="text" name = "keyword">
-		<input type="submit" value="Ã£±â">
+		<input type="submit" value="ì°¾ê¸°">
 	</form>
 <%if(id!=null && id!="") {%>
-	<a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="±Û¾²±â"></a>
+	<a href="<%=request.getContextPath()%>/user/qnainsertpath?mid=${vo.mid}"><input type="button" value="ê¸€ì“°ê¸°"></a>
 	<% }else{
-%>   <input type="button" value="±Û¾²±â" onclick="show()">
+%>   <input type="button" value="ê¸€ì“°ê¸°" onclick="show()">
 <%} %>
 </div>
 <script type="text/javascript">
 	function show(){
-		alert("·Î±×ÀÎÇÊ¿ä!");
+		alert("ë¡œê·¸ì¸í•„ìš”!");
 		
 	}
 </script>

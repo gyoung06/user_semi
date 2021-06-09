@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h4>NOTICE</h4>
-°øÁö»çÇ×ÀÔ´Ï´Ù.
+ê³µì§€ì‚¬í•­ì…ë‹ˆë‹¤.
 
 <table class="table">
   <tr>
@@ -20,7 +20,7 @@
 </table>
 <div>
 	<c:if test="${pageNum>10 }">
-		<a href="${cp }/user/notice?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[ÀÌÀü]</a>
+		<a href="${cp }/user/notice?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[ì´ì „]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 		<c:choose>
@@ -33,27 +33,27 @@
 		</c:choose>
 	</c:forEach>
 	<c:if test="${pageCount>endPageNum }">
-		<a href="${cp }/user/notice?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[´ÙÀ½]</a>
+		<a href="${cp }/user/notice?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[ë‹¤ìŒ]</a>
 	</c:if>
 </div>
-°Ë»ö¾î
+ê²€ìƒ‰ì–´
 <div>
 	<form method="post" action="${cp }/user/notice">
 		<select name = "field">
 				<option value="fid">
 					<c:if test="${field=='fid' }">selected="selected"</c:if>
-				¹øÈ£</option>
+				ë²ˆí˜¸</option>
 				<option value="ftitle">
 					<c:if test="${field=='ftitle' }">selected="selected"</c:if>
-				Á¦¸ñ</option>
+				ì œëª©</option>
 				<option value="fcontent">
 					<c:if test="${field=='fcontent' }">selected="selected"</c:if>
-				³»¿ë</option>
+				ë‚´ìš©</option>
 				<option value="aid">
 					<c:if test="${field=='aid' }">selected="selected"</c:if>
-				±Û¾´ÀÌ</option>
+				ê¸€ì“´ì´</option>
 		</select>
 		<input type="text" name = "keyword">
-		<input type="submit" value="Ã£±â">
+		<input type="submit" value="ì°¾ê¸°">
 	</form>
 </div>

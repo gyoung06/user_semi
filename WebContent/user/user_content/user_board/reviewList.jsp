@@ -1,3 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<h1>╨ё╫╨ф╝╦╝╨Д юл╥╠╟е ╦╝╫╨ф╝ ╩л╬фаж╢б╟В</h1>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h1>К╡═Л┼╓М┼╦К╕╛К╥╟ Л²╢К÷╟Й╠╟ К╕╛Л┼╓М┼╦ К╫▒Л∙└Лё╪К┼■ЙЁЁ</h1>

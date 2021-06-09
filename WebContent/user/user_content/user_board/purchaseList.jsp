@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -7,12 +7,12 @@
 	int Countorid=(int)request.getAttribute("Countorid");
 %>
 order list
-<!-- ÁÖ¹®³»¿ª °¹¼ö count -->
-ÁÖ¹®³»¿ªÁ¶È¸(<%= Countorid%>°³)
+<!-- ì£¼ë¬¸ë‚´ì—­ ê°¯ìˆ˜ count -->
+ì£¼ë¬¸ë‚´ì—­ì¡°íšŒ(<%= Countorid%>ê°œ)
 <div role="tabpanel">
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">ÁÖ¹®³»¿ªÁ¶È¸</a></li>
-    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ãë¼Ò/¹İÇ°³»¿ª</a></li>
+    <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">ì£¼ë¬¸ë‚´ì—­ì¡°íšŒ</a></li>
+    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">ì·¨ì†Œ/ë°˜í’ˆë‚´ì—­</a></li>
   </ul>
   <!-- Tab panes -->
 	<div class="tab-content">
@@ -20,55 +20,55 @@ order list
   <form action="${cp }/user/purchase" method="post" >
     <input type="hidden" name="tab"  value="home" > 
     	<select name = "field">
-				<option value="orderall"<c:if test="${field=='orderall' }">selected="selected"</c:if>>ÀüÃ¼ ÁÖ¹®¸®½ºÆ®</option>
-				<option value="halfway"<c:if test="${field=='halfway' }">selected="selected"</c:if>>¹è¼ÛÁß</option>
-				<option value="finish"<c:if test="${field=='finish' }">selected="selected"</c:if>>¹è¼Û¿Ï·á</option>
-				<option value="cancel"<c:if test="${field=='cancel' }">selected="selected"</c:if>>Ãë¼Ò</option>
-				<option value="return"<c:if test="${field=='return' }">selected="selected"</c:if>>¹İÇ°</option>
+				<option value="orderall"<c:if test="${field=='orderall' }">selected="selected"</c:if>>ì „ì²´ ì£¼ë¬¸ë¦¬ìŠ¤íŠ¸</option>
+				<option value="halfway"<c:if test="${field=='halfway' }">selected="selected"</c:if>>ë°°ì†¡ì¤‘</option>
+				<option value="finish"<c:if test="${field=='finish' }">selected="selected"</c:if>>ë°°ì†¡ì™„ë£Œ</option>
+				<option value="cancel"<c:if test="${field=='cancel' }">selected="selected"</c:if>>ì·¨ì†Œ</option>
+				<option value="return"<c:if test="${field=='return' }">selected="selected"</c:if>>ë°˜í’ˆ</option>
 		</select>
 		<div class="btn-group" data-toggle="buttons">
 		  <label class="btn btn-primary active" id="t">
-		    <input type="radio" name="options" value="option1" autocomplete="off"  > ¿À´Ã
+		    <input type="radio" name="options" value="option1" autocomplete="off"  > ì˜¤ëŠ˜
 		  </label>
 		  <label class="btn btn-primary" id="1w">
-		    <input type="radio" name="options" value="option2" autocomplete="off"> 1ÁÖÀÏ
+		    <input type="radio" name="options" value="option2" autocomplete="off"> 1ì£¼ì¼
 		  </label>
 		  <label class="btn btn-primary" id="1m">
-		    <input type="radio" name="options" value="option3" autocomplete="off"> 1°³¿ù
+		    <input type="radio" name="options" value="option3" autocomplete="off"> 1ê°œì›”
 		  </label>
 		  <label class="btn btn-primary" id="3m">
-		    <input type="radio" name="options" value="option4"  autocomplete="off" checked="checked"> 3°³¿ù
+		    <input type="radio" name="options" value="option4"  autocomplete="off" checked="checked"> 3ê°œì›”
 		  </label>
 		  <label class="btn btn-primary" id="6m">
-		    <input type="radio" name="options" value="option5" autocomplete="off"> 6°³¿ù
+		    <input type="radio" name="options" value="option5" autocomplete="off"> 6ê°œì›”
 		  </label>
 		</div>
 		<div>
-			<input type="text" id="datepicker" name="startdate"/>~<input type="text" id="currentDate" name="enddate"/><input type="submit" value="Á¶È¸">
+			<input type="text" id="datepicker" name="startdate"/>~<input type="text" id="currentDate" name="enddate"/><input type="submit" value="ì¡°íšŒ">
 		</div>
 		
 		</form>
 		<ul>
-			<li>±âº»ÀûÀ¸·Î ÃÖ±Ù 3°³¿ù°£ÀÇ ÀÚ·á°¡ Á¶È¸µÇ¸ç, ±â°£ °Ë»ö½Ã Áö³­ ÁÖ¹®³»¿ªÀ» Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
-			<li>ÁÖ¹®¹øÈ£¸¦ Å¬¸¯ÇÏ½Ã¸é ÇØ´ç ÁÖ¹®¿¡ ´ëÇÑ »ó¼¼³»¿ªÀ» È®ÀÎÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
+			<li>ê¸°ë³¸ì ìœ¼ë¡œ ìµœê·¼ 3ê°œì›”ê°„ì˜ ìë£Œê°€ ì¡°íšŒë˜ë©°, ê¸°ê°„ ê²€ìƒ‰ì‹œ ì§€ë‚œ ì£¼ë¬¸ë‚´ì—­ì„ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+			<li>ì£¼ë¬¸ë²ˆí˜¸ë¥¼ í´ë¦­í•˜ì‹œë©´ í•´ë‹¹ ì£¼ë¬¸ì— ëŒ€í•œ ìƒì„¸ë‚´ì—­ì„ í™•ì¸í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
 		</ul>
 		<br>
-		<h4>»óÇ°Á¤º¸</h4>
+		<h4>ìƒí’ˆì •ë³´</h4>
 		<table class="table">
 			<tr class="active">
-				<th>ÁÖ¹®ÀÏÀÚ<br>[ÁÖ¹®¹øÈ£]</th>
-				<th>ÀÌ¹ÌÁö</th>
-				<th>»óÇ°Á¤º¸</th>
-				<th>¼ö·®</th>
-				<th>»óÇ°±¸¸Å±İ¾×</th>
-				<th>ÁÖ¹®Ã³¸®»óÅÂ</th>
-				<th>Ãë¼Ò/¹İÇ°<th>
+				<th>ì£¼ë¬¸ì¼ì<br>[ì£¼ë¬¸ë²ˆí˜¸]</th>
+				<th>ì´ë¯¸ì§€</th>
+				<th>ìƒí’ˆì •ë³´</th>
+				<th>ìˆ˜ëŸ‰</th>
+				<th>ìƒí’ˆêµ¬ë§¤ê¸ˆì•¡</th>
+				<th>ì£¼ë¬¸ì²˜ë¦¬ìƒíƒœ</th>
+				<th>ì·¨ì†Œ/ë°˜í’ˆ<th>
 				
 			</tr>
 			<c:choose>
 				<c:when test="${empty OrderList}">
 					<tr>
-						<td>ÁÖ¹®³»¿ªÀÌ ¾ø½À´Ï´Ù.</td>
+						<td>ì£¼ë¬¸ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -79,7 +79,7 @@ order list
 						<td>${vo.sname }<br>${vo.odcolor }</td>
 						<td>${vo.odcount }</td>
 						<td>${vo.pprice }</td>
-						<td>${vo.ordelivery }<br><input type="button" value="±¸¸ÅÈÄ±â" onclick="valuesend()"></td>
+						<td>${vo.ordelivery }<br><input type="button" value="êµ¬ë§¤í›„ê¸°" onclick="valuesend()"></td>
 						<td>${vo.orcancel }</td>
 						</tr>
 						</c:forEach>
@@ -89,55 +89,55 @@ order list
 		</table>
 			</form>
 		</div>
-	<!-- ÆäÀÌÂ¡Ã³¸®!!!!!!!!!!!!!!!!!! -->
+	<!-- í˜ì´ì§•ì²˜ë¦¬!!!!!!!!!!!!!!!!!! -->
 
     <div role="tabpanel" class="tab-pane" id="profile">
-	    Ãë¼ÒÈ¯ºÒ³»¿ª
+	    ì·¨ì†Œí™˜ë¶ˆë‚´ì—­
 	    <form action="${cp }/user/purchase" method="post">
 	    <input type="hidden" name="tab"  value="profile" > 
 	 
 		<div class="btn-group" data-toggle="buttons">
 		  <label class="btn btn-primary active" id="t1">
-		    <input type="radio" name="options"  autocomplete="off" > ¿À´Ã
+		    <input type="radio" name="options"  autocomplete="off" > ì˜¤ëŠ˜
 		  </label>
 		  <label class="btn btn-primary" id="1w1">
-		    <input type="radio" name="options"  autocomplete="off"> 1ÁÖÀÏ
+		    <input type="radio" name="options"  autocomplete="off"> 1ì£¼ì¼
 		  </label>
 		  <label class="btn btn-primary" id="1m1">
-		    <input type="radio" name="options"  autocomplete="off" > 1°³¿ù
+		    <input type="radio" name="options"  autocomplete="off" > 1ê°œì›”
 		  </label>
 		  <label class="btn btn-primary" id="3m1">
-		    <input type="radio" name="options"  autocomplete="off" checked="checked"> 3°³¿ù
+		    <input type="radio" name="options"  autocomplete="off" checked="checked"> 3ê°œì›”
 		  </label>
 		  <label class="btn btn-primary" id="6m1">
-		    <input type="radio" name="options"  autocomplete="off"> 6°³¿ù
+		    <input type="radio" name="options"  autocomplete="off"> 6ê°œì›”
 		  </label>
 		</div>
 		<div>
-			<input type="text" id="datepicker1" name="startdate">~<input type="text" id="currentDate1" name="enddate"><input type="submit" value="Á¶È¸">
+			<input type="text" id="datepicker1" name="startdate">~<input type="text" id="currentDate1" name="enddate"><input type="submit" value="ì¡°íšŒ">
 		</div>
 		</form>
 		<ul>
-			<li>±âº»ÀûÀ¸·Î ÃÖ±Ù 3°³¿ù°£ÀÇ ÀÚ·á°¡ Á¶È¸µÇ¸ç, ±â°£ °Ë»ö½Ã Áö³­ ÁÖ¹®³»¿ªÀ» Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
-			<li>ÁÖ¹®¹øÈ£¸¦ Å¬¸¯ÇÏ½Ã¸é ÇØ´ç ÁÖ¹®¿¡ ´ëÇÑ »ó¼¼³»¿ªÀ» È®ÀÎÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
+			<li>ê¸°ë³¸ì ìœ¼ë¡œ ìµœê·¼ 3ê°œì›”ê°„ì˜ ìë£Œê°€ ì¡°íšŒë˜ë©°, ê¸°ê°„ ê²€ìƒ‰ì‹œ ì§€ë‚œ ì£¼ë¬¸ë‚´ì—­ì„ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+			<li>ì£¼ë¬¸ë²ˆí˜¸ë¥¼ í´ë¦­í•˜ì‹œë©´ í•´ë‹¹ ì£¼ë¬¸ì— ëŒ€í•œ ìƒì„¸ë‚´ì—­ì„ í™•ì¸í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
 		</ul>
 		<br>
-		<h4>»óÇ°Á¤º¸</h4>
+		<h4>ìƒí’ˆì •ë³´</h4>
 		<form name="frm" method="post">
 		<table class="table">
 			<tr class="active">
-				<th>ÁÖ¹®ÀÏÀÚ<br>[ÁÖ¹®¹øÈ£]</th>
-				<th>ÀÌ¹ÌÁö</th>
-				<th>»óÇ°Á¤º¸</th>
-				<th>¼ö·®</th>
-				<th>»óÇ°±¸¸Å±İ¾×</th>
-				<th>ÁÖ¹®Ã³¸®»óÅÂ</th>
-				<th>Ãë¼Ò/¹İÇ°<th>
+				<th>ì£¼ë¬¸ì¼ì<br>[ì£¼ë¬¸ë²ˆí˜¸]</th>
+				<th>ì´ë¯¸ì§€</th>
+				<th>ìƒí’ˆì •ë³´</th>
+				<th>ìˆ˜ëŸ‰</th>
+				<th>ìƒí’ˆêµ¬ë§¤ê¸ˆì•¡</th>
+				<th>ì£¼ë¬¸ì²˜ë¦¬ìƒíƒœ</th>
+				<th>ì·¨ì†Œ/ë°˜í’ˆ<th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty refundList}">
 					<tr>
-						<td>Ãë¼Ò, È¯ºÒ³»¿ªÀÌ ¾ø½À´Ï´Ù.</td>
+						<td>ì·¨ì†Œ, í™˜ë¶ˆë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -148,7 +148,7 @@ order list
 							<td>${vo.sname }<br>${vo.odcolor }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }<br><input type="button" value="±¸¸ÅÈÄ±â" onclick="valuesend()"></td>
+							<td>${vo.ordelivery }<br><input type="button" value="êµ¬ë§¤í›„ê¸°" onclick="valuesend()"></td>
 							<td>${vo.orcancel }</td>
 						</tr>
 					</c:forEach>
@@ -158,10 +158,10 @@ order list
 		</form>
 		</div>
 	</div>
-	<!-- ÆäÀÌÂ¡Ã³¸®!!!!!!!!!!!!!!!!!! -->
+	<!-- í˜ì´ì§•ì²˜ë¦¬!!!!!!!!!!!!!!!!!! -->
 </div>
 			<c:if test="${startPageNum>10 }">
-		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[ÀÌÀü]</a> <!-- ÇöÀçÆäÀÌÁö º¸ÀÌ±â -->
+		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[ì´ì „]</a> <!-- í˜„ì¬í˜ì´ì§€ ë³´ì´ê¸° -->
 		</c:if>
 		
 		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
@@ -169,7 +169,7 @@ order list
 				<c:when test="${pageNum==i }">
 					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
 					<span style="color:blue">[${i }]</span></a>
-					<!-- <a href="${cp}/board/list?pageNum=${i}" ·Î Áàµµ µÊ -->
+					<!-- <a href="${cp}/board/list?pageNum=${i}" ë¡œ ì¤˜ë„ ë¨ -->
 				</c:when>
 				<c:otherwise>
 					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
@@ -179,7 +179,7 @@ order list
 		</c:forEach>
 		
 		<c:if test="${endPageNum<pageCount }">
-			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[´ÙÀ½]</a>
+			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[ë‹¤ìŒ]</a>
 		</c:if>
 
 
@@ -203,29 +203,29 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 	 alert( $("#"+tab));
 	 $("#"+tab).tab("show");
 	//$('.tab-pane a[href="#' + tab + '"]').tab('show');
-        //inputÀ» datepicker·Î ¼±¾ğ
+        //inputì„ datepickerë¡œ ì„ ì–¸
         $("#datepicker1").datepicker({
-            dateFormat: 'yy-mm-dd' //Input Display Format º¯°æ
-            ,showOtherMonths: true //ºó °ø°£¿¡ ÇöÀç¿ùÀÇ ¾ÕµÚ¿ùÀÇ ³¯Â¥¸¦ Ç¥½Ã
-            ,showMonthAfterYear:true //³âµµ ¸ÕÀú ³ª¿À°í, µÚ¿¡ ¿ù Ç¥½Ã
-            ,changeYear: true //ÄŞº¸¹Ú½º¿¡¼­ ³â ¼±ÅÃ °¡´É
-            ,changeMonth: true //ÄŞº¸¹Ú½º¿¡¼­ ¿ù ¼±ÅÃ °¡´É                
-            ,showOn: "both" //button:¹öÆ°À» Ç¥½ÃÇÏ°í,¹öÆ°À» ´­·¯¾ß¸¸ ´Ş·Â Ç¥½Ã ^ both:¹öÆ°À» Ç¥½ÃÇÏ°í,¹öÆ°À» ´©¸£°Å³ª inputÀ» Å¬¸¯ÇÏ¸é ´Ş·Â Ç¥½Ã  
-            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //¹öÆ° ÀÌ¹ÌÁö °æ·Î
-            ,buttonImageOnly: true //±âº» ¹öÆ°ÀÇ È¸»ö ºÎºĞÀ» ¾ø¾Ö°í, ÀÌ¹ÌÁö¸¸ º¸ÀÌ°Ô ÇÔ
-            ,buttonText: "¼±ÅÃ" //¹öÆ°¿¡ ¸¶¿ì½º °®´Ù ´òÀ» ¶§ Ç¥½ÃµÇ´Â ÅØ½ºÆ®                
-            ,yearSuffix: "³â" //´Ş·ÂÀÇ ³âµµ ºÎºĞ µÚ¿¡ ºÙ´Â ÅØ½ºÆ®
-            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //´Ş·ÂÀÇ ¿ù ºÎºĞ ÅØ½ºÆ®
-            ,monthNames: ['1¿ù','2¿ù','3¿ù','4¿ù','5¿ù','6¿ù','7¿ù','8¿ù','9¿ù','10¿ù','11¿ù','12¿ù'] //´Ş·ÂÀÇ ¿ù ºÎºĞ Tooltip ÅØ½ºÆ®
-            ,dayNamesMin: ['ÀÏ','¿ù','È­','¼ö','¸ñ','±İ','Åä'] //´Ş·ÂÀÇ ¿äÀÏ ºÎºĞ ÅØ½ºÆ®
-            ,dayNames: ['ÀÏ¿äÀÏ','¿ù¿äÀÏ','È­¿äÀÏ','¼ö¿äÀÏ','¸ñ¿äÀÏ','±İ¿äÀÏ','Åä¿äÀÏ'] //´Ş·ÂÀÇ ¿äÀÏ ºÎºĞ Tooltip ÅØ½ºÆ®
-            ,minDate: "-1Y" //ÃÖ¼Ò ¼±ÅÃÀÏÀÚ(-1D:ÇÏ·çÀü, -1M:ÇÑ´ŞÀü, -1Y:ÀÏ³âÀü)
-            ,maxDate: "+1Y" //ÃÖ´ë ¼±ÅÃÀÏÀÚ(+1D:ÇÏ·çÈÄ, -1M:ÇÑ´ŞÈÄ, -1Y:ÀÏ³âÈÄ)                
+            dateFormat: 'yy-mm-dd' //Input Display Format ë³€ê²½
+            ,showOtherMonths: true //ë¹ˆ ê³µê°„ì— í˜„ì¬ì›”ì˜ ì•ë’¤ì›”ì˜ ë‚ ì§œë¥¼ í‘œì‹œ
+            ,showMonthAfterYear:true //ë…„ë„ ë¨¼ì € ë‚˜ì˜¤ê³ , ë’¤ì— ì›” í‘œì‹œ
+            ,changeYear: true //ì½¤ë³´ë°•ìŠ¤ì—ì„œ ë…„ ì„ íƒ ê°€ëŠ¥
+            ,changeMonth: true //ì½¤ë³´ë°•ìŠ¤ì—ì„œ ì›” ì„ íƒ ê°€ëŠ¥                
+            ,showOn: "both" //button:ë²„íŠ¼ì„ í‘œì‹œí•˜ê³ ,ë²„íŠ¼ì„ ëˆŒëŸ¬ì•¼ë§Œ ë‹¬ë ¥ í‘œì‹œ ^ both:ë²„íŠ¼ì„ í‘œì‹œí•˜ê³ ,ë²„íŠ¼ì„ ëˆ„ë¥´ê±°ë‚˜ inputì„ í´ë¦­í•˜ë©´ ë‹¬ë ¥ í‘œì‹œ  
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //ë²„íŠ¼ ì´ë¯¸ì§€ ê²½ë¡œ
+            ,buttonImageOnly: true //ê¸°ë³¸ ë²„íŠ¼ì˜ íšŒìƒ‰ ë¶€ë¶„ì„ ì—†ì• ê³ , ì´ë¯¸ì§€ë§Œ ë³´ì´ê²Œ í•¨
+            ,buttonText: "ì„ íƒ" //ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ê°–ë‹¤ ëŒ”ì„ ë•Œ í‘œì‹œë˜ëŠ” í…ìŠ¤íŠ¸                
+            ,yearSuffix: "ë…„" //ë‹¬ë ¥ì˜ ë…„ë„ ë¶€ë¶„ ë’¤ì— ë¶™ëŠ” í…ìŠ¤íŠ¸
+            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //ë‹¬ë ¥ì˜ ì›” ë¶€ë¶„ í…ìŠ¤íŠ¸
+            ,monthNames: ['1ì›”','2ì›”','3ì›”','4ì›”','5ì›”','6ì›”','7ì›”','8ì›”','9ì›”','10ì›”','11ì›”','12ì›”'] //ë‹¬ë ¥ì˜ ì›” ë¶€ë¶„ Tooltip í…ìŠ¤íŠ¸
+            ,dayNamesMin: ['ì¼','ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† '] //ë‹¬ë ¥ì˜ ìš”ì¼ ë¶€ë¶„ í…ìŠ¤íŠ¸
+            ,dayNames: ['ì¼ìš”ì¼','ì›”ìš”ì¼','í™”ìš”ì¼','ìˆ˜ìš”ì¼','ëª©ìš”ì¼','ê¸ˆìš”ì¼','í† ìš”ì¼'] //ë‹¬ë ¥ì˜ ìš”ì¼ ë¶€ë¶„ Tooltip í…ìŠ¤íŠ¸
+            ,minDate: "-1Y" //ìµœì†Œ ì„ íƒì¼ì(-1D:í•˜ë£¨ì „, -1M:í•œë‹¬ì „, -1Y:ì¼ë…„ì „)
+            ,maxDate: "+1Y" //ìµœëŒ€ ì„ íƒì¼ì(+1D:í•˜ë£¨í›„, -1M:í•œë‹¬í›„, -1Y:ì¼ë…„í›„)                
         });                    
         $("#3m1").click(function(){
          	  $('#datepicker1').datepicker('setDate', '-3M');
            })
-        //$('input:checkbox[input[name="options"]:checked').val(); // Ã¼Å©µÈ °ª(checked value)
+        //$('input:checkbox[input[name="options"]:checked').val(); // ì²´í¬ëœ ê°’(checked value)
        $("#t1").click(function(){
      	  $('#datepicker1').datepicker('setDate', 'today'); 
        })
@@ -241,38 +241,38 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
          $("#6m1").click(function(){
      	  $('#datepicker1').datepicker('setDate', '-6M');
        }) 
- 		/*±¸¸Å¹öÆ° ÀÌº¥Æ®*/
+ 		/*êµ¬ë§¤ë²„íŠ¼ ì´ë²¤íŠ¸*/
  	
  });
-			/*input type ="date" ÀÎ °æ¿ì ±âº»°ª ¼³Á¤
+			/*input type ="date" ì¸ ê²½ìš° ê¸°ë³¸ê°’ ì„¤ì •
 			document.getElementById("currentDate").value= 
 				new Date().toISOString().substring(0,10);*/
 				$("#datepicker").datepicker().datepicker("setDate", '-3M');
 				$("#currentDate").datepicker().datepicker("setDate", new Date());
 			 $(function() {
-		            //inputÀ» datepicker·Î ¼±¾ğ
+		            //inputì„ datepickerë¡œ ì„ ì–¸
 		            $("#datepicker").datepicker({
-		                dateFormat: 'yy-mm-dd' //Input Display Format º¯°æ
-		                ,showOtherMonths: true //ºó °ø°£¿¡ ÇöÀç¿ùÀÇ ¾ÕµÚ¿ùÀÇ ³¯Â¥¸¦ Ç¥½Ã
-		                ,showMonthAfterYear:true //³âµµ ¸ÕÀú ³ª¿À°í, µÚ¿¡ ¿ù Ç¥½Ã
-		                ,changeYear: true //ÄŞº¸¹Ú½º¿¡¼­ ³â ¼±ÅÃ °¡´É
-		                ,changeMonth: true //ÄŞº¸¹Ú½º¿¡¼­ ¿ù ¼±ÅÃ °¡´É                
-		                ,showOn: "both" //button:¹öÆ°À» Ç¥½ÃÇÏ°í,¹öÆ°À» ´­·¯¾ß¸¸ ´Ş·Â Ç¥½Ã ^ both:¹öÆ°À» Ç¥½ÃÇÏ°í,¹öÆ°À» ´©¸£°Å³ª inputÀ» Å¬¸¯ÇÏ¸é ´Ş·Â Ç¥½Ã  
-		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //¹öÆ° ÀÌ¹ÌÁö °æ·Î
-		                ,buttonImageOnly: true //±âº» ¹öÆ°ÀÇ È¸»ö ºÎºĞÀ» ¾ø¾Ö°í, ÀÌ¹ÌÁö¸¸ º¸ÀÌ°Ô ÇÔ
-		                ,buttonText: "¼±ÅÃ" //¹öÆ°¿¡ ¸¶¿ì½º °®´Ù ´òÀ» ¶§ Ç¥½ÃµÇ´Â ÅØ½ºÆ®                
-		                ,yearSuffix: "³â" //´Ş·ÂÀÇ ³âµµ ºÎºĞ µÚ¿¡ ºÙ´Â ÅØ½ºÆ®
-		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //´Ş·ÂÀÇ ¿ù ºÎºĞ ÅØ½ºÆ®
-		                ,monthNames: ['1¿ù','2¿ù','3¿ù','4¿ù','5¿ù','6¿ù','7¿ù','8¿ù','9¿ù','10¿ù','11¿ù','12¿ù'] //´Ş·ÂÀÇ ¿ù ºÎºĞ Tooltip ÅØ½ºÆ®
-		                ,dayNamesMin: ['ÀÏ','¿ù','È­','¼ö','¸ñ','±İ','Åä'] //´Ş·ÂÀÇ ¿äÀÏ ºÎºĞ ÅØ½ºÆ®
-		                ,dayNames: ['ÀÏ¿äÀÏ','¿ù¿äÀÏ','È­¿äÀÏ','¼ö¿äÀÏ','¸ñ¿äÀÏ','±İ¿äÀÏ','Åä¿äÀÏ'] //´Ş·ÂÀÇ ¿äÀÏ ºÎºĞ Tooltip ÅØ½ºÆ®
-		                ,minDate: "-1Y" //ÃÖ¼Ò ¼±ÅÃÀÏÀÚ(-1D:ÇÏ·çÀü, -1M:ÇÑ´ŞÀü, -1Y:ÀÏ³âÀü)
-		                ,maxDate: "+1Y" //ÃÖ´ë ¼±ÅÃÀÏÀÚ(+1D:ÇÏ·çÈÄ, -1M:ÇÑ´ŞÈÄ, -1Y:ÀÏ³âÈÄ)                
+		                dateFormat: 'yy-mm-dd' //Input Display Format ë³€ê²½
+		                ,showOtherMonths: true //ë¹ˆ ê³µê°„ì— í˜„ì¬ì›”ì˜ ì•ë’¤ì›”ì˜ ë‚ ì§œë¥¼ í‘œì‹œ
+		                ,showMonthAfterYear:true //ë…„ë„ ë¨¼ì € ë‚˜ì˜¤ê³ , ë’¤ì— ì›” í‘œì‹œ
+		                ,changeYear: true //ì½¤ë³´ë°•ìŠ¤ì—ì„œ ë…„ ì„ íƒ ê°€ëŠ¥
+		                ,changeMonth: true //ì½¤ë³´ë°•ìŠ¤ì—ì„œ ì›” ì„ íƒ ê°€ëŠ¥                
+		                ,showOn: "both" //button:ë²„íŠ¼ì„ í‘œì‹œí•˜ê³ ,ë²„íŠ¼ì„ ëˆŒëŸ¬ì•¼ë§Œ ë‹¬ë ¥ í‘œì‹œ ^ both:ë²„íŠ¼ì„ í‘œì‹œí•˜ê³ ,ë²„íŠ¼ì„ ëˆ„ë¥´ê±°ë‚˜ inputì„ í´ë¦­í•˜ë©´ ë‹¬ë ¥ í‘œì‹œ  
+		                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //ë²„íŠ¼ ì´ë¯¸ì§€ ê²½ë¡œ
+		                ,buttonImageOnly: true //ê¸°ë³¸ ë²„íŠ¼ì˜ íšŒìƒ‰ ë¶€ë¶„ì„ ì—†ì• ê³ , ì´ë¯¸ì§€ë§Œ ë³´ì´ê²Œ í•¨
+		                ,buttonText: "ì„ íƒ" //ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ê°–ë‹¤ ëŒ”ì„ ë•Œ í‘œì‹œë˜ëŠ” í…ìŠ¤íŠ¸                
+		                ,yearSuffix: "ë…„" //ë‹¬ë ¥ì˜ ë…„ë„ ë¶€ë¶„ ë’¤ì— ë¶™ëŠ” í…ìŠ¤íŠ¸
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //ë‹¬ë ¥ì˜ ì›” ë¶€ë¶„ í…ìŠ¤íŠ¸
+		                ,monthNames: ['1ì›”','2ì›”','3ì›”','4ì›”','5ì›”','6ì›”','7ì›”','8ì›”','9ì›”','10ì›”','11ì›”','12ì›”'] //ë‹¬ë ¥ì˜ ì›” ë¶€ë¶„ Tooltip í…ìŠ¤íŠ¸
+		                ,dayNamesMin: ['ì¼','ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† '] //ë‹¬ë ¥ì˜ ìš”ì¼ ë¶€ë¶„ í…ìŠ¤íŠ¸
+		                ,dayNames: ['ì¼ìš”ì¼','ì›”ìš”ì¼','í™”ìš”ì¼','ìˆ˜ìš”ì¼','ëª©ìš”ì¼','ê¸ˆìš”ì¼','í† ìš”ì¼'] //ë‹¬ë ¥ì˜ ìš”ì¼ ë¶€ë¶„ Tooltip í…ìŠ¤íŠ¸
+		                ,minDate: "-1Y" //ìµœì†Œ ì„ íƒì¼ì(-1D:í•˜ë£¨ì „, -1M:í•œë‹¬ì „, -1Y:ì¼ë…„ì „)
+		                ,maxDate: "+1Y" //ìµœëŒ€ ì„ íƒì¼ì(+1D:í•˜ë£¨í›„, -1M:í•œë‹¬í›„, -1Y:ì¼ë…„í›„)                
 		            }); 
 		            $("#3m").click(function(){
 	                  	  $('#datepicker').datepicker('setDate', '-3M');
 	                    })
-			            //$('input:checkbox[input[name="options"]:checked').val(); // Ã¼Å©µÈ °ª(checked value)
+			            //$('input:checkbox[input[name="options"]:checked').val(); // ì²´í¬ëœ ê°’(checked value)
 	                      $("#t").click(function(){
 	                    	  $('#datepicker').datepicker('setDate', 'today'); 
 	                      })

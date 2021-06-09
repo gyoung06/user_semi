@@ -20,9 +20,13 @@ import user.vo.User_ProductVo;
 public class User_OrderController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		String pid = req.getParameter("pid");
-		String size = req.getParameter("size");
-		String color = req.getParameter("color");
+		String[] orSize = req.getParameterValues("orSize");
+		String[] orColor = req.getParameterValues("orColor");
+		String[] amount = req.getParameterValues("amount");
+		String[] orMileage = req.getParameterValues("orMileage");
+		int leng = orSize.length;
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		UserProductDAO productdao = new UserProductDAO();
@@ -34,8 +38,11 @@ public class User_OrderController extends HttpServlet {
 		req.setAttribute("productvo", productvo);
 		req.setAttribute("stockvo", stockvo);
 		req.setAttribute("membervo", membervo);
-		req.setAttribute("size", size);
-		req.setAttribute("color", color);
+		req.setAttribute("size", orSize);
+		req.setAttribute("color", orColor);
+		req.setAttribute("amount", amount);
+		req.setAttribute("mileage", orMileage);
+		req.setAttribute("leng", leng);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content", "/user/user_content/user_board/goodsOrder.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");

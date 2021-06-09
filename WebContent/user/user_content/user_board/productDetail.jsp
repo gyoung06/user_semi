@@ -2,12 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form action="#" method="post">
 <table class="table">
 <!-- 해야할것
-1. 색상 누르면 원래있던 사이즈 초기화시키기
-2. 옵션 하나더누르면 박스 하나더나오게하기
-3. 구매버튼 ,카트버튼 폼으로 넘기기
+1. 색상 누르면 원래있던 사이즈 초기화시키기-완료
+2. 옵션 하나더누르면 박스 하나더나오게하기-완료
+3. 구매버튼 ,카트버튼 폼으로 넘기기-완료
+4. 수량변경버튼 수정하기
  -->
+ <input type="hidden" name = "pid" value="${vo.pid }">
 	<tr>
 		<th rowspan="16"><img src = "${cp }${vo.pimage2}"></th>
 	</tr>
@@ -48,13 +51,17 @@
 	<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
 	<tr name="optionsel">
 	</tr>
+	<tr>
+		<td colspan="2" name = "total">total: 0(0개)</td>
+	</tr>
 	<script> 
 	   var a=`<tr class="option_product" name = "productSelect">
 			<td>
-				<input type="hidden" class="option_box_id">
-					<p class="product"><label name="optionName"></label><br>
-					- <label name="optionColor"></label>,<label name="optionSize"></label>
-					</p>
+				<p class="product"><label name="optionName"></label><br>
+				- <label name="optionColor"></label>,<label name="optionSize"></label>
+				<input type="hidden" name = "orColor">
+				<input type="hidden" name = "orSize">
+				</p>
 				<span class="quantity" >
 					<input type="text" value="1"size="1" name="amount" onchange="amountChange()">
 					<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
@@ -68,7 +75,6 @@
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
 				</a>
 				<span style="float: right">
-					<input type="hidden" class="option_box_price" >
 					<span name="pprice" class="ec-front-product-item-price" >
 					</span>
 				</span>
@@ -77,6 +83,7 @@
 					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
 					<span name="mileage" class="mileage_price">
 					</span>)
+					<input type="hidden" name = "orMileage">
 				</span>
 			</td>
 		</tr>`
@@ -113,11 +120,19 @@
 			let optionName = document.getElementsByName("optionName")[sum];
 			let pprice= document.getElementsByName("pprice")[sum];
 			let mileage=document.getElementsByName("mileage")[sum];
+			let orSize=document.getElementsByName("orSize")[sum];
+			let orColor=document.getElementsByName("orColor")[sum];
+			let orMileage = document.getElementsByName("orMileage")[sum];
+			let total = document.getElementsByName("total")[0];
+			total.innerHTML="total: "+pprice+"("+(sum+1)+"개)";
 			optionName.innerHTML =document.getElementsByName("sname")[0].innerHTML;
 			optionColor.innerHTML = document.getElementsByName("color")[0].value;
 			optionSize.innerHTML = document.getElementsByName("size")[0].value;
 			mileage.innerHTML = document.getElementsByName("proPrice")[0].innerHTML/100;
 			pprice.innerHTML = document.getElementsByName("proPrice")[0].innerHTML;
+			orColor.value = document.getElementsByName("color")[0].value;
+			orSize.value = document.getElementsByName("size")[0].value;
+			orMileage.value = mileage.innerHTML;
 			sum++;
 		}
 		function upBtn(){
@@ -146,10 +161,12 @@
 		}
 		function amountChange(){
 			let proPrice= document.getElementsByName("proPrice")[0];
+			let amount = document.getElementsByName("amount")[0];
 			let pprice= document.getElementsByName("pprice")[0];
 			let mileage=document.getElementsByName("mileage")[0];
 			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
 			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
+			console.log(pprice.innerHTML)
 		}
 		function deleteProduct(){
 			console.log('삭제')
@@ -157,22 +174,15 @@
 		
 	</script>
 	<tr>
-		<td colspan="2">total: 0(0개)</td>
-	</tr>
-	<tr>
-		<td><input onclick="buythis()" type="button" id = "buy" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" value="buy now"></td>
-		<td><input id = "cart" type = "button" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart"></td>
+		<td>
+			<input type="submit" value="buy now" formaction="${cp }/user/order"  style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" id = "buy" >
+		</td>
+		<td>
+			<input id = "cart" type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart">
+		</td>
 	</tr>
 </table>
 <script>
-	function buythis(){
-		//이미지,이름,색상,사이즈,판매가,수량,적립금, 배송비,합계
-		let color = document.getElementsByName("color")[0].value;
-		let size = document.getElementsByName("size")[0].value;
-		let amount = document.getElementById("amount").value;
-		let mileage = document.getElementById("mileage").innerHTML;
-		location.href="<%=request.getContextPath()%>/user/order?pid=${vo.pid }&color="+color+"&size="+size;
-	}
 	let buy = document.getElementById("buy");
 	let cart = document.getElementById("cart");
 	buy.addEventListener('mouseover', function(e) {
