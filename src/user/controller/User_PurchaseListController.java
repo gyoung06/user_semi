@@ -17,7 +17,7 @@ import user.dao.User_OrdersDao;
 import user.vo.UserOrderlistVo;
 
 @WebServlet("/user/purchase")
-public class User_PurchaseList extends HttpServlet{
+public class User_PurchaseListController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -26,28 +26,6 @@ public class User_PurchaseList extends HttpServlet{
 		String startdate=req.getParameter("startdate");
 		String enddate=req.getParameter("enddate");
 		System.out.println("startdate:"+startdate + "enddate:"+enddate);
-//		if(startdate==null || enddate==null) {
-//			SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
-//			Date now = new Date();
-//			String enddate1 = sdf.format(now);
-//		}
-//		System.out.println("startdate1:"+startdate + "enddate1:"+enddate);
-//		Date sstartdate=null;
-//		Date eenddate=null;
-//	    try{
-//			String startdate1=req.getParameter("startdate");
-//			String enddate1=req.getParameter("enddate");
-//	        SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
-//	        sstartdate=(Date)sdf.parse(startdate); 
-//	        eenddate=(Date)sdf.parse(enddate); 
-//	    }catch (Exception e) {
-//	       e.printStackTrace();
-//	    }
-//	    java.sql.Date startdate1 = new java.sql.Date(sstartdate.getTime()); //sql.date로 넣어야 들어감
-//	    java.sql.Date enddate1 = new java.sql.Date(eenddate.getTime());
-//		}
-
-		
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
 		System.out.println("field"+field);
@@ -67,12 +45,19 @@ public class User_PurchaseList extends HttpServlet{
 		}
 		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id, startdate, enddate);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
+		ArrayList<UserOrderlistVo> refundList=dao.refundList(startRow, endRow, id, startdate, enddate);
+		int pageCount1=(int)Math.ceil(dao.getCountref()/10.0);
 		int startPageNum=((pageNum-1)/10*10)+1;
 		int endPageNum=startPageNum+9;
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount; //endPageNum값을 pageCount값으로 초기화
 		}
+		if(endPageNum>pageCount1) {
+			endPageNum=pageCount1; //endPageNum값을 pageCount값으로 초기화
+		}
+		req.setAttribute("refundList", refundList);
 		req.setAttribute("OrderList", OrderList);
+		System.out.println(OrderList);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startdate", startdate);
 		req.setAttribute("enddate", enddate);

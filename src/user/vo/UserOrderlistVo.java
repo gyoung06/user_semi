@@ -80,5 +80,5 @@ public class UserOrderlistVo {
 	public void setOrcancel(String orcancel) {
 		this.orcancel = orcancel;
 	}
-	
+
 }

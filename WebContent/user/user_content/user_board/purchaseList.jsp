@@ -3,10 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-
 <%
 	int Countorid=(int)request.getAttribute("Countorid");
 %>
@@ -15,13 +11,14 @@ order list
 주문내역조회(<%= Countorid%>개)
 <div role="tabpanel">
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">주문내역조회</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">취소/반품/교환내역</a></li>
+    <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">주문내역조회</a></li>
+    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">취소/반품내역</a></li>
   </ul>
   <!-- Tab panes -->
 	<div class="tab-content">
  	<div role="tabpanel" class="tab-pane active" id="home">
-  <form action="${cp }/user/purchase" method="post">
+  <form action="${cp }/user/purchase" method="post" >
+    <input type="hidden" name="tab"  value="home" > 
     	<select name = "field">
 				<option value="orderall"<c:if test="${field=='orderall' }">selected="selected"</c:if>>전체 주문리스트</option>
 				<option value="halfway"<c:if test="${field=='halfway' }">selected="selected"</c:if>>배송중</option>
@@ -65,7 +62,7 @@ order list
 				<th>수량</th>
 				<th>상품구매금액</th>
 				<th>주문처리상태</th>
-				<th>취소/교환/반품<th>
+				<th>취소/반품<th>
 				
 			</tr>
 			<c:choose>
@@ -90,12 +87,15 @@ order list
 				</c:otherwise>
 			</c:choose>
 		</table>
+			</form>
 		</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 
     <div role="tabpanel" class="tab-pane" id="profile">
-	    취소환불교환내역
+	    취소환불내역
 	    <form action="${cp }/user/purchase" method="post">
+	    <input type="hidden" name="tab"  value="profile" > 
+	 
 		<div class="btn-group" data-toggle="buttons">
 		  <label class="btn btn-primary active" id="t1">
 		    <input type="radio" name="options"  autocomplete="off" > 오늘
@@ -114,7 +114,7 @@ order list
 		  </label>
 		</div>
 		<div>
-			<input type="text" id="datepicker1">~<input type="text" id="currentDate1"><input type="submit" value="조회">
+			<input type="text" id="datepicker1" name="startdate">~<input type="text" id="currentDate1" name="enddate"><input type="submit" value="조회">
 		</div>
 		</form>
 		<ul>
@@ -132,16 +132,16 @@ order list
 				<th>수량</th>
 				<th>상품구매금액</th>
 				<th>주문처리상태</th>
-				<th>취소/교환/반품<th>
+				<th>취소/반품<th>
 			</tr>
 			<c:choose>
-				<c:when test="${empty OrderList}">
+				<c:when test="${empty refundList}">
 					<tr>
-						<td>취소, 교환, 환불내역이 없습니다.</td>
+						<td>취소, 환불내역이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="vo" items="${OrderList }">
+					<c:forEach var="vo" items="${refundList }">
 						<tr> 
 							<td>${vo.ordate }<br>[${vo.orid }]</td>
 							<td><img src = "${cp }${vo.pimage2}"></td>
@@ -182,20 +182,27 @@ order list
 			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[다음]</a>
 		</c:if>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript">	
 	$('#myTab a').click(function (e) {
 	  e.preventDefault();
-	  $(this).tab('show')
+	//  $(this).tab('show')
 	});
 	
+	window.onload=function(){
+		
+	}
 	
 	$("#currentDate1").datepicker().datepicker("setDate", new Date());
 //document.getElementById("currentDate1").value= 
 //new Date().toISOString().substring(0,10);
 $("#datepicker1").datepicker().datepicker("setDate", '-3M');
  $(function() {
+	 alert('${param.tab}');
+	 let tab='${param.tab}';
+	 alert( $("#"+tab));
+	 $("#"+tab).tab("show");
+	//$('.tab-pane a[href="#' + tab + '"]').tab('show');
         //input을 datepicker로 선언
         $("#datepicker1").datepicker({
             dateFormat: 'yy-mm-dd' //Input Display Format 변경
