@@ -18,10 +18,7 @@
 	<th>${vo.aid }</th>
   </tr>
   <tr>
-  	<td colspan="2">첨부파일 들어올곳: <img src="${cp}${vo.ffile }"> </td>
-  </tr>
-  <tr>
-  	<td colspan="2">내용 들어올곳: ${vo.fcontent }</td>
+  	<td colspan="2"> <img src="${cp}${vo.ffile }">${vo.fcontent } </td>
   </tr>
 </table>
 <input type="button" value="목록" onclick="location.href='${cp}/user/notice'">

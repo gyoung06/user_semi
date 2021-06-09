@@ -10,13 +10,45 @@
 	#noticebox{
 		position:absolute;
 		top:100px;
-		left:800px;
+		left:900px;
+		width:50%;
 	}
-	#list{
-		position:absolute;
-		top:100px;
-		left:150px;
-	}
+	.boardcss_list_table { 
+	position:absolute;
+	top:100px;
+	height:400px;
+	width: 800px; 
+	left:50px;
+	border-top: 1px solid #8BBDFF;
+	border-bottom: 1px solid #8BBDFF; 
+}
+/* 화면에 보여지는 글 목록 테이블 */
+.list_table { 
+	position: absolute;
+	top:50px;
+	left:50px;
+	height:300px;
+	width:700px;
+	font-size: 0.7rem;
+	display: block;
+  	overflow: auto;
+}
+/* list_table 에서 사용되는 thead */
+.list_table th { 
+	text-align: center; 
+	border-top: 1px solid #ABABAB;
+	border-bottom: 1px solid #ABABAB; 
+	padding: 8px 0;
+	background: #faf9fa; 
+	width:600px;
+}
+.list_table td { 
+	text-align: center;  
+	border-bottom: 1px solid #ABABAB; 
+	padding: 5px 0; 
+	width:600px;
+}
+	
 </style>
 </head>
 <body>
@@ -38,9 +70,19 @@
 		<input type="submit" name="insert" value="등록">
 </form>
 </div>
-<div id="list">
-<div>
-	<table class="table">
+
+<div class="boardcss_list_table">
+	<table class="list_table">
+		<colgroup>
+			<col width="5%"/>
+			<col width="5%"/>
+			<col width="50%"/>
+			<col width="5%"/>
+			<col width="5%"/>
+			<col width="5%"/>
+			<col width="5%"/>
+			<col width="5%"/>
+		</colgroup>
 		<tr>
 			<th colspan="8">공개테이블</th>
 		</tr>
@@ -97,8 +139,9 @@
 	<input type="button" value="검색">
 	</form>	<br>
 </div>
-<div>
+<div id="private" style="position:absolute; background: red; top:550px; left:100px; width:700px; height:400px; ">
 	<table class="table">
+	
 		<tr>
 			<th colspan="8">비공개테이블</th>
 		</tr>
@@ -155,7 +198,7 @@
 	<input type="button" value="검색">
 	</form>
 </div>
-</div>
+
 <script type="text/javascript">
 	
 </script>

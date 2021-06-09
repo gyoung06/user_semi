@@ -32,6 +32,7 @@ public class Admin_NoticeinsertController extends HttpServlet{
 		String fwriter=mr.getParameter("fwriter");
 		String ftitle=mr.getParameter("ftitle");
 		String fcontent=mr.getParameter("fcontent");
+		fcontent = fcontent.replace("\r\n", "<br>");
 		int fpublic_private=Integer.parseInt(mr.getParameter("fpublic_private"));
 		System.out.println("업로드 경로:" + saveDir);
 		String orgFileName=mr.getOriginalFileName("file1");//전송된 파일명
