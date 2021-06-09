@@ -8,23 +8,29 @@ public class UserOrderlistVo {
 	private String pimage2;
 	private String sname;
 	private String odcolor;
+	private String odsize;
 	private int odcount;
 	private int pprice;
 	private String ordelivery;
 	private String orcancel;
+	private int odid;
+	private int pid;
 	public UserOrderlistVo() {}
-	public UserOrderlistVo(Date ordate, int orid, String pimage2, String sname, String odcolor, int odcount, int pprice,
-			String ordelivery, String orcancel) {
+	public UserOrderlistVo(Date ordate, int orid, String pimage2, String sname, String odcolor, String odsize,
+			int odcount, int pprice, String ordelivery, String orcancel, int odid, int pid) {
 		super();
 		this.ordate = ordate;
 		this.orid = orid;
 		this.pimage2 = pimage2;
 		this.sname = sname;
 		this.odcolor = odcolor;
+		this.odsize = odsize;
 		this.odcount = odcount;
 		this.pprice = pprice;
 		this.ordelivery = ordelivery;
 		this.orcancel = orcancel;
+		this.odid = odid;
+		this.pid = pid;
 	}
 	public Date getOrdate() {
 		return ordate;
@@ -56,6 +62,12 @@ public class UserOrderlistVo {
 	public void setOdcolor(String odcolor) {
 		this.odcolor = odcolor;
 	}
+	public String getOdsize() {
+		return odsize;
+	}
+	public void setOdsize(String odsize) {
+		this.odsize = odsize;
+	}
 	public int getOdcount() {
 		return odcount;
 	}
@@ -80,5 +92,17 @@ public class UserOrderlistVo {
 	public void setOrcancel(String orcancel) {
 		this.orcancel = orcancel;
 	}
-
+	public int getOdid() {
+		return odid;
+	}
+	public void setOdid(int odid) {
+		this.odid = odid;
+	}
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	
 }

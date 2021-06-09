@@ -101,7 +101,7 @@
 	</tr>
 	<tr class="active">
 		<td>
-			<a href="" style="text-decoration:none">
+			<a href="${cp }/user/userBoard" style="text-decoration:none">
 			BOARD 게시물 관리<br>
 			고객님께서 작성하신 게시물을 관리하는 공간입니다.
 			고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.

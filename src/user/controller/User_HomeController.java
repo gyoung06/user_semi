@@ -24,6 +24,7 @@ public class User_HomeController extends HttpServlet {
 			content = "/user/user_content/main.jsp";
 		}
 		if (bottom == null) {
+			
 			bottom = "/user/user_content/footer.jsp";
 		}
 		req.setAttribute("top", top);

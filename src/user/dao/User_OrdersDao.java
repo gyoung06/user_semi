@@ -14,30 +14,30 @@ public class User_OrdersDao {
 	public ArrayList<UserOrderlistVo> OrderList(int startRow, int endRow, String field, String id, String startdate, String enddate){ //string인지 date인지 확인
 		String sql=null;
 		if(field==null || field.equals("")) {
-			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and ordate>=sysdate-90 and ordate<=sysdate";
 		}else if(field.equals("orderall")) {
-			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+			sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 		}else if(field.equals("halfway")) {
-				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
 							+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'N'";
 		}else if(field.equals("finish")) {
-					sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+					sql=" select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 						"from orders o, order_detail od, product p, stock s " + 
 						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?)"
 						+ " where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'Y'";
 		}else if(field.equals("cancel")){
-				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname , od.odid, p.pid " + 
 						"from orders o, order_detail od, product p, stock s " + 
 						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
 						+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='N' and orcancle ='Y'";
 			}else if(field.equals("return")){
-				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname , od.odid, p.pid " + 
 						"from orders o, order_detail od, product p, stock s " + 
 						"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
 						+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='Y' and orcancle ='Y'";
@@ -64,11 +64,14 @@ public class User_OrdersDao {
 				String pimage2=rs.getString("pimage2");
 				String sname=rs.getString("sname");
 				String odcolor=rs.getString("odcolor");
+				String odsize=rs.getString("odsize");
 				int odcount=rs.getInt("odcount");
 				int pprice=rs.getInt("pprice");
 				String ordelivery=rs.getString("ordelivery");
 				String orcancle=rs.getString("orcancle");
-				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odcount, pprice, ordelivery, orcancle);
+				int odid=rs.getInt("odid");
+				int pid=rs.getInt("pid");
+				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odsize, odcount, pprice, ordelivery, orcancle, odid, pid);
 				list.add(vo);
 			}
 			return list;
@@ -131,11 +134,11 @@ public class User_OrdersDao {
 	public ArrayList<UserOrderlistVo> refundList(int startRow, int endRow, String id, String startdate, String enddate){ //취소,환불탭
 		String sql=null;
 			if(startdate==null || enddate==null) {
-				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where ordate>=sysdate-90 and ordate<=sysdate and orcancle ='Y'";
 			}else {
-				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odcount, p.pimage2, p.pprice, s.sname " + 
+				sql="select * from (select o.orid, o.ordate, o.ordelivery, o.orcancle, od.odcolor, od.odsize, od.odcount, p.pimage2, p.pprice, s.sname, od.odid, p.pid " + 
 					"from orders o, order_detail od, product p, stock s " + 
 					"where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
 					+ " where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and orcancle ='Y'";
@@ -162,11 +165,14 @@ public class User_OrdersDao {
 				String pimage2=rs.getString("pimage2");
 				String sname=rs.getString("sname");
 				String odcolor=rs.getString("odcolor");
+				String odsize=rs.getString("odsize");
 				int odcount=rs.getInt("odcount");
 				int pprice=rs.getInt("pprice");
 				String ordelivery=rs.getString("ordelivery");
 				String orcancle=rs.getString("orcancle");
-				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odcount, pprice, ordelivery, orcancle);
+				int odid=rs.getInt("odid");
+				int pid=rs.getInt("pid");
+				UserOrderlistVo vo=new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odsize, odcount, pprice, ordelivery, orcancle, odid, pid);
 				list1.add(vo);
 				System.out.println();
 			}

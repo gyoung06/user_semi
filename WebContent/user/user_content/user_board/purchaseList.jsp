@@ -10,7 +10,7 @@ order list
 <!-- 주문내역 갯수 count -->
 주문내역조회(<%= Countorid%>개)
 <div role="tabpanel">
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs" role="tablist" id="mytab">
     <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">주문내역조회</a></li>
     <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">취소/반품내역</a></li>
   </ul>
@@ -76,7 +76,7 @@ order list
 						<tr>
 						<td>${vo.ordate }<br>[${vo.orid }]</td>
 						<td><img src = "${cp }${vo.pimage2}"></td>
-						<td>${vo.sname }<br>${vo.odcolor }</td>
+						<td>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
 						<td>${vo.odcount }</td>
 						<td>${vo.pprice }</td>
 						<td>${vo.ordelivery }<br><input type="button" value="구매후기" onclick="valuesend()"></td>
@@ -87,7 +87,6 @@ order list
 				</c:otherwise>
 			</c:choose>
 		</table>
-			</form>
 		</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 
@@ -123,7 +122,7 @@ order list
 		</ul>
 		<br>
 		<h4>상품정보</h4>
-		<form name="frm" method="post">
+		<form name="frm" method="post" >
 		<table class="table">
 			<tr class="active">
 				<th>주문일자<br>[주문번호]</th>
@@ -145,12 +144,22 @@ order list
 						<tr> 
 							<td>${vo.ordate }<br>[${vo.orid }]</td>
 							<td><img src = "${cp }${vo.pimage2}"></td>
-							<td>${vo.sname }<br>${vo.odcolor }</td>
+							<td>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }<br><input type="button" value="구매후기" onclick="valuesend()"></td>
+							<td>${vo.ordelivery }<br>
+							<input type="button" value="구매후기" onclick="valuesend()"></td>
 							<td>${vo.orcancel }</td>
 						</tr>
+						<input type="hidden" name="sname" value="${vo.sname }">
+						<input type="hidden" name="ordate" value="${vo.ordate }">
+						<input type="hidden" name="orid" value="${vo.orid }">
+						<input type="hidden" name="odcolor" value="${vo.odcolor }">
+						<input type="hidden" name="odsize" value="${vo.odsize }">
+						<input type="hidden" name="odcount" value="${vo.odcount }">
+						<input type="hidden" name="pimage2" value="${vo.pimage2 }">
+						<input type="hidden" name="odid" value="${vo.odid }">
+						<input type="hidden" name="pid" value="${vo.pid }">
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -198,10 +207,13 @@ order list
 //new Date().toISOString().substring(0,10);
 $("#datepicker1").datepicker().datepicker("setDate", '-3M');
  $(function() {
-	 alert('${param.tab}');
+	// alert('${param.tab}');
 	 let tab='${param.tab}';
-	 alert( $("#"+tab));
-	 $("#"+tab).tab("show");
+	// alert( $("#"+tab));
+	 if(tab=="profile")
+	 $("#mytab a:last").tab("show");
+	 if(tab=="home")
+		 $("#mytab a:first").tab("show");
 	//$('.tab-pane a[href="#' + tab + '"]').tab('show');
         //input을 datepicker로 선언
         $("#datepicker1").datepicker({
