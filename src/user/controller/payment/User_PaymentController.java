@@ -7,15 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/**
- * @author hgyou
- *	결제컨트롤러
- */
-@WebServlet("/payment")
+@WebServlet("/user/payment")
 public class User_PaymentController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/user/user_content/user_board/goodsOrder.jsp").forward(req, resp);
+		req.setAttribute("top", "/user/user_content/header.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/purchaseList.jsp");
+		req.setAttribute("bottom", "/user/user_content/footer.jsp");
+
+		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}
 }

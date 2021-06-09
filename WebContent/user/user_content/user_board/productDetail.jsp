@@ -55,6 +55,7 @@
 		<td colspan="2" name = "total">total: 0(0개)</td>
 	</tr>
 	<script> 
+		var sum = 0;
 	   var a=`<tr class="option_product" name = "productSelect">
 			<td>
 				<p class="product"><label name="optionName"></label><br>
@@ -63,7 +64,7 @@
 				<input type="hidden" name = "orSize">
 				</p>
 				<span class="quantity" >
-					<input type="text" value="1"size="1" name="amount" onchange="amountChange()">
+					<input type="text" value="1"size="1" id ="amount" name="amount" onchange="amountChange()">
 					<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
@@ -109,7 +110,7 @@
 				}
 			}
 		}
-		var sum = 0;
+		
 		function sizechange(){
 			let optionsel=document.getElementsByName("optionsel")[0];
 			let row = document.createElement("div");
@@ -166,7 +167,6 @@
 			let mileage=document.getElementsByName("mileage")[0];
 			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
 			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
-			console.log(pprice.innerHTML)
 		}
 		function deleteProduct(){
 			console.log('삭제')

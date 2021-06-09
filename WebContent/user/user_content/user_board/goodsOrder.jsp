@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 order
-<form action="${pageContext.request.contextPath }/payment">
+<form action="${cp }/user/payment" method="post">
 	<br>
 	${sessionScope.id } 님은, [${gradevo.glevel }] 회원이십니다.
 	<br>
@@ -14,7 +14,7 @@ order
 	<br>
 	<!-- 
 	1. 삭제버튼
-	2. 결체총합
+	2. 결체총합-완료
 	3. 결제하기버튼
 	 -->
 	<table class="table">
@@ -37,41 +37,15 @@ order
 				<td>${amount[i] }</td>
 				<td>${mileage[i] }</td>
 				<td>무료</td>
-				<td name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</td>
+				<td>${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</td>
 		</tr>	
 		</c:forEach>
-		<tr>
-			<th>총 결제예정 금액</th>
-				<c:forEach begin="0" end="${leng-2 }" var="i" >
-				<th name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]}</th>
-				</c:forEach>
+		<tr class="active">
+			<th colspan="2">선택상품 <input type="button" value="삭제" id="removeClicked" onclick="deleteBtn()"></th>
+			<th colspan="6" style="text-align: right; font-size: 20px;">총 결제예정 금액: ${allSum }원</th>
 		</tr>	
 	</table>
-	<script>
-		function checkAll(){
-			let check = document.getElementsByName("check");
-			let topcheck = document.getElementById("topcheck");
-			if(topcheck.checked){
-				for(i=0; i < check.length; i++) {
-					check[i].checked = true;
-				}
-			}else{
-				for(i=0; i < check.length; i++) {
-					check[i].checked = false;
-				}
-			}
-		}
-	</script>
 	<br>
-	선택상품 <input type="button" value="삭제" id="removeClicked" onclick="deleteBtn()">
-	<br>
-	<script>
-		function deleteBtn(event){
-			var removeClicked=event.target;
-			removeClicked.parentElement.parentElement.remove();
-			window.reload();
-		}
-	</script>
 	<table class="table">
 		<tr class="active">
 			<th colspan="2">주문정보</th>
@@ -92,45 +66,6 @@ order
         	<input type="text" name="detailAddress" placeholder="상세주소">
         	<input type="text" name="extraAddress" placeholder="참고항목" readonly="readonly">
         	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        	<script>
-        	    function execDaumPostcode() {
-        	        new daum.Postcode({
-        	            oncomplete: function(data) {
-        	                var roadAddr = data.roadAddress; // 도로명 주소 변수
-        	                var extraRoadAddr = ''; // 참고 항목 변수
-        	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-        	                    extraRoadAddr += data.bname;
-        	                if(data.buildingName !== '' && data.apartment === 'Y'){
-        	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-        	                }
-        	                if(extraRoadAddr !== ''){
-        	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-        	                }
-        	                document.getElementsByName('postcode')[0].value = data.zonecode;
-        	                document.getElementsByName("roadAddress")[0].value = roadAddr;
-        	                document.getElementsByName("jibunAddress")[0].value = data.jibunAddress;
-        	                if(roadAddr !== ''){
-        	                    document.getElementsByName("extraAddress")[0].value = extraRoadAddr;
-        	                } else {
-        	                    document.getElementsByName("extraAddress")[0].value = '';
-        	                }
-        	                var guideTextBox = document.getElementById("guide");
-        	                if(data.autoRoadAddress) {
-        	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-        	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-        	                    guideTextBox.style.display = 'block';
-        	                } else if(data.autoJibunAddress) {
-        	                    var expJibunAddr = data.autoJibunAddress;
-        	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-        	                    guideTextBox.style.display = 'block';
-        	                } else {
-        	                    guideTextBox.innerHTML = '';
-        	                    guideTextBox.style.display = 'none';
-        	                }
-        	            }
-        	        }).open();
-        	    }
-        	</script>
 			</td>
 		</tr>	
 		<tr>
@@ -189,78 +124,7 @@ order
 			<td><textarea rows="2" cols="50" name="content"style="width:300px;"></textarea></td>
 		</tr>	
 	</table>
-	<script>
-		function sameDirec(){
-			let upDir = document.getElementsByName("upDir");
-			let newDir = document.getElementsByName("newDir");
-			let saveDir = document.getElementsByName("saveDir");
-			let upname = document.getElementById("upname");
-			let downname = document.getElementById("downname");
-			let gophone = document.getElementById("gophone");
-			let downphone = document.getElementById("downphone");
-			let downadd = document.getElementById("downadd");
-			let roadAddress=document.getElementsByName("roadAddress")[0];
-			let detailAddress = document.getElementsByName("detailAddress")[0];
-			downname.value=upname.value;
-			downphone.value=gophone.value;
-			downadd.value=roadAddress.value+" "+detailAddress.value;
-			for (var i = 0; i < newDir.length; i++) {
-				saveDir[i].type="hidden";
-				newDir[i].type="hidden";
-				upDir[i].type="visible";
-			}
-		}
-		function newcheck(){
-			let gophone = document.getElementById("gophone");
-			let newphonecheck = document.getElementById("newphonecheck");
-			if(gophone.value.length!=11){
-				newphonecheck.innerHTML="11자를 입력해주세요"
-			}else{
-				newphonecheck.innerHTML="입력성공";
-			}
-		}
-		function siseck(){
-			let gophone = document.getElementById("gophone");
-			let gophonecheck = document.getElementById("gophonecheck");
-			if(gophone.value.length!=11){
-				gophonecheck.innerHTML="11자를 입력해주세요"
-			}else{
-				gophonecheck.innerHTML="입력성공";
-			}
-		}
-		function oldclick(){
-			let upDir = document.getElementsByName("upDir");
-			let newDir = document.getElementsByName("newDir");
-			let saveDir = document.getElementsByName("saveDir");
-			for (var i = 0; i < newDir.length; i++) {
-				saveDir[i].type="visible";
-				newDir[i].type="hidden";
-				upDir[i].type="hidden";
-
-			}
-			let xhr = new XMLHttpRequest();
-			let getPer = document.getElementById("getPer");
-			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/addressSelect.jsp?id=",true);
-			xhr.send();
-			xhr.onreadystatechange=function(){
-				if(xhr.readyState==4&&xhr.status==200){
-					let result = xhr.responseText;
-					let json = JSON.parse(result);
-					getPer.innerHTML=json.addname;
-				}
-			}
-		}
-		function newDirec(){
-			let upDir = document.getElementsByName("upDir");
-			let newDir = document.getElementsByName("newDir");
-			let saveDir = document.getElementsByName("saveDir");
-			for (var i = 0; i < newDir.length; i++) {
-				saveDir[i].type="hidden";
-				newDir[i].type="visible";
-				upDir[i].type="hidden";
-			}
-		}
-	</script>	
+	
 	<!-- 추가 정보 없애기?????????????????????? -->
 	<table class="table">
 	<tr>
@@ -272,9 +136,7 @@ order
 		</tr>	
 		<tr>
 			<th>총 결제예정 금액</th>
-			<c:forEach begin="0" end="${leng-2 }" var="i" >
-			<th name = "sum">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]+productvo.pprice*(100-productvo.pdiscount)/100*amount[i+1]}원</th>
-			</c:forEach>
+			<th name = "allSum">${allSum }원</th>
 		</tr>	
 		<tr>
 			<td>총 부가결제금액</td>
@@ -282,7 +144,9 @@ order
 		</tr>	
 		<tr>
 			<td>적립금</td>
-			<td><input type="text" name="useMil" onblur="input()">원(총 사용가능 적립금: ${membervo.mmileage }원)</td>
+			<td>
+				<input type="text" name="useMil" onblur="input()">(총 사용가능 적립금: ${membervo.mmileage }원)
+			</td>
 		</tr>	
 		<tr>
 			<td></td>
@@ -298,32 +162,19 @@ order
 	<tr>
 		<td class="active" colspan="2">결제</td>
 	</tr>
-		<tr><th colspan="2">최종결제금액:</th></tr>
 		<tr>
-			<c:forEach begin="0" end="${leng-2 }" var="i" >
-				<th name = "allPay">${productvo.pprice*(100-productvo.pdiscount)/100*amount[i]+productvo.pprice*(100-productvo.pdiscount)/100*amount[i+1]}원</th>
-			</c:forEach>
+		<th name = "finMon">총 결제금액: ${allSum}</th>
+		<td name = "allMil" style="visibility: hidden;"></td>
+		<td name = "useMil" style="visibility: hidden;">${membervo.mmileage }</td>
 		</tr>
-		<tr>
-			<td name = "allMil" style="hidden"></td>
-		</tr>
-		<script>
-			function input(){
-				let useMil = document.getElementsByName("useMil")[0];
-				let allMil = document.getElementsByName("allMil")[0];
-				allMil.innerHTML = "(마일리지 사용: "+useMil.value+"마일리지)";
-			}
-		</script>
 		<tr><td colspan="2"><input type="submit" value="결제하기"></td></tr>
 		<tr>
 			<th>총 적립예정금액</th>
-			<th>1,250원</th>
+			<th>${addMileage+allSum*per/100 } 마일리지</th>
 		</tr>
 		<tr>
-			<td>상품별 적립금<br>회원 적립금</td>
-			<c:forEach begin="0" end="${leng-2 }" var="i" >
-			<td>${mileage[i]+mileage[i+1] }<br>표시하기!!!</td>
-			</c:forEach>
+			<td>상품 적립금<br>회원 적립금</td>
+			<td>${addMileage }<br>${allSum*per/100 }</td>
 		</tr>
 	</table>
 </form>
@@ -382,3 +233,151 @@ WindowXP 서비스팩2를 설치하신후 결제가 정상적인 단계로 처�
 		현금영수증이나 세금계산서 중 하나만 발행 가능 합니다.
 	</li>
 </ul>
+<script>
+  	function checkAll(){
+	let check = document.getElementsByName("check");
+	let topcheck = document.getElementById("topcheck");
+	if(topcheck.checked){
+		for(i=0; i < check.length; i++) {
+			check[i].checked = true;
+		}
+	}else{
+		for(i=0; i < check.length; i++) {
+			check[i].checked = false;
+			}
+		}
+	}
+	function deleteBtn(event){
+		var removeClicked=event.target;
+		removeClicked.parentElement.parentElement.remove();
+		window.reload();
+	}
+	function execDaumPostcode() {
+	    new daum.Postcode({
+		        oncomplete: function(data) {
+		            var roadAddr = data.roadAddress; // 도로명 주소 변수
+		            var extraRoadAddr = ''; // 참고 항목 변수
+		            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                extraRoadAddr += data.bname;
+		            }
+		            if(data.buildingName !== '' && data.apartment === 'Y'){
+		               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		            }
+		            if(extraRoadAddr !== ''){
+		                extraRoadAddr = ' (' + extraRoadAddr + ')';
+		            }
+		            document.getElementsByName('postcode')[0].value = data.zonecode;
+		            document.getElementsByName("roadAddress")[0].value = roadAddr;
+		            document.getElementsByName("jibunAddress")[0].value = data.jibunAddress;
+		            if(roadAddr !== ''){
+		                document.getElementsByName("extraAddress")[0].value = extraRoadAddr;
+		            } else {
+		                document.getElementsByName("extraAddress")[0].value = '';
+		            }
+		            var guideTextBox = document.getElementById("guide");
+		            if(data.autoRoadAddress) {
+		                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+		                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+		                guideTextBox.style.display = 'block';
+		            } else if(data.autoJibunAddress) {
+		                var expJibunAddr = data.autoJibunAddress;
+		                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+		                guideTextBox.style.display = 'block';
+		            } else {
+		                guideTextBox.innerHTML = '';
+		                guideTextBox.style.display = 'none';
+		            }
+	        }
+	    }).open();
+	}
+	function sameDirec(){
+		let upDir = document.getElementsByName("upDir");
+		let newDir = document.getElementsByName("newDir");
+		let saveDir = document.getElementsByName("saveDir");
+		let upname = document.getElementById("upname");
+		let downname = document.getElementById("downname");
+		let gophone = document.getElementById("gophone");
+		let downphone = document.getElementById("downphone");
+		let downadd = document.getElementById("downadd");
+		let roadAddress=document.getElementsByName("roadAddress")[0];
+		let detailAddress = document.getElementsByName("detailAddress")[0];
+		downname.value=upname.value;
+		downphone.value=gophone.value;
+		downadd.value=roadAddress.value+" "+detailAddress.value;
+		for (var i = 0; i < newDir.length; i++) {
+			saveDir[i].type="hidden";
+			newDir[i].type="hidden";
+			upDir[i].type="visible";
+		}
+	}
+	function newcheck(){
+		let gophone = document.getElementById("gophone");
+		let newphonecheck = document.getElementById("newphonecheck");
+		if(gophone.value.length!=11){
+			newphonecheck.innerHTML="11자를 입력해주세요"
+		}else{
+			newphonecheck.innerHTML="입력성공";
+		}
+	}
+	function siseck(){
+		let gophone = document.getElementById("gophone");
+		let gophonecheck = document.getElementById("gophonecheck");
+		if(gophone.value.length!=11){
+			gophonecheck.innerHTML="11자를 입력해주세요"
+		}else{
+			gophonecheck.innerHTML="입력성공";
+		}
+	}
+	function oldclick(){
+		let upDir = document.getElementsByName("upDir");
+		let newDir = document.getElementsByName("newDir");
+		let saveDir = document.getElementsByName("saveDir");
+		for (var i = 0; i < newDir.length; i++) {
+			saveDir[i].type="visible";
+			newDir[i].type="hidden";
+			upDir[i].type="hidden";
+		}
+		let xhr = new XMLHttpRequest();
+		let getPer = document.getElementById("getPer");
+		xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/addressSelect.jsp?id=",true);
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				let result = xhr.responseText;
+				let json = JSON.parse(result);
+				getPer.innerHTML=json.addname;
+			}
+		}
+	}
+	function newDirec(){
+		let upDir = document.getElementsByName("upDir");
+		let newDir = document.getElementsByName("newDir");
+		let saveDir = document.getElementsByName("saveDir");
+		for (var i = 0; i < newDir.length; i++) {
+			saveDir[i].type="hidden";
+			newDir[i].type="visible";
+			upDir[i].type="hidden";
+		}
+	}
+	function input(){
+		let useMil = document.getElementsByName("useMil");
+		let allMil = document.getElementsByName("allMil")[0];
+		let finMon = document.getElementsByName("finMon")[0];
+		let allSum = document.getElementsByName("allSum")[0];
+		if(useMil[1].value<1000){
+			useMil[0].value="마일리지 사용불가";
+			useMil.readonly="readonly";
+		}else{
+			if(useMil[0].value>1000){
+				alert('마일리지 최대 사용금액은 1000원입니다.')		
+				useMil[0].value="";
+				allMil.innerHTML="";
+				finMon.innerHTML = "총 결제 금액: "+parseInt(allSum.innerHTML)+"원";
+			}else{
+				allMil.innerHTML = "(마일리지 사용: "+useMil[0].value+"마일리지)";
+				allMil.style.visibility = "visible";
+				finMon.innerHTML = "총 결제 금액: "+(parseInt(allSum.innerHTML)-parseInt(useMil[0].value))+"원";
+			}
+		}
+	}
+</script>
