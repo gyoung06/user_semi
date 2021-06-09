@@ -10,14 +10,14 @@
 	request.setCharacterEncoding("utf-8");
 	String sname=request.getParameter("sname");
 	String ordate=request.getParameter("ordate");
-	int orid=Integer.parseInt(request.getParameter("orid"));
-		System.out.println(orid);
+	//int orid=Integer.parseInt(request.getParameter("orid"));
+	//	System.out.println(orid);
 	String odcolor=request.getParameter("odcolor");
 	String odsize=request.getParameter("odsize");
 	String odcount=request.getParameter("odcount");
 	String pimage2=request.getParameter("pimage2");
-	int odid=Integer.parseInt(request.getParameter("odid"));
-	int pid=Integer.parseInt(request.getParameter("pid"));
+	String odid=request.getParameter("odid");
+	String pid=request.getParameter("pid");
 	String id=(String)session.getAttribute("id");
 %>
 

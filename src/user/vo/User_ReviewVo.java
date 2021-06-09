@@ -3,49 +3,42 @@ package user.vo;
 import java.sql.Date;
 
 public class User_ReviewVo {
-	private int rid;
-	private String rpw;
-	private String rtitle;
-	private String rcontent;
-	private String rphoto1;
-	private String rphoto2;
-	private String rphoto3;
-	private Date rrdate;
-	private int rhit;
-	private String mid;
-	private String pid;
-	public User_ReviewVo(int rid, String rpw, String rtitle, String rcontent, String rphoto1, String rphoto2,
-			String rphoto3, Date rrdate, int rhit, String mid, String pid) {
+	public String ssname;
+	public String rtitle;
+	public String pimage2;
+	public String rcontent;
+	public String rphoto1;
+	public String mid;
+	public Date rrdate;
+	public User_ReviewVo() {}
+	public User_ReviewVo(String ssname, String rtitle, String pimage2, String rcontent, String rphoto1, String mid,
+			Date rrdate) {
 		super();
-		this.rid = rid;
-		this.rpw = rpw;
+		this.ssname = ssname;
 		this.rtitle = rtitle;
+		this.pimage2 = pimage2;
 		this.rcontent = rcontent;
 		this.rphoto1 = rphoto1;
-		this.rphoto2 = rphoto2;
-		this.rphoto3 = rphoto3;
-		this.rrdate = rrdate;
-		this.rhit = rhit;
 		this.mid = mid;
-		this.pid = pid;
+		this.rrdate = rrdate;
 	}
-	public int getRid() {
-		return rid;
+	public String getSsname() {
+		return ssname;
 	}
-	public void setRid(int rid) {
-		this.rid = rid;
-	}
-	public String getRpw() {
-		return rpw;
-	}
-	public void setRpw(String rpw) {
-		this.rpw = rpw;
+	public void setSsname(String ssname) {
+		this.ssname = ssname;
 	}
 	public String getRtitle() {
 		return rtitle;
 	}
 	public void setRtitle(String rtitle) {
 		this.rtitle = rtitle;
+	}
+	public String getPimage2() {
+		return pimage2;
+	}
+	public void setPimage2(String pimage2) {
+		this.pimage2 = pimage2;
 	}
 	public String getRcontent() {
 		return rcontent;
@@ -59,41 +52,17 @@ public class User_ReviewVo {
 	public void setRphoto1(String rphoto1) {
 		this.rphoto1 = rphoto1;
 	}
-	public String getRphoto2() {
-		return rphoto2;
-	}
-	public void setRphoto2(String rphoto2) {
-		this.rphoto2 = rphoto2;
-	}
-	public String getRphoto3() {
-		return rphoto3;
-	}
-	public void setRphoto3(String rphoto3) {
-		this.rphoto3 = rphoto3;
-	}
-	public Date getRrdate() {
-		return rrdate;
-	}
-	public void setRrdate(Date rrdate) {
-		this.rrdate = rrdate;
-	}
-	public int getRhit() {
-		return rhit;
-	}
-	public void setRhit(int rhit) {
-		this.rhit = rhit;
-	}
 	public String getMid() {
 		return mid;
 	}
 	public void setMid(String mid) {
 		this.mid = mid;
 	}
-	public String getPid() {
-		return pid;
+	public Date getRrdate() {
+		return rrdate;
 	}
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setRrdate(Date rrdate) {
+		this.rrdate = rrdate;
 	}
 	
 }

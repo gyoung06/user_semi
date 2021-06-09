@@ -82,8 +82,16 @@ order list
 						<td>${vo.ordelivery }<br><input type="button" value="구매후기" onclick="valuesend()"></td>
 						<td>${vo.orcancel }</td>
 						</tr>
+						<input type="hidden" name="sname" value="${vo.sname }">
+						<input type="hidden" name="ordate" value="${vo.ordate }">
+						<input type="hidden" name="orid" value="${vo.orid }">
+						<input type="hidden" name="odcolor" value="${vo.odcolor }">
+						<input type="hidden" name="odsize" value="${vo.odsize }">
+						<input type="hidden" name="odcount" value="${vo.odcount }">
+						<input type="hidden" name="pimage2" value="${vo.pimage2 }">
+						<input type="hidden" name="odid" value="${vo.odid }">
+						<input type="hidden" name="pid" value="${vo.pid }">
 						</c:forEach>
-
 				</c:otherwise>
 			</c:choose>
 		</table>
@@ -197,10 +205,6 @@ order list
 	  e.preventDefault();
 	//  $(this).tab('show')
 	});
-	
-	window.onload=function(){
-		
-	}
 	
 	$("#currentDate1").datepicker().datepicker("setDate", new Date());
 //document.getElementById("currentDate1").value= 
