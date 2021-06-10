@@ -30,9 +30,9 @@
 	</tr>
 	<tr class="active">
 		<td>>총주문</td>
-		<td> (회) </td>
+		<td>${getCountTotal } (${getCountOrder } 회) </td>
 		<td>>쿠폰</td>
-		<td> 개 <input type="button" value="조회"></td>
+		<td> 0개 <input type="button" value="조회"></td>
 	</tr>
 </table>
 
@@ -41,13 +41,11 @@
 		<td colspan="5">나의 주문처리 현황 (최근 3개월 기준)</td>
 	</tr>
 	<tr class="active">
-		<td>입금전<br> </td>
-		<td>배송준비중<br> </td>
-		<td>배송중<br> </td>
-		<td>배송완료<br> </td>
-		<td>취소 : <a href=""> </a><br>  
-			교환 : <a href=""> </a><br>
-			반품 : <a href=""> </a><br>
+		<td>배송준비중 : ${DelReady}<br> </td>
+		<td>배송중: ${UnderDel}<br> </td>
+		<td>배송완료: ${DelFin}<br> </td>
+		<td>교환 : ${OrderCc} <a href="${cp }/user/purchase">  </a><br>
+			반품 : ${OrderReturn} <a href="${cp }/user/purchase">  </a><br>
 		</td>
 	</tr>
 </table>
@@ -76,24 +74,15 @@
 	</tr>
 	<tr class="active">
 		<td>
-			<a href=""  style="text-decoration:none">
-			WISHLIST 관심 상품<br>
-			관심상품으로 등록하신 상품의 목록을 보여드립니다.
+			<a href="${cp }/user/cart"  style="text-decoration:none">
+			SHOPPING CART 장바구니<br>
+			장바구니에 추가하신 상품의 목록을 보여드립니다.
 			</a>
 		</td>
 	</tr>
 	<tr class="active">
 		<td>
-			<a href=""  style="text-decoration:none">
-			MILEAGE 적립금<br>
-			적립금은 상품 구매 시 사용하실 수 있습니다.
-			적립된 금액은 현금으로 환불되지 않습니다.
-			</a>
-		</td>
-	</tr>
-	<tr class="active">
-		<td>
-			<a href=""  style="text-decoration:none">
+			<a href="${cp }/user/Coupon"  style="text-decoration:none">
 			COUPON쿠폰<br>
 			고객님이 보유하고 계신 쿠폰내역을 보여드립니다.
 			</a>

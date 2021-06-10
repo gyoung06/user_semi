@@ -32,11 +32,11 @@
 	이메일*
 	<input type="email" name="memail" value="<%=memail%>"><br>
 
-<h4>추가정보</h4>
+<!-- <h4>추가정보</h4> -->
 	생년월일*
 	<input type="date" name="mbirth"><br>
 <input type="button" value="회원정보수정" onclick="updateck()">
-<input type="button" value="취소" onclick="location.href=''">
+<input type="button" value="취소" onclick="location.href='${cp}/user/home'">
 </form>
 
 <form name="delForm" action="${cp }/user/delaccount" method="post">
@@ -56,9 +56,11 @@
 		var memail=document.getElementsByName("memail")[0].value;
 		if(mpw!="<%=mpw1%>"){
 			alert("현재 비밀번호가 틀렸습니다")
+		}else if(newpw=="<%=mpw1%>"){
+			alert("이전 비밀번호와 동일합니다")
 		}else if(newpw==null || newpw==""){
 			alert("새로운 비밀번호를 입력하세요");
-		}else if(newpwok==null || newpwok==""){
+		}else if(newpwok==null || newpw==""){
 			alert("새로운 비밀번호확인을 입력하세요");
 		}else if(newpw.length<10 || newpw.length>16){
 			alert("비밀번호는 10자~ 16자 사이로 입력해 주세요");

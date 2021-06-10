@@ -217,7 +217,7 @@ public class User_MembersDao {
 		}
 	}
 
-	public ArrayList<User_MembersVo> list(String id) {
+	public ArrayList<User_MembersVo> list(String id) { //배송지 목록
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -316,6 +316,50 @@ public class User_MembersDao {
 			return -1;
 		} finally {
 			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public int getCountOrder(String id) { //마이페이지 총주문 횟수
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int n = rs.getInt(1);
+				return n;
+			}
+			return -1;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return -1;
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int getCountTotal(String id) { //마이페이지 총주문 합계
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select sum(ortotal) from orders where mid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int n = rs.getInt(1);
+				return n;
+			}
+			return 0;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0;
+		} finally {
+			DBConnection.close(con, pstmt, rs);
 		}
 	}
 }

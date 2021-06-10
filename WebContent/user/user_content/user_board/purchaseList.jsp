@@ -36,9 +36,6 @@ order list
 		  <label class="btn btn-primary" id="3m">
 		    <input type="radio" name="options" value="option4"  autocomplete="off" checked="checked"> 3개월
 		  </label>
-		  <label class="btn btn-primary" id="6m">
-		    <input type="radio" name="options" value="option5" autocomplete="off"> 6개월
-		  </label>
 		</div>
 		<div>
 			<input type="text" id="datepicker" name="startdate"/>~<input type="text" id="currentDate" name="enddate"/><input type="submit" value="조회">
@@ -53,13 +50,13 @@ order list
 		<h4>상품정보</h4>
 		<table class="table">
 			<tr class="active">
-				<th>주문일자<br>[주문번호]</th>
-				<th>이미지</th>
-				<th>상품정보</th>
-				<th>수량</th>
-				<th>상품구매금액</th>
-				<th>주문처리상태</th>
-				<th>취소/반품<th>
+				<th align=center>주문일자<br>[주문번호]</th>
+				<th align=center>이미지</th>
+				<th align=center>상품정보</th>
+				<th align=center>수량</th>
+				<th align=center>상품구매금액</th>
+				<th align=center>주문처리상태</th>
+				<th align=center>취소/반품<th>
 				
 			</tr>
 			<c:choose>
@@ -71,14 +68,14 @@ order list
 				<c:otherwise>
 						<c:forEach var="vo" items="${OrderList }">
 						<tr>
-						<td>${vo.ordate }<br>[${vo.orid }]</td>
-						<td><img src = "${cp }${vo.pimage2}"></td>
-						<td>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
-						<td>${vo.odcount }</td>
-						<td>${vo.pprice }</td>
-						<td>${vo.ordelivery }<br>
-						<input type="button" value="구매후기" onclick="valuesend()"></td>
-						<td>${vo.orcancel }</td>
+						<td align=center valign=middle>${vo.ordate }<br>[${vo.orid }]</td>
+						<td align=center valign=middle><img src = "${cp }${vo.pimage2}"></td>
+						<td align=center valign=middle>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+						<td align=center valign=middle>${vo.odcount }</td>
+						<td align=center valign=middle>${vo.pprice }</td>
+						<td align=center valign=middle>${vo.ordelivery }<br>
+						<input type="button" value="구매후기" onclick="valuesend()" ></td>
+						<td align=center valign=middle>${vo.orcancel }</td>
 						</tr>
 						<input type="hidden" name="sname" value="${vo.sname }">
 						<input type="hidden" name="ordate" value="${vo.ordate }">
@@ -113,9 +110,6 @@ order list
 		  </label>
 		  <label class="btn btn-primary" id="3m1">
 		    <input type="radio" name="options"  autocomplete="off" checked="checked"> 3개월
-		  </label>
-		  <label class="btn btn-primary" id="6m1">
-		    <input type="radio" name="options"  autocomplete="off"> 6개월
 		  </label>
 		</div>
 		<div>
@@ -251,9 +245,6 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
         $("#3m1").click(function(){
      	  $('#datepicker1').datepicker('setDate', '-3M');
        })
-         $("#6m1").click(function(){
-     	  $('#datepicker1').datepicker('setDate', '-6M');
-       }) 
  		/*구매버튼 이벤트*/
  	
  });
@@ -298,9 +289,6 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 	                       $("#3m").click(function(){
 	                    	  $('#datepicker').datepicker('setDate', '-3M');
 	                      })
-	                        $("#6m").click(function(){
-	                    	  $('#datepicker').datepicker('setDate', '-6M');
-	                      }) 
 			 });
 			 <% int checkReview=(int)request.getAttribute("checkReview");%>
 			 function valuesend(){

@@ -35,6 +35,7 @@ public class User_updateController extends HttpServlet{
 		String mname=req.getParameter("mname");
 		String mphone=req.getParameter("mphone");
 		String memail=req.getParameter("memail");
+		
 		Date indate=null;
 	    try{
 	        String mbirth1=req.getParameter("mbirth");
@@ -46,19 +47,17 @@ public class User_updateController extends HttpServlet{
 	       e.printStackTrace();
 	    }
 	    java.sql.Date mbirth = new java.sql.Date(indate.getTime()); //sql.date로 넣어야 들어감
-		
-//		DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd"); 
-//		String birth=req.getParameter("mbirth");
-		//Date mbirth = (Date)dateFormat.parse(birth); 
-		User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,mbirth,0,0,memail,null,null,null);
-		int n=dao.updateInfo(vo2);
-		System.out.println(n);
-		if(n>0) {
-			req.setAttribute("top", "/user/user_content/header.jsp");
-			req.setAttribute("content","/user/user_content/user_board/userInfo/updateOk.jsp");
-			req.setAttribute("bottom", "/user/user_content/footer.jsp");
-			
-			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+		    User_MembersVo vo2=new User_MembersVo(mid,newpw,mname,null,null,mphone,null,mbirth,0,0,memail,null,null,null);
+			int n=dao.updateInfo(vo2);
+			System.out.println(n);
+			if(n>0) {
+				req.setAttribute("top", "/user/user_content/header.jsp");
+				req.setAttribute("content","/user/user_content/user_board/userInfo/updateOk.jsp");
+				req.setAttribute("bottom", "/user/user_content/footer.jsp");
+				
+				req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+			}
+
 		}
 	}
-}
+

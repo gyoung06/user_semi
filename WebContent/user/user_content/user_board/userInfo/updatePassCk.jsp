@@ -24,10 +24,8 @@
 </div>
 <script type="text/javascript">
 	function checkData(){
-		console.log("11");
 		var pwd=document.getElementById("pwd").value;
 		if(pwd=="<%=mpw %>"){
-			console.log("22");
 			alert("수정 페이지로 이동합니다");
 			return true;
 		}else{

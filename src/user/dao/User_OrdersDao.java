@@ -227,5 +227,104 @@ public class User_OrdersDao {
 		}
 		return n;
 	}
-
+	public int DelReady(String id) { //마이페이지 - 배송준비중~
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=? and ORDELIVERY= 'N' and ORCOMPLETE ='N' and ORCANCLE= 'N'";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int n = rs.getInt(1);
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0; // 글번호가 -1이 들어가지 않을꺼니까 -1주기
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int UnderDel(String id) { //마이페이지 - 배송중 ??
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=? and ORDELIVERY= 'Y' and ORCOMPLETE ='N' and ORCANCLE= 'N'";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int n = rs.getInt(1);
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0; // 글번호가 -1이 들어가지 않을꺼니까 -1주기
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int DelFin(String id) { //마이페이지 - 배송완료~
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=? and ORDELIVERY= 'Y' and ORCOMPLETE ='Y' ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int n = rs.getInt(1);
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0; // 글번호가 -1이 들어가지 않을꺼니까 -1주기
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int OrderCc(String id) { //마이페이지 - 취소
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=? and ORDELIVERY= 'N' and ORCOMPLETE ='N' and ORCANCLE= 'Y'";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int n = rs.getInt(1);
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0; // 글번호가 -1이 들어가지 않을꺼니까 -1주기
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	public int OrderReturn(String id) { //마이페이지 - 반품
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select NVL(count(orid),0) from orders where mid=? and ORDELIVERY= 'Y' and ORCOMPLETE ='N' and ORCANCLE= 'Y'";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			int n = rs.getInt(1);
+			return n;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return 0; // 글번호가 -1이 들어가지 않을꺼니까 -1주기
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
 }

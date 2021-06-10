@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <h4>my coupon</h4>
 
-<h4>마이 쿠폰 목록</h4>사용가능 쿠폰 : 장
+<h4>마이 쿠폰 목록</h4>
 <table class="table">
 	<tr class="active">
 		<th>번호</th>
@@ -20,7 +20,7 @@
 
 <h4>쿠폰인증번호 등록하기</h4>
 <div style="background-color:#F6F6F6">
-<input type="text" id="couponnum">
+<input type="text" id="couponnum" style="text-align=center; padding-top:5px;">
 <input type="button" value="쿠폰번호인증" onclick="insertCoupon"><br>
 반드시 쇼핑몰에서 발행한 쿠폰번호만 입력해주세요. (10~35자 일련번호 "-" 제외)
 </div>
