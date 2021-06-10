@@ -210,19 +210,22 @@ public class User_OrdersDao {
 		}
 	}
 
-	public int buyproduct(String name, String phone, String addr, String mid) {
-		// 수령자 이름,번호, 주소ㅡ우편번호, mid
-		String sql = "insert into orders values(ORDERS_seq.nextval,sysdate,?,?,?,null,0,0,0,'N','N',null,?)";
+	public int buyproduct(String name, String phone, String addr, int ortotal, int orpaymoney, String mid) {
+		// 수령자 이름,번호, 주소ㅡ우편번호,총가격,결제금액 mid
+		String sql = "insert into orders values(ORDERS_seq.nextval,sysdate,?,?,?,null,0,0,0,'N','N',null,?,?,?)";
 		int n = 0;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, name);
 			pstmt.setString(2, phone);
 			pstmt.setString(3, addr);
-			pstmt.setString(4, mid);
+			pstmt.setInt(4, ortotal);
+			pstmt.setInt(5, orpaymoney);
+			pstmt.setString(6, mid);
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return n;
 	}
+
 }
