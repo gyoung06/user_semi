@@ -13,9 +13,9 @@ String pid = request.getParameter("pid");
 String sql = "select * from members where pid ="+pid;
 try(Connection con = DBConnection.getCon();
 		PreparedStatement pstmt= con.prepareStatement(sql);){
+	JSONObject obj = new JSONObject();
 	try(ResultSet rs = pstmt.executeQuery();){
 		if(rs.next()){
-			JSONObject obj = new JSONObject();
 			String maddress = rs.getString("maddress");
 			String mpost = rs.getString("mpost");
 			String addphone = rs.getString("addphone");
