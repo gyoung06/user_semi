@@ -30,4 +30,5 @@
 	<input type="file" name="file1" ><br>
 	<input type="submit" value="글등록">
 </form>
+	<a href="<%=request.getContextPath()%>/user/qna"><input type="button" value="취소"></a>
 </div>

@@ -1,60 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
 	#qnabox{
 		position:absolute;
-		top:100px;
+		top:900px;
 		left:300px;
 	}
 </style>
 </head>
 <body>
 <div id="qnabox">
-	<table class="table">
-		<tr>
-			<th colspan="8">QnA</th>
-		</tr>
-		<tr>
-			<th>Ä«Å×°í¸®</th>
-			<th>È¸¿ø¾ÆÀÌµğ</th>
-			<th>Á¦Ç°¹øÈ£</th>
-			<th>Á¦¸ñ</th>
-			<th>ÀÛ¼º³¯Â¥</th>			
-			<th>¹øÈ£</th>			
-			<th>»èÁ¦</th>			
-		</tr>
-		<c:forEach var="vo" items="${list }">
-		<tr>
-			<td>${vo.qcate }</td>
-			<td>${vo.mid }</td>
-			<td>${vo.pid }</td>
-			<td>
-			<c:if test="${vo.qlev>0 }">		
-				<c:forEach var="i" begin="1" end="${vo.qlev }">
-					&nbsp;&nbsp;
-				</c:forEach>
-				[re]
-			</c:if>
-			<a href="${cp }/admin/qnadetail?qid=${vo.qid }" 
-			onclick="window.open(this.href,'','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">${vo.qtitle }</a></td>
-			<td>${vo.qrdate }</td>
-			<td></td>
-			<td></td>
-		</tr>
-		</c:forEach>
-	</table>
+	<a href="${cp }/admin/admin_content/board/qnainsert/.jsp"><input type="button" value="ê¸€ì“°ê¸°"></a>
 	<c:if test="${startPageNum>10 }">
-		<a href="${cp }/admin/qna?pageNum=${startPageNum-1 }">[ÀÌÀü]</a>
+		<a href="${cp }/admin/qna?pageNum=${startPageNum-1 }">[ì´ì „]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 		<c:choose>
-			<c:when test="${pageNum==i }"><%--ÇöÀçÆäÀÌÁöÀÎ°æ¿ì --%>
+			<c:when test="${pageNum==i }"><%--í˜„ì¬í˜ì´ì§€ì¸ê²½ìš° --%>
 				<a href="${cp }/admin/qna?pageNum=${i }"><span style="color:blue">[${i }]</span></a>
 			</c:when>
 			<c:otherwise>
@@ -63,15 +31,15 @@
 		</c:choose>
 	</c:forEach>
 	<c:if test="${endPageNum<pageCount }">
-		<a href="${cp }/admin/qna?pageNum=${endPageNum+1 }">[´ÙÀ½]</a>
+		<a href="${cp }/admin/qna?pageNum=${endPageNum+1 }">[ë‹¤ìŒ]</a>
 	</c:if>
 	<form method="post" action="${cp }/admin/qna">
 		<select name="field">
-			<option value="qtitle">Á¦¸ñ</option>
-			<option value="qcontent">³»¿ë</option>
+			<option value="qtitle">ì œëª©</option>
+			<option value="qcontent">ë‚´ìš©</option>
 		</select>
 		<input type="text" name="keyword">
-	<input type="button" value="°Ë»ö">
+	<input type="button" value="ê²€ìƒ‰">
 	</form>	<br>
 </div>
 </body>
