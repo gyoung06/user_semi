@@ -23,10 +23,10 @@ public class User_OrderController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		//아이디,등급,적립퍼센트,등급업까지남은돈,보유적립금,
-		//이미지,상품정보(사이즈,컬러),판매가,수량,적립금,배송비,합계
-		//총 결제에정금액,총 할인금액,총 적립금
-		//선택상품 삭제
+		// 아이디,등급,적립퍼센트,등급업까지남은돈,보유적립금,
+		// 이미지,상품정보(사이즈,컬러),판매가,수량,적립금,배송비,합계
+		// 총 결제에정금액,총 할인금액,총 적립금
+		// 선택상품 삭제
 		String pid = req.getParameter("pid");
 		String[] orSize = req.getParameterValues("orSize");
 		String[] orColor = req.getParameterValues("orColor");
@@ -45,9 +45,9 @@ public class User_OrderController extends HttpServlet {
 		User_GradeVo gradevo = gradedao.getGrade(id);
 		int allSum = 0;
 		for (int i = 0; i < leng; i++) {
-			allSum += (productvo.getPprice()*(100-productvo.getPdiscount())/100)*Integer.parseInt(amount[i]);
+			allSum += (productvo.getPprice() * (100 - productvo.getPdiscount()) / 100) * Integer.parseInt(amount[i]);
 		}
-		int addMileage=0;
+		int addMileage = 0;
 		for (int i = 0; i < leng; i++) {
 			addMileage += Integer.parseInt(orMileage[i]);
 		}
@@ -72,7 +72,6 @@ public class User_OrderController extends HttpServlet {
 		req.setAttribute("amount", amount);
 		req.setAttribute("mileage", orMileage);
 		req.setAttribute("leng", leng);
-		req.setAttribute("gradevo", gradevo);
 		req.setAttribute("gradevo", gradevo);
 		req.setAttribute("per", per);
 		req.setAttribute("allSum", allSum);
