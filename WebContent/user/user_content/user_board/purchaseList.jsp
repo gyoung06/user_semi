@@ -87,7 +87,7 @@ order list
 						<input type="hidden" name="odcount" value="${vo.odcount }">
 						<input type="hidden" name="pimage2" value="${vo.pimage2 }">
 						<input type="hidden" name="odid" value="${vo.odid }">
-						<input type="hidden" name="pid" value="${vo.pid }">
+						<input type="hidden" name="sid" value="${vo.sid }">
 						</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -164,7 +164,7 @@ order list
 						<input type="hidden" name="odcount" value="${vo.odcount }">
 						<input type="hidden" name="pimage2" value="${vo.pimage2 }">
 						<input type="hidden" name="odid" value="${vo.odid }">
-						<input type="hidden" name="pid" value="${vo.pid }">
+						<input type="hidden" name="sid" value="${vo.sid }">
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>

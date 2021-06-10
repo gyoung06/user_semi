@@ -13,17 +13,18 @@
 
 	</tr>
 	<c:choose>
-		<c:when test="${empty QList}">
+		<c:when test="${empty Qlist}">
 			<tr>
 				<td>문의내역이 없습니다.</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="vo" items="${QList }">
+			<c:forEach var="vo" items="${Qlist }">
 			<tr>
 			<td>${vo.qid }</td>
 			<td>${vo.qcate }</td>
-			<td>			<c:if test="${vo.qlev>0 }">		
+			<td>			
+			<c:if test="${vo.qlev>0 }">		
 				<c:forEach var="i" begin="1" end="${vo.qlev }">
 					&nbsp;&nbsp;
 				</c:forEach>
@@ -62,25 +63,25 @@
 	
 	<!-- 페이징 처리 -->
 	<c:if test="${startPageNum>10 }">
-		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[이전]</a> <!-- 현재페이지 보이기 -->
+		<a href="${cp}/user/userBoard?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[이전]</a> <!-- 현재페이지 보이기 -->
 		</c:if>
 		
 		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 			<c:choose>
 				<c:when test="${pageNum==i }">
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}&keyword=${keyword}">
+					<a href="${cp}/user/userBoard?pageNum=${i }&field=${field}&keyword=${keyword}">
 					<span style="color:blue">[${i }]</span></a>
 					<!-- <a href="${cp}/board/list?pageNum=${i}" 로 줘도 됨 -->
 				</c:when>
 				<c:otherwise>
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}&keyword=${keyword}">
+					<a href="${cp}/user/userBoard?pageNum=${i }&field=${field}&keyword=${keyword}">
 					<span style="color:gray">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		
 		<c:if test="${endPageNum<pageCount }">
-			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
+			<a href="${cp}/user/userBoard?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
 		</c:if>
 		
 		
@@ -96,16 +97,16 @@
 		<th>첨부사진</th>
 	</tr>
 		<c:choose>
-		<c:when test="${empty RList}">
+		<c:when test="${empty Rlist}">
 			<tr>
 				<td>작성한 리뷰가 없습니다.</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="vo" items="${RList }">
+			<c:forEach var="vo" items="${Rlist }">
 	<tr>
 		<td>${vo.pimage2 }</td>
-		<td>${vo.ssname }</td>
+		<td>${vo.sname }</td>
 		<td>${vo.rtitle }</td>
 		<td>${vo.mid }</td>
 		<td>${vo.rrdate }</td>
@@ -118,25 +119,25 @@
 
 
 	<!-- 페이징 처리 -->
-	<c:if test="${startPageNum>10 }">
-		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[이전]</a> <!-- 현재페이지 보이기 -->
+	<c:if test="${startPageNum0>10 }">
+		<a href="${cp}/user/userBoard?pageNum0=${startPageNum0-1 }">[이전]</a> <!-- 현재페이지 보이기 -->
 		</c:if>
 		
-		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+		<c:forEach var="i" begin="${startPageNum0 }" end="${endPageNum0 }">
 			<c:choose>
-				<c:when test="${pageNum==i }">
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}&keyword=${keyword}">
+				<c:when test="${pageNum0==i }">
+					<a href="${cp}/user/userBoard?pageNum0=${i }">
 					<span style="color:blue">[${i }]</span></a>
 					<!-- <a href="${cp}/board/list?pageNum=${i}" 로 줘도 됨 -->
 				</c:when>
 				<c:otherwise>
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}&keyword=${keyword}">
+					<a href="${cp}/user/userBoard?pageNum0=${i }">
 					<span style="color:gray">[${i }]</span></a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		
-		<c:if test="${endPageNum<pageCount }">
-			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
+		<c:if test="${endPageNum0<pageCount0 }">
+			<a href="${cp}/user/userBoard?pageNum0=${endPageNum0+1 }">[다음]</a>
 		</c:if>
 		

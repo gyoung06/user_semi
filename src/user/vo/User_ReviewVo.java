@@ -3,7 +3,7 @@ package user.vo;
 import java.sql.Date;
 
 public class User_ReviewVo {
-	public String ssname;
+	public String sname;
 	public String rtitle;
 	public String pimage2;
 	public String rcontent;
@@ -11,10 +11,10 @@ public class User_ReviewVo {
 	public String mid;
 	public Date rrdate;
 	public User_ReviewVo() {}
-	public User_ReviewVo(String ssname, String rtitle, String pimage2, String rcontent, String rphoto1, String mid,
+	public User_ReviewVo(String sname, String rtitle, String pimage2, String rcontent, String rphoto1, String mid,
 			Date rrdate) {
 		super();
-		this.ssname = ssname;
+		this.sname = sname;
 		this.rtitle = rtitle;
 		this.pimage2 = pimage2;
 		this.rcontent = rcontent;
@@ -22,11 +22,11 @@ public class User_ReviewVo {
 		this.mid = mid;
 		this.rrdate = rrdate;
 	}
-	public String getSsname() {
-		return ssname;
+	public String getSname() {
+		return sname;
 	}
-	public void setSsname(String ssname) {
-		this.ssname = ssname;
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
 	public String getRtitle() {
 		return rtitle;

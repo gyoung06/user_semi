@@ -17,7 +17,7 @@
 	String odcount=request.getParameter("odcount");
 	String pimage2=request.getParameter("pimage2");
 	String odid=request.getParameter("odid");
-	String pid=request.getParameter("pid");
+	String sid=request.getParameter("sid");
 	String id=(String)session.getAttribute("id");
 %>
 
@@ -41,7 +41,7 @@
 <label style="position:absolute; top:200px; left:210px; width:200px; height:25px;">고객님 상품은 어떠셨나요?</label>
 <label style="position:absolute; top:240px; left:130px; width:280px; height:25px;">리뷰를 작성하고 적립금을 받으세요!</label>
 <input type="hidden" name="odid" value="<%=odid %>">
-<input type="hidden" name="pid" value="<%=pid %>">
+<input type="hidden" name="sid" value="<%=sid %>">
 </div>
 
 <div class="center" style="position: absolute; border-bottom:1px solid #ABABAB;  top:380px;left:0px;width:100%; height:300px;">
