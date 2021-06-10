@@ -7,15 +7,16 @@
 <meta charset="EUC-KR">
 <title>fnq.jsp</title>
 <style>
-	#faqbox{
-		position:absolute;
-		top:100px;
-		left:800px;
-	}
 	#list{
 		position:absolute;
-		top:100px;
+		top:150px;
 		left:150px;
+		width:1500px;
+	}
+	#insert{
+		position: absolute;
+		top:100px;
+		left:1500px;
 	}
 </style>
 </head>
@@ -23,25 +24,31 @@
 <%
 	String id=(String)session.getAttribute("id");
 %>
-<div id="faqbox">
-<form method="post" action="<%=request.getContextPath()%>/admin/faq/insert">
-		작성자<br>
-		<input type="text" name="fwriter" value=<%=id %> readonly="readonly"><br>
-		제목<br>
-		<input type="text" name="ftitle"><br>
-		내용<br>
-		<textarea rows="5" cols="50" name="fcontent"></textarea><br>
-		공개<input type="radio" name="fpublic_private" value="1" checked>
-		비공개<input type="radio" name="fpublic_private" value="0">
-		<input type="submit" name="insert" value="등록">
-</form>
-</div>
+<br>
+<br>
+
+<h1>FAQ 관리자 페이지</h1>
+<div id="insert">
+<a href="<%=request.getContextPath()%>/admin/admin_content/board/faqinsert.jsp" 
+			onclick="window.open(this.href,'','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">
+			<input type="button" value="글쓰기"></a>
+</div>		
 <div id="list">
 <div>
 	<table class="table">
 		<tr>
 			<th colspan="8">공개테이블</th>
 		</tr>
+		<colgroup>
+		<col style="width:5%">
+		<col style="width:10%">
+		<col style="width:50%">
+		<col style="width:10%">
+		<col style="width:10%">
+		<col style="width:5%">
+		<col style="width:5%">
+		<col style="width:5%">
+		</colgroup>
 		<tr>
 			<th>작성자</th>
 			<th>제목</th>
@@ -62,8 +69,8 @@
 			<td>공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
-			<td><a href="${cp }/admin/admin_content/board/faqlistupdate.jsp?fid=${vo.fid }&ftitle=${vo.ftitle}&fcontent=${vo.fcontent }&fpublic_private=${vo.fpublic_private}" 
-			onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>	
+			<td><a href="<%=request.getContextPath()%>/admin/faqpopup?fid=${vo.fid }"
+			 onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>
 			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">삭제</a></td>
 		</tr>
 		</c:when>
@@ -100,6 +107,16 @@
 		<tr>
 			<th colspan="8">비공개테이블</th>
 		</tr>
+		<colgroup>
+		<col style="width:5%">
+		<col style="width:10%">
+		<col style="width:50%">
+		<col style="width:10%">
+		<col style="width:10%">
+		<col style="width:5%">
+		<col style="width:5%">
+		<col style="width:5%">
+		</colgroup>
 		<tr>
 			<th>작성자</th>
 			<th>제목</th>
@@ -120,14 +137,14 @@
 			<td>비공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
-			<td><a href="${cp }/admin/admin_content/board/faqlistupdate.jsp?fid=${vo.fid }&ftitle=${vo.ftitle}&fcontent=${vo.fcontent }&fpublic_private=${vo.fpublic_private}" 
-			onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/faqpopup?fid=${vo.fid }"
+			 onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>
 			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">삭제</a></td>
 		</tr>
 		</c:when>
 		</c:choose>
 	</c:forEach>
-	</table>
+	</table>	
 	<c:if test="${startPageNum1>10 }">
 		<a href="${cp }/admin/faq/list1?pageNum1=${startPageNum1-1 }">[이전]</a>
 	</c:if>
@@ -154,8 +171,5 @@
 	</form>
 </div>
 </div>
-<script type="text/javascript">
-	
-</script>
 </body>
 </html>

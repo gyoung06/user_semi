@@ -22,6 +22,7 @@ public class Admin_FaqinsertController extends HttpServlet{
 		String ftitle=req.getParameter("ftitle");
 		String fcontent=req.getParameter("fcontent");
 		int fpublic_private=Integer.parseInt(req.getParameter("fpublic_private"));
+		fcontent = fcontent.replaceAll("\r\n", "<br>");
 		
 		Admin_FaqDao dao=new Admin_FaqDao();
 		Admin_FaqVo vo=new Admin_FaqVo(0, ftitle, fcontent,null,0, fpublic_private,fwriter);
@@ -30,6 +31,6 @@ public class Admin_FaqinsertController extends HttpServlet{
 		req.setAttribute("vo", vo);
 		
 		String cPath=req.getContextPath();
-		resp.sendRedirect(cPath+"/admin/faq/list");
+		req.getRequestDispatcher("/admin/admin_content/board/popupclose.jsp").forward(req, resp);
 	}
 }

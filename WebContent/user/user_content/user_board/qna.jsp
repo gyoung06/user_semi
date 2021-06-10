@@ -54,17 +54,17 @@
 <div>
 	<form method="post" action="${cp }/user/qna">
 		<select name = "field">
-				<option value="qtitle">
-					<c:if test="${field=='qcate' }">selected="selected"</c:if>
+				<option value="qtitle"
+					<c:if test="${field=='qcate' }"> selected="selected"</c:if>>
 				카테고리</option>
-				<option value="qtitle">
-					<c:if test="${field=='qtitle' }">selected="selected"</c:if>
+				<option value="qtitle"
+					<c:if test="${field=='qtitle' }">selected="selected"</c:if>>
 				제목</option>
-				<option value="qcontent">
-					<c:if test="${field=='qcontent' }">selected="selected"</c:if>
+				<option value="qcontent"
+					<c:if test="${field=='qcontent' }">selected="selected"</c:if>>
 				내용</option>
-				<option value="mid">
-					<c:if test="${field=='mid' }">selected="selected"</c:if>
+				<option value="mid"
+					<c:if test="${field=='mid' }">selected="selected"</c:if>>
 				아이디</option>
 		</select>
 		<input type="text" name = "keyword">

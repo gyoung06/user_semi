@@ -1,6 +1,7 @@
 package admin.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +10,38 @@ import java.util.ArrayList;
 import admin.vo.Admin_FaqVo;
 import admin.vo.Admin_MembersVo;
 import test.db.DBConnection;
+import user.vo.UserQnaVo;
 
 public class Admin_FaqDao {
+	public Admin_FaqVo detail(int fid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBConnection.getCon();
+			String sql = "select * from faq where fid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				fid = rs.getInt("fid");
+				String ftitle = rs.getString("ftitle");
+				String fcontent = rs.getString("fcontent");
+				Date frdate = rs.getDate("frdate");
+				int fhit = rs.getInt("fhit");
+				int fpublic_private = rs.getInt("fpublic_private");
+				String aid = rs.getString("aid");
+				Admin_FaqVo vo = new Admin_FaqVo(fid, ftitle, fcontent, frdate, fhit, fpublic_private, aid);
+				return vo;
+			}
+			return null;
+		} catch (SQLException s) {
+			s.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
 	public ArrayList<Admin_FaqVo> publiclist(int startRow,int endRow,String field,String keyword){
 		String sql=null;
 		if(field==null || field.equals("")) { 
