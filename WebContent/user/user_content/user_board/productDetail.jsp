@@ -48,46 +48,16 @@
 			</select>
 		</td>
 	</tr>
+	<tr>
 	<td colspan="2">위 옵션선택 박스를 모두 선택하시면 아래에 상품이 추가됩니다.</td>
-	<tr name="optionsel">
 	</tr>
+	<td name="optionsel" colspan="2"></td>
 	<tr>
 		<td colspan="2" name = "total">total: 0(0개)</td>
 	</tr>
 	<script> 
+		let plus=1;
 		var sum = 0;
-	   var a=`<tr class="option_product" name = "productSelect">
-			<td>
-				<p class="product"><label name="optionName"></label><br>
-				- <label name="optionColor"></label>,<label name="optionSize"></label>
-				<input type="hidden" name = "orColor">
-				<input type="hidden" name = "orSize">
-				</p>
-				<span class="quantity" >
-					<input type="text" value="1"size="1" id ="amount" name="amount" onchange="amountChange()">
-					<a href="javascript:upBtn()" class="up eProductQuantityUpClass">
-						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
-					</a>
-					<a href="javascript:downBtn()" class="down eProductQuantityDownClass" data-target="option_box1_down">
-						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
-					</a>
-				</span>
-				<a href="javascript:deleteProduct()" class="delete">
-					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
-				</a>
-				<span style="float: right">
-					<span name="pprice" class="ec-front-product-item-price" >
-					</span>
-				</span>
-				<br>
-				<span class="mileage" style="float: right">
-					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-					<span name="mileage" class="mileage_price">
-					</span>)
-					<input type="hidden" name = "orMileage">
-				</span>
-			</td>
-		</tr>`
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
 			let oplength=sizeOp.options.length;
@@ -111,7 +81,36 @@
 			}
 		}
 		
+
 		function sizechange(){
+			let a=`<p class="product"><label name="optionName"></label><br>
+				- <label name="optionColor"></label>,<label name="optionSize"></label>
+				<input type="hidden" name = "orColor">
+				<input type="hidden" name = "orSize">
+				</p>
+				<span class="quantity" >
+					<input type="text" value="1"size="1" id ="amount\${sum}" name="amount" onchange="amountChange()">
+					<a href="javascript:upBtn(this.id)" class="up eProductQuantityUpClass" id ="uBtn\${sum}">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
+					</a>
+					<a href="javascript:downBtn(this.id)" id = "downBtn\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
+						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
+					</a>
+				</span>
+				<a href="javascript:deleteProduct(this.id)" class="delete">
+					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
+				</a>
+				<span style="float: right">
+					<span name="pprice" class="ec-front-product-item-price" >
+					</span>
+				</span>
+				<br>
+				<span class="mileage" style="float: right">
+					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
+					<span name="mileage" class="mileage_price">
+					</span>)
+					<input type="hidden" name = "orMileage">
+				</span>`;
 			let optionsel=document.getElementsByName("optionsel")[0];
 			let row = document.createElement("div");
 			row.innerHTML=a;
@@ -136,24 +135,24 @@
 			orMileage.value = mileage.innerHTML;
 			sum++;
 		}
-		function upBtn(){
-			let aamount = document.getElementsByName("amount")[0];
+		function upBtn(ckId){
+			let aamount = document.getElementsByName("amount")[sum-1];
 			let result= parseInt(aamount.value) +1;
 			aamount.value = result;
-			let pprice= document.getElementsByName("pprice")[0];
-			let mileage=document.getElementsByName("mileage")[0];
-			let proPrice = document.getElementsByName("proPrice")[0];
+			let pprice= document.getElementsByName("pprice")[sum-1];
+			let mileage=document.getElementsByName("mileage")[sum-1];
+			let proPrice = document.getElementsByName("proPrice")[sum-1];
 			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
 			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
 		}
-		function downBtn(){
-			let aamount = document.getElementsByName("amount")[0];
+		function downBtn(ckId){
+			let aamount = document.getElementsByName("amount")[sum-1];
 			if(aamount.value>=1){
 				let result= parseInt(aamount.value) -1;
 				aamount.value = result;
-				let pprice= document.getElementsByName("pprice")[0];
-				let mileage=document.getElementsByName("mileage")[0];
-				let proPrice = document.getElementsByName("proPrice")[0];
+				let pprice= document.getElementsByName("pprice")[sum-1];
+				let mileage=document.getElementsByName("mileage")[sum-1];
+				let proPrice = document.getElementsByName("proPrice")[sum-1];
 				mileage.innerHTML= (parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML))/100;
 				pprice.innerHTML= parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML);
 			}else{
@@ -175,8 +174,20 @@
 	</script>
 	<tr>
 		<td>
-			<input type="submit" value="buy now" formaction="${cp }/user/order"  style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" id = "buy" >
+			<c:choose>
+				<c:when test="${empty id }">
+					<input type="button" value="buy now" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" >
+				</c:when>
+				<c:otherwise>
+					<input type="submit" value="buy now" formaction="${cp }/user/order"  style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" id = "buy" >
+				</c:otherwise>
+			</c:choose>
 		</td>
+		<script>
+			function loginPlz(){
+				alert('로그인 필요!');
+			}
+		</script>
 		<td>
 			<input id = "cart" type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart">
 		</td>

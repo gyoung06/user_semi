@@ -362,4 +362,19 @@ public class User_MembersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
+	
+//	상품을 구매했을때 마일리지 쌓이게 추가하기
+	public int addMil(int addMil, String mid) {
+		String sql = "update members set mmileage = mmileage+? where mid = ?";
+		int n = 0;
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, addMil);
+			pstmt.setString(2, mid);
+			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+
 }

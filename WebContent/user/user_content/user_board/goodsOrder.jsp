@@ -15,7 +15,7 @@ order
 	<!-- 
 	1. 삭제버튼
 	2. 결체총합-완료
-	3. 결제하기버튼
+	3. 결제하기버튼-완료
 	 -->
 	<table class="table">
 		<tr class="active">

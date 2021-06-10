@@ -93,4 +93,18 @@ public class UserStockDAO {
 		}
 		return list;
 	}
+	public int sellamount(int pid, String color,String size) {
+		String sql = "update stock set samount= samount-(select odcount from order_detail where pid=?) where sid=(select sid from stock where sname=(select sname from stock where sid=(select sid from product where pid=?)) and scolor=? and ssize=?)";
+		int n=0;
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, pid);
+			pstmt.setInt(2, pid);
+			pstmt.setString(3, color);
+			pstmt.setString(4, size);
+			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 }

@@ -64,6 +64,7 @@ public class User_OrderController extends HttpServlet {
 		if (gradevo.getGlevel().equals("vvip")) {
 			per = 7;
 		}
+		req.setAttribute("pid", pid);
 		req.setAttribute("productvo", productvo);
 		req.setAttribute("stockvo", stockvo);
 		req.setAttribute("membervo", membervo);
