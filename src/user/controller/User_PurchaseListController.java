@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import user.dao.User_OrdersDao;
+import user.dao.User_ReviewDao;
 import user.vo.UserOrderlistVo;
 
 @WebServlet("/user/purchase")
@@ -33,7 +34,12 @@ public class User_PurchaseListController extends HttpServlet{
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-
+		
+		int sid=Integer.parseInt(req.getParameter("sid"));
+		String sname=req.getParameter("sname");
+		String odcolor=req.getParameter("odcolor");
+		String odsize=req.getParameter("odsize");
+		
 		 //System.out.println("startdate:"+startdate+ "enddate:"+enddate);
 		User_OrdersDao dao = new User_OrdersDao();
 		int startRow=10*pageNum-9;
@@ -55,6 +61,10 @@ public class User_PurchaseListController extends HttpServlet{
 		if(endPageNum>pageCount1) {
 			endPageNum=pageCount1; //endPageNum값을 pageCount값으로 초기화
 		}
+		User_ReviewDao dao1=new User_ReviewDao();
+		int n1=dao1.checkReview(id, sid, sname, odcolor, odsize);
+		
+		req.setAttribute("checkReview", n1);
 		req.setAttribute("refundList", refundList);
 		req.setAttribute("OrderList", OrderList);
 		System.out.println(OrderList);

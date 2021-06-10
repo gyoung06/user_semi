@@ -18,6 +18,7 @@ public class User_HomeController extends HttpServlet {
 		String bottom = (String) req.getAttribute("bottom");
 		if (top == null) {
 			top = "/user/user_content/header.jsp";
+			
 		}
 		if (content == null) {
 			// content="/user/main";
