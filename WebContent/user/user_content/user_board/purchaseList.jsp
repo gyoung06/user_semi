@@ -3,12 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%
-	int Countorid=(int)request.getAttribute("Countorid");
-%>
 order list
 <!-- 주문내역 갯수 count -->
-주문내역조회(<%= Countorid%>개)
+주문내역조회(${Countorid }개)
 <div role="tabpanel">
   <ul class="nav nav-tabs" role="tablist" id="mytab">
     <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">주문내역조회</a></li>
