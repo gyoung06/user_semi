@@ -16,6 +16,7 @@ import user.vo.User_NoticeVo;
 public class User_NoticeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		String field = req.getParameter("field");
 		String spageNum = req.getParameter("pageNum");
 		String keyword = null;
@@ -49,7 +50,7 @@ public class User_NoticeController extends HttpServlet {
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);
 		req.setAttribute("pageNum", pageNum);
-		req.setAttribute("find", field);
+		req.setAttribute("field", field);
 		req.setAttribute("keyword", keyword);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content", "/user/user_content/user_board/notice.jsp");

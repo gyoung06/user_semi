@@ -55,9 +55,6 @@
 	<form method="post" action="${cp }/user/qna">
 		<select name = "field">
 				<option value="qtitle"
-					<c:if test="${field=='qcate' }"> selected="selected"</c:if>>
-				카테고리</option>
-				<option value="qtitle"
 					<c:if test="${field=='qtitle' }">selected="selected"</c:if>>
 				제목</option>
 				<option value="qcontent"

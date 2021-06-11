@@ -51,6 +51,6 @@ public class Admin_NoticeinsertController extends HttpServlet{
 		req.setAttribute("vo", vo);
 		
 		String cPath=req.getContextPath();
-		resp.sendRedirect(cPath+"/admin/notice/list");
+		req.getRequestDispatcher("/admin/admin_content/board/popupclose.jsp").forward(req, resp);
 	}
 }

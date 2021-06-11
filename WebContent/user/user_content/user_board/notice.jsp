@@ -6,13 +6,11 @@
 
 <table class="table">
   <tr>
-    <th>NO</th>
     <th>SUBJECT</th>
     <th>NAME</th>
   </tr>
   <c:forEach var="vo" items="${list }">
 	<tr>
-		<th>${vo.fid }</th>
 		<th><a href="${cp }/user/noticedetail?fid=${vo.fid}">${vo.ftitle }</a></th>
 		<th>${vo.aid }</th>
 	</tr>
@@ -38,20 +36,14 @@
 </div>
 검색어
 <div>
-	<form method="post" action="${cp }/user/notice">
+	<form method="post" action="<%=request.getContextPath()%>/user/notice">
 		<select name = "field">
-				<option value="fid">
-					<c:if test="${field=='fid' }">selected="selected"</c:if>
-				번호</option>
-				<option value="ftitle">
-					<c:if test="${field=='ftitle' }">selected="selected"</c:if>
+				<option value="ftitle"
+					<c:if test="${field=='ftitle' }">selected="selected"</c:if>>
 				제목</option>
-				<option value="fcontent">
-					<c:if test="${field=='fcontent' }">selected="selected"</c:if>
+				<option value="fcontent"
+					<c:if test="${field=='fcontent' }">selected="selected"</c:if>>
 				내용</option>
-				<option value="aid">
-					<c:if test="${field=='aid' }">selected="selected"</c:if>
-				글쓴이</option>
 		</select>
 		<input type="text" name = "keyword">
 		<input type="submit" value="찾기">

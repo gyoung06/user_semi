@@ -30,7 +30,7 @@
 			<input type="button" value="글쓰기"></a>
 </div>	
 <div id="list">
-	<input type="hidden" id="fid" value="${vo.fid }">
+	
 	<table class="table">
 		<colgroup>
 			<col width="5%"/>
@@ -54,23 +54,25 @@
 			<th>삭제</th>			
 		</tr>
 	<c:forEach var="vo" items="${list }">
+	<input type="hidden" id="fid" value="${vo.fid }">
 	<c:choose>
 		<c:when test="${vo.fpublic_private==1 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td><input type="button" id="ftitle" value="${vo.ftitle }"></td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle"></td>
 			<td>공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
-			<td><a href="<%=request.getContextPath()%>/admin/admin_content/board/noticelistupdate.jsp?fid=${vo.fid }&ftitle=${vo.ftitle}&fcontent=${vo.fcontent }&fpublic_private=${vo.fpublic_private}" 
-			onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>	
+			<td><a href="<%=request.getContextPath()%>/admin/noticepopup?fid=${vo.fid }"
+			 onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>	
 			<td><a href="<%=request.getContextPath()%>/admin/notice/delete?fid=${vo.fid }">삭제</a></td>
 		</tr>
-		<div id="fcontentdiv"></div>
 		</c:when>
 		</c:choose>
 	</c:forEach>
 	</table>
+	<div id="fcontentdiv"></div>
+	
 	<c:if test="${startPageNum>10 }">
 		<a href="${cp }/admin/notice/list?pageNum=${startPageNum-1 }">[이전]</a>
 	</c:if>
@@ -103,7 +105,6 @@
 		<tr>
 			<th>작성자</th>
 			<th>제목</th>
-			<th>내용</th>
 			<th>공개여부</th>
 			<th>작성날짜</th>			
 			<th>번호</th>			
@@ -111,23 +112,25 @@
 			<th>삭제</th>			
 		</tr>
 	<c:forEach var="vo" items="${list1 }">
+	<input type="hidden" id="fid1" value="${vo.fid }">
 	<c:choose>
 		<c:when test="${vo.fpublic_private==0 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td>${vo.ftitle }</td>
-			<td>${vo.fcontent }</td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle1"></td>
 			<td>비공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
-			<td><a href="<%=request.getContextPath()%>/admin/admin_content/board/noticelistupdate.jsp?fid=${vo.fid }&ftitle=${vo.ftitle}&fcontent=${vo.fcontent }&fpublic_private=${vo.fpublic_private}" 
-			onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/noticepopup?fid=${vo.fid }"
+			 onclick="window.open(this.href,'수정','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">수정</a></td>	
 			<td><a href="<%=request.getContextPath()%>/admin/notice/delete?fid=${vo.fid }">삭제</a></td>
 		</tr>
 		</c:when>
 		</c:choose>
 	</c:forEach>
 	</table>
+	<div id="fcontentdiv1"></div>
+	
 	<c:if test="${startPageNum1>10 }">
 		<a href="${cp }/admin/notice/list1?pageNum1=${startPageNum1-1 }">[이전]</a>
 	</c:if>
@@ -154,21 +157,48 @@
 	</form>
 </div>
 <script type="text/javascript">
-	let ftitle=document.getElementById("ftitle");
-	ftitle.onclick=function(e){
-		var fid=document.getElementById("fid").value;
-		const fcontentdiv=document.getElementById("fcontentdiv");
-		let xhr=new XMLHttpRequest();
-		xhr.onreadystatechange=function(){
-			if(xhr.readyState==4 && xhr.status==200){
-				let result=xhr.responseText;
-				let json=JSON.parse(result);
+let ftitle=document.getElementById("ftitle");
+ftitle.onclick=function(e){
+	const fid=document.getElementById("fid").value;
+	console.log(fid)
+	const fcontentdiv=document.getElementById("fcontentdiv");
+	let xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			let result=xhr.responseText;
+			let json=JSON.parse(result);
+			if(json.find==true){
 				fcontentdiv.innerHTML=json.fcontent;
+			}else{
+				fcontentdiv.innerHTML="정보없음!";
 			}
-		};
-		xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid, true);
-		xhr.send();
+			
+		}
 	};
+	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid, true);
+	xhr.send();
+};
+let ftitle1=document.getElementById("ftitle1");
+ftitle1.onclick=function(e){
+	const fid1=document.getElementById("fid1").value;
+	console.log(fid1)
+	const fcontentdiv=document.getElementById("fcontentdiv1");
+	let xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			let result=xhr.responseText;
+			let json=JSON.parse(result);
+			if(json.find==true){
+				fcontentdiv.innerHTML=json.fcontent;
+			}else{
+				fcontentdiv.innerHTML="정보없음!";
+			}
+			
+		}
+	};
+	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid1, true);
+	xhr.send();
+};
 </script>
 </body>
 </html>

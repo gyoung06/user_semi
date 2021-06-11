@@ -17,7 +17,7 @@ public class User_QnaController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		req.setCharacterEncoding("utf-8");
+		
 		String field = req.getParameter("field");
 		String keyword = req.getParameter("keyword");
 		String spageNum = req.getParameter("pageNum");

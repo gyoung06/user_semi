@@ -7,7 +7,7 @@
 <input type="text" name="pwd" placeholder="PW"><br>
 <input type="submit" value="LOGIN"><br>
 보안접속<br>
-<a href="${cp }/user/findid">>아이디찾기</a>
+<a href="${cp }/user/findidpath">>아이디찾기</a>
 <a href="${cp }/user/findpwd">>비밀번호찾기</a>
 
 <p>회원가입을 하시면 다양하고 특별한 혜택이 준비되어 있습니다.</p>
