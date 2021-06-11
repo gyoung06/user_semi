@@ -4,11 +4,11 @@ order
 <form action="../../../payment" method="post">
 	<br>
 	<!-- 회원정보뜨게!!! -->
-	허지영 님은, [FAMILY] 회원이십니다.
+	${sessionScope.id } 님은, [${gradevo.glevel }] 회원이십니다.
 	<br>
-	1,000 이상 구매시 1%을 추가적립 받으실 수 있습니다.
+	1,000 이상 구매시 ${per }%을 추가적립 받으실 수 있습니다.
 	<br>
-	가용적립금: 1000원 &nbsp; 쿠폰:0개
+	보유적립금: ${membervo.mmileage }원 &nbsp; 쿠폰:0개
 	<br>
 	카트내역
 	<br>
@@ -20,7 +20,6 @@ order
 			<th>판매가</th>
 			<th>수량</th>
 			<th>적립금</th>
-			<th>배송구분</th>
 			<th>배송비</th>
 			<th>합계</th>
 			<th>선택</th>

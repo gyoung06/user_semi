@@ -227,7 +227,8 @@ public class User_OrdersDao {
 		}
 		return n;
 	}
-	public int DelReady(String id) { //마이페이지 - 배송준비중~
+
+	public int DelReady(String id) { // 마이페이지 - 배송준비중~
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -247,7 +248,8 @@ public class User_OrdersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
-	public int UnderDel(String id) { //마이페이지 - 배송중 ??
+
+	public int UnderDel(String id) { // 마이페이지 - 배송중 ??
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -267,7 +269,8 @@ public class User_OrdersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
-	public int DelFin(String id) { //마이페이지 - 배송완료~
+
+	public int DelFin(String id) { // 마이페이지 - 배송완료~
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -287,7 +290,8 @@ public class User_OrdersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
-	public int OrderCc(String id) { //마이페이지 - 취소
+
+	public int OrderCc(String id) { // 마이페이지 - 취소
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -307,7 +311,8 @@ public class User_OrdersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
-	public int OrderReturn(String id) { //마이페이지 - 반품
+
+	public int OrderReturn(String id) { // 마이페이지 - 반품
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -327,8 +332,9 @@ public class User_OrdersDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
+
 //	상품을 구매했을 때 주문테이블에 등록
-	public int buyproduct(int seq,String name, String phone, String addr, int ortotal, int orpaymoney, String mid) {
+	public int buyproduct(int seq, String name, String phone, String addr, int ortotal, int orpaymoney, String mid) {
 		// 수령자 이름,번호, 주소ㅡ우편번호,총가격,결제금액 mid
 		String sql = "insert into orders values(?,sysdate,?,?,?,null,0,0,0,'N','N',null,?,?,?)";
 		int n = 0;
@@ -341,6 +347,21 @@ public class User_OrdersDao {
 			pstmt.setInt(6, orpaymoney);
 			pstmt.setString(7, mid);
 			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+
+	public int selectseq() {
+		String sql = "select ORDERS_seq.nextval FROM DUAL";
+		int n = 0;
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					n = rs.getInt(1);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
