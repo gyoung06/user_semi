@@ -24,17 +24,19 @@ order
 			<th>합계</th>
 			<th>선택</th>
 		</tr>
+			<c:forEach begin="0" end="${leng-1 }" var="i" >
 		<tr>
 			<td><input type="checkbox"></td>
-			<td>이미지</td>
 			<td>
-				상품정보<br>
-				<input type="button" value="옵션변경">
+			<img src="${cp }${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
 			</td>
+			<th>${stocklist.get(i).sname }<br><br>
+				[옵션: ${stocklist.get(i).ssize }, ${stocklist.get(i).scolor }]
+			</th>
 			<!-- 할인상품이면 할인된거 표시되게 하기 -->
-			<td>판매가</td>
-			<td>
-				<input type="number">
+			<th>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100 }</th>
+			<th>
+				<input type="text" value="${list.get(i).camount }" size = "3">
 				<input type="button" value="변경">
 			</td>
 			<td>적립금</td>
@@ -42,11 +44,12 @@ order
 			<td>배송비</td>
 			<td>합계</td>
 			<td>
-				<input type="button" value="주문하기">
-				<input type="button" value="관심상품등록">
+				<input type="button" value="주문하기"><br>
+				<input type="button" value="관심상품등록"><br>
 				<input type="button" value="삭제">	
 			</td>
 		</tr>
+			</c:forEach>
 		<!-- 
 		<tr>
 			<td>[기본배송]</td>

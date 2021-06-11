@@ -34,6 +34,7 @@ public class User_CartListController extends HttpServlet {
 		ArrayList<Integer> pidlist = new ArrayList<>();
 		ArrayList<User_ProductVo> productlist = new ArrayList<>();
 		ArrayList<UserStockVo> stocklist = new ArrayList<>();
+		int leng = stocklist.size();
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		for (int i = 0; i < list.size(); i++) {
@@ -59,11 +60,8 @@ public class User_CartListController extends HttpServlet {
 		if (gradevo.getGlevel().equals("vvip")) {
 			per = 7;
 		}
-//		req.setAttribute("size", orSize);
-//		req.setAttribute("color", orColor);
-//		req.setAttribute("amount", amount);
-//		req.setAttribute("mileage", orMileage);
-
+		System.out.println(leng);
+		req.setAttribute("leng", leng);
 		req.setAttribute("membervo", membervo);
 		req.setAttribute("gradevo", gradevo);
 		req.setAttribute("per", per);
