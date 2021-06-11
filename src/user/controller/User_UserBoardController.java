@@ -42,6 +42,7 @@ public class User_UserBoardController extends HttpServlet{
 		int endRow = startRow + 9;
 		int startRow0 = (pageNum0 - 1) * 10 + 1;
 		int endRow0 = startRow0 + 9;
+		
 		ArrayList<UserQnaVo> qlist = dao.qlist(id,startRow, endRow, field, keyword);
 		int pageCount = (int) Math.ceil(dao.getCount(id,field, keyword) / 10.0);
 		int startPageNum = ((pageNum - 1) / 10 * 10) + 1;
@@ -49,7 +50,7 @@ public class User_UserBoardController extends HttpServlet{
 		if (endPageNum > pageCount) {
 			endPageNum = pageCount;
 		}
-		ArrayList<User_ReviewVo> Rlist = dao.Rlist(id ,startRow, endRow);
+		ArrayList<User_ReviewVo> Rlist = dao.Rlist(id ,startRow0, endRow0);
 		int pageCount0 = (int) Math.ceil(dao.getCount0(id) / 10.0);
 		int startPageNum0 = ((pageNum0 - 1) / 10 * 10) + 1;
 		int endPageNum0 = startPageNum0 + 9;

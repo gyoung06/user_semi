@@ -33,7 +33,7 @@
 			<c:if test="${!empty vo.qpw}">
 			<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_lock.gif">
 			</c:if>
-			<a href="<%=request.getContextPath()%>/user/qnaDetail?qid=${vo.qid}">${vo.qtitle }</td>
+			<a href="<%=request.getContextPath()%>/user/qnaDetail?qid=${vo.qid}">${vo.qtitle }</a></td>
 			<td>${vo.mid }</td>
 			<td>${vo.qrdate }</td>
 

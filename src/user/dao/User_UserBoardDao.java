@@ -121,7 +121,7 @@ public class User_UserBoardDao {
 		String sql = "select distinct * from ( " + 
 				"select s.sname, r.rtitle, p.pimage2, r.rcontent, r.rphoto1, r.rrdate, od.odcolor, od.odsize " + 
 				"from stock s, review r, product p, order_detail od " + 
-				"where r.mid=? and r.sid=s.sid )" + 
+				"where r.mid=? and r.sid=s.sid and od.pid=p.pid and s.sid=p.sid)" + 
 				" where rownum>=? and rownum<=? ";
 	
 		//select * from review where pid=(select pid from product where sid=(select sid from stock where sid=1)) and mid='test2';

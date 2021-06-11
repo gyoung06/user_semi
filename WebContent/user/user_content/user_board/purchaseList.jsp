@@ -73,6 +73,10 @@ order list
 						<td align=center valign=middle>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
 						<td align=center valign=middle>${vo.odcount }</td>
 						<td align=center valign=middle>${vo.pprice }</td>
+						<c:choose>
+							<c:when test="${vo.ordelivery=='Y' }">
+							</c:when>
+						</c:choose>
 						<td align=center valign=middle>${vo.ordelivery }<br>
 						<input type="button" value="구매후기" onclick="valuesend()" ></td>
 						<td align=center valign=middle>${vo.orcancel }</td>
@@ -290,16 +294,13 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 	                    	  $('#datepicker').datepicker('setDate', '-3M');
 	                      })
 			 });
-			 <% int checkReview=(int)request.getAttribute("checkReview");%>
+
 			 function valuesend(){
-					if(<%= checkReview %>>0){
-					alert("이미 리뷰를 남기셨습니다");
-					}else{
 				 window.open("", "value", "width=550, height=650, left=650, top=140, scrollbars=1, menubar=1, resizable=1"); 
 					 document.frm.target ="value";     
 					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp";
 				 	 document.frm.submit();
 					}
-				}
+				
 </script>
 

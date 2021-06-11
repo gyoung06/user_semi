@@ -27,12 +27,11 @@ public class User_MypageController extends HttpServlet {
 		int getCountTotal=daom.getCountTotal(id);
 		
 		User_OrdersDao DAOO=new User_OrdersDao();
-		int DelReady=DAOO.DelReady(id); //마이페이지 : 배송중~ 반품
-		int UnderDel=DAOO.DelReady(id);
-		int DelFin=DAOO.DelReady(id);
-		int OrderCc=DAOO.DelReady(id);
-		int OrderReturn=DAOO.DelReady(id);
-		
+		int UnderDel=DAOO.UnderDel(id);//마이페이지 : 배송중~ 반품 //배송완료 N
+		int DelFin=DAOO.DelFin(id); //배송완료 Y
+		int OrderCc=DAOO.OrderCc(id); //취소 Y
+		int OrderReturn=DAOO.OrderReturn(id);  //반품 Y
+
 		User_GradeDao dao=new User_GradeDao();
 		User_GradeVo vo=dao.getGrade(id);
 		System.out.println(id + pwd);
@@ -56,7 +55,6 @@ public class User_MypageController extends HttpServlet {
 			session.setAttribute("nextDrate", nextDrate);
 		}//vvip는 어떻게 나타낼지
 		
-		req.setAttribute("DelReady", DelReady);
 		req.setAttribute("UnderDel", UnderDel);
 		req.setAttribute("DelFin", DelFin);
 		req.setAttribute("OrderCc", OrderCc);
