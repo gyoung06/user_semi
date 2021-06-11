@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import admin.dao.Admin_ProductDao;
 import admin.dao.Admin_StockDao;
 import admin.vo.Admin_ProductVo;
+import admin.vo.Admin_ProductVo2;
 import admin.vo.Admin_StockVo;
 @WebServlet("/admin/product/list")
 public class Admin_Product_ListController extends HttpServlet{
@@ -42,6 +43,11 @@ public class Admin_Product_ListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount;
 		}
+		
+		//이미지 출력
+		Admin_ProductVo2 vo2=dao1.img();
+		
+		req.setAttribute("vo2", vo2);
 		req.setAttribute("vo1", req.getAttribute("vo1"));
 		req.setAttribute("list1", list1);
 		req.setAttribute("pageCount", pageCount);

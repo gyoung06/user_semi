@@ -21,7 +21,6 @@ public class Admin_FaqupdateController extends HttpServlet{
 		String ftitle=req.getParameter("ftitle");
 		String fcontent=req.getParameter("fcontent");
 		int fpublic_private=Integer.parseInt(req.getParameter("fpublic_private"));
-		fcontent = fcontent.replaceAll("\r\n", "<br>");
 		
 		Admin_FaqDao dao=new Admin_FaqDao();
 		Admin_FaqVo vo=new Admin_FaqVo(fid, ftitle, fcontent,null,0, fpublic_private,fwriter);

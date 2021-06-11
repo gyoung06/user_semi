@@ -54,12 +54,12 @@ public class Admin_MemberinsertController extends HttpServlet{
 		
 		
 		Admin_MembersDao dao=new Admin_MembersDao();
-		Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone, null, sqlDate, 0, 1000, memail);
+		Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone, null, sqlDate, 0, 1000, memail,null,null,null);
 				
 		dao.insert(vo);
 		
-		req.setAttribute("content", "/admin/admin_content/member/memberinsert.jsp");
+		String cPath=req.getContextPath();
+		resp.sendRedirect(cPath+"/admin/memberlist");
 		
-		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
 	}
 }

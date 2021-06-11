@@ -22,7 +22,6 @@
                 <option>BLUE</option>
                 <option>GREEN</option>
                 <option>BLOACK</option>
-                <option>TEST</option>
             </select>
      	</div>
      </div>
@@ -116,7 +115,11 @@
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		let params="inname="+inname+"&incolor="+incolor+"&insize="+insize+"&incategory="+incategory+"&indate="+indate+"&inprice="+inprice+"&inamount="+inamount;
 		xhr.send(params);
-		opener.parent.location="<%=request.getContextPath()%>/admin/inbound/list";
-		window.close();
+	    opener.location.href="<%=request.getContextPath()%>/admin/inbound/list";
+	    window.close();
+	    
+		//opener.reload();
+		//opener.location.reload();
+		//window.close();
 	});
 </script>

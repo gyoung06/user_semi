@@ -16,7 +16,7 @@
 <div id="top">
 	<img src="<%=request.getContextPath()%>/admin/img/test.png" style="position:absolute;width:50px;height:50px;">
 	<h1 style="position:absolute; color:white;left:60px; line-height:50px;">관리자 페이지</h1>
-	<input class="btn btn-dark" type="button" value="홈페이지" id="homebtn" onclick="location='<%=request.getContextPath()%>/user/home'">
+	<input class="btn btn-dark" type="button" value="홈페이지" id="homebtn">
 	<input class="btn btn-dark" type="button" value="로그아웃" id="logoutbtn" onclick="location='<%=request.getContextPath()%>/admin/admin_content/admin_login.jsp'">
 </div>
 
@@ -40,12 +40,7 @@
 		</li>
 	</ul>
 	<ul id="ac">
-		<li class="main">
-		회원관리
-			<ul class="sub">
-				<li><a href="${cp }/admin/memberlist">회원리스트</a></li>
-				<li><a href="${cp }/admin/memberinsert">회원등록</a></li>
-			</ul>
+		<li class="main"><a href="${cp }/admin/memberlist" style="color: white;">회원관리</a>
 		</li>
 	</ul>
 	<ul id="ac">
@@ -59,7 +54,7 @@
 		</li>
 	</ul>
 	<ul id="ac">
-		<li class="main"><a href="${cp }/admin/sals/list" style="color: white;">매출</a>
+		<li class="main"><a href="${cp }/admin/sales/list" style="color: white;">통계</a>
 		</li>
 	</ul>
 	<ul id="ac">

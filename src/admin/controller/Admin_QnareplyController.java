@@ -12,29 +12,33 @@ import user.dao.UserQnaDAO;
 import user.vo.UserQnaVo;
 
 @WebServlet("/admin/qna/reply")
-public class Admin_QnareplyController extends HttpServlet {
+public class Admin_QnareplyController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String qid = req.getParameter("qid");
-		String qcate = req.getParameter("qcate");
-		String qpw = req.getParameter("qpw");
-		String qtitle = req.getParameter("qtitle");
-		String qcontent = req.getParameter("qcontent");
-		String qfile = req.getParameter("qfile");
-		int pid = Integer.parseInt(req.getParameter("pid"));
-
-		String mid = req.getParameter("mid");
-		int qid1 = Integer.parseInt(req.getParameter("qid"));
-		int ref = Integer.parseInt(req.getParameter("qref"));
-		int lev = Integer.parseInt(req.getParameter("qlev"));
-		int step=Integer.parseInt(req.getParameter("qstep"));
+		String qid=req.getParameter("qid");
+		String qcate=req.getParameter("qcate");
+		String qpw=req.getParameter("qpw");
+		String qtitle=req.getParameter("qtitle");
+		String qcontent=req.getParameter("qcontent");
+		String qfile=req.getParameter("qfile");
 		
-		UserQnaVo vo = new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, mid, pid, step);
+		String mid=req.getParameter("mid");
+		int pid=Integer.parseInt(req.getParameter("pid"));
+		int qid1=0;
+		int ref=0;
+		int lev=0;
 
-		UserQnaDAO dao = new UserQnaDAO();
+		if(qid!=null && !qid.equals("")) {
+			qid1=Integer.parseInt(qid);
+			ref=Integer.parseInt(req.getParameter("ref"));
+			lev=Integer.parseInt(req.getParameter("lev"));
+		}
+		UserQnaVo vo=new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, mid, pid,0);
+				
+		UserQnaDAO dao=new UserQnaDAO();
 		dao.reply(vo);
-
+		
 		req.setAttribute("vo", vo);
 		req.getRequestDispatcher("/admin/admin_content/board/popupclose.jsp").forward(req, resp);
 	}

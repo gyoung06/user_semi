@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 import admin.vo.Admin_MembersVo;
+import admin.vo.Admin_ProductVo;
 import test.db.DBConnection;
 
 public class Admin_MembersDao {
@@ -35,7 +36,7 @@ public class Admin_MembersDao {
 				int mmileage=rs.getInt("mmileage");
 				String memail=rs.getString("memail");
 				Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone,
-						mrdate, mbirth, mdrop, mmileage, memail);
+						mrdate, mbirth, mdrop, mmileage, memail,null,null,null);
 				return vo;
 			}
 			return null;
@@ -48,7 +49,7 @@ public class Admin_MembersDao {
 	}
 	public ArrayList<Admin_MembersVo> list(int startRow,int endRow,String field,String keyword){
 		String sql=null;
-		if(field==null || field.equals("")) { //�˻������� ���� ���
+		if(field==null || field.equals("")) { 
 		    sql= "select * from " + 
 				"( " + 
 				"  select board.*,rownum rnum from " + 
@@ -56,7 +57,7 @@ public class Admin_MembersDao {
 				"	  select * from members order by mid desc" + 
 				"  ) board" + 
 				") where rnum>=? and rnum<=?";
-		}else{ //�˻������� �ִ� ���
+		}else{ 
 			sql="select * from " + 
 				"( " + 
 				"  select board.*,rownum rnum from " + 
@@ -87,7 +88,7 @@ public class Admin_MembersDao {
 						rs.getDate("mbirth"),
 						rs.getInt("mdrop"),
 						rs.getInt("mmileage"),
-						rs.getString("memail"));
+						rs.getString("memail"),null,null,null);
 				list.add(vo);
 			}
 			return list;
@@ -129,7 +130,7 @@ public class Admin_MembersDao {
 		int n=0;
 		try {
 			con=DBConnection.getCon();
-			sql="insert into members values(?,?,?,?,?,?,sysdate,?,0,1000,?)";
+			sql="insert into members values(?,?,?,?,?,?,sysdate,?,0,1000,?,null,null,null)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, vo.getMid());
 				pstmt.setString(2, vo.getMpw());
@@ -172,6 +173,34 @@ public class Admin_MembersDao {
 			return -1;
 		}finally {
 			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public ArrayList<Admin_MembersVo> month(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select mid, mname, maddress, mphone, mbirth, memail from members where mrdate > add_months(sysdate,-1)";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			ArrayList<Admin_MembersVo> list=new ArrayList<Admin_MembersVo>();
+			while(rs.next()) {
+				String mid=rs.getString("mid");
+				String mname=rs.getString("mname");
+				String maddress=rs.getString("maddress");
+				String mphone=rs.getString("mphone");
+				Date mbirth=rs.getDate("mbirth");
+				String memail=rs.getString("memail");
+				Admin_MembersVo vo=new Admin_MembersVo(mid, null, mname, maddress, null, mphone, mbirth, null, 0, 0, memail,null,null,null);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, rs);
 		}
 	}
 }

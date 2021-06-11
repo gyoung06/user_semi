@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import admin.vo.Admin_FaqVo;
 import admin.vo.Admin_MembersVo;
 import test.db.DBConnection;
-import user.vo.UserQnaVo;
 
 public class Admin_FaqDao {
 	public Admin_FaqVo detail(int fid) {

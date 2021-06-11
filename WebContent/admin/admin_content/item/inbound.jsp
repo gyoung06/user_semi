@@ -4,7 +4,6 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/admin/css/inbound.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap-4.4.1-dist/css/bootstrap.min.css">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div class="boardcss_list_table">
 <h2 class="inboundtext1" style="position:absolute;top:10px;left:50px;">입고리스트</h2>	
 	<table class="list_table">
@@ -37,6 +36,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	
 <div class="page">
 	<c:if test="${startPageNum>10 }">
 		<a href="${cp}/admin/inbound/list?pageNum=${startPageNum -1 }&field=${field}&keyword=${keyword}">[이전]</a>
@@ -69,11 +69,13 @@
 	</form>
 </div>
 <form name="frm" method="post">
-<input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:absolute;top:465px;left:1340px;width:50px;height:25px;font-size: 1.2rem;">
-<input class="btn btn-outline-dark" type="button" value="수정" onclick="valuesend1()" style="position:absolute;top:465px;left:1420px;width:50px;height:25px;font-size: 1.2rem;">
+<input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:absolute;top:465px;left:1540px;width:50px;height:25px;font-size: 1.2rem;">
+<!-- 수정 취소 <input class="btn btn-outline-dark" type="button" value="수정" onclick="valuesend1()" style="position:absolute;top:465px;left:1420px;width:50px;height:25px;font-size: 1.2rem;"> -->
 </form>
-<div id="barchart_values" style="position:absolute; width: 600px; height: 400px; top:500px; left:50px;"></div>
+<div id="barchart_values" style="position:absolute; width: 700px; height: 400px; top:500px; left:100px;"></div>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 function valuesend(){
  window.open("", "value", "width=750, height=650, left=650, top=140, scrollbars=1, menubar=1, resizable=1"); 
@@ -107,6 +109,8 @@ function valuesend1(){
 				 	   [sname[0], Number(samount[0]), "#b87333"],
 				 	   [sname[1], Number(samount[1]), "silver"],
 				 	   [sname[2], Number(samount[2]), "gold"],
+				 	   [sname[3], Number(samount[3]), "red"],
+				 	   [sname[4], Number(samount[4]), "blue"],
 					  ]);
 				var view = new google.visualization.DataView(data);
 			 	 view.setColumns([0, 1,
@@ -128,5 +132,5 @@ function valuesend1(){
 		xhr.open('get','${pageContext.request.contextPath}/admin/inbound/chart.do',true);
   		xhr.send();
 	}
-
+	
 </script>

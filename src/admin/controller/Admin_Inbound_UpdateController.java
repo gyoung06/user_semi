@@ -49,9 +49,9 @@ public class Admin_Inbound_UpdateController extends HttpServlet{
 		resp.sendRedirect(cPath+"/admin/inbound/list");
 
 		
-		
+		//이름 사이즈 칼라
 		//stock 업데이트할지 없으면 insert할지 결정
-		/*boolean check=false;
+		boolean check=false;
 		int sid=0;
 		String sname=null;
 		String scolor=null;
@@ -76,6 +76,6 @@ public class Admin_Inbound_UpdateController extends HttpServlet{
 		}else {
 			Admin_StockVo stvo1=new Admin_StockVo(0, inname, incolor, insize, inamount,0);
 			int n2=Admin_StockDao.getInstance().insert(stvo1);
-		}*/
+		}
 	}
 }

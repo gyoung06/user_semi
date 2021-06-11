@@ -57,7 +57,7 @@ public class Admin_MemberupdateController extends HttpServlet{
 		
 				
 		Admin_MembersDao dao=new Admin_MembersDao();
-		Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone, null, sqlDate, 0, mmileage, memail);
+		Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone, null, sqlDate, 0, mmileage, memail,null,null,null);
 		dao.update(vo);
 		req.setAttribute("vo", vo);
 		req.setAttribute("content", "/admin/admin_content/member/memberupdate.jsp");

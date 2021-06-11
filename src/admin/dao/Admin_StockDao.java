@@ -109,6 +109,23 @@ public class Admin_StockDao {
 			DBConnection.close(con, pstmt, null);
 		}
 	}
+	public int updatelev2(int sid) {//sid 다시 돌려놓기
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="update stock set slev=0 where sid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, sid);
+			int n= pstmt.executeUpdate();
+			return n;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
 	public int insert(Admin_StockVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

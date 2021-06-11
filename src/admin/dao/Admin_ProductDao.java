@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import admin.vo.Admin_AdminVo;
 import admin.vo.Admin_InboundVo;
 import admin.vo.Admin_ProductVo;
+import admin.vo.Admin_ProductVo2;
+import admin.vo.Admin_StockVo;
 import test.db.DBConnection;
 
 public class Admin_ProductDao {
@@ -111,6 +114,31 @@ public class Admin_ProductDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
+	public Admin_ProductVo getimage(int pid) {
+		String sql="select * from product where pid=?";
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, pid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String pimage1=rs.getString("pimage1");
+				String pimage2=rs.getString("pimage2");
+				Admin_ProductVo vo=new Admin_ProductVo(0, 0, 0, pimage1, pimage2, null, 0, 0);
+				return vo;
+			}else {
+				return null;
+			}
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
 	public ArrayList<Admin_ProductVo> best3(){
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -176,4 +204,85 @@ public class Admin_ProductDao {
 			DBConnection.close(con, pstmt, null);
 		}
 	}
+	public int update(Admin_ProductVo vo) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		String sql="update product set pprice=?,pdiscount=?,pimage1=?,pimage2=? where pid=?";
+		try {
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, vo.getPprice());
+			pstmt.setInt(2, vo.getPdiscount());
+			pstmt.setString(3, vo.getPimage1());
+			pstmt.setString(4, vo.getPimage2());
+			pstmt.setInt(5, vo.getPid());
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public Admin_ProductVo2 img() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select * from (select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGENAME1,pimage2,prdate,psell,s.sid as sid,s.sname as sname, s.ssize as ssize, s.scolor as scolor from product p join stock s on p.sid = s.sid order by p.pid desc) where rownum<=1";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				int pid=rs.getInt("pid");
+				int pprice=rs.getInt("pprice");
+				int pdiscount=rs.getInt("pdiscount");
+				String pimage1=rs.getString("PIMAGENAME1");
+				String pimage2=rs.getString("pimage2");
+				Date prdate=rs.getDate("prdate");
+				int psell=rs.getInt("psell");
+				int sid=rs.getInt("sid");
+				String sname=rs.getString("sname");
+				String ssize=rs.getString("ssize");
+				String scolor=rs.getString("scolor");
+				Admin_ProductVo2 vo=new Admin_ProductVo2(pid, pprice, pdiscount, pimage1, pimage2, prdate, psell, sid, sname,ssize,scolor);
+				return vo;
+			}
+			else {
+				return null;
+			}
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, null);
+		}
+	}
+	public ArrayList<Admin_ProductVo> month(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select pid,psell,prdate,psell*pprice as pprice from product where prdate > add_months(sysdate,-1) and psell*pprice > 0";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			ArrayList<Admin_ProductVo> list=new ArrayList<Admin_ProductVo>();
+			while(rs.next()) {
+				int pid=rs.getInt("pid");
+				int psell=rs.getInt("psell");
+				Date prdate=rs.getDate("prdate");
+				int pprice=rs.getInt("pprice");
+				Admin_ProductVo vo=new Admin_ProductVo(pid, pprice, 0, null, null, prdate, psell, 0);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
+	
 }
