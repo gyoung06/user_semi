@@ -67,19 +67,37 @@ order list
 				</c:when>
 				<c:otherwise>
 						<c:forEach var="vo" items="${OrderList }">
+						<input type="hidden" id="orid" value="${vo.orid }">
 						<tr>
-						<td align=center valign=middle>${vo.ordate }<br>[${vo.orid }]</td>
-						<td align=center valign=middle><img src = "${cp }${vo.pimage2}"></td>
-						<td align=center valign=middle>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
-						<td align=center valign=middle>${vo.odcount }</td>
-						<td align=center valign=middle>${vo.pprice }</td>
+						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.pimage2}"></td>
+						<td align=center >${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+						<td align=center >${vo.odcount }</td>
+						<td align=center >${vo.pprice }</td>
 						<c:choose>
-							<c:when test="${vo.ordelivery=='Y' }">
+							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='N' }">
+								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1()" ></td>
+								<!-- <td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td> -->
+							</c:when>
+							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='Y' }">
+								<td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='N' }">
+								<td><label>배송중 </label>
+							</c:when>
+							<c:otherwise>
+							<td><input type="button" value="구매후기" onclick="valuesend()" ><td>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='Y' }">
+								<td><label/>반품</td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='N' }">
+								<td><label/>취소</td>
 							</c:when>
 						</c:choose>
-						<td align=center valign=middle>${vo.ordelivery }<br>
-						<input type="button" value="구매후기" onclick="valuesend()" ></td>
-						<td align=center valign=middle>${vo.orcancel }</td>
 						</tr>
 						<input type="hidden" name="sname" value="${vo.sname }">
 						<input type="hidden" name="ordate" value="${vo.ordate }">
@@ -151,8 +169,25 @@ order list
 							<td>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
-							<td>${vo.ordelivery }<br>
-							<td>${vo.orcancel }</td>
+							<c:choose>
+							<c:when test="${vo.ordelivery=='Y' }">
+								<td><label/>배송완료 <br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='N' }">
+								<td><label/>배송중 <br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+							</c:when>
+							<c:otherwise>
+							<td><input type="button" value="구매후기" onclick="valuesend()" ><td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='Y' }">
+								<td><label/>반품</td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='N' }">
+								<td><label/>취소</td>
+							</c:when>
+						</c:choose>
 						</tr>
 						<input type="hidden" name="sname" value="${vo.sname }">
 						<input type="hidden" name="ordate" value="${vo.ordate }">
@@ -301,6 +336,22 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp";
 				 	 document.frm.submit();
 					}
+			 function valuesend1(){
+				 var orid=document.getElementById("orid").value;
+				 let xhr=new XMLHttpRequest();
+				 xhr.onreadystatechange=function(){
+	        		if(xhr.readyState==4 && xhr.status==200){
+	        			let xml=xhr.responseXML;	
+	        			var code=xml.getElementsByTagName('code')[0].textContent;
+	        			if(code=='success'){
+	        				alert("구매확정이 완료되었습니다.");
+	        				location.reload();
+	        			}
+	        		}
+			 	};
+			 	xhr.open('get','<%=request.getContextPath()%>/user/user_content/user_board/purchase_ajax.jsp?orid='+orid , true);
+			 	xhr.send();
+			 }
 				
 </script>
 

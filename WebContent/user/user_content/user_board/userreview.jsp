@@ -21,12 +21,12 @@
 	String id=(String)session.getAttribute("id");
 %>
 
-<html>
 <div class="header" style="position: absolute; left:0px;top:0; width:100%;height:80px; overflow:hidden; background:#CA3C38; z-index:10;">
 <h3 style="position: absolute; left:250px; width:170px; line-height:35px; color:white;">review</h3>
 </div>
-<form method="post" action="${cp }/user/review">
+
 <div class="content">
+<form method="post" action="${cp }/user/review" enctype="multipart/form-data">
 <div class="top" style="position: absolute; border-top: 1px solid #ABABAB; border-bottom:1px solid #ABABAB;  top:80px;left:0px;width:100%; height:300px;">
 <div style="border: 1px solid #ABABAB; position:absolute; top:50px; left:100px; width:100px; height:100px; "><img src = "${cp }<%=pimage2%>" style="width:100px; height:100px;"></div>
 <label style="position:absolute; top:50px; left:230px; width:200px; height:25px;">상품명 :</label>
@@ -43,7 +43,6 @@
 <input type="hidden" name="odid" value="<%=odid %>">
 <input type="hidden" name="sid" value="<%=sid %>">
 </div>
-
 <div class="center" style="position: absolute; border-bottom:1px solid #ABABAB;  top:380px;left:0px;width:100%; height:300px;">
 <label style="position:absolute; top:40px; left:50px;">리뷰 제목</label>
 <input type="text" name="rtitle" style="position:absolute; top:70px; left:50px; width:450px;height:30px;">
@@ -54,18 +53,15 @@
 <label class="input-file-button" for="upload" style="position:absolute;left:210px; top:50px;  padding: 6px 25px;background-color:#FF6600;border-radius: 4px;color: white;cursor: pointer;">
   사진추가
 </label>
-<input type="file" id="upload"/>
-<div id="large_img1" class="border border-success" style="position: absolute; border:1px solid #ABABAB;top:100px; left:120px; width:300px;height:300px;"></div>
-</div>
-</div>
-
+<input type="file" name="fupload" id="upload" style="display:none;"/>
+<div id="large_img1" class="border border-success" style=" position: absolute; border:1px solid #ABABAB;top:100px; left:120px; width:300px;height:300px;"></div>
 <button type="submit" class="btn btn-danger" style="position: absolute; left:0px;bottom:0; width:100%;height:50px; overflow:hidden;z-index:10;">리뷰남기고 적립금 받기</button>
+</div>
 </form>
+</div>
 
 <style>
-#upload{
-	display:none;
-}
+
 #large_img1 img{
 	width:300px;
 	height:300px;

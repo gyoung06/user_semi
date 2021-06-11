@@ -105,7 +105,7 @@
 		<c:otherwise>
 			<c:forEach var="vo" items="${Rlist }">
 	<tr>
-		<td>${vo.pimage2 }</td>
+		<td><img src="${cp }${vo.pimage2 }" style="width:100px; height=150px;"></td>
 		<td>${vo.sname }</td>
 		<td>${vo.rtitle }</td>
 		<td>${vo.mid }</td>

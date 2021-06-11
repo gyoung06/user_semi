@@ -41,7 +41,6 @@
 		<td colspan="5">나의 주문처리 현황 (최근 3개월 기준)</td>
 	</tr>
 	<tr class="active">
-		<td>배송준비중 : ${DelReady}<br> </td>
 		<td>배송중: ${UnderDel}<br> </td>
 		<td>배송완료: ${DelFin}<br> </td>
 		<td>교환 : ${OrderCc} <a href="${cp }/user/purchase">  </a><br>

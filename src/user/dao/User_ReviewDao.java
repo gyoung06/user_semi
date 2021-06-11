@@ -29,22 +29,22 @@ public class User_ReviewDao {
 		}
 	}
 	//리뷰작성
-	public int insertReview(String id, int odid, int sid, String rtitle, String rcontent, String rphoto1) {
+	public int insertReview(String id, String rtitle, String rcontent, String rphoto1, int sid) {
 		Connection con = null;
 		PreparedStatement pstmt1 = null;
 		String sql=null;
 		try {
 			con = DBConnection.getCon();
 			int rid=getMaxNum()+1;
-			if(rphoto1==null || rphoto1=="") {
+			if(rphoto1==null || rphoto1.equals("")) {
 				System.out.println("sid:"+sid);
-				sql = "insert into review values(?,null,?,?,null,null,null,sysdate,0,'" +id+ "', '" +sid+ "')"; //사진이 없는 리뷰
+				sql = "insert into review values(?,null,?,?,null,Y,null,sysdate,0,'" +id+ "', '" +sid+ "')"; //사진이 없는 리뷰
 				pstmt1 = con.prepareStatement(sql);
 				pstmt1.setInt(1, rid);
 				pstmt1.setString(2, rtitle);
 				pstmt1.setString(3, rcontent);
 			}else {
-				sql = "insert into review values(?,null,?,?,?,null,null,sysdate,0)"; //사진이 1개만 있는 리뷰
+				sql = "insert into review values(?,null,?,?,?,Y,null,sysdate,0,'" +id+ "', '" +sid+ "')"; //사진이 1개만 있는 리뷰
 				pstmt1 = con.prepareStatement(sql);
 				pstmt1.setInt(1, rid);
 				pstmt1.setString(2, rtitle);
