@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form action="#" method="post">
+ <input type="hidden" name = "pid" value="${vo.pid }">
 <table class="table">
 <!-- 해야할것
 1. 색상 누르면 원래있던 사이즈 초기화시키기-완료
@@ -10,9 +11,8 @@
 3. 구매버튼 ,카트버튼 폼으로 넘기기-완료
 4. 수량변경버튼 수정하기
  -->
- <input type="hidden" name = "pid" value="${vo.pid }">
 	<tr>
-		<th rowspan="16"><img src = "${cp }${vo.pimage2}"></th>
+		<th rowspan="16" style="text-align: center;"><img src = "${cp }${vo.pimage2}" ></th>
 	</tr>
 	<tr>
 		<th colspan="2" name="sname">${stockVo.sname}</th>

@@ -133,16 +133,17 @@ public class UserProductDAO {
 		}
 		return vo;
 	}
-	public int psellplus(int pid) {
-		String sql = "update product set psell = psell+(select odcount from order_detail where pid=?) where pid=?";
+
+	public int psellplus(int orid, int pid) {
+		String sql = "update product set psell = psell + (select odcount from order_detail where orid=?) where pid=?";
 		int n = 0;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setInt(1, pid);
+			pstmt.setInt(1, orid);
 			pstmt.setInt(2, pid);
 			n = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return n;
 	}
 }

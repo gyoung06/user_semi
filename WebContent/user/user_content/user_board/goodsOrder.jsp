@@ -3,6 +3,22 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 order
 <form action="${cp }/user/payment" method="post">
+ <input type="hidden" name = "pid" value="${pid }">
+ <input type="hidden" name = "productvo" value="${productvo }">
+ <input type="hidden" name = "stockvo" value="${stockvo }">
+ <c:forEach begin="0" end="${leng-1 }" var="i" >
+	 <input type="hidden" name = "size" value="${size[i] }">
+	 <input type="hidden" name = "color" value="${color[i] }">
+	 <input type="hidden" name = "amount" value="${amount[i] }">
+ </c:forEach>
+ <input type="hidden" name = "mileage" value="${mileage }">
+ <input type="hidden" name = "leng" value="${leng }">
+ <input type="hidden" name = "gradevo" value="${gradevo }">
+ <input type="hidden" name = "per" value="${per }">
+ <input type="hidden" name = "allSum" value="${allSum }">
+ <input type="hidden" name = "addMileage" value="${addMileage }">
+
+
 	<br>
 	${sessionScope.id } 님은, [${gradevo.glevel }] 회원이십니다.
 	<br>
