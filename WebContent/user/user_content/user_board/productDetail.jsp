@@ -189,7 +189,14 @@
 			}
 		</script>
 		<td>
-			<input id = "cart" type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart">
+			<c:choose>
+				<c:when test="${empty id }">
+					<input type="button" value="add to cart" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" >
+				</c:when>
+				<c:otherwise>
+					<input id = "cart" type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart">
+				</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>
 </table>

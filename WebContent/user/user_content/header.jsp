@@ -48,7 +48,7 @@
 			</c:otherwise>
 		</c:choose>
 		<a href="${cp }/user/join">join+1000</a><br>
-		<a href="${cp }/user/cart">shopping cart</a><br>
+		<a href="${cp }/user/cartList">shopping cart</a><br>
 		<a href="${cp }/user/purchase">order list</a><br>
 		<a href="${cp }/user/mypage">my shopping</a>
 	</div>

@@ -9,14 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import user.dao.UserProductDAO;
-import user.dao.UserStockDAO;
-import user.dao.User_GradeDao;
-import user.dao.User_MembersDao;
-import user.vo.UserStockVo;
-import user.vo.User_GradeVo;
-import user.vo.User_MembersVo;
-import user.vo.User_ProductVo;
+import user.dao.User_CartDao;
+import user.vo.User_CartVo;
 
 @WebServlet("/user/cart")
 public class User_CartController extends HttpServlet {
@@ -28,48 +22,29 @@ public class User_CartController extends HttpServlet {
 		// 이미지,상품정보(사이즈,컬러),판매가,수량,적립금,배송비,합계
 		// 총 결제에정금액,총 할인금액,총 적립금
 		// 선택상품 삭제
+
 		String pid = req.getParameter("pid");
 		String[] orSize = req.getParameterValues("orSize");
 		String[] orColor = req.getParameterValues("orColor");
 		String[] amount = req.getParameterValues("amount");
-		String[] orMileage = req.getParameterValues("orMileage");
 		int leng = orSize.length;
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
-		UserProductDAO productdao = new UserProductDAO();
-		User_ProductVo productvo = productdao.productDetail(Integer.parseInt(pid));
-		UserStockDAO stockdao = new UserStockDAO();
-		UserStockVo stockvo = stockdao.stockDetail(productvo.getSid());
-		User_MembersDao memberdao = new User_MembersDao();
-		User_MembersVo membervo = memberdao.findInfo(id);
-		User_GradeDao gradedao = new User_GradeDao();
-		User_GradeVo gradevo = gradedao.getGrade(id);
-		int per = 0;
-		if (gradevo.getGlevel().equals("friend")) {
-			per = 1;
-		}
-		if (gradevo.getGlevel().equals("family")) {
-			per = 3;
-		}
-		if (gradevo.getGlevel().equals("vip")) {
-			per = 5;
-		}
-		if (gradevo.getGlevel().equals("vvip")) {
-			per = 7;
+
+		// 장바구니에 추가
+		// insert into cart values(cart_seq.nextval,'레드','S',3,'1234',1);
+		for (int i = 0; i < leng; i++) {
+			User_CartVo cartvo = new User_CartVo(0, orColor[i], orSize[i], Integer.parseInt(amount[i]), id,
+					Integer.parseInt(pid));
+			User_CartDao cartdao = new User_CartDao();
+			int cdi = cartdao.addcart(cartvo);
+			if (cdi < 1) {
+				System.out.println("carddao오류");
+			}
 		}
 
-		req.setAttribute("productvo", productvo);
-		req.setAttribute("stockvo", stockvo);
-		req.setAttribute("membervo", membervo);
-		req.setAttribute("size", orSize);
-		req.setAttribute("color", orColor);
-		req.setAttribute("amount", amount);
-		req.setAttribute("mileage", orMileage);
-		req.setAttribute("leng", leng);
-		req.setAttribute("gradevo", gradevo);
-		req.setAttribute("per", per);
 		req.setAttribute("top", "/user/user_content/header.jsp");
-		req.setAttribute("content", "/user/user_content/user_board/cart.jsp");
+		req.setAttribute("content", "/user/productDetail");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
