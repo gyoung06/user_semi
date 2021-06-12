@@ -11,7 +11,7 @@
 	String sname=request.getParameter("sname");
 	String ordate=request.getParameter("ordate");
 	//int orid=Integer.parseInt(request.getParameter("orid"));
-	//	System.out.println(orid);
+		System.out.println(sname);
 	String odcolor=request.getParameter("odcolor");
 	String odsize=request.getParameter("odsize");
 	String odcount=request.getParameter("odcount");

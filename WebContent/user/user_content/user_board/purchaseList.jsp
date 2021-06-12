@@ -68,16 +68,22 @@ order list
 				<c:otherwise>
 						<c:forEach var="vo" items="${OrderList }">
 						<input type="hidden" id="orid" value="${vo.orid }">
+						<input type="hidden" id="sname" value="${vo.sname }">
+						<input type="hidden" id="ordate" value="${vo.ordate }">
+						<input type="hidden" id="odcolor" value="${vo.odcolor }">
+						<input type="hidden" id="odsize" value="${vo.odsize }">
+						<input type="hidden" id="odcount" value="${vo.odcount }">
+						<input type="hidden" id="pimage2" value="${vo.pimage2 }">
+						<input type="hidden" id="sid" value="${vo.sid }">
 						<tr>
 						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.pimage2}"></td>
-						<td align=center ><a href="${cp }/user/productDetail?pid=${vo.pid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.pimage2}"></td>
+						<td align=center ><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 						<td align=center >${vo.odcount }</td>
 						<td align=center >${vo.pprice }</td>
 						<c:choose>
 							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='N' }">
-								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1()" ></td>
-								<!-- <td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td> -->
+								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1(${vo.orid })" ></td>
 							</c:when>
 							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='Y' }">
 								<td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td>
@@ -85,17 +91,20 @@ order list
 							<c:when test="${vo.ordelivery=='N' }">
 								<td><label>배송중 </label>
 							</c:when>
-							<c:otherwise>
-							<td><input type="button" value="구매후기" onclick="valuesend()" ><td>
-							</c:otherwise>
 						</c:choose>
 						
 						<c:choose>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='Y' }">
-								<td><label/>반품</td>
+							<c:when test="${vo.ordelivery=='Y' && vo.orcancle=='Y' }">
+								<td><label>반품 진행중</label></td>
 							</c:when>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='N' }">
-								<td><label/>취소</td>
+							<c:when test="${vo.ordelivery=='Y' && vo.orcancle!='Y' }">
+								<td><input type="button" value="반품신청" onclick="valuesend2(${vo.orid })" ></td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='N' && vo.orcancle=='Y' }">
+								<td><label>취소 진행중</label></td>
+							</c:when>
+							<c:when test="${vo.ordelivery=='N' && vo.orcancle!='Y' }">
+								<td><input type="button" value="구매취소 신청" onclick="valuesend3(${vo.orid })" ></td>
 							</c:when>
 						</c:choose>
 						</tr>
@@ -114,6 +123,27 @@ order list
 		</table>
 		</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
+			<c:if test="${startPageNum>10 }">
+		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[이전]</a> <!-- 현재페이지 보이기 -->
+		</c:if>
+		
+		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+			<c:choose>
+				<c:when test="${pageNum==i }">
+					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
+					<span style="color:blue">[${i }]</span></a>
+					<!-- <a href="${cp}/board/list?pageNum=${i}" 로 줘도 됨 -->
+				</c:when>
+				<c:otherwise>
+					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
+					<span style="color:gray">[${i }]</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		
+		<c:if test="${endPageNum<pageCount }">
+			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[다음]</a>
+		</c:if>
 
     <div role="tabpanel" class="tab-pane" id="profile">
 	    취소환불내역
@@ -165,27 +195,27 @@ order list
 					<c:forEach var="vo" items="${refundList }">
 						<tr> 
 							<td>${vo.ordate }<br>[${vo.orid }]</td>
-							<td><img src = "${cp }${vo.pimage2}"></td>
-							<td><a href="${cp }/user/productDetail?pid=${vo.pid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
+							<td><img src = "${cp }/img/${vo.pimage2}"></td>
+							<td><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
 							<c:choose>
 							<c:when test="${vo.ordelivery=='Y' }">
-								<td><label/>배송완료 <br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+								<td><label>배송완료</label></td>
 							</c:when>
 							<c:when test="${vo.ordelivery=='N' }">
-								<td><label/>배송중 <br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+								<td><label>배송중</label></td>
 							</c:when>
 							<c:otherwise>
 							<td><input type="button" value="구매후기" onclick="valuesend()" ><td>
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='Y' }">
-								<td><label/>반품</td>
+							<c:when test="${vo.ordelivery=='Y' && vo.orcancle=='Y' }">
+								<td><label>반품 진행중</label></td>
 							</c:when>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='N' }">
-								<td><label/>취소</td>
+							<c:when test="${vo.ordelivery=='Y' && vo.orcancle=='N' }">
+								<td><label>취소 진행중</label></td>
 							</c:when>
 						</c:choose>
 						</tr>
@@ -207,27 +237,7 @@ order list
 	</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 </div>
-			<c:if test="${startPageNum>10 }">
-		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[이전]</a> <!-- 현재페이지 보이기 -->
-		</c:if>
-		
-		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-			<c:choose>
-				<c:when test="${pageNum==i }">
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
-					<span style="color:blue">[${i }]</span></a>
-					<!-- <a href="${cp}/board/list?pageNum=${i}" 로 줘도 됨 -->
-				</c:when>
-				<c:otherwise>
-					<a href="${cp}/user/purchase?pageNum=${i }&field=${field}">
-					<span style="color:gray">[${i }]</span></a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		
-		<c:if test="${endPageNum<pageCount }">
-			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[다음]</a>
-		</c:if>
+
 
 
 <script type="text/javascript">	
@@ -329,15 +339,13 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 	                    	  $('#datepicker').datepicker('setDate', '-3M');
 	                      })
 			 });
-
 			 function valuesend(){
 				 window.open("", "value", "width=550, height=650, left=650, top=140, scrollbars=1, menubar=1, resizable=1"); 
 					 document.frm.target ="value";     
-					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp";
+					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp?";
 				 	 document.frm.submit();
 					}
-			 function valuesend1(){
-				 var orid=document.getElementById("orid").value;
+			 function valuesend1(orid){
 				 let xhr=new XMLHttpRequest();
 				 xhr.onreadystatechange=function(){
 	        		if(xhr.readyState==4 && xhr.status==200){
@@ -352,6 +360,37 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 			 	xhr.open('get','<%=request.getContextPath()%>/user/user_content/user_board/purchase_ajax.jsp?orid='+orid , true);
 			 	xhr.send();
 			 }
-				
+			function valuesend2(orid){
+				 let xhr=new XMLHttpRequest();
+				 xhr.onreadystatechange=function(){
+	        		if(xhr.readyState==4 && xhr.status==200){
+	        			let xml=xhr.responseXML;	
+	        			var code=xml.getElementsByTagName('code')[0].textContent;
+	        			if(code=='success'){
+	        				alert("반품신청이 완료되었습니다.");
+	        				location.reload();
+	        			}
+	        		}
+			 	};
+			 	xhr.open('get','<%=request.getContextPath()%>/user/user_content/user_board/purchase_ajax1.jsp?orid='+orid , true);
+			 	xhr.send();
+			 }
+			
+			function valuesend3(orid){
+				 let xhr=new XMLHttpRequest();
+				 xhr.onreadystatechange=function(){
+	        		if(xhr.readyState==4 && xhr.status==200){
+	        			let xml=xhr.responseXML;	
+	        			var code=xml.getElementsByTagName('code')[0].textContent;
+	        			if(code=='success'){
+	        				alert("취소신청이 완료되었습니다.");
+	        				location.reload();
+	        			}
+	        		}
+			 	};
+			 	xhr.open('get','<%=request.getContextPath()%>/user/user_content/user_board/purchase_ajax2.jsp?orid='+orid , true);
+			 	xhr.send();
+			 }
+			
 </script>
 

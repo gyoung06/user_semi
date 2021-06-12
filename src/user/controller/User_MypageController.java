@@ -38,22 +38,31 @@ public class User_MypageController extends HttpServlet {
 		session.setAttribute("gid", vo.getGid());
 		session.setAttribute("glevel", vo.getGlevel());
 		session.setAttribute("gbuy", vo.getGbuy());
+		req.setAttribute("gid1", vo.getGid());
+		req.setAttribute("glevel1", vo.getGlevel());
+		req.setAttribute("gbuy1", vo.getGbuy());
 		if(vo.getGlevel().equals("friend")) {
 			String nextSum="100000";
 			String nextDrate="3";
+			req.setAttribute("nextSum1", nextSum);
+			req.setAttribute("nextDrate1", nextDrate);
 			session.setAttribute("nextSum", nextSum);
 			session.setAttribute("nextDrate", nextDrate);
 		}else if(vo.getGlevel().equals("family")) {
 			String nextSum="300000";
 			String nextDrate="5";
+			req.setAttribute("nextSum1", nextSum);
+			req.setAttribute("nextDrate1", nextDrate);
 			session.setAttribute("nextSum", nextSum);
 			session.setAttribute("nextDrate", nextDrate);
-		}else if(vo.getGlevel().equals("vip ")) {
+		}else {
 			String nextSum="500000";
 			String nextDrate="7";
+			req.setAttribute("nextSum1", nextSum);
+			req.setAttribute("nextDrate1", nextDrate);
 			session.setAttribute("nextSum", nextSum);
 			session.setAttribute("nextDrate", nextDrate);
-		}//vvip는 어떻게 나타낼지
+		}
 		
 		req.setAttribute("UnderDel", UnderDel);
 		req.setAttribute("DelFin", DelFin);

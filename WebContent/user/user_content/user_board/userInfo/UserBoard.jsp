@@ -105,12 +105,12 @@
 		<c:otherwise>
 			<c:forEach var="vo" items="${Rlist }">
 	<tr>
-		<td><img src="${cp }${vo.pimage2 }" style="width:100px; height=150px;"></td>
+		<td><img src="${cp }/img/${vo.pimage2 }" style="width:100px; height=150px;"></td>
 		<td>${vo.sname }</td>
 		<td>${vo.rtitle }</td>
 		<td>${vo.mid }</td>
 		<td>${vo.rrdate }</td>
-		<td><img src="${cp }${vo.rphoto1 }" style="width:100px; height=150px;"></td>
+		<td><img src="${cp }/img/${vo.rphoto1 }" style="width:100px; height=150px;"></td>
 	</tr>
 			</c:forEach>
 		</c:otherwise>

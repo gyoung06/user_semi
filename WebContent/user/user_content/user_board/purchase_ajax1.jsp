@@ -13,7 +13,7 @@
 	PreparedStatement pstmt=null;
 	try{
 		con=DBConnection.getCon();
-		String sql="update orders set orcomplete='Y' where orid=?";
+		String sql="update orders set orcancle='Y' where orid=?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, orid);
 		pstmt.executeUpdate();

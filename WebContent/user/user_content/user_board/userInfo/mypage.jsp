@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	a{text-decoration: none; color:black; }
 </style>
@@ -9,18 +11,19 @@
 		String mid=(String)session.getAttribute("id"); //login 컨트롤러에서 session 저장된 것 꺼내오기
 		String mpw=(String)session.getAttribute("pwd"); 
 		int mmileage=(int)session.getAttribute("mmileage"); 
-		String glevel=(String)session.getAttribute("glevel");
-		int gbuy=(int)session.getAttribute("gbuy");
-		int gid=(int)session.getAttribute("gid");
-		String nextSum=(String)session.getAttribute("nextSum");
-		String nextDrate=(String)session.getAttribute("nextDrate");
-		
 	%>
 <div id="box1" style="border: 1px solid #D5D5D5">
-저희 쇼핑몰을 이용해 주셔서 감사합니다. <%=mid %>님은 <%=glevel %>회원이십니다.
-<%=nextSum %>원이상 구매시 <%=nextDrate %>퍼센트를 추가적립 받으실 수 있습니다.
+<c:choose>
+	<c:when test="${glevel1!='vvip' }">
+	저희 쇼핑몰을 이용해 주셔서 감사합니다. <%=mid %>님은 ${glevel1}회원이십니다.
+	${nextSum1 }원이상 구매시 ${nextDrate1 }퍼센트를 추가적립 받으실 수 있습니다.
+	</c:when>
+	<c:otherwise>
+	<%=mid %>님은 최고 등급인 ${glevel1}회원이십니다.
+	${nextDrate1 }퍼센트를 추가적립 받으실 수 있습니다.
+	</c:otherwise>
+</c:choose>
 </div>
-
 <table class="table">
 	<tr class="active">
 		<td>>총적립금</td>
@@ -43,8 +46,8 @@
 	<tr class="active">
 		<td>배송중: ${UnderDel}<br> </td>
 		<td>배송완료: ${DelFin}<br> </td>
-		<td>교환 : ${OrderCc} <a href="${cp }/user/purchase">  </a><br>
-			반품 : ${OrderReturn} <a href="${cp }/user/purchase">  </a><br>
+		<td><a href="${cp }/user/purchase"> 교환 : ${OrderCc}   </a><br>
+			 <a href="${cp }/user/purchase"> 반품 : ${OrderReturn} </a><br>
 		</td>
 	</tr>
 </table>

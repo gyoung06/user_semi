@@ -119,7 +119,7 @@ public class User_UserBoardDao {
 		UserQnaVo vo = null;
 		ArrayList<User_ReviewVo> list = new ArrayList<>();
 		String sql = "select distinct * from ( " + 
-				"select s.sname, r.rtitle, p.pimage2, r.rcontent, r.rphoto1, r.rrdate, od.odcolor, od.odsize " + 
+				"select s.sname, r.rtitle, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, r.rcontent, substr(r.rphoto1,(instr(r.rphoto1,'/',-1)+1)) as rphoto1, r.rrdate, od.odcolor, od.odsize " + 
 				"from stock s, review r, product p, order_detail od " + 
 				"where r.mid=? and r.sid=s.sid and od.pid=p.pid and s.sid=p.sid)" + 
 				" where rownum>=? and rownum<=? ";

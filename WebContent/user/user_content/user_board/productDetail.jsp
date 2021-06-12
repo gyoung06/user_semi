@@ -318,7 +318,7 @@
 						<c:forEach var="vo" items="${PDRlist }">
 						<tr>
 						<td align=center >${vo.rtitle}</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.rphoto1}"></td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.rphoto1}" style="width:100px; height:auto;"></td>
 						<td align=center >[옵션]<br> 상품명:${vo.sname }<br>컬러:${vo.odcolor }<br>사이즈:${vo.odsize }</td>
 						<td align=center >${vo.rcontent }</td>
 						<td align=center >${vo.mid }</td>
@@ -351,7 +351,6 @@
 			<a href="${cp}/user/userBoard?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
 		</c:if>
 
-</div>
 <div id="qna" style="padding: 30px 30px 30px 30px">
 	<div style="text-align: center">
 		<a href="#detail">DETAIL</a>

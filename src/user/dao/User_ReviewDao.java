@@ -91,17 +91,17 @@ public class User_ReviewDao {
 		}
 	}
 	//productDetail.jsp 상세페이지 리뷰 목록 뜨게하기
-	public ArrayList<User_ProductReview>	PDRlist(String id, int sid, int startRow, int endRow) { //목록 불러오기
+	public ArrayList<User_ProductReview>	PDRlist(String id, int pid, int startRow, int endRow) { //목록 불러오기
 		UserQnaVo vo = null;
 		ArrayList<User_ProductReview> list = new ArrayList<>();
 		String sql = "select distinct * from ( " + 
-				"select s.sname, r.rtitle, p.pimage2, r.rcontent, r.rphoto1, r.rrdate, od.odcolor, od.odsize " + 
+				"select s.sname, r.rtitle, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, r.rcontent, substr(r.rphoto1,(instr(r.rphoto1,'/',-1)+1)) as rphoto1, r.rrdate, od.odcolor, od.odsize, r.sid " + 
 				"from stock s, review r, product p, order_detail od " + 
-				"where r.mid=? and p.sid=? and r.sid=s.sid and od.pid=p.pid and s.sid=p.sid)" + 
+				"where r.mid=? and p.pid=? and r.sid=s.sid and od.pid=p.pid and s.sid=p.sid)" + 
 				" where rownum>=? and rownum<=? ";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, id);
-			pstmt.setInt(2, sid);
+			pstmt.setInt(2, pid);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 			try (ResultSet rs = pstmt.executeQuery();) {
