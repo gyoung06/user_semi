@@ -22,12 +22,12 @@
 	<div style="position:absolute; top:0px;left:500px;width:500px;height:150px;border-right:1px solid #8BBDFF;">
 		<img src="<%=request.getContextPath()%>/admin/upload/test1.png" style="position: absolute;top:35px;left:100px;width:80px;height:80px;">
 		<label style="position: absolute;top:50px;left:200px;width: 120px;height: 50px; color:red;font-size:30px;">총매출</label>
-		<div id="result2"style="position: absolute;top:50px;left:320px;width: 120px;height: 50px; color:red;font-size:20px;"></div>
+		<div id="result2"style="position: absolute;top:60px;left:320px;width: 130px;height: 50px; color:red;font-size:20px;"></div>
 	</div>
 	<div style="position:absolute; top:0px;left:1000px;width:700px;height:150px;">
 		<img src="<%=request.getContextPath()%>/admin/upload/test3.png" style="position: absolute;top:35px;left:100px;width:80px;height:80px;">
 		<label style="position: absolute;top:50px;left:200px;width: 150px;height: 50px; color:green;font-size:30px;">베스트상품</label>
-		<div id="result3" style="position: absolute;top:50px;left:380px;width: 120px;height: 50px; color:green;font-size:30px;"></div>
+		<div id="result3" style="position: absolute;top:60px;left:380px;width: 140px;height: 50px; color:green;font-size:20px;"></div>
 	</div>
 </div>
 

@@ -21,7 +21,7 @@
             	<option>RED</option>
                 <option>BLUE</option>
                 <option>GREEN</option>
-                <option>BLOACK</option>
+                <option>BLACK</option>
             </select>
      	</div>
      </div>
@@ -48,6 +48,8 @@
                 <option>OPS</option>
                 <option>SKIRTL</option>
                 <option>PANTS</option>
+                <option>SHOSEBAG</option>
+                <option>ACC</option>
             </select>
      	</div>
      </div>

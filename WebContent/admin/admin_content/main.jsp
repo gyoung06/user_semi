@@ -7,7 +7,7 @@
 <div class="border border-3" id="curve_chart" style="position: absolute; top:100px; left:50px; width: 1100px; height: 500px; border: 1px solid #8BBDFF;"></div>
 
 <div class="border border-3" style="position:absolute;  top:100px;left:1200px; width: 680px; height: 500px;">
-<h3 class="members" style="position: absolute; top:10px; left:50px;">최근 한달 가입자 명단</h3>
+<h3 class="members" style="position: fixed; top:70px; left:1460px;">최근 한달 가입자 명단</h3>
 	<table class="list_table">
 		<thead>
 		<tr>
@@ -45,7 +45,7 @@
 </div>
 <div class="border border-3" id="stock" style=" position:absolute; width: 340px; height: 300px; top:630px; left:792px;">
 <img src="<%=request.getContextPath()%>/admin/img/stock.jpg" style="position: absolute; top:10px;left:50px;width:200px;height:150px;">
-<a href="${cp }/admin/sales/list" style="position: absolute; top:160px;left:130px;font-size:20px; color:black;">매출</a>
+<a href="${cp }/admin/sales/list" style="position: absolute; top:160px;left:130px;font-size:20px; color:black;">통계</a>
 </div>
 <div class="border border-3" id="test" style=" position:absolute; width: 340px; height: 300px; top:630px; left:1162px;">
 <img src="<%=request.getContextPath()%>/admin/img/border.jpg" style="position: absolute; top:10px;left:50px;width:200px;height:150px;">

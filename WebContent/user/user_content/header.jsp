@@ -18,15 +18,15 @@
 	<h1><a href="${cp }/user/home">J4</a></h1>
 	<div id ="category">
 		<h3>category</h3>
-		<a href="${cp }/user/new">new</a><br>
-		<a href="${cp }/user/best">best 50</a><br>
-		<a href="${cp }/user/category?category=outer">outer</a><br>
-		<a href="${cp }/user/category?category=top">top</a><br>
-		<a href="${cp }/user/category?category=ops">ops</a><br>
-		<a href="${cp }/user/category?category=skirt">skirt</a><br>
-		<a href="${cp }/user/category?category=pants">pants</a><br>
-		<a href="${cp }/user/category?category=shoes&bag">shoes&bag</a><br>
-		<a href="${cp }/user/category?category=acc">acc</a>
+		<a href="${cp }/user/new/list">new</a><br>
+		<a href="${cp }/user/best/list">best 30</a><br>
+		<a href="${cp }/user/outer/list">outer</a><br>
+		<a href="${cp }/user/top/list">top</a><br>
+		<a href="${cp }/user/ops/list">ops</a><br>
+		<a href="${cp }/user/skirt/list">skirt</a><br>
+		<a href="${cp }/user/pants/list">pants</a><br>
+		<a href="${cp }/user/shoes/list">shoes&bag</a><br>
+		<a href="${cp }/user/acc/list">acc</a>
 	</div>
 	<div id ="community">
 		<h3>community</h3>

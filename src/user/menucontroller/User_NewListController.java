@@ -1,4 +1,4 @@
-package user.controller;
+package user.menucontroller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,39 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.vo.Admin_ProductVo2;
 import user.dao.User_MenuDao;
-
-@WebServlet("/user/home")
-public class User_HomeController extends HttpServlet {
+@WebServlet("/user/new/list")
+public class User_NewListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		User_MenuDao dao=User_MenuDao.getInstance();
-		ArrayList<Admin_ProductVo2> list=dao.mainbest8();
-		ArrayList<Admin_ProductVo2> list1=dao.mainlist();
 		
-		String top = (String) req.getAttribute("top");
-		String content = (String) req.getAttribute("content");
-		String bottom = (String) req.getAttribute("bottom");
-		if (top == null) {
-			top = "/user/user_content/header.jsp";
-		}
-		if (content == null) {
-			// content="/user/main";
-			content = "/user/user_content/main.jsp";
-		}
-		if (bottom == null) {
-			
-			bottom = "/user/user_content/footer.jsp";
-		}
-		req.setAttribute("list",list);
+		ArrayList<Admin_ProductVo2> list1=dao.newlist();//전체 상품
+		
 		req.setAttribute("list1",list1);
-		req.setAttribute("top", top);
-		req.setAttribute("content", content);
-		req.setAttribute("bottom", bottom);
-
 		String cp = req.getContextPath();
 		ServletContext application = getServletContext();
 		application.setAttribute("cp", cp);
-
+		req.setAttribute("top", "/user/user_content/header.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/userInfo/usermenu/new.jsp");
+		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}
 }

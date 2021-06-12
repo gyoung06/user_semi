@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.dao.Admin_ProductDao;
 import admin.dao.Admin_StockDao;
+import admin.vo.Admin_StockVo;
 @WebServlet("/admin/product/delete")
 public class Admin_Product_DeleteController extends HttpServlet {
 	@Override
@@ -28,7 +29,8 @@ public class Admin_Product_DeleteController extends HttpServlet {
 		Admin_ProductDao dao=Admin_ProductDao.getInstance();
 		int n=dao.delete(pid);
 		Admin_StockDao dao1=Admin_StockDao.getInstance();
-		int n1=dao1.updatelev2(sid);
+		Admin_StockVo vo=dao1.selectsid(sid);
+		int n1=dao1.updatelev2(vo.getSname());
 		String cPath=req.getContextPath();
 		resp.sendRedirect(cPath+"/admin/product/list");
 	}

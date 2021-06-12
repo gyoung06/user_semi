@@ -20,10 +20,10 @@ public class Admin_ProductDao {
 	public static Admin_ProductDao getInstance() {
 		return instance;
 	}
-	public int insert(Admin_ProductVo vo) {
+	public int insert(Admin_ProductVo2 vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="insert into product values(PRODUCT_SEQ.nextval,?,?,?,?,sysdate,0,?)";
+		String sql="insert into product values(PRODUCT_SEQ.nextval,?,?,?,?,sysdate,0,(select MIN(sid) from stock where sname=?))";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
@@ -31,7 +31,7 @@ public class Admin_ProductDao {
 			pstmt.setInt(2, vo.getPdiscount());
 			pstmt.setString(3, vo.getPimage1());
 			pstmt.setString(4, vo.getPimage2());
-			pstmt.setInt(5, vo.getSid());
+			pstmt.setString(5, vo.getSname());
 			return pstmt.executeUpdate();
 		}catch(SQLException s) {
 			s.printStackTrace();
@@ -230,7 +230,7 @@ public class Admin_ProductDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGENAME1,pimage2,prdate,psell,s.sid as sid,s.sname as sname, s.ssize as ssize, s.scolor as scolor from product p join stock s on p.sid = s.sid order by p.pid desc) where rownum<=1";
+			String sql="select * from (select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGENAME1,pimage2,prdate,psell, s.sid as sid,s.sname as sname, s.ssize as ssize, s.scolor as scolor from product p join stock s on p.sid = s.sid order by p.pid desc) where rownum<=1";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

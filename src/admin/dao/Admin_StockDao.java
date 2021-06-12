@@ -77,7 +77,7 @@ public class Admin_StockDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			String sql="select sname,listagg(scolor,',') within group(order by scolor) as scolor,listagg(ssize,',') within group(order by ssize) as ssize, sum(samount) as samount from stock group by sname";
+			String sql="select sname,listagg(scolor,',') within group(order by scolor) as scolor,listagg(ssize,',') within group(order by ssize) as ssize, sum(samount) as samount from stock where slev=0 group by sname";
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -118,14 +118,14 @@ public class Admin_StockDao {
 			DBConnection.close(con, pstmt, null);
 		}
 	}
-	public int updatelev(int sid) {
+	public int updatelev(String sname) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="update stock set slev=1 where sid=?";
+		String sql="update stock set slev=1 where sname=?";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, sid);
+			pstmt.setString(1, sname);
 			int n= pstmt.executeUpdate();
 			return n;
 		}catch(SQLException s) {
@@ -135,14 +135,14 @@ public class Admin_StockDao {
 			DBConnection.close(con, pstmt, null);
 		}
 	}
-	public int updatelev2(int sid) {//sid 다시 돌려놓기
+	public int updatelev2(String sname) {//sid 다시 돌려놓기
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		String sql="update stock set slev=0 where sid=?";
+		String sql="update stock set slev=0 where sname=?";
 		try {
 			con=DBConnection.getCon();
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, sid);
+			pstmt.setString(1, sname);
 			int n= pstmt.executeUpdate();
 			return n;
 		}catch(SQLException s) {

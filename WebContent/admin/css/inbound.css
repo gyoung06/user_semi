@@ -224,3 +224,32 @@
 	height:350px; 
 }
 
+
+.boardcss_list_table1 { 
+	position:absolute;
+	height:400px;
+	width: 700px; 
+	top:500px;
+	left:900px;
+	}
+/* 화면에 보여지는 글 목록 테이블 */
+.list_table1 { 
+	position: absolute;
+	top:50px;
+	left:20px;
+	width:90%;
+	font-size: 1.1rem;
+	}
+/* list_table 에서 사용되는 thead */
+.list_table1 thead th { 
+	text-align: center; 
+	border-top: 1px solid #ABABAB;
+	border-bottom: 1px solid #ABABAB; 
+	padding: 8px 0; 
+	background: #faf9fa; 
+	}
+.list_table1 tbody td { 
+	text-align: center;  
+	border-bottom: 1px solid #ABABAB; 
+	padding: 5px 0; 
+	}

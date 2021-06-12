@@ -53,7 +53,6 @@
 			<th>추가이미지</th>
 			<th>등록일</th>
 			<th>판매량</th>
-			<th>수정</th>
 			<th>삭제</th>
 		</tr>
 		</thead>
@@ -71,7 +70,6 @@
 				<td>${vo1.pimage2 }</td>
 				<td>${vo1.prdate }</td>
 				<td>${vo1.psell }</td>
-				<td onclick="valuesend1(${vo1.pid})" style="color:blue; cursor:pointer;">수정</td>
 				<td><a href="<%=request.getContextPath()%>/admin/product/delete?pid=${vo1.pid}&sid=${vo1.sid}&pimage1=${vo1.pimage1}&pimage2=${vo1.pimage2}" style="color:red;">삭제</a></td>
 			</tr>
 		</c:forEach>
@@ -108,13 +106,13 @@
 	</form>
 </div>
 <form name="frm" method="post">
-<label style="position:absolute;top:865px;left:1490px;font-size: 1.2rem;">재고번호선택</label>
-<select name="sname" style="position:absolute;top:860px;left:1570px;width:100px;height:25px;font-size: 1.2rem;">
+<label style="position:fixed; top:920px;left:1400px;font-size: 1.2rem;">재고이름선택</label>
+<select name="sname" style="position:fixed; top:915px;left:1490px;width:230px;height:25px;font-size: 1.2rem;">
 	<c:forEach var="vo" items="${list }">
 		<option>${vo.sname }</option>
 	</c:forEach>
 </select>
-<input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:absolute;top:860px;left:1740px;width:50px;height:25px;font-size: 1.2rem;">
+<input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:fixed; top:915px;left:1740px;width:50px;height:25px;font-size: 1.2rem;">
 </form>
 <script type="text/javascript">
 function valuesend(){

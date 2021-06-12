@@ -65,6 +65,32 @@ public class Admin_InboundDao {
 			DBConnection.close(con,pstmt,rs);
 		}
 	}
+	public ArrayList<Admin_InboundVo> category(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=DBConnection.getCon();
+			String sql="select INCATEGORY, sum(inamount) as inamount,  sum(inprice) as inprice from inbound where indate > add_months(sysdate,-1) group by incategory";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			ArrayList<Admin_InboundVo> list=new ArrayList<Admin_InboundVo>();
+			while(rs.next()) {
+				int inamount=rs.getInt("inamount");
+				int inprice=rs.getInt("inprice");
+				String incategory=rs.getString("incategory");
+				Admin_InboundVo vo=new Admin_InboundVo(0, null, null, inprice, inamount, null, null, incategory);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con,pstmt,rs);
+		}
+	}
+	
 	public int getCount(String field, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

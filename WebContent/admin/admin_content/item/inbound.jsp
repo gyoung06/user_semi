@@ -72,9 +72,32 @@
 <input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:absolute;top:465px;left:1540px;width:50px;height:25px;font-size: 1.2rem;">
 <!-- 수정 취소 <input class="btn btn-outline-dark" type="button" value="수정" onclick="valuesend1()" style="position:absolute;top:465px;left:1420px;width:50px;height:25px;font-size: 1.2rem;"> -->
 </form>
-<div id="barchart_values" style="position:absolute; width: 700px; height: 400px; top:500px; left:100px;"></div>
+<div id="barchart_values" style="position:absolute; width: 600px; height: 400px; top:500px; left:100px;"></div>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div class="boardcss_list_table1">
+<h2 class="inboundtext1" style="position:absolute;top:10px;left:50px;">카테고리별 한달 입고상황</h2>
+<table class="list_table1">
+		<thead>
+		<tr>
+			<th>품목</th>
+			<th>총입고량</th>
+			<th>총금액</th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="vo" items="${list1 }">
+			<tr>
+				<td>${vo.incategory }</td>
+				<td>${vo.inamount }</td>
+				<td>${vo.inprice }</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+</div>
+
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 function valuesend(){
@@ -132,5 +155,4 @@ function valuesend1(){
 		xhr.open('get','${pageContext.request.contextPath}/admin/inbound/chart.do',true);
   		xhr.send();
 	}
-	
 </script>

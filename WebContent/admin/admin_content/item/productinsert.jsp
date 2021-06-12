@@ -6,8 +6,8 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/admin/css/productinsert.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <%
+	request.setCharacterEncoding("utf-8");
 	String sname=request.getParameter("sname");
-	System.out.println("sname");
 %>
 
 <div style="background:#086701; width:100%;height:100%;">
@@ -17,16 +17,16 @@
 	<fieldset>
 	 <div class="border border-success" style="position: absolute; top:250px; left:50px; width:875px;height:40px;">
 	 <div class="control-group">
-     	<label style="position:absolute;top:8px;left:10px;">재고번호</label>
+     	<label style="position:absolute;top:8px;left:10px;">재고이름</label>
      	<div class="controls">
-     		<input id="input_sid" name="sid" type="text" value="<%=sname %>" style="position:absolute;top:5px;left:80px; width:50px; text-align:center;">
+     		<input  name="sname" type="text" value="<%=sname %>" style="position:absolute;top:5px;left:80px; width:300px; text-align:center;">
      	</div>
       </div>
       <div class="control-group">
-     	<label style="position:absolute;top:8px;left:300px;">할인율</label>
+     	<label style="position:absolute;top:8px;left:420px;">할인율</label>
      	<div class="controls">
-     		<input id="input_discount" name="pdiscount" type="text" style="position:absolute;top:5px;left:350px; width:50px; text-align:center;">
-     		<select id="selectdiscount" onchange="chang_discount()" style="position:absolute;top:5px;left:400px;height:30px;">
+     		<input id="input_discount" name="pdiscount" type="text" style="position:absolute;top:5px;left:470px; width:50px; text-align:center;">
+     		<select id="selectdiscount" onchange="chang_discount()" style="position:absolute;top:5px;left:520px;height:30px;">
             	<option>5</option>
                 <option>10</option>
                 <option>15</option>

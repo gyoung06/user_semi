@@ -1,4 +1,4 @@
-package user.controller;
+package user.menucontroller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import admin.dao.Admin_ProductDao;
-import admin.vo.Admin_ProductVo;
-import user.dao.User_OuterDao;
-import user.vo.User_ProductVo;
-@WebServlet("/user/outer/list")
-public class User_OuterListController extends HttpServlet {
+import admin.vo.Admin_ProductVo2;
+import user.dao.User_MenuDao;
+@WebServlet("/user/shoes/list")
+public class User_shoesListController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -28,11 +26,11 @@ public class User_OuterListController extends HttpServlet {
 		int startRow=(pageNum-1)*16+1;
 		int endRow=startRow+15;
 		
-		User_OuterDao dao=User_OuterDao.getInstance();
-		ArrayList<User_ProductVo> list=dao.best4();//베스트
+		User_MenuDao dao=User_MenuDao.getInstance();
+		ArrayList<Admin_ProductVo2> list=dao.shoesbest4();//베스트
 		
-		int pageCount=(int)Math.ceil(dao.getCount()/16.0);
-		ArrayList<User_ProductVo> list1=dao.list(startRow, endRow);//전체 상품
+		int pageCount=(int)Math.ceil(dao.shoesgetCount()/16.0);
+		ArrayList<Admin_ProductVo2> list1=dao.shoeslist(startRow, endRow);//전체 상품
 		int startPageNum=((pageNum-1)/16*16)+1;
 		int endPageNum=startPageNum+15;
 		if(endPageNum>pageCount) {
@@ -49,7 +47,7 @@ public class User_OuterListController extends HttpServlet {
 		ServletContext application = getServletContext();
 		application.setAttribute("cp", cp);
 		req.setAttribute("top", "/user/user_content/header.jsp");
-		req.setAttribute("content", "/user/user_content/user_board/userInfo/usermenu/outer.jsp");
+		req.setAttribute("content", "/user/user_content/user_board/userInfo/usermenu/shoes.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 	}

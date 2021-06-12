@@ -26,6 +26,7 @@ public class Admin_Inbound_ListController extends HttpServlet{
 			pageNum=Integer.parseInt(spageNum);
 		}
 		Admin_InboundDao dao=Admin_InboundDao.getInstance();
+		ArrayList<Admin_InboundVo> list1=dao.category();
 		int startRow=(pageNum-1)*10+1;
 		int endRow=startRow+9;
 		ArrayList<Admin_InboundVo> list=dao.list(startRow, endRow, field, keyword);
@@ -37,6 +38,7 @@ public class Admin_Inbound_ListController extends HttpServlet{
 		}
 		req.setAttribute("vo1", req.getAttribute("vo1"));
 		req.setAttribute("list", list);
+		req.setAttribute("list1", list1);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);
 		req.setAttribute("endPageNum", endPageNum);
