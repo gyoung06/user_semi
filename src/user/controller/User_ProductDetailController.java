@@ -39,7 +39,7 @@ public class User_ProductDetailController extends HttpServlet {
 		
 		//상세페이지 리뷰 목록
 				HttpSession session=req.getSession();
-				int sid= Integer.parseInt(req.getParameter("sid"));
+				int sid= vo.getSid();
 				String id=(String)session.getAttribute("id");
 
 				String keyword = req.getParameter("keyword");

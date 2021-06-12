@@ -90,10 +90,10 @@
 				</p>
 				<span class="quantity" >
 					<input type="text" value="1"size="1" id ="amount\${sum}" name="amount" onchange="amountChange()">
-					<a href="javascript:upBtn(this.id)" class="up eProductQuantityUpClass" id ="uBtn,\${sum}">
+					<a href="javascript:upBtn(${sum})" class="up eProductQuantityUpClass">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
-					<a href="javascript:downBtn(this.id)" id = "downBtn,\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
+					<a href="javascript:downBtn(${sum})" id = "downBtn,\${sum}" name="downBtn,\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
 					</a>
 				</span>
@@ -135,8 +135,8 @@
 			orMileage.value = mileage.innerHTML;
 			sum++;
 		}
-		function upBtn(ckId){
-			console.log("ckId"+ckId)
+		function upBtn(sum){
+			console.log(sum)
 			<%--
 			let num = ckId.split(',')[1];
 			console.log("id"+id)
