@@ -71,7 +71,7 @@ order list
 						<tr>
 						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
 						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.pimage2}"></td>
-						<td align=center >${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+						<td align=center ><a href="${cp }/user/productDetail?pid=${vo.pid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 						<td align=center >${vo.odcount }</td>
 						<td align=center >${vo.pprice }</td>
 						<c:choose>
@@ -166,7 +166,7 @@ order list
 						<tr> 
 							<td>${vo.ordate }<br>[${vo.orid }]</td>
 							<td><img src = "${cp }${vo.pimage2}"></td>
-							<td>${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+							<td><a href="${cp }/user/productDetail?pid=${vo.pid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>
 							<c:choose>

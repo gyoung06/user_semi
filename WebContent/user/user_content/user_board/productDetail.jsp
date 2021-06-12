@@ -301,68 +301,55 @@
 <h1>--리뷰리스트영역--</h1>
 	<table class="table">
 			<tr class="active">
-				<th align=center>주문일자<br>[주문번호]</th>
-				<th align=center>이미지</th>
-				<th align=center>상품정보</th>
-				<th align=center>수량</th>
-				<th align=center>상품구매금액</th>
-				<th align=center>주문처리상태</th>
-				<th align=center>취소/반품<th>
+				<th align=center>리뷰제목</th>
+				<th align=center>리뷰사진</th>
+				<th align=center>옵션</th>
+				<th align=center>내용</th>
+				<th align=center>작성자</th>
 				
 			</tr>
 			<c:choose>
-				<c:when test="${empty OrderList}">
+				<c:when test="${empty PDRlist}">
 					<tr>
-						<td>주문내역이 없습니다.</td>
+						<td>리뷰내역이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-						<c:forEach var="vo" items="${OrderList }">
-						<input type="hidden" id="orid" value="${vo.orid }">
+						<c:forEach var="vo" items="${PDRlist }">
 						<tr>
-						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.pimage2}"></td>
-						<td align=center >${vo.sname }<br>${vo.odcolor }<br>사이즈:${vo.odsize }</td>
-						<td align=center >${vo.odcount }</td>
-						<td align=center >${vo.pprice }</td>
-						<c:choose>
-							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='N' }">
-								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1()" ></td>
-								<!-- <td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td> -->
-							</c:when>
-							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='Y' }">
-								<td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td>
-							</c:when>
-							<c:when test="${vo.ordelivery=='N' }">
-								<td><label>배송중 </label>
-							</c:when>
-							<c:otherwise>
-							<td><input type="button" value="구매후기" onclick="valuesend()" ><td>
-							</c:otherwise>
-						</c:choose>
-						
-						<c:choose>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='Y' }">
-								<td><label/>반품</td>
-							</c:when>
-							<c:when test="${vo.ordelivery=='Y' || vo.orcancel=='N' }">
-								<td><label/>취소</td>
-							</c:when>
-						</c:choose>
+						<td align=center >${vo.rtitle}</td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${cp }${vo.rphoto1}"></td>
+						<td align=center >[옵션]<br> 상품명:${vo.sname }<br>컬러:${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+						<td align=center >${vo.rcontent }</td>
+						<td align=center >${vo.mid }</td>
 						</tr>
-						<input type="hidden" name="sname" value="${vo.sname }">
-						<input type="hidden" name="ordate" value="${vo.ordate }">
-						<input type="hidden" name="orid" value="${vo.orid }">
-						<input type="hidden" name="odcolor" value="${vo.odcolor }">
-						<input type="hidden" name="odsize" value="${vo.odsize }">
-						<input type="hidden" name="odcount" value="${vo.odcount }">
-						<input type="hidden" name="pimage2" value="${vo.pimage2 }">
-						<input type="hidden" name="odid" value="${vo.odid }">
-						<input type="hidden" name="sid" value="${vo.sid }">
+						
 						</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
+		
+<c:if test="${startPageNum>10 }">
+		<a href="${cp}/user/userBoard?pageNum=${startPageNum-1 }&field=${field}&keyword=${keyword}">[이전]</a> <!-- 현재페이지 보이기 -->
+		</c:if>
+		
+		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+			<c:choose>
+				<c:when test="${pageNum==i }">
+					<a href="${cp}/user/userBoard?pageNum=${i }&field=${field}&keyword=${keyword}">
+					<span style="color:blue">[${i }]</span></a>
+					<!-- <a href="${cp}/board/list?pageNum=${i}" 로 줘도 됨 -->
+				</c:when>
+				<c:otherwise>
+					<a href="${cp}/user/userBoard?pageNum=${i }&field=${field}&keyword=${keyword}">
+					<span style="color:gray">[${i }]</span></a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		
+		<c:if test="${endPageNum<pageCount }">
+			<a href="${cp}/user/userBoard?pageNum=${endPageNum+1 }&field=${field}&keyword=${keyword}">[다음]</a>
+		</c:if>
 
 </div>
 <div id="qna" style="padding: 30px 30px 30px 30px">

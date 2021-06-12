@@ -72,9 +72,10 @@ public class User_OrdersDao {
 				String orcomplete= rs.getString("orcomplete");
 				String orcancle = rs.getString("orcancle");
 				int odid = rs.getInt("odid");
+				int pid = rs.getInt("pid");
 				int sid = rs.getInt("sid");
 				UserOrderlistVo vo = new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odsize, odcount, pprice,
-						ordelivery,orcomplete, orcancle, odid, sid);
+						ordelivery,orcomplete, orcancle, odid, pid, sid);
 				list.add(vo);
 			}
 			return list;
@@ -175,9 +176,10 @@ public class User_OrdersDao {
 				String orcomplete= rs.getString("orcomplete");
 				String orcancle = rs.getString("orcancle");
 				int odid = rs.getInt("odid");
+				int pid = rs.getInt("pid");
 				int sid = rs.getInt("sid");
 				UserOrderlistVo vo = new UserOrderlistVo(ordate, orid, pimage2, sname, odcolor, odsize, odcount, pprice,
-						ordelivery,orcomplete, orcancle, odid, sid);
+						ordelivery,orcomplete, orcancle, odid, pid, sid);
 				list1.add(vo);
 				System.out.println();
 			}

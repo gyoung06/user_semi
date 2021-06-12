@@ -110,7 +110,7 @@
 		<td>${vo.rtitle }</td>
 		<td>${vo.mid }</td>
 		<td>${vo.rrdate }</td>
-		<td>${vo.rphoto1 }</td>
+		<td><img src="${cp }${vo.rphoto1 }" style="width:100px; height=150px;"></td>
 	</tr>
 			</c:forEach>
 		</c:otherwise>

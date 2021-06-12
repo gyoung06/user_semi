@@ -15,10 +15,12 @@ public class UserOrderlistVo {
 	private String orcomplete;
 	private String orcancel;
 	private int odid;
+	private int pid;
 	private int sid;
 	public UserOrderlistVo() {}
 	public UserOrderlistVo(Date ordate, int orid, String pimage2, String sname, String odcolor, String odsize,
-			int odcount, int pprice, String ordelivery, String orcomplete, String orcancel, int odid, int sid) {
+			int odcount, int pprice, String ordelivery, String orcomplete, String orcancel, int odid, int pid,
+			int sid) {
 		super();
 		this.ordate = ordate;
 		this.orid = orid;
@@ -32,6 +34,7 @@ public class UserOrderlistVo {
 		this.orcomplete = orcomplete;
 		this.orcancel = orcancel;
 		this.odid = odid;
+		this.pid = pid;
 		this.sid = sid;
 	}
 	public Date getOrdate() {
@@ -106,11 +109,17 @@ public class UserOrderlistVo {
 	public void setOdid(int odid) {
 		this.odid = odid;
 	}
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
 	public int getSid() {
 		return sid;
 	}
 	public void setSid(int sid) {
 		this.sid = sid;
 	}
-	
+
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import user.dao.UserProductDAO;
 import user.dao.UserStockDAO;
+import user.vo.UserStockVo;
 import user.vo.User_ProductVo;
 
 @WebServlet("/user/best")
@@ -26,6 +27,7 @@ public class User_BestProductController extends HttpServlet {
 			String name = stockDao.sid(vo.getSid());
 			nameList.add(name);
 		}
+		
 		req.setAttribute("list", list);
 		req.setAttribute("nameList", nameList);
 		req.setAttribute("top", "/user/user_content/header.jsp");
