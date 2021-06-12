@@ -25,6 +25,38 @@ public class User_CartDao {
 		}
 		return n;
 	}
+	public int deletecart(int wid) {
+		int n = 0;
+		String sql = "delete from cart where wid=?";
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, wid);
+			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+	public int deleteAll() {
+		int n = 0;
+		String sql = "delete from cart";
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+	public int selectDel(String wid) {
+		int n = 0;
+		String sql = "delete from cart where wid=?";
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, wid);
+			n = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 
 	public ArrayList<User_CartVo> cartList() {
 		String sql = "select * from cart";

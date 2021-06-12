@@ -95,14 +95,26 @@ public class UserStockDAO {
 	}
 
 	public int sellamount(int odid, int pid, String color, String size) {
-		String sql = "update stock set samount= samount-(select odcount from order_detail where orid=?) where sid=(select sid from stock where sname=(select sname from stock where sid=(select sid from product where pid=?)) and scolor=? and ssize=?)";
+		String sql1 = "select odcount from order_detail where orid=?";
+		String sql = "update stock set samount= samount-? where sid=(select sid from stock where sname=(select sname from stock where sid=(select sid from product where pid=?)) and scolor=? and ssize=?)";
 		int n = 0;
-		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setInt(1, odid);
-			pstmt.setInt(2, pid);
-			pstmt.setString(3, color);
-			pstmt.setString(4, size);
-			n = pstmt.executeUpdate();
+		ArrayList<Integer> odList = new ArrayList<>();
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);
+				 PreparedStatement pstmt1 = con.prepareStatement(sql1);) {
+			pstmt1.setInt(1, odid);
+			try(ResultSet rs = pstmt1.executeQuery();){
+				while(rs.next()) {
+					int odcount = rs.getInt("odcount");
+					odList.add(odcount);
+				}
+			}
+			for (int i = 0; i < odList.size(); i++) {
+				pstmt.setInt(1, odList.get(i));
+				pstmt.setInt(2, pid);
+				pstmt.setString(3, color);
+				pstmt.setString(4, size);
+				n = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -90,10 +90,10 @@
 				</p>
 				<span class="quantity" >
 					<input type="text" value="1"size="1" id ="amount\${sum}" name="amount" onchange="amountChange()">
-					<a href="javascript:upBtn(this.id)" class="up eProductQuantityUpClass" id ="uBtn\${sum}">
+					<a href="javascript:upBtn(this.id)" class="up eProductQuantityUpClass" id ="uBtn,\${sum}">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
-					<a href="javascript:downBtn(this.id)" id = "downBtn\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
+					<a href="javascript:downBtn(this.id)" id = "downBtn,\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
 					</a>
 				</span>
@@ -136,14 +136,19 @@
 			sum++;
 		}
 		function upBtn(ckId){
-			let aamount = document.getElementsByName("amount")[sum-1];
+			console.log("ckId"+ckId)
+			<%--
+			let num = ckId.split(',')[1];
+			console.log("id"+id)
+			let aamount = document.getElementsByName("amount")[num];
 			let result= parseInt(aamount.value) +1;
 			aamount.value = result;
-			let pprice= document.getElementsByName("pprice")[sum-1];
-			let mileage=document.getElementsByName("mileage")[sum-1];
-			let proPrice = document.getElementsByName("proPrice")[sum-1];
+			let pprice= document.getElementsByName("pprice")[num];
+			let mileage=document.getElementsByName("mileage")[num];
+			let proPrice = document.getElementsByName("proPrice")[num];
 			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
 			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
+			--%>
 		}
 		function downBtn(ckId){
 			let aamount = document.getElementsByName("amount")[sum-1];

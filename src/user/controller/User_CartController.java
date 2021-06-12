@@ -39,7 +39,7 @@ public class User_CartController extends HttpServlet {
 			User_CartDao cartdao = new User_CartDao();
 			int cdi = cartdao.addcart(cartvo);
 			if (cdi < 1) {
-				System.out.println("carddao오류");
+				System.out.println("cartao오류");
 			}
 		}
 

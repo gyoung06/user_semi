@@ -1,6 +1,8 @@
+<%@page import="user.dao.User_CartDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-order
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+cart
 <form action="../../../payment" method="post">
 	<br>
 	<!-- 회원정보뜨게!!! -->
@@ -14,7 +16,7 @@ order
 	<br>
 	<table class="table">
 		<tr>
-			<th><input type="checkbox"></th>
+			<th><input type="checkbox" id="topcheck" onclick="checkAll()"></th>
 			<th>이미지</th>
 			<th>상품정보</th>
 			<th>판매가</th>
@@ -24,42 +26,100 @@ order
 			<th>합계</th>
 			<th>선택</th>
 		</tr>
+		<c:choose>
+			<c:when test="${leng==0 }">
+			<tr>
+				<td colspan="9">
+				카트에 물품이 존재하지 않습니다.
+				</td>
+			</tr>
+			</c:when>
+			<c:otherwise>
 			<c:forEach begin="0" end="${leng-1 }" var="i" >
-		<tr>
-			<td><input type="checkbox"></td>
-			<td>
-			<img src="${cp }${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
-			</td>
-			<th>${stocklist.get(i).sname }<br><br>
-				[옵션: ${stocklist.get(i).ssize }, ${stocklist.get(i).scolor }]
-			</th>
-			<!-- 할인상품이면 할인된거 표시되게 하기 -->
-			<th>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100 }</th>
-			<th>
-				<input type="text" value="${list.get(i).camount }" size = "3">
-				<input type="button" value="변경">
-			</td>
-			<td>적립금</td>
-			<td>배송구분</td>
-			<td>배송비</td>
-			<td>합계</td>
-			<td>
-				<input type="button" value="주문하기"><br>
-				<input type="button" value="관심상품등록"><br>
-				<input type="button" value="삭제">	
-			</td>
-		</tr>
+				<tr id = "tr${i }" name = "product">
+					<input type="hidden" id ="wid" value ="${list.get(i).wid }">
+					<input type="hidden" name ="leng" value ="${leng }">
+					<input type="hidden" name ="pid" value ="${productlist.get(i).pid }">
+					<input type="hidden" name ="orSize" value ="${stocklist.get(i).ssize }">
+					<input type="hidden" name ="orColor" value ="${stocklist.get(i).scolor }">
+					<input type="hidden" name ="amount" value ="${list.get(i).camount }">
+					<input type="hidden" name ="orMileage" value ="${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/10000 }">
+					<td><input type="checkbox" name="check" id="ck,${list.get(i).wid }"></td>
+					<td>
+					<img src="${cp }${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
+					</td>
+					<th>${stocklist.get(i).sname }<br><br>
+						[옵션: ${stocklist.get(i).ssize }, ${stocklist.get(i).scolor }]
+					</th>
+					<!-- 할인상품이면 할인된거 표시되게 하기 -->
+					<td>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100 }</td>
+					<td>
+						<input type="text" value="${list.get(i).camount }" size = "3">
+						<input type="button" value="변경">
+					</td>
+					<td><img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금">
+					${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/10000 }원</td>
+					<td>무료배송</td>
+					<td>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100*list.get(i).camount }</td>
+					<td>
+						<input type="button" id="btn,${i }" value="삭제" onclick="deleteOne(this.id)">	
+					</td>
+				</from>
+				</tr>
 			</c:forEach>
-		<!-- 
-		<tr>
-			<td>[기본배송]</td>
-			<td>상품구매금액 66,000+배송비 0(무료)-상품할인금액 6,600=합계: </td>
-			<th>59,400</th>
-		</tr>
-		 -->
+			<tr>
+				<td colspan="8">선택상품 <input type="button" value="삭제"></td>
+				<td colspan="8">
+				선택상품 
+				<input type="button" id="selectDel" value="삭제" style="float: right;" onclick="selDelete()">
+				</td>
+				<td colspan="8"><input type="button" id="delAll" value="장바구니 비우기" style="float: right;" onclick="deleteAll()"></td>
+			</tr>			
+			</c:otherwise>
+		</c:choose>
 	</table>
-	선택상품 <input type="button" value="삭제">
-	<input type="button" value="장바구니 비우기" style="float: right;">
+	<script>
+		function selDelete(){
+			let check = document.getElementsByName("check");
+			for (var i = 0; i < check.length; i++) {
+				if(check[i].checked){
+					let num = check[i].id.split(',')[1]
+					let xhr = new XMLHttpRequest();
+					xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/cartselDeleteServer.jsp?num="+num,true);
+					xhr.send();
+				}
+			}
+			window.location.reload();
+		}
+		function deleteAll(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/cartDeleteServer.jsp",true);
+			xhr.send();
+			window.location.reload();
+		}
+		function checkAll(){
+			let check = document.getElementsByName("check");
+			let topcheck = document.getElementById("topcheck");
+			if(topcheck.checked){
+				for(i=0; i < check.length; i++) {
+					check[i].checked = true;
+				}
+			}else{
+				for(i=0; i < check.length; i++) {
+					check[i].checked = false;
+					}
+				}
+		}
+		function deleteOne(id){
+			let num = id.split(',')[1];
+			let trid = document.getElementById("tr"+num);
+			let wid = document.getElementById("wid").value;
+			let xhr = new XMLHttpRequest();
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/cartServer.jsp?wid="+wid,true);
+			xhr.send();
+			window.location.reload();
+		}
+	</script>
 	<table class="table">
 		<tr>
 			<td>총 상품 금액</td>
@@ -74,9 +134,11 @@ order
 			<th>=59,400</th>
 		</tr>	
 	</table>
-	<input type="submit" value="전체상품주문">
+	<input type="submit" value="전체상품주문" formaction="${cp }/user/order">
 	<input type="submit" value="선택상품주문">
+	<a href="${cp }/user/home">
 	<input type="button" value="쇼핑계속하기">
+	</a>
 </form>
 <h4>이용안내</h4>
 장바구니 이용안내

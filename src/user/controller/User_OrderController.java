@@ -49,7 +49,7 @@ public class User_OrderController extends HttpServlet {
 		}
 		int addMileage = 0;
 		for (int i = 0; i < leng; i++) {
-			addMileage += Integer.parseInt(orMileage[i]);
+			addMileage += (int)(Double.parseDouble(orMileage[i]));
 		}
 		int per = 0;
 		if (gradevo.getGlevel().equals("friend")) {

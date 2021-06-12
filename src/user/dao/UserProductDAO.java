@@ -135,12 +135,24 @@ public class UserProductDAO {
 	}
 
 	public int psellplus(int orid, int pid) {
-		String sql = "update product set psell = psell + (select odcount from order_detail where orid=?) where pid=?";
+		String sql1 = "select odcount from order_detail where orid=?";
+		String sql = "update product set psell = psell + ? where pid=?";
 		int n = 0;
-		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setInt(1, orid);
-			pstmt.setInt(2, pid);
-			n = pstmt.executeUpdate();
+		ArrayList<Integer> orList = new ArrayList<>();
+		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);
+				PreparedStatement pstmt1 = con.prepareStatement(sql1);) {
+			pstmt1.setInt(1, orid);
+			try(ResultSet rs = pstmt1.executeQuery();){
+				while(rs.next()) {
+					int odcount = rs.getInt("odcount");
+					orList.add(odcount);
+				}
+			}
+			for (int i = 0; i < orList.size(); i++) {
+				pstmt.setInt(1, orList.get(i));
+				pstmt.setInt(2, pid);
+				n = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
