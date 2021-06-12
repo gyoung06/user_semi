@@ -10,7 +10,6 @@
 	<table class="list_table">
 		<thead>
 		<tr>
-			<th>번호</th>
 			<th>상품명</th>
 			<th>색상</th>
 			<th>사이즈</th>
@@ -20,7 +19,6 @@
 		<tbody>
 		<c:forEach var="vo" items="${list }">
 			<tr>
-				<td>${vo.sid }</td>
 				<td>${vo.sname }</td>
 				<td>${vo.scolor }</td>
 				<td>${vo.ssize }</td>
@@ -32,7 +30,7 @@
 </div>
 
 <div class="boardcss_list_table1">
-<img src="${pageContext.request.contextPath }/admin/upload/${vo2.pimage1 }" style="position: absolute;top:10px;left:10px;width:340px;height:380px;" >
+<img src="${pageContext.request.contextPath }/img/${vo2.pimage1 }" style="position: absolute;top:10px;left:10px;width:340px;height:380px;" >
 <div id="name" style="position: absolute;top:10px;left:400px;width:300px;height:20px;font-weight:bold;font-size:1.2em; ">${vo2.sname }</div>
 <div id="price" style="position: absolute;top:40px;left:500px;width:200px;height:20px;">${vo2.pprice }</div>
 <label style="position: absolute;top:40px;left:400px;width:200px;height:20px;">가격</label>
@@ -64,7 +62,7 @@
 			<tr>
 				<!-- C:\web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\semiProject\admin\upload/ -->
 				<td>
-					<img src="${pageContext.request.contextPath }/admin/upload/${vo1.pimage1 }" width="100" height="100">
+					<img src="${pageContext.request.contextPath }/img/${vo1.pimage1 }" width="100" height="100">
 				</td>
 				<td>${vo1.pid }</td>
 				<td>${vo1.pprice }</td>
@@ -111,9 +109,9 @@
 </div>
 <form name="frm" method="post">
 <label style="position:absolute;top:865px;left:1490px;font-size: 1.2rem;">재고번호선택</label>
-<select name="sid" style="position:absolute;top:860px;left:1570px;width:50px;height:25px;font-size: 1.2rem;">
+<select name="sname" style="position:absolute;top:860px;left:1570px;width:100px;height:25px;font-size: 1.2rem;">
 	<c:forEach var="vo" items="${list }">
-		<option>${vo.sid }</option>
+		<option>${vo.sname }</option>
 	</c:forEach>
 </select>
 <input class="btn btn-outline-dark" type="button" value="등록" onclick="valuesend()" style="position:absolute;top:860px;left:1740px;width:50px;height:25px;font-size: 1.2rem;">

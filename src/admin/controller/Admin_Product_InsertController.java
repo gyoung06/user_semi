@@ -21,7 +21,7 @@ import admin.vo.Admin_StockVo;
 public class Admin_Product_InsertController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String saveDir=getServletContext().getRealPath("/admin/upload");
+		String saveDir=getServletContext().getRealPath("/img");
 		MultipartRequest mr=new MultipartRequest(req, 
 				saveDir,
 				1024*1024*5,

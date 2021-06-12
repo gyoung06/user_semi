@@ -6,7 +6,8 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/admin/css/productinsert.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <%
-	String sid=request.getParameter("sid");
+	String sname=request.getParameter("sname");
+	System.out.println("sname");
 %>
 
 <div style="background:#086701; width:100%;height:100%;">
@@ -18,7 +19,7 @@
 	 <div class="control-group">
      	<label style="position:absolute;top:8px;left:10px;">재고번호</label>
      	<div class="controls">
-     		<input id="input_sid" name="sid" type="text" value="<%=sid %>" style="position:absolute;top:5px;left:80px; width:50px; text-align:center;">
+     		<input id="input_sid" name="sid" type="text" value="<%=sname %>" style="position:absolute;top:5px;left:80px; width:50px; text-align:center;">
      	</div>
       </div>
       <div class="control-group">

@@ -22,7 +22,7 @@ public class Admin_Product_ListController extends HttpServlet{
 		req.setCharacterEncoding("utf-8");
 		//재고리스트
 		Admin_StockDao dao=Admin_StockDao.getInstance();
-		ArrayList<Admin_StockVo> list=dao.list();
+		ArrayList<Admin_StockVo> list=dao.agglist();
 		req.setAttribute("list", list);
 		
 		//판매등록된 리스트

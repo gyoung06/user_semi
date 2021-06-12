@@ -6,8 +6,7 @@
 	height:400px;
 	width: 800px; 
 	left:50px;
-	border-top: 1px solid #8BBDFF;
-	border-bottom: 1px solid #8BBDFF; 
+	border: 1px solid #8BBDFF;
 }
 /* 화면에 보여지는 글 목록 테이블 */
 .list_table { 
@@ -66,12 +65,11 @@
 /*좌측 하단 메뉴*/
 .boardcss_list_table1 { 
 	position:absolute;
-	top:600px;
-	height:200px;
+	top:500px;
+	height:400px;
 	width: 800px; 
 	left:50px;
-	border-top: 1px solid #8BBDFF;
-	border-bottom: 1px solid #8BBDFF; 
+	border: 1px solid #8BBDFF;
 }
 
 /* 우측메뉴 */
@@ -81,8 +79,7 @@
 	height:800px;
 	width: 800px; 
 	left:1000px;
-	border-top: 1px solid #8BBDFF;
-	border-bottom: 1px solid #8BBDFF; 
+	border: 1px solid #8BBDFF;
 }
 
 .producttext{

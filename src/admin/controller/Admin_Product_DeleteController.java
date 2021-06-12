@@ -19,7 +19,7 @@ public class Admin_Product_DeleteController extends HttpServlet {
 		int sid=Integer.parseInt(req.getParameter("sid"));
 		String pimage1=req.getParameter("pimage1");
 		String pimage2=req.getParameter("pimage2");
-		String uploadPath=getServletContext().getRealPath("/admin/upload");
+		String uploadPath=getServletContext().getRealPath("/img");
 		File f1=new File(uploadPath+"\\"+pimage1);
 		f1.delete();
 		File f2=new File(uploadPath+"\\"+pimage2);

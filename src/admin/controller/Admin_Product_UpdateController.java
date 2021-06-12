@@ -18,7 +18,7 @@ import admin.vo.Admin_ProductVo;
 public class Admin_Product_UpdateController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String saveDir=getServletContext().getRealPath("/admin/upload");
+		String saveDir=getServletContext().getRealPath("/img");
 		MultipartRequest mr=new MultipartRequest(req, 
 				saveDir,
 				1024*1024*5,

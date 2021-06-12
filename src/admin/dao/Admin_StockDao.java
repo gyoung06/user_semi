@@ -72,6 +72,32 @@ public class Admin_StockDao {
 			DBConnection.close(con, pstmt, rs);
 		}
 	}
+	public ArrayList<Admin_StockVo> agglist(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			String sql="select sname,listagg(scolor,',') within group(order by scolor) as scolor,listagg(ssize,',') within group(order by ssize) as ssize, sum(samount) as samount from stock group by sname";
+			con=DBConnection.getCon();
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			ArrayList<Admin_StockVo> list=new ArrayList<Admin_StockVo>();
+			while(rs.next()) {
+				String sname=rs.getString("sname");
+				String scolor=rs.getString("scolor");
+				String ssize=rs.getString("ssize");
+				int samount=rs.getInt("samount");
+				Admin_StockVo vo=new Admin_StockVo(0, sname, scolor, ssize, samount,0);
+				list.add(vo);
+			}
+			return list;
+		}catch(SQLException s) {
+			s.printStackTrace();
+			return null;
+		}finally {
+			DBConnection.close(con, pstmt, rs);
+		}
+	}
 	public int update(Admin_StockVo vo) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
