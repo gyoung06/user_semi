@@ -15,11 +15,12 @@
 		String mpw=(String)session.getAttribute("pwd"); 
 	%>
 <%=mid %>님의 회원정보를 안전하게 보호하기 위해 비밀번호를 한번 더 확인해 주세요. 
-<%=mpw %>
 <br><br><br>
 <form method="post" action="${cp }/user/user_content/user_board/userInfo/update.jsp" onsubmit="return checkData();">
->비밀번호 &nbsp;<input type="password" id="pwd">
-<input type="submit" value="확인" >
+ <div class="form-group" >
+  <label for="pass">>비밀번호</label> &nbsp;<input type="password"  class="form-control" id="pwd" placeholder="비밀번호를 입력하세요">
+ </div>
+<input type="submit" class="btn btn-default" value="확인" >
 </form>
 </div>
 <script type="text/javascript">

@@ -7,16 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h4>address 자주 쓰는 배송지를 등록 관리하실 수 있습니다.</h4>
+<style>
+tr { display: block; float: left; }
+th, td { display: block; }
+</style>
+<h4>자주 쓰는 배송지를 등록 관리하실 수 있습니다.</h4>
 <table class="table">
 	<tr class="active">
 		<th>배송지명</th>
 		<th>이름</th>
 		<th>주소</th>
+		<th><br></th>
 		<th>휴대전화</th>
 	</tr>
 	<form method="post" action="${cp }/user/address">
-
 	<tr class="active">
 		<td><input type="text" name="addtitle"></td>
 		<td><input type="text" name="addname"></td>

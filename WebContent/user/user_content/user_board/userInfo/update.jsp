@@ -14,27 +14,63 @@
 <div id="box1" style="border: 1px solid #D5D5D5">
 저희 쇼핑몰을 이용해 주셔서 감사합니다. '<%=mid%>'님은 '<%=glevel %>'회원이십니다. 
 '<%=nextSum %>'원 이상 구매시 '<%=nextDrate %>'을 추가적립 받으실 수 있습니다.
-<!-- vvip처리 때문에 controller에 써준걸 여기서 if문으로 처리해줄지 생각해보기 -->
 </div>
-<form action="${cp }/user/update" method ="post" name="updateForm">
-	아이디*
-	<input type="text" name="mid" value="<%=mid%>" readonly="readonly">(영문소문자/숫자, 4~16자)<br>
-	현재 비밀번호
-	<input type="text" name="mpw">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br>
-	새 비밀번호
-	<input type="text" name="newpw" onkeyup="pwdcheck()">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br>
-	새 비밀번호 확인
-	<input type="text" name="newpwok" onkeyup="pwdcheck()"><div id="newpwbox"></div><br>
-	이름*
-	<input type="text" name="mname" value="<%=mname%>" readonly="readonly"><br>
-	휴대전화*
-	<input type="tel" name="mphone" value="<%=mphone%>"><br>
-	이메일*
-	<input type="email" name="memail" value="<%=memail%>"><br>
-
-<!-- <h4>추가정보</h4> -->
-	생년월일*
-	<input type="date" name="mbirth"><br>
+<form action="${cp }/user/update" method ="post" name="updateForm" class="form-horizontal">
+ 	<div class="form-group">
+	 <label for="inputid1" class="col-sm-2 control-label">아이디*</label>
+	 <div class="col-sm-10">
+	 <input type="text" name="mid" value="<%=mid%>" readonly="readonly">(영문소문자/숫자, 4~16자)<br>
+	 </div>
+	 </div>
+	 
+	 <div class="form-group">
+    <label for="inputPassword1" class="col-sm-2 control-label">
+	현재 비밀번호</label>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" name="mpw">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br> 
+	</div>
+	</div>
+	
+	<div class="form-group">
+    <label for="inputPassword2" class="col-sm-2 control-label">
+	새 비밀번호</label>
+	<div class="col-sm-10">
+	<input type="text" name="newpw" class="form-control" onkeyup="pwdcheck()">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)<br>
+	</div>
+	</div>
+	
+	 <div class="form-group">
+	 <label for="inputPassword3" class="col-sm-2 control-label">
+	새 비밀번호 확인</label>
+	<div class="col-sm-10">
+	<input type="text" name="newpwok" class="form-control" onkeyup="pwdcheck()"></div><div id="newpwbox"></div><br>
+	 </div>
+	 
+	 <div class="form-group">
+	 <label for="inputid1" class="col-sm-2 control-label">
+	이름*</label>
+	<div class="col-sm-10">
+	<input type="text" name="mname" class="form-control" value="<%=mname%>" readonly="readonly"><br>
+	</div>
+	</div>
+	
+	<div class="form-group">
+	 <label for="inputphone" class="col-sm-2 control-label">
+	휴대전화*	</label>
+	<div class="col-sm-10">
+	<input type="tel" name="mphone" class="form-control" value="<%=mphone%>"><br>
+	</div>
+	</div>
+	
+	<div class="form-group">
+	<label for="inputemail" class="col-sm-2 control-label">
+	이메일*</label>
+	<div class="col-sm-10">
+	<input type="email" name="memail" class="form-control" value="<%=memail%>"><br>
+</div>
+</div>	
+	생년월일*<br>
+	<input type="date"  name="mbirth"><br>
 <input type="button" value="회원정보수정" onclick="updateck()">
 <input type="button" value="취소" onclick="location.href='${cp}/user/home'">
 </form>
