@@ -230,7 +230,7 @@ public class Admin_ProductDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGENAME1,pimage2,prdate,psell, s.sid as sid,s.sname as sname, s.ssize as ssize, s.scolor as scolor from product p join stock s on p.sid = s.sid order by p.pid desc) where rownum<=1";
+			String sql="select * from (select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGENAME1,substr(pimage2,(instr(pimage2,'/',-1)+1)) as PIMAGENAME2,prdate,psell, s.sid as sid,s.sname as sname, s.ssize as ssize, s.scolor as scolor from product p join stock s on p.sid = s.sid order by p.pid desc) where rownum<=1";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -238,7 +238,7 @@ public class Admin_ProductDao {
 				int pprice=rs.getInt("pprice");
 				int pdiscount=rs.getInt("pdiscount");
 				String pimage1=rs.getString("PIMAGENAME1");
-				String pimage2=rs.getString("pimage2");
+				String pimage2=rs.getString("PIMAGENAME2");
 				Date prdate=rs.getDate("prdate");
 				int psell=rs.getInt("psell");
 				int sid=rs.getInt("sid");

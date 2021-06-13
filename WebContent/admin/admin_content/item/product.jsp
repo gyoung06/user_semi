@@ -30,7 +30,7 @@
 </div>
 
 <div class="boardcss_list_table1">
-<img src="${pageContext.request.contextPath }/img/${vo2.pimage1 }" style="position: absolute;top:10px;left:10px;width:340px;height:380px;" >
+<img src="${pageContext.request.contextPath }/img/${vo2.pimage2 }" style="position: absolute;top:10px;left:10px;width:340px;height:380px;" >
 <div id="name" style="position: absolute;top:10px;left:400px;width:300px;height:20px;font-weight:bold;font-size:1.2em; ">${vo2.sname }</div>
 <div id="price" style="position: absolute;top:40px;left:500px;width:200px;height:20px;">${vo2.pprice }</div>
 <label style="position: absolute;top:40px;left:400px;width:200px;height:20px;">가격</label>
@@ -61,7 +61,7 @@
 			<tr>
 				<!-- C:\web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\semiProject\admin\upload/ -->
 				<td>
-					<img src="${pageContext.request.contextPath }/img/${vo1.pimage1 }" width="100" height="100">
+					<img src="${pageContext.request.contextPath }/img/${vo1.pimage2 }" width="100" height="100">
 				</td>
 				<td>${vo1.pid }</td>
 				<td>${vo1.pprice }</td>
