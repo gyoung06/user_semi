@@ -146,7 +146,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%아우터%' or s.sname like '%outer%') order by p.psell desc) where rownum<=4";
+			//String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%아우터%' or s.sname like '%outer%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OUTER' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -175,7 +176,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%아우터%' or s.sname like '%outer%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OUTER' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -207,7 +208,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%아우터%' or s.sname like '%outer%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OUTER'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -229,7 +230,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%탑%' or s.sname like '%top%') order by p.psell desc) where rownum<=4";
+			//String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%탑%' or s.sname like '%top%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='TOP' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -258,7 +260,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%탑%' or s.sname like '%top%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='TOP' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -291,7 +293,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%탑%' or s.sname like '%top%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='TOP'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -313,7 +315,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%원피스%' or s.sname like '%ops%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OPS' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -342,7 +344,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%원피스%' or s.sname like '%ops%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			//String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%원피스%' or s.sname like '%ops%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OPS' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -375,7 +378,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%원피스%' or s.sname like '%ops%')";
+			//String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%원피스%' or s.sname like '%ops%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='OPS'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -397,7 +401,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%') order by p.psell desc) where rownum<=4";
+			//String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SKIRT' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -426,7 +431,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			//String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SKIRT' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -459,7 +465,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%')";
+			//String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%스커트%' or s.sname like '%skirt%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SKIRT'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -481,7 +488,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%팬츠%' or s.sname like '%pants%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='PANTS' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -510,7 +517,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%팬츠%' or s.sname like '%pants%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			//String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%팬츠%' or s.sname like '%pants%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='PANTS' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -543,7 +551,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%팬츠%' or s.sname like '%pants%')";
+			//String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%팬츠%' or s.sname like '%pants%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='PANTS'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -566,7 +575,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%신발%' or s.sname like '%shoes%' or s.sname like '%백%' or s.sname like '%bag%') order by p.psell desc) where rownum<=4";
+			//String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%신발%' or s.sname like '%shoes%' or s.sname like '%백%' or s.sname like '%bag%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SHOES/BAG' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -595,7 +605,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%신발%' or s.sname like '%shoes%' or s.sname like '%백%' or s.sname like '%bag%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			//String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%신발%' or s.sname like '%shoes%' or s.sname like '%백%' or s.sname like '%bag%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SHOES/BAG' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -628,7 +639,7 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%신발%' or s.sname like '%shoes%' or s.sname like '%백%' or s.sname like '%bag%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='SHOES/BAG'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -650,7 +661,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%') order by p.psell desc) where rownum<=4";
+			//String sql="select * from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1,substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%') order by p.psell desc) where rownum<=4";
+			String sql="select * from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='ACC' order by p.psell desc ) where rownum<=4";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			ArrayList<Admin_ProductVo2> list=new ArrayList<Admin_ProductVo2>();
@@ -679,7 +691,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			//String sql="select * from(select board.*,rownum rnum from (select p.pid as pid, substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) as pimage1, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%') order by p.prdate desc) board) where rnum>=? and rnum<=?";
+			String sql="select * from(select board.*,rownum rnum from (select  DISTINCT p.pid as pid ,substr(p.pimage1,(instr(p.pimage1,'/',-1)+1)) AS pimage1, p.psell, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, (p.pprice-(p.pprice/100*p.pdiscount)) as pprice, p.pdiscount as pdiscount, p.sid as sid, s.sname as sname from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='ACC' order by p.psell desc ) board) where rnum>=? and rnum<=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -712,7 +725,8 @@ public class User_MenuDao {
 		ResultSet rs=null;
 		try {
 			con=DBConnection.getCon();
-			String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%')";
+			//String sql="select NVL(count(*),0) from product p join stock s on p.sid = s.sid where (s.sname like '%acc%' or s.sname like '%비키니%' or s.sname like '%벨트%' or s.sname like '%시계%')";
+			String sql="select NVL(count(*),0) from inbound i, stock s,product p where s.sname=i.inname and p.sid=s.sid and i.INCATEGORY='ACC'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

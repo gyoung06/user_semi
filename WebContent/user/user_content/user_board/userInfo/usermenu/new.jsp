@@ -7,7 +7,7 @@
 		<c:forEach var="vo" items="${list1 }">
 			 <div class="col-lg-3">
 			    <div class="thumbnail">
-			      	<a href="${cp }/user/productDetail?pid=${vo.pid}"><img src="${pageContext.request.contextPath }/img/${vo.pimage1 }" alt="${name }img"></a>
+			      	<a href="${cp }/user/productDetail?pid=${vo.pid}"><img src="${pageContext.request.contextPath }/img/${vo.pimage2 }" alt="${name }img"></a>
 			      	<div class="caption">
 				        <h3 style="font-size:15px;text-align:left;font-family: Geogia;"><a href="${cp }/user/productDetail?pid=${vo.pid}">상품이름: ${vo.sname }</a></h3>
 				        <h3 style="font-size:15px;text-align:left;font-family: Geogia;">상품아이디: ${vo.pid }</h3>

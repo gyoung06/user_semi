@@ -48,7 +48,7 @@
                 <option>OPS</option>
                 <option>SKIRTL</option>
                 <option>PANTS</option>
-                <option>SHOSEBAG</option>
+                <option>SHOES/BAG</option>
                 <option>ACC</option>
             </select>
      	</div>
