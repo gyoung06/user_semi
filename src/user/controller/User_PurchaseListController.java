@@ -50,16 +50,14 @@ public class User_PurchaseListController extends HttpServlet{
 		}
 		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id, startdate, enddate);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
-		ArrayList<UserOrderlistVo> refundList=dao.refundList(startRow, endRow, id, startdate, enddate);
-		int pageCount1=(int)Math.ceil(dao.getCountref()/10.0);
+		ArrayList<UserOrderlistVo> refundList=dao.refundList(id, startdate, enddate);
+
 		int startPageNum=((pageNum-1)/10*10)+1;
 		int endPageNum=startPageNum+9;
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount; //endPageNum값을 pageCount값으로 초기화
 		}
-		if(endPageNum>pageCount1) {
-			endPageNum=pageCount1; //endPageNum값을 pageCount값으로 초기화
-		}
+		
 		//User_ReviewDao dao1=new User_ReviewDao();
 		//int n1=dao1.checkReview(id, sid, sname, odcolor, odsize);
 		

@@ -50,13 +50,13 @@ order list
 		<h4>상품정보</h4>
 		<table class="table">
 			<tr class="active">
-				<th align=center>주문일자<br>[주문번호]</th>
-				<th align=center>이미지</th>
-				<th align=center>상품정보</th>
-				<th align=center>수량</th>
-				<th align=center>상품구매금액</th>
-				<th align=center>주문처리상태</th>
-				<th align=center>취소/반품<th>
+				<th>주문일자<br>[주문번호]</th>
+				<th>이미지</th>
+				<th>상품정보</th>
+				<th>수량</th>
+				<th>상품구매금액</th>
+				<th>주문처리상태</th>
+				<th>취소/반품<th>
 				
 			</tr>
 			<c:choose>
@@ -76,11 +76,11 @@ order list
 						<input type="hidden" id="pimage2" value="${vo.pimage2 }">
 						<input type="hidden" id="sid" value="${vo.sid }">
 						<tr>
-						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.pimage2}"  style="width:100px; height:auto"></td>
-						<td align=center ><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
-						<td align=center >${vo.odcount }</td>
-						<td align=center >${vo.pprice }</td>
+						<td>${vo.ordate }<br>[${vo.orid }]</td>
+						<td><img src = "${cp }/img/${vo.pimage2}"  style="width:100px; height:auto"></td>
+						<td><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
+						<td>${vo.odcount }</td>
+						<td>${vo.pprice }</td>
 						<c:choose>
 							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='N' }">
 								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1(${vo.orid })" ></td>
@@ -121,9 +121,7 @@ order list
 				</c:otherwise>
 			</c:choose>
 		</table>
-		</div>
-	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
-			<c:if test="${startPageNum>10 }">
+					<c:if test="${startPageNum>10 }">
 		<a href="${cp}/user/purchase?pageNum=${startPageNum-1 }&field=${field}">[이전]</a> <!-- 현재페이지 보이기 -->
 		</c:if>
 		
@@ -144,6 +142,9 @@ order list
 		<c:if test="${endPageNum<pageCount }">
 			<a href="${cp}/user/purchase?pageNum=${endPageNum+1 }&field=${field}">[다음]</a>
 		</c:if>
+		
+		</div>
+	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 
     <div role="tabpanel" class="tab-pane" id="profile">
 	    <form action="${cp }/user/purchase" method="post">
@@ -236,8 +237,6 @@ order list
 	</div>
 	<!-- 페이징처리!!!!!!!!!!!!!!!!!! -->
 </div>
-
-
 
 <script type="text/javascript">	
 	$('#myTab a').click(function (e) {

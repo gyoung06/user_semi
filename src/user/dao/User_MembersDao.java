@@ -347,7 +347,7 @@ public class User_MembersDao {
 		ResultSet rs = null;
 		try {
 			con = DBConnection.getCon();
-			String sql = "select sum(ortotal) from orders where mid=?";
+			String sql = "select sum(orpaymoney) from orders where mid=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
