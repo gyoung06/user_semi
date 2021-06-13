@@ -30,6 +30,6 @@ public class Admin_FaqinsertController extends HttpServlet{
 		req.setAttribute("vo", vo);
 		
 		String cPath=req.getContextPath();
-		resp.sendRedirect(cPath+"/admin/faq/list");
+		req.getRequestDispatcher("/admin/admin_content/board/popupclose.jsp").forward(req, resp);
 	}
 }

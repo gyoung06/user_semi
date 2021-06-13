@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>memberinsert.jsp</title>
 <style>
 	#insertbox{
@@ -15,21 +15,21 @@
 </style>
 </head>
 <body>
-<div id="insertbox">
+<div id="insertbox" style="border :1px solid #8BBDFF; position:fixed; top:10px; left:10px; width:480px; height:450px;">
 	<form method="post" action="<%=request.getContextPath()%>/admin/memberinsert" style="margin-top:20px;">
-		¾ÆÀÌµğ<input type="text" name="mid" id="mid1">
-		<input type="button" name="idcheck" id="idcheck" value="¾ÆÀÌµğÈ®ÀÎ"><br>
+		ì•„ì´ë””<input type="text" name="mid" id="mid1">
+		<input type="button" name="idcheck" id="idcheck" value="ì•„ì´ë””í™•ì¸"><br>
 		<div id="idmention"></div><br>
-		ºñ¹Ğ¹øÈ£<input type="password" name="mpw" id="mpw" onkeyup="pwdcheck()"><br>
-		ºñ¹Ğ¹øÈ£ È®ÀÎ<input type="password" name="mpwcheck" id="mpwcheck" onkeyup="pwdcheck()"><br>
+		ë¹„ë°€ë²ˆí˜¸<input type="password" name="mpw" id="mpw" onkeyup="pwdcheck()"><br>
+		ë¹„ë°€ë²ˆí˜¸ í™•ì¸<input type="password" name="mpwcheck" id="mpwcheck" onkeyup="pwdcheck()"><br>
 		<div id="pwdmention"></div><br>
-		ÀÌ¸§<input type="text" name="mname"><br>
-		ÁÖ¼Ò<input type="text" name="maddress"><br>
-		ÀÌ¸ŞÀÏ<input type="text" name="memail"><br>
-		¿ìÆí¹øÈ£<input type="text" name="mpost"><br>
-		ÀüÈ­¹øÈ£<input type="text" name="mphone"><br>
+		ì´ë¦„<input type="text" name="mname"><br>
+		ì£¼ì†Œ<input type="text" name="maddress"><br>
+		ì´ë©”ì¼<input type="text" name="memail"><br>
+		ìš°í¸ë²ˆí˜¸<input type="text" name="mpost"><br>
+		ì „í™”ë²ˆí˜¸<input type="text" name="mphone"><br>
 		
-		»ıÀÏ	
+		ìƒì¼	
 		<select name="year">
 	      <c:forEach begin="1990" end="2000" var="y">
 	         <option>
@@ -53,7 +53,7 @@
 	         </option>
 	      </c:forEach>
 		</select>
-		<input type="submit" value="µî·Ï" id="submitbtn" disabled="disabled">
+		<input type="submit" value="ë“±ë¡" id="submitbtn" disabled="disabled">
 	</form>
 	
 </div>
@@ -65,7 +65,7 @@
 		const div=document.getElementById("idmention");
 		console.log(mid1);
 		if(mid1=="" || mid1==null){
-			idmention.innerHTML="¾ÆÀÌµğ ÀÔ·ÂÇÊ¿ä!";
+			idmention.innerHTML="ì•„ì´ë”” ì…ë ¥í•„ìš”!";
 			return;
 		}
 		let xhr=new XMLHttpRequest();
@@ -74,9 +74,9 @@
 				let result=xhr.responseText;
 				let json=JSON.parse(result);
 				if(json.using==true){
-					div.innerHTML="»ç¿ëÁßÀÎ ¾ÆÀÌµğ";
+					div.innerHTML="ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë””";
 				}else{
-					div.innerHTML="»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.";
+					div.innerHTML="ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.";
 					submitbtn.disabled=false;
 				}
 			}
@@ -89,15 +89,15 @@
 	var mpwcheck=document.getElementById("mpwcheck").value;
 	const pwdmention=document.getElementById("pwdmention");
 	if(mpw=="" || mpw==null){
-		pwdmention.innerHTML="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.";
+		pwdmention.innerHTML="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.";
 	}
 	function pwdcheck(){
 		var mpw=document.getElementById("mpw").value;
 		var mpwcheck=document.getElementById("mpwcheck").value;
 		if(mpw==mpwcheck){
-			pwdmention.innerHTML="ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.";
+			pwdmention.innerHTML="ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤.";
 		}else{
-			pwdmention.innerHTML="ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+			pwdmention.innerHTML="ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
 		}
 	}
 </script>

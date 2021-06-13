@@ -60,7 +60,7 @@ public class Admin_MemberupdateController extends HttpServlet{
 		Admin_MembersVo vo=new Admin_MembersVo(mid, mpw, mname, maddress, mpost, mphone, null, sqlDate, 0, mmileage, memail,null,null,null);
 		dao.update(vo);
 		req.setAttribute("vo", vo);
-		req.setAttribute("content", "/admin/admin_content/member/memberupdate.jsp");
-		req.getRequestDispatcher("/admin/admin_content/index.jsp").forward(req, resp);
+		String cPath=req.getContextPath();
+		resp.sendRedirect(cPath+"/admin/memberlist");
 	}
 }

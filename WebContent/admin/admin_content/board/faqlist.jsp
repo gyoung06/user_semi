@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>fnq.jsp</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/bootstrap-4.4.1-dist/css/bootstrap.min.css">
 <style>
 	#list{
 		position:absolute;
@@ -19,25 +15,23 @@
 		left:1500px;
 	}
 </style>
-</head>
-<body>
 <%
 	String id=(String)session.getAttribute("id");
 %>
 <br>
 <br>
 
-<h1>FAQ °ü¸®ÀÚ ÆäÀÌÁö</h1>
+<h1 style="position:absolute; top:50px; left:50px;">FAQ ê´€ë¦¬ìž íŽ˜ì´ì§€</h1>
 <div id="insert">
 <a href="<%=request.getContextPath()%>/admin/admin_content/board/faqinsert.jsp" 
 			onclick="window.open(this.href,'','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">
-			<input type="button" value="±Û¾²±â"></a>
+			<input type="button" value="ê¸€ì“°ê¸°" style="width:70px; height:30px; font-size:15px;" class="btn btn-outline-dark"></a>
 </div>		
 <div id="list">
 <div>
-	<table class="table">
+	<table class="table" style="font-size:15px;">
 		<tr>
-			<th colspan="8">°ø°³Å×ÀÌºí</th>
+			<th colspan="8">ê³µê°œí…Œì´ë¸”</th>
 		</tr>
 		<colgroup>
 		<col style="width:5%">
@@ -50,14 +44,14 @@
 		<col style="width:5%">
 		</colgroup>
 		<tr>
-			<th>ÀÛ¼ºÀÚ</th>
-			<th>Á¦¸ñ</th>
-			<th>³»¿ë</th>
-			<th>°ø°³¿©ºÎ</th>
-			<th>ÀÛ¼º³¯Â¥</th>			
-			<th>¹øÈ£</th>			
-			<th>¼öÁ¤</th>			
-			<th>»èÁ¦</th>			
+			<th>ìž‘ì„±ìž</th>
+			<th>ì œëª©</th>
+			<th>ë‚´ìš©</th>
+			<th>ê³µê°œì—¬ë¶€</th>
+			<th>ìž‘ì„±ë‚ ì§œ</th>			
+			<th>ë²ˆí˜¸</th>			
+			<th>ìˆ˜ì •</th>			
+			<th>ì‚­ì œ</th>			
 		</tr>
 	<c:forEach var="vo" items="${list }">
 	<c:choose>
@@ -66,23 +60,23 @@
 			<td>${vo.aid }</td>
 			<td>${vo.ftitle }</td>
 			<td>${vo.fcontent }</td>
-			<td>°ø°³</td>
+			<td>ê³µê°œ</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
 			<td><a href="<%=request.getContextPath()%>/admin/faqpopup?fid=${vo.fid }"
-			 onclick="window.open(this.href,'¼öÁ¤','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">¼öÁ¤</a></td>
-			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">»èÁ¦</a></td>
+			 onclick="window.open(this.href,'ìˆ˜ì •','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">ìˆ˜ì •</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">ì‚­ì œ</a></td>
 		</tr>
 		</c:when>
 		</c:choose>
 	</c:forEach>
 	</table>
 	<c:if test="${startPageNum>10 }">
-		<a href="${cp }/admin/faq/list?pageNum=${startPageNum-1 }">[ÀÌÀü]</a>
+		<a href="${cp }/admin/faq/list?pageNum=${startPageNum-1 }">[ì´ì „]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 		<c:choose>
-			<c:when test="${pageNum==i }"><%--ÇöÀçÆäÀÌÁöÀÎ°æ¿ì --%>
+			<c:when test="${pageNum==i }"><%--í˜„ìž¬íŽ˜ì´ì§€ì¸ê²½ìš° --%>
 				<a href="${cp }/admin/faq/list?pageNum=${i }"><span style="color:blue">[${i }]</span></a>
 			</c:when>
 			<c:otherwise>
@@ -91,21 +85,21 @@
 		</c:choose>
 	</c:forEach>
 	<c:if test="${endPageNum<pageCount }">
-		<a href="${cp }/admin/faq/list?pageNum=${endPageNum+1 }">[´ÙÀ½]</a>
+		<a href="${cp }/admin/faq/list?pageNum=${endPageNum+1 }">[ë‹¤ìŒ]</a>
 	</c:if>
 	<form method="post" action="${cp }/admin/faq/list">
 		<select name="field">
-			<option value="ftitle">Á¦¸ñ</option>
-			<option value="fcontent">³»¿ë</option>
+			<option value="ftitle">ì œëª©</option>
+			<option value="fcontent">ë‚´ìš©</option>
 		</select>
 		<input type="text" name="keyword">
-	<input type="button" value="°Ë»ö">
+	<input type="button" value="ê²€ìƒ‰">
 	</form>	<br>
 </div>
 <div>
-	<table class="table">
+	<table class="table" style="font-size:15px;">
 		<tr>
-			<th colspan="8">ºñ°ø°³Å×ÀÌºí</th>
+			<th colspan="8">ë¹„ê³µê°œí…Œì´ë¸”</th>
 		</tr>
 		<colgroup>
 		<col style="width:5%">
@@ -118,14 +112,14 @@
 		<col style="width:5%">
 		</colgroup>
 		<tr>
-			<th>ÀÛ¼ºÀÚ</th>
-			<th>Á¦¸ñ</th>
-			<th>³»¿ë</th>
-			<th>°ø°³¿©ºÎ</th>
-			<th>ÀÛ¼º³¯Â¥</th>			
-			<th>¹øÈ£</th>			
-			<th>¼öÁ¤</th>			
-			<th>»èÁ¦</th>			
+			<th>ìž‘ì„±ìž</th>
+			<th>ì œëª©</th>
+			<th>ë‚´ìš©</th>
+			<th>ê³µê°œì—¬ë¶€</th>
+			<th>ìž‘ì„±ë‚ ì§œ</th>			
+			<th>ë²ˆí˜¸</th>			
+			<th>ìˆ˜ì •</th>			
+			<th>ì‚­ì œ</th>			
 		</tr>
 	<c:forEach var="vo" items="${list1 }">
 	<c:choose>
@@ -134,23 +128,23 @@
 			<td>${vo.aid }</td>
 			<td>${vo.ftitle }</td>
 			<td>${vo.fcontent }</td>
-			<td>ºñ°ø°³</td>
+			<td>ë¹„ê³µê°œ</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
 			<td><a href="<%=request.getContextPath()%>/admin/faqpopup?fid=${vo.fid }"
-			 onclick="window.open(this.href,'¼öÁ¤','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">¼öÁ¤</a></td>
-			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">»èÁ¦</a></td>
+			 onclick="window.open(this.href,'ìˆ˜ì •','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">ìˆ˜ì •</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/faq/delete?fid=${vo.fid }">ì‚­ì œ</a></td>
 		</tr>
 		</c:when>
 		</c:choose>
 	</c:forEach>
 	</table>	
 	<c:if test="${startPageNum1>10 }">
-		<a href="${cp }/admin/faq/list1?pageNum1=${startPageNum1-1 }">[ÀÌÀü]</a>
+		<a href="${cp }/admin/faq/list1?pageNum1=${startPageNum1-1 }">[ì´ì „]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPageNum1 }" end="${endPageNum1 }">
 		<c:choose>
-			<c:when test="${pageNum1==i }"><%--ÇöÀçÆäÀÌÁöÀÎ°æ¿ì --%>
+			<c:when test="${pageNum1==i }"><%--í˜„ìž¬íŽ˜ì´ì§€ì¸ê²½ìš° --%>
 				<a href="${cp }/admin/faq/list?pageNum1=${i }"><span style="color:blue">[${i }]</span></a>
 			</c:when>
 			<c:otherwise>
@@ -159,17 +153,15 @@
 		</c:choose>
 	</c:forEach>
 	<c:if test="${endPageNum1<pageCount1 }">
-		<a href="${cp }/admin/faq/list?pageNum1=${endPageNum1+1 }">[´ÙÀ½]</a>
+		<a href="${cp }/admin/faq/list?pageNum1=${endPageNum1+1 }">[ë‹¤ìŒ]</a>
 	</c:if>	
 	<form method="post" action="${cp }/admin/faq/list">
 		<select name="field1">
-			<option value="ftitle1">Á¦¸ñ</option>
-			<option value="fcontent1">³»¿ë</option>
+			<option value="ftitle1">ì œëª©</option>
+			<option value="fcontent1">ë‚´ìš©</option>
 		</select>
 		<input type="text" name="keyword1">
-	<input type="button" value="°Ë»ö">
+	<input type="button" value="ê²€ìƒ‰">
 	</form>
 </div>
 </div>
-</body>
-</html>
