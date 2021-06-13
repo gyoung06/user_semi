@@ -45,7 +45,7 @@ public class User_QnaInsertController extends HttpServlet{
 		
 		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, 0, mid, 0);
 		dao.insert(vo);
-						
+		//큐엔에이 테스트				
 		req.setAttribute("vo", vo);
 
 		String cPath=req.getContextPath();

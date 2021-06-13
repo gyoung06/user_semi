@@ -333,6 +333,7 @@ public class UserQnaDAO {
 			pstmt1.setString(10, vo.getMid());
 			pstmt1.setInt(11, vo.getPid());
 			return pstmt1.executeUpdate();
+			//테스트
 		}catch(SQLException se) {
 			se.printStackTrace();
 			return -1;
