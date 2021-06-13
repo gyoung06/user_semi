@@ -29,7 +29,7 @@ public class UserQnaDAO {
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
 					int qstep = rs.getInt("qstep");
-					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid1);
 				}
 			}
 		} catch (SQLException e) {
@@ -59,7 +59,7 @@ public class UserQnaDAO {
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
 					int qstep = rs.getInt("qstep");
-					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid1);
 					list.add(vo1);
 				}
 			}
@@ -91,7 +91,7 @@ public class UserQnaDAO {
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
 					int qstep = rs.getInt("qstep");
-					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid1);
 					list.add(vo1);
 				}
 			}
@@ -150,7 +150,7 @@ public class UserQnaDAO {
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
 				int qstep = rs.getInt("qstep");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid);
 				list.add(vo);
 			}
 			return list;
@@ -195,7 +195,7 @@ public class UserQnaDAO {
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
 				int qstep = rs.getInt("qstep");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid);
 				qlist.add(vo);
 			}
 			return qlist;
@@ -230,7 +230,7 @@ public class UserQnaDAO {
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
 				int qstep = rs.getInt("qstep");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid);
 				return vo;
 			}
 			return null;
@@ -329,9 +329,9 @@ public class UserQnaDAO {
 			pstmt1.setString(6, vo.getQfile());
 			pstmt1.setInt(7, qlev);
 			pstmt1.setInt(8, qref);
-			pstmt1.setString(9, vo.getMid());
-			pstmt1.setInt(10, vo.getPid());
-			pstmt1.setInt(11, qstep);
+			pstmt1.setInt(9, qstep);
+			pstmt1.setString(10, vo.getMid());
+			pstmt1.setInt(11, vo.getPid());
 			return pstmt1.executeUpdate();
 		}catch(SQLException se) {
 			se.printStackTrace();

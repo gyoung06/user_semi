@@ -43,7 +43,7 @@ public class User_QnaInsertController extends HttpServlet{
 		
 		UserQnaDAO dao=new UserQnaDAO();
 		
-		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, mid, 0,0);
+		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, 0, mid, 0);
 		dao.insert(vo);
 						
 		req.setAttribute("vo", vo);

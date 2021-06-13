@@ -18,7 +18,8 @@
 	<th>${vo.aid }</th>
   </tr>
   <tr>
-  	<td colspan="2"> <img src="${cp}${vo.ffile }">${vo.fcontent } </td>
+  	<td colspan="2"> 
+  	<c:if test="${vo.ffile!='/noticeimage/null' }"><img src="${cp}${vo.ffile }"></c:if>${vo.fcontent } </td>
   </tr>
 </table>
 <input type="button" value="목록" onclick="location.href='${cp}/user/notice'">

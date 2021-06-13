@@ -12,13 +12,13 @@ public class UserQnaVo {
 	private Date qrdate;
 	private int qlev;
 	private int qref;
+	private int qstep;
 	private String mid;
 	private int pid;
-	private int qstep;
 
 
 	public UserQnaVo(int qid, String qcate, String qpw, String qtitle, String qcontent, String qfile, Date qrdate,
-			int qlev, int qref, String mid, int pid, int qstep) {
+			int qlev, int qref, int qstep, String mid, int pid) {
 		super();
 		this.qid = qid;
 		this.qcate = qcate;

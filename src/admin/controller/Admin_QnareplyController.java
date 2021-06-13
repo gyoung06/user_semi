@@ -34,7 +34,7 @@ public class Admin_QnareplyController extends HttpServlet{
 			ref=Integer.parseInt(req.getParameter("ref"));
 			lev=Integer.parseInt(req.getParameter("lev"));
 		}
-		UserQnaVo vo=new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, mid, pid,0);
+		UserQnaVo vo=new UserQnaVo(qid1, qcate, qpw, qtitle, qcontent, qfile, null, lev, ref, lev, mid, pid);
 				
 		UserQnaDAO dao=new UserQnaDAO();
 		dao.reply(vo);

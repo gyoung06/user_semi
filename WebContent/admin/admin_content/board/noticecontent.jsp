@@ -15,12 +15,13 @@
 	JSONObject json=new JSONObject();
 	try{
 		con=DBConnection.getCon();
-		String sql="select fcontent from notice where fid=?";
+		String sql="select fcontent,ffile from notice where fid=?";
 		pstmt=con.prepareStatement(sql);
 		pstmt.setInt(1, fid);
 		rs=pstmt.executeQuery();
 		if(rs.next()){
 			json.put("fcontent",rs.getString("fcontent"));
+			json.put("ffile",rs.getString("ffile"));
 			json.put("find",true);
 		}else{
 			json.put("find",false);

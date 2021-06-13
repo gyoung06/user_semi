@@ -20,7 +20,7 @@
 	</tr>
 	<tr>
 		<th>첨부파일</th>
-		<td>${vo.qfile }</td>
+		<td><c:if test="${vo.qfile!='/qnaimage/null' }"><img src="${cp}${vo.qfile }"></c:if></td>
 	</tr>
 	<tr>
 		<th>답글</th>

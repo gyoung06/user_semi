@@ -59,7 +59,7 @@
 		<c:when test="${vo.fpublic_private==1 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td><input type="button" value="${vo.ftitle }" id="ftitle"></td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle" onclick="showMsg(${vo.fid })"></td>
 			<td>공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
@@ -117,7 +117,7 @@
 		<c:when test="${vo.fpublic_private==0 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td><input type="button" value="${vo.ftitle }" id="ftitle1"></td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle1" onclick="showMsg1(${vo.fid })"></td>
 			<td>비공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
@@ -158,8 +158,7 @@
 </div>
 <script type="text/javascript">
 let ftitle=document.getElementById("ftitle");
-ftitle.onclick=function(e){
-	const fid=document.getElementById("fid").value;
+function showMsg(fid){
 	console.log(fid)
 	const fcontentdiv=document.getElementById("fcontentdiv");
 	let xhr=new XMLHttpRequest();
@@ -167,7 +166,12 @@ ftitle.onclick=function(e){
 		if(xhr.readyState==4 && xhr.status==200){
 			let result=xhr.responseText;
 			let json=JSON.parse(result);
-			if(json.find==true){
+			if(json.ffile!="/noticeimage/null"){
+				let test=json.ffile;
+				console.log(test);
+				let ffile='<%=request.getContextPath()%>'+json.ffile;
+				fcontentdiv.innerHTML='<img src="' + ffile + '" />';
+			}else if(json.fcontent!=null){
 				fcontentdiv.innerHTML=json.fcontent;
 			}else{
 				fcontentdiv.innerHTML="정보없음!";
@@ -178,7 +182,57 @@ ftitle.onclick=function(e){
 	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid, true);
 	xhr.send();
 };
-let ftitle1=document.getElementById("ftitle1");
+<%-- ftitle.onclick=function(e){
+	const fid=document.getElementById("fid").value;
+	console.log(fid)
+	const fcontentdiv=document.getElementById("fcontentdiv");
+	let xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			let result=xhr.responseText;
+			let json=JSON.parse(result);
+			if(json.ffile!=null){
+				let ffile='<%=request.getContextPath()%>'+json.ffile;
+				console.log(ffile);
+				fcontentdiv.innerHTML='<img src="' + ffile + '" />';
+			}else if(json.fcontent!=null){
+				fcontentdiv.innerHTML=json.fcontent;
+			}else{
+				fcontentdiv.innerHTML="정보없음!";
+			}
+			
+		}
+	};
+	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid, true);
+	xhr.send();
+ };
+ --%>
+ function showMsg1(fid){
+ 	console.log(fid)
+ 	const fcontentdiv=document.getElementById("fcontentdiv1");
+ 	let xhr=new XMLHttpRequest();
+ 	xhr.onreadystatechange=function(){
+ 		if(xhr.readyState==4 && xhr.status==200){
+ 			let result=xhr.responseText;
+ 			let json=JSON.parse(result);
+ 			if(json.ffile!="/noticeimage/null"){
+ 				let test=json.ffile;
+ 				console.log(test);
+ 				let ffile='<%=request.getContextPath()%>'+json.ffile;
+ 				fcontentdiv.innerHTML='<img src="' + ffile + '" />';
+ 			}else if(json.fcontent!=null){
+ 				fcontentdiv.innerHTML=json.fcontent;
+ 			}else{
+ 				fcontentdiv.innerHTML="정보없음!";
+ 			}
+ 			
+ 		}
+ 	};
+ 	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid, true);
+ 	xhr.send();
+ };
+ 
+<%--let ftitle1=document.getElementById("ftitle1");
 ftitle1.onclick=function(e){
 	const fid1=document.getElementById("fid1").value;
 	console.log(fid1)
@@ -188,7 +242,11 @@ ftitle1.onclick=function(e){
 		if(xhr.readyState==4 && xhr.status==200){
 			let result=xhr.responseText;
 			let json=JSON.parse(result);
-			if(json.find==true){
+			if(json.ffile!=null){
+				let ffile='<%=request.getContextPath()%>'+json.ffile;
+				console.log(ffile);
+				fcontentdiv.innerHTML='<img src="' + ffile + '" />';
+			}else if(json.fcontent!=null){
 				fcontentdiv.innerHTML=json.fcontent;
 			}else{
 				fcontentdiv.innerHTML="정보없음!";
@@ -198,7 +256,7 @@ ftitle1.onclick=function(e){
 	};
 	xhr.open('get','<%=request.getContextPath()%>/admin/admin_content/board/noticecontent.jsp?fid='+fid1, true);
 	xhr.send();
-};
+};--%>
 </script>
 </body>
 </html>

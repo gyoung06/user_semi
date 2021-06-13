@@ -34,7 +34,7 @@ public class User_UserBoardDao {
 					String mid = rs.getString("mid");
 					int pid1 = rs.getInt("pid");
 					int qstep = rs.getInt("qstep");
-					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid1, qstep);
+					UserQnaVo vo1 = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid1);
 					list.add(vo1);
 				}
 			}
@@ -78,7 +78,7 @@ public class User_UserBoardDao {
 				String mid = rs.getString("mid");
 				int pid = rs.getInt("pid");
 				int qstep = rs.getInt("qstep");
-				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, mid, pid, qstep);
+				UserQnaVo vo = new UserQnaVo(qid, qcate, qpw, qtitle, qcontent, qfile, qrdate, qlev, qref, qstep, mid, pid);
 				qlist.add(vo);
 			}
 			return qlist;
