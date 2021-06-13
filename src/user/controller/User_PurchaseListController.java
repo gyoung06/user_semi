@@ -25,21 +25,17 @@ public class User_PurchaseListController extends HttpServlet{
 		String id=(String)session.getAttribute("id");
 		String startdate=req.getParameter("startdate");
 		String enddate=req.getParameter("enddate");
-		System.out.println("startdate:"+startdate + "enddate:"+enddate);
 		String spageNum=req.getParameter("pageNum");
 		String field=req.getParameter("field");
-		System.out.println("field"+field);
+		System.out.println("field:"+field);
 		int pageNum=1;
 		if(spageNum!=null) {
 			pageNum=Integer.parseInt(spageNum);
 		}
-		
 //		int sid=Integer.parseInt(req.getParameter("sid"));
 //		String sname=req.getParameter("sname");
 //		String odcolor=req.getParameter("odcolor");
 //		String odsize=req.getParameter("odsize");
-		
-		 //System.out.println("startdate:"+startdate+ "enddate:"+enddate);
 		User_OrdersDao dao = new User_OrdersDao();
 		int startRow=10*pageNum-9;
 		int endRow=pageNum*10;
@@ -50,6 +46,7 @@ public class User_PurchaseListController extends HttpServlet{
 		}
 		ArrayList<UserOrderlistVo> OrderList=dao.OrderList(startRow, endRow, field, id, startdate, enddate);
 		int pageCount=(int)Math.ceil(dao.getCount(field)/10.0);
+		System.out.println("OrderList:"+OrderList);
 		ArrayList<UserOrderlistVo> refundList=dao.refundList(id, startdate, enddate);
 
 		int startPageNum=((pageNum-1)/10*10)+1;
@@ -57,14 +54,11 @@ public class User_PurchaseListController extends HttpServlet{
 		if(endPageNum>pageCount) {
 			endPageNum=pageCount; //endPageNum값을 pageCount값으로 초기화
 		}
-		
 		//User_ReviewDao dao1=new User_ReviewDao();
 		//int n1=dao1.checkReview(id, sid, sname, odcolor, odsize);
-		
 		//req.setAttribute("checkReview", n1);
 		req.setAttribute("refundList", refundList);
 		req.setAttribute("OrderList", OrderList);
-		System.out.println(OrderList);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startdate", startdate);
 		req.setAttribute("enddate", enddate);

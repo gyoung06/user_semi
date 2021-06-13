@@ -12,7 +12,7 @@
 4. 수량변경버튼 수정하기
  -->
 	<tr>
-		<th rowspan="16" style="text-align: center;"><img src = "${cp }/img/${vo.pimage2}" ></th>
+		<th rowspan="16" style="text-align: center;"><img src = "${cp }/img/${vo.pimage2}" style="width:300px; height: auto;" ></th>
 	</tr>
 	<tr>
 		<th colspan="2" name="sname">${stockVo.sname}</th>
@@ -23,7 +23,7 @@
 	</tr>
 	<tr>
 		<td>할인가격</td>
-		<td name="proPrice">${vo.pprice*(100-vo.pdiscount)/100 }</td>
+		<td name="proPrice" id = "proPrice">${vo.pprice*(100-vo.pdiscount)/100 }</td>
 	</tr>
 	<tr>
 		<td>적립금</td>
@@ -53,11 +53,11 @@
 	</tr>
 	<td name="optionsel" colspan="2"></td>
 	<tr>
-		<td colspan="2" name = "total">total: 0(0개)</td>
+		<td colspan="2" name = "total" id = "total">total: 0(0개)</td>
 	</tr>
 	<script> 
 		let plus=1;
-		var sum = 0;
+		var pid = 0;
 		function colorchange(){
 			let sizeOp = document.getElementById("sizeOp");
 			let oplength=sizeOp.options.length;
@@ -83,81 +83,79 @@
 		
 
 		function sizechange(){
-			let a=`<p class="product"><label name="optionName"></label><br>
-				- <label name="optionColor"></label>,<label name="optionSize"></label>
-				<input type="hidden" name = "orColor">
-				<input type="hidden" name = "orSize">
+			let a=`<div name="productsep" id ="productsep\${pid}">
+				<p class="product"><label name="optionName" id ="optionName\${pid}"></label><br>
+				- <label name="optionColor" id="optionColor\${pid}"></label>,<label name="optionSize" id = "optionSize\${pid}"></label>
+				<input type="hidden" name = "orColor" id ="orColor\${pid}">
+				<input type="hidden" name = "orSize" id ="orSize\${pid}">
 				</p>
 				<span class="quantity" >
-					<input type="text" value="1"size="1" id ="amount\${sum}" name="amount" onchange="amountChange()">
-					<a href="javascript:upBtn(${sum})" class="up eProductQuantityUpClass">
+					<input type="text" value="1"size="1" id ="amount\${pid}" name="amount" onchange="amountChange()">
+					<a href="javascript:upBtn(\${pid})" class="up eProductQuantityUpClass">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
-					<a href="javascript:downBtn(${sum})" id = "downBtn,\${sum}" name="downBtn,\${sum}" class="down eProductQuantityDownClass" data-target="option_box1_down">
+					<a href="javascript:downBtn(\${pid})" id = "downBtn\${pid}" name="downBtn,\${pid}" class="down eProductQuantityDownClass" data-target="option_box1_down">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_down.gif" name="downBtn" class="option_box_down" alt="수량감소">
 					</a>
 				</span>
-				<a href="javascript:deleteProduct(this.id)" class="delete">
+				<a href="javascript:deleteProduct(\${pid})" class="delete">
 					<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" id="del" class="option_box_del">
 				</a>
 				<span style="float: right">
-					<span name="pprice" class="ec-front-product-item-price" >
+					<span name="pprice" id="pprice\${pid}" class="ec-front-product-item-price" >
 					</span>
 				</span>
 				<br>
 				<span class="mileage" style="float: right">
 					(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금"> 
-					<span name="mileage" class="mileage_price">
+					<span name="mileage" id ="mileage\${pid}"  class="mileage_price">
 					</span>)
-					<input type="hidden" name = "orMileage">
-				</span>`;
+					<input type="hidden" name = "orMileage" id = "orMileage\${pid}">
+				</span>
+				</div>`;
 			let optionsel=document.getElementsByName("optionsel")[0];
 			let row = document.createElement("div");
 			row.innerHTML=a;
 			optionsel.appendChild(row);
-			let optionColor = document.getElementsByName("optionColor")[sum];
-			let optionSize =document.getElementsByName("optionSize")[sum];
-			let optionName = document.getElementsByName("optionName")[sum];
-			let pprice= document.getElementsByName("pprice")[sum];
-			let mileage=document.getElementsByName("mileage")[sum];
-			let orSize=document.getElementsByName("orSize")[sum];
-			let orColor=document.getElementsByName("orColor")[sum];
-			let orMileage = document.getElementsByName("orMileage")[sum];
-			let total = document.getElementsByName("total")[0];
-			total.innerHTML="total: "+pprice+"("+(sum+1)+"개)";
+			let optionColor = document.getElementById("optionColor"+pid);
+			let optionSize =document.getElementById("optionSize"+pid);
+			let optionName = document.getElementById("optionName"+pid);
+			let pprice= document.getElementById("pprice"+pid);
+			let mileage=document.getElementById("mileage"+pid);
+			let orSize=document.getElementById("orSize"+pid);
+			let orColor=document.getElementById("orColor"+pid);
+			let orMileage = document.getElementById("orMileage"+pid);
 			optionName.innerHTML =document.getElementsByName("sname")[0].innerHTML;
 			optionColor.innerHTML = document.getElementsByName("color")[0].value;
 			optionSize.innerHTML = document.getElementsByName("size")[0].value;
 			mileage.innerHTML = document.getElementsByName("proPrice")[0].innerHTML/100;
 			pprice.innerHTML = document.getElementsByName("proPrice")[0].innerHTML;
-			orColor.value = document.getElementsByName("color")[0].value;
-			orSize.value = document.getElementsByName("size")[0].value;
+			orColor.value = document.getElementsByName("color")[0].selected;
+			orSize.value = document.getElementsByName("size")[0].selected;
 			orMileage.value = mileage.innerHTML;
-			sum++;
+			let amount = document.getElementById("amount"+pid);
+			let id = document.getElementById("total");
+			id.innerHTML = "total: "+pprice.innerHTML+"("+amount.value+"개)"
+			pid++;
 		}
-		function upBtn(sum){
-			console.log(sum)
-			<%--
-			let num = ckId.split(',')[1];
-			console.log("id"+id)
-			let aamount = document.getElementsByName("amount")[num];
-			let result= parseInt(aamount.value) +1;
+		function upBtn(pid){
+			let aamount = document.getElementById("amount"+pid);
+			let result = parseInt(aamount.value)+1;
 			aamount.value = result;
-			let pprice= document.getElementsByName("pprice")[num];
-			let mileage=document.getElementsByName("mileage")[num];
-			let proPrice = document.getElementsByName("proPrice")[num];
+			let pprice= document.getElementById("pprice"+pid);
+			let mileage=document.getElementById("mileage"+pid);
+			let proPrice = document.getElementById("proPrice");
 			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
 			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
-			--%>
 		}
-		function downBtn(ckId){
-			let aamount = document.getElementsByName("amount")[sum-1];
-			if(aamount.value>=1){
-				let result= parseInt(aamount.value) -1;
+		function downBtn(pid){
+			let aamount = document.getElementById("amount"+pid);
+			if(aamount.value>1){
+				let result = parseInt(aamount.value)-1;
 				aamount.value = result;
-				let pprice= document.getElementsByName("pprice")[sum-1];
-				let mileage=document.getElementsByName("mileage")[sum-1];
-				let proPrice = document.getElementsByName("proPrice")[sum-1];
+				let pprice= document.getElementById("pprice"+pid);
+				let mileage=document.getElementById("mileage"+pid);
+				let proPrice = document.getElementById("proPrice");
 				mileage.innerHTML= (parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML))/100;
 				pprice.innerHTML= parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML);
 			}else{
@@ -172,8 +170,9 @@
 			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
 			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
 		}
-		function deleteProduct(){
-			console.log('삭제')
+		function deleteProduct(pid){
+			let name = document.getElementById("productsep"+pid);
+			name.parentElement.removeChild(name);
 		}
 		
 	</script>
@@ -181,20 +180,20 @@
 		<td>
 			<c:choose>
 				<c:when test="${empty id }">
-					<input type="button" value="buy now" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" >
+					<input type="button" value="buy now" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" id = "buy" >
 				</c:when>
 				<c:otherwise>
-					<input type="submit" value="buy now" formaction="${cp }/user/order"  style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" id = "buy" >
+					<input type="submit" value="buy now" formaction="${cp }/user/order"  style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" id = "buy">
 				</c:otherwise>
 			</c:choose>
 		</td>
 		<td>
 			<c:choose>
 				<c:when test="${empty id }">
-					<input type="button" value="add to cart" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" >
+					<input type="button" value="add to cart" style="align-content: center; padding:10px 10px; border: 2px solid black; width: 150px;" onclick="loginPlz()" id = "cart"  >
 				</c:when>
 				<c:otherwise>
-					<input id = "cart" type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart">
+					<input type = "submit" formaction="${cp }/user/cart" style="padding:10px 10px; border: 2px solid black; width: 150px;" value="add to cart" id = "cart" >
 				</c:otherwise>
 			</c:choose>
 		</td>
@@ -228,7 +227,9 @@
 		<a href="#review">REVIEW</a>
 		<a href="#qna">QNA</a>
 	</div>
-<h1>--상품상세설명--${vo.pimage1 }</h1>
+<div class="container">
+<img src ="${cp }/img/${vo.pimage1 }" style="width: 100%;">
+</div>
 </div>
 <div id="guid" style="padding: 30px 30px 30px 30px">
 	<div style="text-align: center">
@@ -318,8 +319,8 @@
 						<c:forEach var="vo" items="${PDRlist }">
 						<tr>
 						<td align=center >${vo.rtitle}</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.rphoto1}" style="width:100px; height:auto;"></td>
-						<td align=center >[옵션]<br> 상품명:${vo.sname }<br>컬러:${vo.odcolor }<br>사이즈:${vo.odsize }</td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${pageContext.request.contextPath }/img/${vo.rphoto1}" style="width:100px; height:auto;"></td>
+						<td align=center >상품명:${vo.sname }<br> [옵션]<br>컬러:${vo.scolor }<br>사이즈:${vo.ssize }</td>
 						<td align=center >${vo.rcontent }</td>
 						<td align=center >${vo.mid }</td>
 						</tr>

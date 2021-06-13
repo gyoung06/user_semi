@@ -48,7 +48,7 @@ cart
 					<input type="hidden" name ="dbsale" value ="${productlist.get(i).pprice*productlist.get(i).pdiscount/100 }">
 					<td><input type="checkbox" name="check" id="ck,${list.get(i).wid }"></td>
 					<td>
-					<img src="${cp }${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
+					<img src="${cp }/img/${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
 					</td>
 					<th>${stocklist.get(i).sname }<br><br>
 						[옵션: ${list.get(i).csize }, ${list.get(i).ccolor }]

@@ -86,7 +86,7 @@ order list
 								<td><label>배송완료</label><br><input type="button" value="구매확정" onclick="valuesend1(${vo.orid })" ></td>
 							</c:when>
 							<c:when test="${vo.ordelivery=='Y' && vo.orcomplete=='Y' }">
-								<td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" ></td>
+								<td><label>배송완료</label><br><input type="button" value="구매후기" onclick="valuesend()" id = "reviewBtn"></td>
 							</c:when>
 							<c:when test="${vo.ordelivery=='N' }">
 								<td><label>배송중 </label>
@@ -338,11 +338,13 @@ $("#datepicker1").datepicker().datepicker("setDate", '-3M');
 	                      })
 			 });
 			 function valuesend(){
+				 let reviewBtn = document.getElementById("reviewBtn");
+				 reviewBtn.disabled="disabled";
 				 window.open("", "value", "width=550, height=650, left=650, top=140, scrollbars=1, menubar=1, resizable=1"); 
 					 document.frm.target ="value";     
 					 document.frm.action="<%=request.getContextPath()%>/user/user_content/user_board/userreview.jsp?";
 				 	 document.frm.submit();
-					}
+			}
 			 function valuesend1(orid){
 				 let xhr=new XMLHttpRequest();
 				 xhr.onreadystatechange=function(){

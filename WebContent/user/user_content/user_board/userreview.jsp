@@ -28,7 +28,7 @@
 <div class="content">
 <form method="post" action="${cp }/user/review" enctype="multipart/form-data">
 <div class="top" style="position: absolute; border-top: 1px solid #ABABAB; border-bottom:1px solid #ABABAB;  top:80px;left:0px;width:100%; height:300px;">
-<div style="border: 1px solid #ABABAB; position:absolute; top:50px; left:100px; width:100px; height:100px; "><img src = "${cp }<%=pimage2%>" style="width:100px; height:100px;"></div>
+<div style="border: 1px solid #ABABAB; position:absolute; top:50px; left:100px; width:100px; height:100px; "><img src = "${cp }/img/<%=pimage2%>" style="width:100px; height:100px;"></div>
 <label style="position:absolute; top:50px; left:230px; width:200px; height:25px;">상품명 :</label>
 <div style="border: 1px solid #ABABAB; position:absolute; top:50px; left:300px; width:250px; height:25px; "><%=sname %></div>
 <label style="position:absolute; top:75px; left:230px; width:200px; height:25px;">사이즈 :</label>

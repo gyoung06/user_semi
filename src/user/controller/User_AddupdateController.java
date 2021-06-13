@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,6 @@ public class User_AddupdateController extends HttpServlet{
 		String addtitle=req.getParameter("addtitle");
 		String addname=req.getParameter("addname");
 		String addphone=req.getParameter("addphone");
-		System.out.println(addtitle+addname+addphone);
 		String addpostcode=req.getParameter("postcode");
 		String roadAddress=req.getParameter("roadAddress");
 		String jibunAddress=req.getParameter("jibunAddress");
@@ -35,12 +35,14 @@ public class User_AddupdateController extends HttpServlet{
 			extraAddress=" ";
 		}
 		String allAddress=roadAddress+jibunAddress+detailAddress+extraAddress;
-		System.out.println(allAddress);
 		User_MembersDao dao = new User_MembersDao();
 		User_MembersVo vo=new User_MembersVo(id,null,null,allAddress,addpostcode,null,null,null,0,0,null,addtitle,addname,addphone);
 		int n=dao.updateAdd(vo);
+		User_MembersDao mdao = new User_MembersDao();
+		ArrayList<User_MembersVo> addlist=mdao.list(id);
 		if(n>0) {
 		req.setAttribute("top", "/user/user_content/header.jsp");
+		req.setAttribute("addlist", addlist);
 		req.setAttribute("content","/user/user_content/user_board/userInfo/address.jsp");
 		req.setAttribute("bottom", "/user/user_content/footer.jsp");
 		req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);

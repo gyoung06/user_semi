@@ -91,29 +91,28 @@ public class User_ReviewDao {
 		}
 	}
 	//productDetail.jsp 상세페이지 리뷰 목록 뜨게하기
-	public ArrayList<User_ProductReview>	PDRlist(String id, int pid, int startRow, int endRow) { //목록 불러오기
-		UserQnaVo vo = null;
+	public ArrayList<User_ProductReview> PDRlist(String sname, int startRow, int endRow) { //목록 불러오기
 		ArrayList<User_ProductReview> list = new ArrayList<>();
-		String sql = "select distinct * from ( " + 
-				"select s.sname, r.rtitle, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, r.rcontent, substr(r.rphoto1,(instr(r.rphoto1,'/',-1)+1)) as rphoto1, r.rrdate, od.odcolor, od.odsize, r.sid " + 
-				"from stock s, review r, product p, order_detail od " + 
-				"where r.mid=? and p.pid=? and r.sid=s.sid and od.pid=p.pid and s.sid=p.sid)" + 
-				" where rownum>=? and rownum<=? ";
+		String sql ="select * from (select r.mid,s.sname,r.rtitle,r.rcontent,substr(r.rphoto1,(instr(r.rphoto1,'/',-1)+1)) as rphoto1,r.rrdate,s.scolor,s.ssize"
+				+" from review r ,stock s where r.sid = s.sid and s.sname = ?) where rownum>=? and rownum<=?";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setString(1, id);
-			pstmt.setInt(2, pid);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setString(1, sname);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					String rtitle = rs.getString("rtitle"); //review
-					String rphoto1 = rs.getString("rphoto1");//review
-					String sname = rs.getString("sname"); //stock
-					String odcolor = rs.getString("odcolor"); 
-					String odsize = rs.getString("odsize"); 
-					String rcontent = rs.getString("rcontent");//review
-					User_ProductReview vo1 = new User_ProductReview(rtitle, rphoto1, sname, odcolor, odsize, rcontent, id);
-					list.add(vo1);
+					String mid = rs.getString("mid");
+					String sname1 = rs.getString("sname");
+					String rtitle = rs.getString("rtitle");
+					String rcontent = rs.getString("rcontent");
+					String rphoto1 = rs.getString("rphoto1");
+					Date rrdate = rs.getDate("rrdate");
+					String scolor = rs.getString("scolor");
+					String ssize = rs.getString("ssize");
+					
+					User_ProductReview vo = new User_ProductReview(mid,sname1,rtitle,rcontent,rphoto1,rrdate,scolor,ssize);
+					System.out.println(vo.getRphoto1());
+					list.add(vo);
 				}
 			}
 		} catch (SQLException e) {

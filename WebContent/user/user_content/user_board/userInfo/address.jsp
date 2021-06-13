@@ -21,16 +21,25 @@
 					</tr>
 				</c:when>
 		<c:otherwise>
-	<c:forEach var="vo" items="${addlist }">
-	<tr class="active">
-		<td><input type="checkbox" id="ck1" name="addselect" ></td>
-		<td>${vo.addtitle }</td>
-		<td>${vo.addname }</td>
-		<td>${vo.addphone }</td>
-		<td>${vo.mpost }</td>
-		<td>${vo.maddress }</td>
-		<td><input type="button" value="수정 " onclick="location.href='${cp}/user/user_content/user_board/userInfo/addUpdate.jsp'"></td>
-	</tr>
+		<c:forEach var="vo" items="${addlist }">
+			<c:choose>
+				<c:when test="${vo.maddress eq null }">
+					<tr>
+						<td>주소가 없습니다.</td>
+					</tr>
+				</c:when>
+			<c:otherwise>
+				<tr class="active">
+					<td><input type="checkbox" id="ck1" name="addselect" ></td>
+					<td>${vo.addtitle }</td>
+					<td>${vo.addname }</td>
+					<td>${vo.addphone }</td>
+					<td>${vo.mpost }</td>
+					<td>${vo.maddress }</td>
+					<td><input type="button" value="수정 " onclick="location.href='${cp}/user/user_content/user_board/userInfo/addUpdate.jsp'"></td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
 	</c:forEach>
 	</c:otherwise>
 	</c:choose>

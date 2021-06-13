@@ -26,7 +26,6 @@ public class User_ReviewController extends HttpServlet {
 				"utf-8",
 				new DefaultFileRenamePolicy()
 				);
-
 		String savepimage2=mr.getFilesystemName("fupload");
 		String rphoto1=saveDir + "/" + savepimage2;
 		String rtitle=mr.getParameter("rtitle");
@@ -44,7 +43,6 @@ public class User_ReviewController extends HttpServlet {
 		if(n1>0) {
 			req.setAttribute("Countorid", n);
 		}
-		
 		req.getRequestDispatcher("/user/user_content/user_board/closePopup.jsp").forward(req, resp);
 	}
 }

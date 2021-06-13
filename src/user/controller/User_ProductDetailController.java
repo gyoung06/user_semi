@@ -39,9 +39,7 @@ public class User_ProductDetailController extends HttpServlet {
 		
 		//상세페이지 리뷰 목록
 				HttpSession session=req.getSession();
-				int sid= vo.getSid();
 				String id=(String)session.getAttribute("id");
-
 				String keyword = req.getParameter("keyword");
 				String spageNum = req.getParameter("pageNum");
 
@@ -54,8 +52,7 @@ public class User_ProductDetailController extends HttpServlet {
 				int startRow = (pageNum - 1) * 10 + 1;
 				int endRow = startRow + 9;
 				
-				ArrayList<User_ProductReview> PDRlist = dao1.PDRlist(id ,sid ,startRow, endRow);
-				System.out.println("PDRlist1:"+PDRlist);
+				ArrayList<User_ProductReview> PDRlist = dao1.PDRlist(stockVo.getSname(),startRow, endRow);
 				int pageCount = (int) Math.ceil(dao1.getCount(id) / 10.0);
 				int startPageNum = ((pageNum - 1) / 10 * 10) + 1;
 				int endPageNum = startPageNum + 9;
@@ -67,8 +64,6 @@ public class User_ProductDetailController extends HttpServlet {
 		req.setAttribute("userVo", userVo);
 		req.setAttribute("stockVo", stockVo);
 		req.setAttribute("colorList", colorList);
-		
-		System.out.println("PDRlist2:"+PDRlist);
 		req.setAttribute("PDRlist", PDRlist);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("startPageNum", startPageNum);

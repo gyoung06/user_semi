@@ -43,10 +43,7 @@ public class User_LoginController extends HttpServlet{
 			session.setAttribute("mphone",vo.getMphone());
 			session.setAttribute("memail",vo.getMemail());
 			session.setAttribute("mmileage",vo.getMmileage());
-			req.setAttribute("top", "/user/user_content/header.jsp");
-			req.setAttribute("content","/user/user_content/main.jsp");
-			req.setAttribute("bottom", "/user/user_content/footer.jsp");
-			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
+			req.getRequestDispatcher("/user/home").forward(req, resp);
 		}else {
 			req.setAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않습니다");
 			req.setAttribute("top", "/user/user_content/header.jsp");

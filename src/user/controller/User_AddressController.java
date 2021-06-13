@@ -36,10 +36,8 @@ public class User_AddressController extends HttpServlet{
 			extraAddress=" ";
 		}
 		String allAddress=roadAddress+jibunAddress+detailAddress+extraAddress;
-		System.out.println(allAddress);
 		User_MembersDao dao = new User_MembersDao();
 		ArrayList<User_MembersVo> addlist=dao.list(id);
-		System.out.println(addlist);
 		req.setAttribute("addlist", addlist);
 		req.setAttribute("top", "/user/user_content/header.jsp");
 		req.setAttribute("content","/user/user_content/user_board/userInfo/address.jsp");

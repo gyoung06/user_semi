@@ -17,31 +17,31 @@ public class User_OrdersDao {
 		if (field == null || field.equals("")) {
 			sql = "select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete, o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname, od.odid, p.pid , s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
-					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and ordate>=sysdate-90 and ordate<=sysdate";
+					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where ordate>=sysdate-90 and ordate<=sysdate";
 		} else if (field.equals("orderall")) {
 			sql = "select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete,  o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname, od.odid, p.pid, s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
-					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
+					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=?";
 		} else if (field.equals("halfway")) {
 			sql = " select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete,  o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname, od.odid, p.pid, s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
 					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
-					+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'N'";
+					+ "where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'N'";
 		} else if (field.equals("finish")) {
 			sql = " select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete,  o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname, od.odid, p.pid, s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
 					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?)"
-					+ " where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'Y'";
+					+ " where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery = 'Y'";
 		} else if (field.equals("cancel")) {
 			sql = "select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete,  o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname , od.odid, p.pid, s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
 					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
-					+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='N' and orcancle ='Y'";
+					+ "where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='N' and orcancle ='Y'";
 		} else if (field.equals("return")) {
 			sql = "select * from (select o.orid, o.ordate, o.ordelivery, o.orcomplete,  o.orcancle, od.odcolor, od.odsize, od.odcount, substr(p.pimage2,(instr(p.pimage2,'/',-1)+1)) as pimage2, p.pprice*(1-(0.01*p.pdiscount)) as pprice, s.sname , od.odid, p.pid, s.sid "
 					+ "from orders o, order_detail od, product p, stock s "
 					+ "where o.orid=od.orid and od.pid=p.pid and p.sid=s.sid and o.mid=?) "
-					+ "where orid>=? and orid<=? and TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='Y' and orcancle ='Y'";
+					+ "where TO_CHAR(ordate,'MM/DD/YYYY')>=? and TO_CHAR(ordate,'MM/DD/YYYY')<=? and ordelivery ='Y' and orcancle ='Y'";
 		}
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,13 +49,10 @@ public class User_OrdersDao {
 		try {
 			con = DBConnection.getCon();
 			pstmt = con.prepareStatement(sql);
-			System.out.println(startRow + endRow + field + id);
 			pstmt.setString(1, id);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
 			if (startdate != null && enddate != null) {
-				pstmt.setString(4, startdate);
-				pstmt.setString(5, enddate);
+				pstmt.setString(2, startdate);
+				pstmt.setString(3, enddate);
 			}
 			rs = pstmt.executeQuery();
 			ArrayList<UserOrderlistVo> list = new ArrayList<UserOrderlistVo>();

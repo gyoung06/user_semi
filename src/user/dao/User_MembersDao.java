@@ -42,7 +42,7 @@ public class User_MembersDao {
 		PreparedStatement pstmt1 = null;
 		String sql = "insert into members(mid, mpw,mname,mphone,mrdate,mdrop, mmileage,memail) "
 				+ "values(?,?,?,?,sysdate,0,1000,?)";
-		String sql1 = "insert into grade values(0,'friend',0,?)";
+		String sql1 = "insert into grade values(GRADE_seq.nextval,'friend',0,?)";
 		try {
 			con = DBConnection.getCon();
 			pstmt = con.prepareStatement(sql);

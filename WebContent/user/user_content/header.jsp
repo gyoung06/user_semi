@@ -7,11 +7,10 @@
 	String id=(String)session.getAttribute("id");
 %>
 <style>
-	#category{float:left; margin-right: 20px;}
-	#community{float:left; margin-right: 20px;}
-	#member{float:left; margin-right: 20px;}
+	#category{float:left; margin-right: 80px;}
+	#community{float:left;margin-right: 80px;}
+	#member{float:left; margin-right: 80px;}
 	#callbank{float:left;}
-	#right{float: right;}
 	a{text-decoration: none; color:black; }
 </style>
 <div id ="wrap">
@@ -52,7 +51,7 @@
 		<a href="${cp }/user/purchase">order list</a><br>
 		<a href="${cp }/user/mypage">my shopping</a>
 	</div>
-	<div id = "callbank">
+	<div id = "callbank" style="float: right;">
 		<div id ="call">
 			<h3>T. 070-8889-3598</h3>
 			mon-fri pm1:00~pm5:00<br>
@@ -61,16 +60,9 @@
 		</div>
 		<div id ="bankInfo">
 			<h3>bank info</h3>
-			국민 287701-04-433868<br>
-			예금주 : 주식회사가내스라<br>
+			국민 679801-01-335797<br>
+			예금주 : 주식회사 J4<br>
 			sat.sun hooiday off
 		</div>
-	</div>
-	<div id = "right">
-	+
-	deoiverybookmark<br>
-	instagram<br>
-	
-	검색
 	</div>
 </div>
