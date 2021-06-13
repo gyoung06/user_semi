@@ -112,7 +112,8 @@ public class UserProductDAO {
 	}
 
 	public User_ProductVo productDetail(int pid) {
-		String sql = "select * from product where pid =" + pid;
+		String sql = "select pid,pprice,pdiscount,substr(pimage1,(instr(pimage1,'/',-1)+1)) as PIMAGE1,"
+				+ "substr(pimage2,(instr(pimage2,'/',-1)+1)) as PIMAGE2,prdate,psell,sid from product where pid =" + pid;
 		User_ProductVo vo = null;
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			try (ResultSet rs = pstmt.executeQuery();) {

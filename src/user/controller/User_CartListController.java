@@ -44,6 +44,13 @@ public class User_CartListController extends HttpServlet {
 			productlist.add(productvo);
 			stocklist.add(stockvo);
 		}
+		int allPay=0;
+		int allSale=0;
+		for (int i = 0; i < list.size(); i++) {
+			allPay += productlist.get(i).getPprice() * list.get(i).getCamount();
+			allSale += productlist.get(i).getPprice() * productlist.get(i).getPdiscount() / 100 * list.get(i).getCamount();
+		}
+		int resultPay = allPay-allSale;
 		User_MembersVo membervo = memberdao.findInfo(id);
 		User_GradeVo gradevo = gradedao.getGrade(id);
 		int per = 0;
@@ -60,7 +67,9 @@ public class User_CartListController extends HttpServlet {
 			per = 7;
 		}
 		int leng = stocklist.size();
-		System.out.println(leng);
+		req.setAttribute("allPay", allPay);
+		req.setAttribute("allSale", allSale);
+		req.setAttribute("resultPay", resultPay);
 		req.setAttribute("leng", leng);
 		req.setAttribute("membervo", membervo);
 		req.setAttribute("gradevo", gradevo);

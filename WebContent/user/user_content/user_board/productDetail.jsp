@@ -12,7 +12,7 @@
 4. 수량변경버튼 수정하기
  -->
 	<tr>
-		<th rowspan="16" style="text-align: center;"><img src = "${cp }${vo.pimage2}" ></th>
+		<th rowspan="16" style="text-align: center;"><img src = "${cp }/img/${vo.pimage2}" ></th>
 	</tr>
 	<tr>
 		<th colspan="2" name="sname">${stockVo.sname}</th>
@@ -188,11 +188,6 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
-		<script>
-			function loginPlz(){
-				alert('로그인 필요!');
-			}
-		</script>
 		<td>
 			<c:choose>
 				<c:when test="${empty id }">
@@ -205,6 +200,11 @@
 		</td>
 	</tr>
 </table>
+		<script>
+			function loginPlz(){
+				alert('로그인 필요!');
+			}
+		</script>
 <script>
 	let buy = document.getElementById("buy");
 	let cart = document.getElementById("cart");

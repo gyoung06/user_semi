@@ -44,23 +44,31 @@ cart
 					<input type="hidden" name ="orColor" value ="${stocklist.get(i).scolor }">
 					<input type="hidden" name ="amount" value ="${list.get(i).camount }">
 					<input type="hidden" name ="orMileage" value ="${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/10000 }">
+					<input type="hidden" name ="dbprice" value ="${productlist.get(i).pprice }">
+					<input type="hidden" name ="dbsale" value ="${productlist.get(i).pprice*productlist.get(i).pdiscount/100 }">
 					<td><input type="checkbox" name="check" id="ck,${list.get(i).wid }"></td>
 					<td>
 					<img src="${cp }${productlist.get(i).pimage2 }"style = "width:100px; height:outo;">
 					</td>
 					<th>${stocklist.get(i).sname }<br><br>
-						[옵션: ${stocklist.get(i).ssize }, ${stocklist.get(i).scolor }]
+						[옵션: ${list.get(i).csize }, ${list.get(i).ccolor }]
 					</th>
 					<!-- 할인상품이면 할인된거 표시되게 하기 -->
-					<td>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100 }</td>
+					<td name = "sellPrice">${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100 }</td>
 					<td>
-						<input type="text" value="${list.get(i).camount }" size = "3">
-						<input type="button" value="변경">
+						<a id="min,${i }"href="javascript:minBtn(${i })" >
+							<span class="glyphicon glyphicon-minus" ></span>
+						</a>
+						<input type="text" name="camount" value="${list.get(i).camount }" size="1" >
+						<a href="javascript:plusBtn(${i })" id="plus,${i }" >
+							<span class="glyphicon glyphicon-plus" id="plus,${i }"></span>
+						</a>
 					</td>
 					<td><img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_product_point.gif" alt="적립금">
-					${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/10000 }원</td>
+					<span name = "cmil">${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/10000 }원</span>
+					</td>
 					<td>무료배송</td>
-					<td>${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100*list.get(i).camount }</td>
+					<td name = "productPay">${productlist.get(i).pprice*(100-productlist.get(i).pdiscount)/100*list.get(i).camount }원</td>
 					<td>
 						<input type="button" id="btn,${i }" value="삭제" onclick="deleteOne(this.id)">	
 					</td>
@@ -68,17 +76,74 @@ cart
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="8">선택상품 <input type="button" value="삭제"></td>
-				<td colspan="8">
+				<td  colspan="2">
 				선택상품 
-				<input type="button" id="selectDel" value="삭제" style="float: right;" onclick="selDelete()">
+				<input type="button" id="selectDel" value="삭제" onclick="selDelete()">
 				</td>
-				<td colspan="8"><input type="button" id="delAll" value="장바구니 비우기" style="float: right;" onclick="deleteAll()"></td>
+				<td colspan="7"><input type="button" id="delAll" value="장바구니 비우기" style="float: right;" onclick="deleteAll()"></td>
 			</tr>			
 			</c:otherwise>
 		</c:choose>
 	</table>
+	
+	<table class="table">
+		<tr>
+			<td>총 상품 금액</td>
+			<td>배송비</td>
+			<td>총 할인금액</td>
+			<td>결제예정 금액</td>
+		</tr>
+		<tr>
+			<th id="allPay">${allPay }</th>
+			<th>+0</th>
+			<th id="allSale">${allSale }</th>
+			<th id="resultPay">${resultPay }</th>
+		</tr>	
+	</table>
+	<input type="submit" value="전체상품주문" formaction="${cp }/user/order">
+	<a href="${cp }/user/home">
+	<input type="button" value="쇼핑계속하기">
+	</a>
+</form>
 	<script>
+		function minBtn(id){
+			let camount = document.getElementsByName("camount")[id];
+			if(camount.value>1){
+			let result =  parseInt(camount.value)-1;
+			let cmil= document.getElementsByName("cmil")[id];
+			let productPay=document.getElementsByName("productPay")[id];
+			cmil.innerHTML=parseInt(cmil.innerHTML)-parseInt(cmil.innerHTML)/camount.value+"원";
+			productPay.innerHTML= parseInt(productPay.innerHTML)-parseInt(productPay.innerHTML)/camount.value+"원";
+			let pdprice = document.getElementsByName("productlist")[id];
+			let ppprice = document.getElementsByName("dbprice")[id];
+			let psale = document.getElementsByName("dbsale")[id];
+			let allPay = document.getElementById("allPay");
+			let allSale = document.getElementById("allSale");
+			let resultPay = document.getElementById("resultPay");
+			allPay.innerHtml = parseInt(allPay.innerHTML)-parseInt(pprice.value);
+			allSale.innerHtml = parseInt(allSale.innerHTML)-parseInt(psale.value);
+			resultPay.innerHtml = parseInt(resultPay.innerHTML)-parseInt(pprice.value)+parseInt(psale.value);
+			}else{
+				alert('최소주문수량은 1개입니다.')
+			}
+		}
+		function plusBtn(id){
+			let camount = document.getElementsByName("camount")[id];
+			let result =  parseInt(camount.value)+1;
+			let cmil= document.getElementsByName("cmil")[id];
+			let productPay=document.getElementsByName("productPay")[id];
+			cmil.innerHTML= parseInt(cmil.innerHTML)+parseInt(cmil.innerHTML)/camount.value+"원";
+			productPay.innerHTML= parseInt(productPay.innerHTML)+parseInt(productPay.innerHTML)/camount.value+"원";
+			camount.value = result;
+			let pprice = document.getElementsByName("dbprice")[id];
+			let psale = document.getElementsByName("dbsale")[id];
+			let allPay = document.getElementById("allPay");
+			let allSale = document.getElementById("allSale");
+			let resultPay = document.getElementById("resultPay");
+			allPay.innerHTML = parseInt(allPay.innerHTML)+parseInt(pprice.value);
+			allSale.innerHTML = parseInt(allSale.innerHTML)+parseInt(psale.value);
+			resultPay.innerHTML = parseInt(resultPay.innerHTML)+parseInt(pprice.value)-parseInt(psale.value);
+		}
 		function selDelete(){
 			let check = document.getElementsByName("check");
 			for (var i = 0; i < check.length; i++) {
@@ -88,8 +153,8 @@ cart
 					xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/cartselDeleteServer.jsp?num="+num,true);
 					xhr.send();
 				}
-			}
 			window.location.reload();
+			}
 		}
 		function deleteAll(){
 			let xhr = new XMLHttpRequest();
@@ -120,26 +185,6 @@ cart
 			window.location.reload();
 		}
 	</script>
-	<table class="table">
-		<tr>
-			<td>총 상품 금액</td>
-			<td>배송비</td>
-			<td>총 할인금액 <input type="button" value="내역보기"></td>
-			<td>결제예정 금액</td>
-		</tr>	
-		<tr>
-			<th>66,000</th>
-			<th>+0</th>
-			<th>-6,600</th>
-			<th>=59,400</th>
-		</tr>	
-	</table>
-	<input type="submit" value="전체상품주문" formaction="${cp }/user/order">
-	<input type="submit" value="선택상품주문">
-	<a href="${cp }/user/home">
-	<input type="button" value="쇼핑계속하기">
-	</a>
-</form>
 <h4>이용안내</h4>
 장바구니 이용안내
 <ul>
