@@ -42,7 +42,7 @@
      </div>
      </div>
       <div class="control-group">
-     	<label style="position:absolute;top:300px;left:50px;">대표이미지</label>
+     	<label style="position:absolute;top:300px;left:50px;">상세이미지</label>
      	<input type="file"  name="pimage1" id="upload1" style="display: none;">
      	<label for="upload1" style="padding: 6px 25px;background-color:#FF6600;border-radius: 4px;color: white;cursor: pointer; position:absolute;top:295px;left:150px;width:100px;height:30px;line-height:20px;">업로드</label>
      	<div class="controls">
@@ -50,7 +50,7 @@
      	</div>
      </div>
      <div class="control-group">
-     	<label style="position:absolute;top:300px;left:530px;">추가이미지</label>
+     	<label style="position:absolute;top:300px;left:530px;">썸네일이미지</label>
      	<input type="file"  name="pimage2" id="upload2" style="display: none;">
      	<label for="upload2" style="padding: 6px 25px;background-color:#FF6600;border-radius: 4px;color: white;cursor: pointer; position:absolute;top:295px;left:630px;width:100px;height:30px;line-height:20px;">업로드</label>
      	<div class="controls">
