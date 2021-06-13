@@ -53,7 +53,7 @@
 	</tr>
 	<td name="optionsel" colspan="2"></td>
 	<tr>
-		<td colspan="2" name = "total" id = "total">total: 0(0개)</td>
+		<td colspan="2" name = "total">total:<label id = "total">0</label>(<label id = "totalNum">0</label>개)</td>
 	</tr>
 	<script> 
 		let plus=1;
@@ -90,7 +90,7 @@
 				<input type="hidden" name = "orSize" id ="orSize\${pid}">
 				</p>
 				<span class="quantity" >
-					<input type="text" value="1"size="1" id ="amount\${pid}" name="amount" onchange="amountChange()">
+					<input type="text" value="1"size="1" id ="amount\${pid}" name="amount" onchange="amountChange(\${pid})">
 					<a href="javascript:upBtn(\${pid})" class="up eProductQuantityUpClass">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
@@ -133,9 +133,10 @@
 			orColor.value = document.getElementsByName("color")[0].selected;
 			orSize.value = document.getElementsByName("size")[0].selected;
 			orMileage.value = mileage.innerHTML;
-			let amount = document.getElementById("amount"+pid);
-			let id = document.getElementById("total");
-			id.innerHTML = "total: "+pprice.innerHTML+"("+amount.value+"개)"
+			let total = document.getElementById("total");
+			total.innerHTML = parseInt(total.innerHTML)+parseInt(pprice.innerHTML);
+			let totalNum = document.getElementById("totalNum");
+			totalNum.innerHTML = parseInt(totalNum.innerHTML)+1;
 			pid++;
 		}
 		function upBtn(pid){
@@ -147,6 +148,11 @@
 			let proPrice = document.getElementById("proPrice");
 			mileage.innerHTML= (parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML))/100;
 			pprice.innerHTML= parseInt(pprice.innerHTML)+parseInt(proPrice.innerHTML);
+			
+			let total = document.getElementById("total");
+			total.innerHTML = parseInt(total.innerHTML)+parseInt(pprice.innerHTML)/aamount.value;
+			let totalNum = document.getElementById("totalNum");
+			totalNum.innerHTML = parseInt(totalNum.innerHTML)+1;
 		}
 		function downBtn(pid){
 			let aamount = document.getElementById("amount"+pid);
@@ -158,21 +164,39 @@
 				let proPrice = document.getElementById("proPrice");
 				mileage.innerHTML= (parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML))/100;
 				pprice.innerHTML= parseInt(pprice.innerHTML)-parseInt(proPrice.innerHTML);
+				
+				let total = document.getElementById("total");
+				total.innerHTML = parseInt(total.innerHTML)-parseInt(pprice.innerHTML)/aamount.value;
+				let totalNum = document.getElementById("totalNum");
+				totalNum.innerHTML = parseInt(totalNum.innerHTML)-1;
 			}else{
 				alert('최소주문수량은 1개입니다.')
 			}
 		}
-		function amountChange(){
-			let proPrice= document.getElementsByName("proPrice")[0];
-			let amount = document.getElementsByName("amount")[0];
-			let pprice= document.getElementsByName("pprice")[0];
-			let mileage=document.getElementsByName("mileage")[0];
-			mileage.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value)/100;
-			pprice.innerHTML= parseInt(proPrice.innerHTML)*parseInt(amount.value);
+		function amountChange(pid){
+			let proPrice= document.getElementById("proPrice");
+			let aamount = document.getElementById("amount"+pid);
+			let pprice= document.getElementById("pprice"+pid);
+			let mileage=document.getElementById("mileage"+pid);
+			mileage.innerHTML= parseInt(proPrice.innerHTML)*aamount.value/100;
+			pprice.innerHTML= parseInt(proPrice.innerHTML)*aamount.value;
+			
+			//let total = document.getElementById("total");
+			//total.innerHTML = parseInt(total.innerHTML)+parseInt(pprice.innerHTML)/aamount.value;
+			//let totalNum = document.getElementById("totalNum");
+			//totalNum.innerHTML = parseInt(totalNum.innerHTML)-1;
 		}
 		function deleteProduct(pid){
 			let name = document.getElementById("productsep"+pid);
 			name.parentElement.removeChild(name);
+			let proPrice= document.getElementById("proPrice");
+			let aamount = document.getElementById("amount"+pid);
+			console.log(aamount)
+			let pprice= document.getElementById("pprice"+pid);
+			let total = document.getElementById("total");
+			total.innerHTML = parseInt(total.innerHTML)-parseInt(proPrice.innerHTML)*aamount.value;
+			let totalNum = document.getElementById("totalNum");
+			totalNum.innerHTML = parseInt(totalNum.innerHTML)-aamount.value;
 		}
 		
 	</script>

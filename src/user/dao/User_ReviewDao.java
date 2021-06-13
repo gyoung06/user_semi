@@ -111,7 +111,6 @@ public class User_ReviewDao {
 					String ssize = rs.getString("ssize");
 					
 					User_ProductReview vo = new User_ProductReview(mid,sname1,rtitle,rcontent,rphoto1,rrdate,scolor,ssize);
-					System.out.println(vo.getRphoto1());
 					list.add(vo);
 				}
 			}

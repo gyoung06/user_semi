@@ -8,14 +8,12 @@
 <table class="table">
   <tr>
     <th>DATE</th>
-    <th>PRODUCT</th>
     <th>SUBJECT</th>
     <th>NAME</th>
   </tr>
   <c:forEach var="vo" items="${list }">
 	<tr>
 		<td>${vo.qrdate }</td>
-		<td>${vo.pid }</td>
 		<td>
 			<c:if test="${vo.qlev>0 }">		
 				<c:forEach var="i" begin="1" end="${vo.qlev }">

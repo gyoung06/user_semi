@@ -33,16 +33,10 @@ public class User_QnaInsertController extends HttpServlet{
 		String qtitle=mr.getParameter("qtitle");
 		String qcontent=mr.getParameter("qcontent");
 		String qpw=mr.getParameter("qpw");
-		System.out.println("아이디:"+mid);
-		String orgFileName=mr.getOriginalFileName("file1");//전송된 파일명
+		//String orgFileName=mr.getOriginalFileName("file1");//전송된 파일명
 		String saveFileName=mr.getFilesystemName("file1");//서버에 저장된 파일명
-		System.out.println("orgFileName:" + orgFileName);
-		System.out.println("saveFileName:" + saveFileName);
-		
 		String fpath= "/qnaimage/" + saveFileName;
-		
 		UserQnaDAO dao=new UserQnaDAO();
-		
 		UserQnaVo vo=new UserQnaVo(0, qcate, qpw, qtitle, qcontent, fpath, null, 0, 0, 0, mid, 1);
 		dao.insert(vo);
 		//큐엔에이 테스트				
