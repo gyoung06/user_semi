@@ -90,7 +90,7 @@
 				<input type="hidden" name = "orSize" id ="orSize\${pid}">
 				</p>
 				<span class="quantity" >
-					<input type="text" value="1"size="1" id ="amount\${pid}" name="amount" onchange="amountChange(\${pid})">
+					<input type="text" value="1"size="1" id ="amount\${pid}" name="amount" readonly="readonly">
 					<a href="javascript:upBtn(\${pid})" class="up eProductQuantityUpClass">
 						<img src="//img.echosting.cafe24.com/design/skin/default/product/btn_count_up.gif" name="ubBtn" class="option_box_up" alt="수량증가">
 					</a>
@@ -123,20 +123,20 @@
 			let pprice= document.getElementById("pprice"+pid);
 			let mileage=document.getElementById("mileage"+pid);
 			let orSize=document.getElementById("orSize"+pid);
-			let orColor=document.getElementById("orColor"+pid);
+			let orColor=document.getElementsByName("orColor")[pid];
 			let orMileage = document.getElementById("orMileage"+pid);
 			optionName.innerHTML =document.getElementsByName("sname")[0].innerHTML;
 			optionColor.innerHTML = document.getElementsByName("color")[0].value;
 			optionSize.innerHTML = document.getElementsByName("size")[0].value;
 			mileage.innerHTML = document.getElementsByName("proPrice")[0].innerHTML/100;
 			pprice.innerHTML = document.getElementsByName("proPrice")[0].innerHTML;
-			orColor.value = document.getElementsByName("color")[0].selected;
-			orSize.value = document.getElementsByName("size")[0].selected;
 			orMileage.value = mileage.innerHTML;
 			let total = document.getElementById("total");
 			total.innerHTML = parseInt(total.innerHTML)+parseInt(pprice.innerHTML);
 			let totalNum = document.getElementById("totalNum");
 			totalNum.innerHTML = parseInt(totalNum.innerHTML)+1;
+			orColor.value = document.getElementsByName("color")[0].value;
+			orSize.value = document.getElementsByName("size")[0].value;
 			pid++;
 		}
 		function upBtn(pid){
@@ -173,25 +173,11 @@
 				alert('최소주문수량은 1개입니다.')
 			}
 		}
-		function amountChange(pid){
-			let proPrice= document.getElementById("proPrice");
-			let aamount = document.getElementById("amount"+pid);
-			let pprice= document.getElementById("pprice"+pid);
-			let mileage=document.getElementById("mileage"+pid);
-			mileage.innerHTML= parseInt(proPrice.innerHTML)*aamount.value/100;
-			pprice.innerHTML= parseInt(proPrice.innerHTML)*aamount.value;
-			
-			//let total = document.getElementById("total");
-			//total.innerHTML = parseInt(total.innerHTML)+parseInt(pprice.innerHTML)/aamount.value;
-			//let totalNum = document.getElementById("totalNum");
-			//totalNum.innerHTML = parseInt(totalNum.innerHTML)-1;
-		}
 		function deleteProduct(pid){
+			let aamount = document.getElementById("amount"+pid);
 			let name = document.getElementById("productsep"+pid);
 			name.parentElement.removeChild(name);
 			let proPrice= document.getElementById("proPrice");
-			let aamount = document.getElementById("amount"+pid);
-			console.log(aamount)
 			let pprice= document.getElementById("pprice"+pid);
 			let total = document.getElementById("total");
 			total.innerHTML = parseInt(total.innerHTML)-parseInt(proPrice.innerHTML)*aamount.value;

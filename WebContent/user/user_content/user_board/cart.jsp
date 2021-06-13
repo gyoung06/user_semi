@@ -114,15 +114,17 @@ cart
 			let productPay=document.getElementsByName("productPay")[id];
 			cmil.innerHTML=parseInt(cmil.innerHTML)-parseInt(cmil.innerHTML)/camount.value+"원";
 			productPay.innerHTML= parseInt(productPay.innerHTML)-parseInt(productPay.innerHTML)/camount.value+"원";
-			let pdprice = document.getElementsByName("productlist")[id];
-			let ppprice = document.getElementsByName("dbprice")[id];
+			camount.value = result;
+			let pprice = document.getElementsByName("dbprice")[id];
 			let psale = document.getElementsByName("dbsale")[id];
 			let allPay = document.getElementById("allPay");
 			let allSale = document.getElementById("allSale");
 			let resultPay = document.getElementById("resultPay");
-			allPay.innerHtml = parseInt(allPay.innerHTML)-parseInt(pprice.value);
-			allSale.innerHtml = parseInt(allSale.innerHTML)-parseInt(psale.value);
-			resultPay.innerHtml = parseInt(resultPay.innerHTML)-parseInt(pprice.value)+parseInt(psale.value);
+			
+			let sellPrice = document.getElementsByName("sellPrice")[id];
+			allPay.innerHTML = parseInt(allPay.innerHTML)-parseInt(sellPrice.innerHTML);
+			allSale.innerHTML = parseInt(allSale.innerHTML)-parseInt(psale.value);
+			resultPay.innerHTML = parseInt(resultPay.innerHTML)-parseInt(pprice.value)+parseInt(psale.value);
 			}else{
 				alert('최소주문수량은 1개입니다.')
 			}
@@ -140,7 +142,10 @@ cart
 			let allPay = document.getElementById("allPay");
 			let allSale = document.getElementById("allSale");
 			let resultPay = document.getElementById("resultPay");
-			allPay.innerHTML = parseInt(allPay.innerHTML)+parseInt(pprice.value);
+			
+			console.log(psale.value)
+			let sellPrice = document.getElementsByName("sellPrice")[id];
+			allPay.innerHTML = parseInt(allPay.innerHTML)+parseInt(sellPrice.innerHTML);
 			allSale.innerHTML = parseInt(allSale.innerHTML)+parseInt(psale.value);
 			resultPay.innerHTML = parseInt(resultPay.innerHTML)+parseInt(pprice.value)-parseInt(psale.value);
 		}

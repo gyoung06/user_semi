@@ -27,7 +27,7 @@ public class User_CartDao {
 	}
 	public int deletecart(int wid) {
 		int n = 0;
-		String sql = "delete from cart where wid=?";
+		String sql = "delete from cart where cid=?";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, wid);
 			n = pstmt.executeUpdate();
@@ -48,7 +48,7 @@ public class User_CartDao {
 	}
 	public int selectDel(String wid) {
 		int n = 0;
-		String sql = "delete from cart where wid=?";
+		String sql = "delete from cart where cid=?";
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, wid);
 			n = pstmt.executeUpdate();
@@ -64,10 +64,10 @@ public class User_CartDao {
 		try (Connection con = DBConnection.getCon(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
-					int wid = rs.getInt("wid");
-					String scolor = rs.getString("scolor");
-					String ssize = rs.getString("ssize");
-					int samount = rs.getInt("samount");
+					int wid = rs.getInt("cid");
+					String scolor = rs.getString("ccolor");
+					String ssize = rs.getString("csize");
+					int samount = rs.getInt("camount");
 					String mid = rs.getString("mid");
 					int pid = rs.getInt("pid");
 					User_CartVo vo = new User_CartVo(wid, scolor, ssize, samount, mid, pid);

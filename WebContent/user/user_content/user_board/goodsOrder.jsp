@@ -35,7 +35,6 @@ order
 	 -->
 	<table class="table">
 		<tr class="active">
-			<th><input type="checkbox" id="topcheck" onclick="checkAll()"></th>
 			<th>이미지</th>
 			<th>상품정보</th>
 			<th>판매가</th>
@@ -45,8 +44,7 @@ order
 			<th>합계</th>
 		</tr>
 			<c:forEach begin="0" end="${leng-1 }" var="i" >
-		<tr>
-			<td><input 	type="checkbox" name="check"></td>
+		<tr name = "delCk">
 			<td><img src="${cp }/img/${productvo.pimage2 } "style = "width:100px; height:outo;"></td>
 				<th>${stockvo.sname }<br><br>[옵션: ${size[i] }, ${color[i] }]</th>
 				<td>${productvo.pprice*(100-productvo.pdiscount)/100}</td>
@@ -57,8 +55,7 @@ order
 		</tr>	
 		</c:forEach>
 		<tr class="active">
-			<th colspan="2">선택상품 <input type="button" value="삭제" id="removeClicked" onclick="deleteBtn()"></th>
-			<th colspan="6" style="text-align: right; font-size: 20px;">총 결제예정 금액: ${allSum }원</th>
+			<th colspan="8" style="text-align: right; font-size: 20px;">총 결제예정 금액: ${allSum }원</th>
 		</tr>	
 	</table>
 	<br>
@@ -88,7 +85,7 @@ order
 			<td>휴대전화</td>
 			<td>
 				<input type="text" id="gophone" style="width:300px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" onblur="siseck()"/>
-				<span id="gophonecheck"></span>
+				<span id="gophonecheck" style="color: red;">></span>
 			</td>
 		</tr>
 		<tr>
@@ -114,7 +111,7 @@ order
 		<tr>
 			<td>받으시는 분</td>
 			<td><input type="text"type="visible" style="width:300px;" name = "saveDir" value="${membervo.addname }" readonly="readonly">
-			<input type="hidden" type="text" name = "newDir" style="width:300px;">
+			<input type="hidden" type="text" name = "newDir" style="width:300px;" >
 			<input type="hidden" type="text" id = "downname"name = "upDir" style="width:300px;" readonly="readonly">
 			</td>
 		</tr>	
@@ -132,7 +129,7 @@ order
 			<input type="text"type="visible"  name = "saveDir" value="${membervo.addphone }" readonly="readonly" style="width:300px;">
 			<input type="hidden" type="text" name = "newDir" id="inputphonenum" style="width:300px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" onblur="newcheck()"/>
 			<input type="hidden" type="text" name = "upDir" id="downphone" style="width:300px;" readonly="readonly">
-			<span id="newphonecheck"></span>
+			<span id="newphonecheck" style="color: red;"></span>
 			</td>
 		</tr>	
 		<tr>
@@ -224,24 +221,6 @@ WindowXP 서비스팩2를 설치하신후 결제가 정상적인 단계로 처�
 &nbsp;&nbsp;현금영수증 발행 취소의 경우는 시간 제한이 없습니다. (국세청의 정책에 따라 변경 될 수 있습니다.)<br>
 &nbsp;&nbsp;현금영수증이나 세금계산서 중 하나만 발행 가능 합니다.<br>
 <script>
-  	function checkAll(){
-	let check = document.getElementsByName("check");
-	let topcheck = document.getElementById("topcheck");
-	if(topcheck.checked){
-		for(i=0; i < check.length; i++) {
-			check[i].checked = true;
-		}
-	}else{
-		for(i=0; i < check.length; i++) {
-			check[i].checked = false;
-			}
-		}
-	}
-	function deleteBtn(event){
-		var removeClicked=event.target;
-		removeClicked.parentElement.parentElement.remove();
-		window.reload();
-	}
 	function execDaumPostcode() {
 	    new daum.Postcode({
 		        oncomplete: function(data) {
