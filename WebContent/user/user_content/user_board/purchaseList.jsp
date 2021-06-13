@@ -77,7 +77,7 @@ order list
 						<input type="hidden" id="sid" value="${vo.sid }">
 						<tr>
 						<td align=center >${vo.ordate }<br>[${vo.orid }]</td>
-						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.pimage2}"></td>
+						<td align=center  style="width:100px; height:auto;"><img src = "${cp }/img/${vo.pimage2}"  style="width:100px; height:auto"></td>
 						<td align=center ><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 						<td align=center >${vo.odcount }</td>
 						<td align=center >${vo.pprice }</td>
@@ -146,7 +146,6 @@ order list
 		</c:if>
 
     <div role="tabpanel" class="tab-pane" id="profile">
-	    취소환불내역
 	    <form action="${cp }/user/purchase" method="post">
 	    <input type="hidden" name="tab"  value="profile" > 
 	 
@@ -195,7 +194,7 @@ order list
 					<c:forEach var="vo" items="${refundList }">
 						<tr> 
 							<td>${vo.ordate }<br>[${vo.orid }]</td>
-							<td><img src = "${cp }/img/${vo.pimage2}"></td>
+							<td><img src = "${cp }/img/${vo.pimage2}" style="width:100px; height:auto"></td>
 							<td><a href="${cp }/user/productDetail?pid=${vo.pid}&sid=${vo.sid}">${vo.sname }</a><br>${vo.odcolor }<br>${vo.odsize }</td>
 							<td>${vo.odcount }</td>
 							<td>${vo.pprice }</td>

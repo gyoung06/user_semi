@@ -48,6 +48,7 @@ public class User_LoginController extends HttpServlet{
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");
 			req.getRequestDispatcher("/user/user_content/index.jsp").forward(req, resp);
 		}else {
+			req.setAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않습니다");
 			req.setAttribute("top", "/user/user_content/header.jsp");
 			req.setAttribute("content","/user/user_content/user_board/userInfo/login.jsp");
 			req.setAttribute("bottom", "/user/user_content/footer.jsp");
