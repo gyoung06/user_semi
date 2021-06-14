@@ -46,7 +46,7 @@
             	<option>OUTER</option>
                 <option>TOP</option>
                 <option>OPS</option>
-                <option>SKIRTL</option>
+                <option>SKIRT</option>
                 <option>PANTS</option>
                 <option>SHOES/BAG</option>
                 <option>ACC</option>

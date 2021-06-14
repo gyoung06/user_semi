@@ -16,6 +16,7 @@
 	</tr>
 	<tr>
 		<th colspan="2" name="sname">${stockVo.sname}</th>
+		<input type ="hidden" value="${stockVo.sname}" id="snametest">
 	</tr>
 	<tr>
 		<td>정가</td>
@@ -65,7 +66,8 @@
 			const setting = document.createElement("setting");
 			let xhr = new XMLHttpRequest();
 			const scolor = document.getElementsByName("color")[0].value;
-			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor,true);
+			const sname=document.getElementById("snametest").value;
+			xhr.open("get","<%=request.getContextPath() %>/user/user_content/user_board/productDetailServer.jsp?scolor="+scolor+"&sname = "+sname,true);
 			xhr.send();
 			xhr.onreadystatechange=function(){
 				if(xhr.readyState==4&&xhr.status==200){
