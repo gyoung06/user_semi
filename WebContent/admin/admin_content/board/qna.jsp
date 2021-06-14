@@ -25,9 +25,7 @@
 			<th>회원아이디</th>
 			<th>제품번호</th>
 			<th>제목</th>
-			<th>작성날짜</th>			
-			<th>번호</th>			
-			<th>삭제</th>			
+			<th>작성날짜</th>				
 		</tr>
 		<c:forEach var="vo" items="${list }">
 		<tr>
@@ -44,8 +42,6 @@
 			<a href="${cp }/admin/qnadetail?qid=${vo.qid }" 
 			onclick="window.open(this.href,'','width=500, height=500, toolbars=no, scrollbars=yes'); return false;">${vo.qtitle }</a></td>
 			<td>${vo.qrdate }</td>
-			<td></td>
-			<td></td>
 		</tr>
 		</c:forEach>
 	</table>
