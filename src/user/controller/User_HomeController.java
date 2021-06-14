@@ -17,10 +17,10 @@ import user.dao.User_MenuDao;
 public class User_HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User_MenuDao dao=User_MenuDao.getInstance();
-		ArrayList<Admin_ProductVo2> list=dao.mainbest8();
-		ArrayList<Admin_ProductVo2> list1=dao.mainlist();
-		
+		User_MenuDao dao = User_MenuDao.getInstance();
+		ArrayList<Admin_ProductVo2> list = dao.mainbest8();
+		ArrayList<Admin_ProductVo2> list1 = dao.mainlist();
+
 		String top = (String) req.getAttribute("top");
 		String content = (String) req.getAttribute("content");
 		String bottom = (String) req.getAttribute("bottom");
@@ -32,11 +32,10 @@ public class User_HomeController extends HttpServlet {
 			content = "/user/user_content/main.jsp";
 		}
 		if (bottom == null) {
-			
 			bottom = "/user/user_content/footer.jsp";
 		}
-		req.setAttribute("list",list);
-		req.setAttribute("list1",list1);
+		req.setAttribute("list", list);
+		req.setAttribute("list1", list1);
 		req.setAttribute("top", top);
 		req.setAttribute("content", content);
 		req.setAttribute("bottom", bottom);
