@@ -18,6 +18,18 @@
 		top:100px;
 		left:1500px;
 	}
+	#ftitle:hover{
+		border: none;
+    	outline:none;
+    	background-color:white;
+    	color: #4374D9;
+	}
+	#ftitle1:hover{
+		border: none;
+    	outline:none;
+    	background-color:white;
+    	color: #4374D9;
+	}
 </style>
 </head>
 <body>
@@ -59,7 +71,8 @@
 		<c:when test="${vo.fpublic_private==1 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td><input type="button" value="${vo.ftitle }" id="ftitle" onclick="showMsg(${vo.fid })"></td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle" onclick="showMsg(${vo.fid })" 
+			style="border: none;outline:none;background-color:white;"></td>
 			<td>공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>
@@ -117,7 +130,7 @@
 		<c:when test="${vo.fpublic_private==0 }">
 		<tr>
 			<td>${vo.aid }</td>
-			<td><input type="button" value="${vo.ftitle }" id="ftitle1" onclick="showMsg1(${vo.fid })"></td>
+			<td><input type="button" value="${vo.ftitle }" id="ftitle1" onclick="showMsg1(${vo.fid })"style="border: none;outline:none;background-color:white;"></td>
 			<td>비공개</td>
 			<td>${vo.frdate }</td>
 			<td>${vo.fid }</td>

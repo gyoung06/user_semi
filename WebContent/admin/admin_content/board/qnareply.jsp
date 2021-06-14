@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	작성자:${vo.mid }<br>
-	제목:${vo.qtitle }<br>
-	카테고리:${vo.qcate }<br>
-	내용:${vo.qcontent }<br>
+<style>
+#btn1{
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+	}
+#box{
+	border-top:1px solid #8C8C8C;
+	border-bottom:1px solid #8C8C8C;
+}
+</style>
+<div id="box">
+	작성자:&nbsp;&nbsp;&ensp;:${vo.mid }<br>
+	제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:${vo.qtitle }<br>
+	카테고리&nbsp;:${vo.qcate }<br>
+	내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:${vo.qcontent }<br>
 	답글:
 
 	<form action="${cp }/admin/qna/reply" method="post">
@@ -28,7 +32,7 @@
 	<input type="hidden" name="qstep" value="${vo.qstep }">
 	<br>
 	<textarea rows="5" cols="50" name="qcontent"></textarea><br>
-	<input type="submit" value="등록">
+	<br>
+	<input type="submit" value="등록" id="btn1">
 	</form>
-</body>
-</html>
+</div>

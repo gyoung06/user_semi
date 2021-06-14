@@ -17,18 +17,36 @@
 	</select>
 	<br>
 	<label style="width:70px; height:30px;">글제목</label>
-	<input type="text" name="qtitle">
+	<input type="text" name="qtitle" style="width:373px; height:25px;">
 	<br>
 	<label style="width:70px; height:30px;">글내용</label>
 	<textarea rows="5" cols="50" name="qcontent"></textarea>
 	<br>
 	<label style="width:70px; height:30px;">비밀번호</label>
-	<input type="text" name="qpw">
+	<input type="text" name="qpw" style="width:373px; height:25px;">
 	<br>
 	<label style="width:70px; height:30px;">파일첨부</label>
 	<br>
-	<input type="file" name="file1" ><br>
-	<input type="submit" value="글등록">
+	<input type="file" name="file1" id=""><br>
+	<input type="submit" value="글등록" id="btn1">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/user/qna"><input type="button" value="취소" id="btn2"></a>
 </form>
-	<a href="<%=request.getContextPath()%>/user/qna"><input type="button" value="취소"></a>
+	
 </div>
+<style>
+#btn1{
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+	}
+#btn2{
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+	}
+
+</style>
