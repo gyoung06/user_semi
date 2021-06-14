@@ -29,9 +29,9 @@ public class UserQnaVo {
 		this.qrdate = qrdate;
 		this.qlev = qlev;
 		this.qref = qref;
+		this.qstep = qstep;
 		this.mid = mid;
 		this.pid = pid;
-		this.qstep = qstep;
 	}
 
 	public UserQnaVo() {
